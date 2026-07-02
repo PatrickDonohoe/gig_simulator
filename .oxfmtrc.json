@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "proseWrap": "always",
+  "sortTailwindcss": {
+    "stylesheet": "./src/index.css"
+  },
+  "jsdocPrintWidth": 80,
+  "sortPackageJson": false,
+  "ignorePatterns": [],
+  "jsdoc": true
+}
