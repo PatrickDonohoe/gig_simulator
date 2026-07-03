@@ -1,1 +1,24 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-dark_amethyst: #0d0630;
+  --color-deep_space_blue: #18314f;
+  --color-dusk_blue: #384e77;
+  --color-muted_teal: #8bbeb2;
+  --color-lime_cream: #e6f9af;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+    flex: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    @apply focus:outline-none;
+  }
+}

@@ -3,7 +3,7 @@
   "plugins": ["react", "typescript", "oxc"],
   "options": {
     "typeAware": true,
-    "typeCheck": true,
+    "typeCheck": true
   },
   "rules": {
     "react/rules-of-hooks": "error",
