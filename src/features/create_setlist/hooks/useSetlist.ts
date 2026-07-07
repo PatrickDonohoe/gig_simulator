@@ -5,11 +5,12 @@ import { isSortable } from '@dnd-kit/react/sortable';
 import type { SongType } from '@/types/SongType';
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
 
-export interface SidebarDragData {
-  song: SongType;
-  origin: 'sidebar' | 'setlist';
-}
+// export interface SidebarDragData {
+//   song: SongType;
+//   origin: 'sidebar' | 'setlist';
+// }
 
+// Using this type so that RHF can control the state of both arrays. The form will actually be submitted as just the setlist with its type.
 export interface FormValues {
   sidebarPool: { songId: string }[];
   setlist: SubmitSetlistType[];
@@ -30,18 +31,23 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
   const setlistFields = useFieldArray({ control, name: 'setlist' });
 
   // Functional lookup: Keeps presentation layer details out of form memory
-  const getSongDisplayDetails = (songId: string) => {
+  const getSongDisplayDetails = (songId: string): SongType | undefined => {
     return initialMasterSongs.find((song) => String(song.id) === songId);
   };
 
+  // function fired at the end of the dragging event to reorder songs within the 
+  // same array or move from one array to another.
   const handleDragEnd = (event: DragEndEvent) => {
+    // DnD establishing where the tile started and ended 
     const { source, target } = event.operation;
     if (!source || !target || !isSortable(source) || !isSortable(target))
       return;
 
+    // Labeling the source and target groups as something relevant to the component
     const fromGroup = source.initialGroup as 'sidebar' | 'setlist';
     const toGroup = target.group as 'sidebar' | 'setlist';
 
+    // Labeling the index of the starting and ending places in their arrays.
     const fromIndex = source.initialIndex;
     const toIndex = target.index;
 

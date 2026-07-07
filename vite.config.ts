@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, configDefaults } from 'vitest/config';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
@@ -12,5 +12,10 @@ export default defineConfig({
   ],
   resolve: {
     tsconfigPaths: true,
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+    exclude: [...configDefaults.exclude, 'src/**/*.cy.{ts,tsx}'],
   },
 });

@@ -1,6 +1,6 @@
 import { useDroppable } from '@dnd-kit/react';
 
-import SetlistTile from './SetlistTile';
+import SetlistTile from './SetlistTile/SetlistTile';
 import type { SetlistTileType } from '@/types/SetlistTileType';
 import type { UseFormRegister } from 'react-hook-form';
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
@@ -17,7 +17,7 @@ export interface SetlistProps {
 }
 
 const Setlist = ({}: SetlistProps) => {
-  const { ref, isDropTarget } = useDroppable({ id });
+  const { ref, isDropTarget } = useDroppable({ id: 'setlist'});
   return (
     <section id="setlist" ref={ref} className={`flex flex-col gap-2`}>
       <h1>New Setlist</h1>

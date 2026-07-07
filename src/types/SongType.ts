@@ -1,9 +1,10 @@
 export interface SongType {
   id: string;
   title: string;
-  cover: boolean;
-  composer: string;
+  artist: string;
+  genre: string;
   key: string;
+  tempo: string;
   duration: number;
   instrumentation: string[];
 }
