@@ -1,4 +1,3 @@
-
 interface FilterAttProps {
   label: string;
   data: string;
@@ -10,6 +9,6 @@ const FilterAttribute = ({ label, data }: FilterAttProps) => {
       <strong className="capitalize">{label}:</strong>
       <span>{data}</span>
     </div>
-  )
-}
-export default FilterAttribute
+  );
+};
+export default FilterAttribute;

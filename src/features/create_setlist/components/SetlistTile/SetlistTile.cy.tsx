@@ -1,12 +1,12 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 
-import SetlistTile, { type SetlistTileProps } from './SetlistTile';
+import SetlistTile, { type TileProps } from './SetlistTile';
 import type { FormValues } from '../../hooks/useSetlist';
 
 // Local wrapper to inject RHF tools
 const SetlistTileWrapper = (props: {
-  getSongDisplayDetails: SetlistTileProps['getSongDisplayDetails'];
-  metaFilters: SetlistTileProps['metaFilters'];
+  getSongDisplayDetails: TileProps['getSongDisplayDetails'];
+  metaFilters: TileProps['metaFilters'];
 }) => {
   const { register, control } = useForm<FormValues>({
     defaultValues: {
@@ -74,6 +74,11 @@ describe('<SetlistTile>', () => {
     cy.get('[data-cy=notes]').should('have.text', 'Opener');
     cy.get('[data-cy=min_tran]').should('have.value', '1');
     cy.get('[data-cy=sec_tran]').should('have.value', '30');
-    cy.get('h2').should('be.visible').and('contain.text', 'Enter a custom transition time if different from the default.');
+    cy.get('h2')
+      .should('be.visible')
+      .and(
+        'contain.text',
+        'Enter a custom transition time if different from the default.',
+      );
   });
 });

@@ -6,7 +6,7 @@ import {
 import { useState } from 'react';
 
 import WorkspaceSidebar from './WorkspaceSidebar';
-import Setlist from './Setlist';
+import Setlist from './setlist/Setlist';
 
 /** Section that contains the draggable and droppable areas */
 

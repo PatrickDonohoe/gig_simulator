@@ -13,13 +13,14 @@ import { timeBreakdown } from '@/utils/addTimeDurations';
  * will have a different notes section for closing remarks.
  */
 
-export interface SetlistTileProps {
+export interface TileProps {
   field: FieldArrayWithId<FormValues, 'setlist'>;
-  index: number;
   register: UseFormRegister<FormValues>;
   getSongDisplayDetails: (songId: string) => SetlistTileType;
   metaFilters: (keyof SongType)[];
 }
+
+type SetlistTileProps = TileProps & { index: number };
 
 const SetlistTile = ({
   field,
@@ -59,20 +60,26 @@ const SetlistTile = ({
     <section
       ref={ref}
       id="setlist_tile"
-      data-cy='tile'
-      className="flex flex-col gap-4 bg-periwinkle p-2 rounded-xl overflow-hidden"
+      data-cy="tile"
+      className="flex flex-col gap-4 overflow-hidden rounded-xl bg-periwinkle p-2"
     >
-      <h1 className="rounded-xl bg-wild_strawberry/20 p-2 text-2xl font-semibold underline">
-        Song #{index + 1}
-      </h1>
+      <div className="flex w-full items-center justify-center">
+        <h1 className="bg-wild_strawberry/20 rounded-xl p-2 text-2xl font-semibold underline">
+          Song #{index + 1}
+        </h1>
+      </div>
       <article
         id="setlist_article"
-        data-cy='article'
+        data-cy="article"
         className="flex flex-col gap-2 overflow-hidden rounded-xl border border-dark_amethyst p-4 lg:gap-4"
       >
         <h2 className="text-center font-semibold">{metadata.title}</h2>
 
-        <div id="attributes_container" data-cy='att_container' className="flex flex-wrap gap-2">
+        <div
+          id="attributes_container"
+          data-cy="att_container"
+          className="flex flex-wrap gap-2"
+        >
           {metaFilters.map((f) => (
             <FilterAttribute key={f} label={f} data={formatters[f](metadata)} />
           ))}
@@ -81,13 +88,13 @@ const SetlistTile = ({
       <div className="flex flex-col gap-2">
         <textarea
           id={field.id}
-          data-cy='notes'
+          data-cy="notes"
           placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
           className="rounded-xl border-2 border-dark_amethyst bg-gray-200 p-2"
           defaultValue={field.notes}
           {...register(`setlist.${index}.notes`)}
         />
-        <div className="flex flex-col gap-2 rounded-xl p-2 ring-2 ring-deep_space_blue bg-gray-200">
+        <div className="flex flex-col gap-2 rounded-xl bg-gray-200 p-2 ring-2 ring-deep_space_blue">
           <h2>Enter a custom transition time if different from the default.</h2>
           <label className="flex gap-2">
             Enter minutes
@@ -95,7 +102,7 @@ const SetlistTile = ({
               className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right"
               type="number"
               id="min_tran"
-              data-cy='min_tran'
+              data-cy="min_tran"
               defaultValue={field.transitionTime.minutes}
               {...register(`setlist.${index}.transitionTime.minutes`)}
             />
@@ -106,7 +113,7 @@ const SetlistTile = ({
               className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
               type="number"
               id="sec_trans"
-              data-cy='sec_tran'
+              data-cy="sec_tran"
               defaultValue={field.transitionTime.seconds}
               {...register(`setlist.${index}.transitionTime.seconds`)}
             />

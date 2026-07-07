@@ -4,6 +4,7 @@ import { isSortable } from '@dnd-kit/react/sortable';
 
 import type { SongType } from '@/types/SongType';
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
+import { emptySetlist } from '../components/constants/emptySetlist';
 
 // export interface SidebarDragData {
 //   song: SongType;
@@ -22,7 +23,7 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     defaultValues: {
       // Sidebar starts prepoluated with
       sidebarPool: initialMasterSongs.map((song) => ({ songId: song.id })),
-      setlist: [],
+      setlist: emptySetlist,
     },
   });
 
@@ -35,10 +36,10 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     return initialMasterSongs.find((song) => String(song.id) === songId);
   };
 
-  // function fired at the end of the dragging event to reorder songs within the 
+  // function fired at the end of the dragging event to reorder songs within the
   // same array or move from one array to another.
   const handleDragEnd = (event: DragEndEvent) => {
-    // DnD establishing where the tile started and ended 
+    // DnD establishing where the tile started and ended
     const { source, target } = event.operation;
     if (!source || !target || !isSortable(source) || !isSortable(target))
       return;
