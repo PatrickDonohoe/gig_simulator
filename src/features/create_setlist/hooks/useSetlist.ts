@@ -4,7 +4,9 @@ import { isSortable } from '@dnd-kit/react/sortable';
 
 import type { SongType } from '@/types/SongType';
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
+import type { SetlistRow } from '../types/SetlistRow';
 import { emptySetlist } from '../components/constants/emptySetlist';
+import { saveSetList } from '@/utils/setlistStorage';
 
 // export interface SidebarDragData {
 //   song: SongType;
@@ -13,8 +15,9 @@ import { emptySetlist } from '../components/constants/emptySetlist';
 
 // Using this type so that RHF can control the state of both arrays. The form will actually be submitted as just the setlist with its type.
 export interface FormValues {
+  setlistName: string;
   sidebarPool: { songId: string }[];
-  setlist: SubmitSetlistType[];
+  setlist: SetlistRow[];
 }
 
 const useSetlist = (initialMasterSongs: SongType[]) => {
@@ -22,6 +25,7 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
   const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       // Sidebar starts prepoluated with
+      setlistName: '',
       sidebarPool: initialMasterSongs.map((song) => ({ songId: song.id })),
       setlist: emptySetlist,
     },
@@ -30,6 +34,21 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
   // Creating two distinct array field pipelines from the same form control engine
   const sidebarFields = useFieldArray({ control, name: 'sidebarPool' });
   const setlistFields = useFieldArray({ control, name: 'setlist' });
+
+  // Submit function that will save the setlist to local storage
+  const submitSetlist = (data: FormValues) => {
+    const dataWithId: SubmitSetlistType = {
+      setlistId: crypto.randomUUID(),
+      setlistName: data.setlistName,
+      songIds: data.setlist.map((row) => row.songId),
+    }
+    saveSetList(dataWithId);
+  }
+
+  // Functional lookup: Retrieves name only for the sidebar
+  const getSongName = (songId: string): string => {
+    return initialMasterSongs.find((song) => String(song.id) === songId)?.title ?? 'not found'
+  }
 
   // Functional lookup: Keeps presentation layer details out of form memory
   const getSongDisplayDetails = (songId: string): SongType | undefined => {
@@ -97,8 +116,9 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     setlistList: setlistFields.fields,
     register,
     handleDragEnd,
+    getSongName,
     getSongDisplayDetails,
-    onSubmit: handleSubmit,
+    onSubmitList: handleSubmit(submitSetlist),
   };
 };
 

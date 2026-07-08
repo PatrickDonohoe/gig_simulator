@@ -1,6 +1,8 @@
 import { useDroppable } from '@dnd-kit/react';
+import type { UseFormRegister } from 'react-hook-form';
 
 import SetlistTile, { type TileProps } from '../SetlistTile/SetlistTile';
+import type { FormValues } from '../../hooks/useSetlist';
 
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
@@ -9,9 +11,10 @@ import SetlistTile, { type TileProps } from '../SetlistTile/SetlistTile';
 
 export interface SetlistProps {
   tiles: TileProps[];
+  register: UseFormRegister<FormValues>;
 }
 
-const Setlist = ({ tiles }: SetlistProps) => {
+const Setlist = ({ tiles, register }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
   return (
     <section
@@ -19,17 +22,20 @@ const Setlist = ({ tiles }: SetlistProps) => {
       data-cy="setlist"
       className={`flex h-full flex-col gap-2 pb-2`}
     >
-      <div
+      <header
         data-cy="title-container"
         className="flex items-center justify-center bg-baby_blue_ice py-4"
       >
-        <h1
-          data-cy="title"
-          className="rounded-xl border border-midnight_violet bg-periwinkle p-2"
-        >
-          New Setlist
-        </h1>
-      </div>
+        <div className="flex justify-between items-center">
+          <input
+            data-cy="title"
+            type='text'
+            className="rounded-xl border border-midnight_violet bg-periwinkle p-2"
+            placeholder='New Setlist #1'
+            {...register('setlistName')}
+          />
+        </div>
+      </header>
 
       <div className="mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border">
         {tiles.length > 0 ? (

@@ -3,7 +3,20 @@
 ## useSetlist
 
 Handles RHF form and field array, dnd sorting and moving from one area to
-another retrieval of details for display inside each tile.
+another retrieval of details for display inside each tile. There will be
+separate callback functions for sidebar and setlist to retrieve tile data. The
+sidebar function will only return name. The setlist function will return all
+song data including notes and transition times if the song has them.
+
+### Retrieving hook params
+
+Should I take an array of all songs in the library as an argument(defer problem
+to somewhere else), retrieve them with useEffect and util function (unknown
+dependency), or use a hook(defer problem to somewhere else but could be viewed
+as separation of concerns)?
+
+I could also store as a useEffect with util function and call the function
+directly onSubmit of the "add song" form.
 
 ## Workspace Sidebar
 
@@ -16,13 +29,6 @@ Shell will also include a button that opens an add song form in a modal. Form
 will be of type SongType but without the id. That will be generated when added
 to the sidebarList.
 
-## Drag and Drop Area
-
-Currently, the functionality is in the WorkspaceSidebar, but for SoC, I may move
-that to this component once the header and other functionality is added in. An
-array of free song id's will be mapped over to display all available songs.
-Shell or array of tiles will include drag active state.
-
 ## Song Tiles
 
 Individual song tiles will include a lookup function to retrieve relevant song
@@ -32,19 +38,34 @@ states. Need a callback function to retrieve data about tile based on id.
 ## Setlist Form
 
 This form will utilize RHF's useForm and useFieldArray in addition to dnd-kit
-for moving songs back and forth from the sidebar. The form will be
-SetlistTileType[] with each tile being SetlistTileType. The notes and
+for moving songs back and forth from the sidebar. The form will be submitted as
+setlist id, setlist name, and an array of setlist tiles. The notes and
 transitionTime inputs will be added by insert on handleDragEnd.
+
+### Retrieving Data for the Tile
+
+Because useFieldArray only passes down the field array's id and the song's id, a
+callback function will be used to retrieve data about the song. Special
+attention will need to be paid to whether the song has transition time or notes
+data.
 
 ## ToDo List
 
-- Add song button.
-- Add song form.
-- Use storybook to confirm layout and appearance of each component.
-- Write tests with vitest to ensure the hook and util function behave as
-  expected.
-- Decide what to do with DragNDropArea.
-- Set up Setlist to map over setlistList and pass metaFilters to the tile.
-- Add filter checkboxes above the setlist for displaying metadata in the setlist
-  cards. House this logic in a separate hook from useSetlist.
-- Make page/main content component. Add title.
+- [x] Write tests to ensure setlist will show multiple tiles and allow for
+      scrolling.
+- [x] Write tests for the tiles to ensure passed filters will show the
+      corresponding data.
+- [x] Write larger test to determine if tiles can be moved within their own
+      array through DnD.
+- [ ] Add song button to sidebar.
+- [ ] Add song form modal.
+- [ ] Add "Save setlist" button to local storage for use on review setlists
+      page.
+- [ ] Write tests with vitest to ensure the hook and util functions behave as
+      expected.
+- [ ] Decide what to do with DragNDropArea. Should DNDA be the larger component
+      for the sidebar and setlist or a page content?
+- [ ] Set up Setlist to map over tile data and pass metaFilters to the tile.
+- [ ] Add filter checkboxes above the setlist for displaying metadata in the
+      setlist cards. House this logic in a separate hook from useSetlist.
+- [ ] Make page/main content component. Add title.

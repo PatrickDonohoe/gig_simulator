@@ -1,12 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import PageLayout from '@/layouts/PageLayout';
-import { dashRoutes } from './dashRoutes';
+import { DashRoutes } from './DashRoutes';
+import RouteErrorBoundary from './RouteErrorBoundary';
+import { LandingPage } from '@/features/landing_page';
 
 export const router = createBrowserRouter([
   {
+    path: '/',
+    element: <LandingPage />
+  },
+  {
     path: '/dash',
     element: <PageLayout />,
-    children: dashRoutes,
+    errorElement: <RouteErrorBoundary />,
+    children: DashRoutes,
   },
 ]);

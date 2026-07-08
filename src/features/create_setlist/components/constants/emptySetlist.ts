@@ -1,6 +1,6 @@
-import type { SubmitSetlistType } from '../../types/SubmitSetlistType';
+import type { SetlistRow } from "../../types/SetlistRow";
 
-export const emptySetlist: SubmitSetlistType[] = [
+export const emptySetlist: SetlistRow[] = [
   {
     songId: '',
     transitionTime: {

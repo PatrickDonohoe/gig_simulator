@@ -1,3 +1,7 @@
-export const dashRoutes = [
-  { index: true, element: <></> }, // TODO: remove stub when page is complete
+import type { RouteObject } from "react-router-dom";
+
+import { CreateSetlistPage } from "@/features/create_setlist";
+
+export const DashRoutes: RouteObject[] = [
+  { index: true, element: <CreateSetlistPage /> }, // TODO: remove stub when page is complete
 ];

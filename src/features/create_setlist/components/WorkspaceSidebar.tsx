@@ -1,29 +1,19 @@
-import type { UseFormRegister } from 'react-hook-form';
-import SidebarTile from './SidebarTile';
-import type { FormValues } from '../hooks/useSetlist';
-import type { SetlistTileType } from '@/types/SetlistTileType';
+import SidebarTile, { type SidebarTileProps } from './SidebarTile';
+
 
 /**
  * Display songs moved to the workspace until assigned to a place in the
  * setlist.
  *
- * @param freeSongIds Array of song ids that have not been assigned
+ * @param sidebarList Array of song ids that have not been assigned
  */
 
 export interface WorkspaceSidebarProps {
-  sidebarList: ({
-    songId: string;
-  } & Record<'id', string> & {
-      disabled?: boolean;
-    })[];
-  register: UseFormRegister<FormValues>;
-  getSongDisplayDetails: (songId: string) => SetlistTileType;
+  tiles: SidebarTileProps[];
 }
 
 const WorkspaceSidebar = ({
-  sidebarList,
-  register,
-  getSongDisplayDetails,
+  tiles
 }: WorkspaceSidebarProps) => {
   return (
     <aside id="workspace_sidebar" className="flex flex-col gap-4">
@@ -37,13 +27,11 @@ const WorkspaceSidebar = ({
         id="work_tile_list"
         className="flex flex-col items-center gap-2 overflow-y-auto"
       >
-        {sidebarList.map((field, index) => (
+        {tiles.map((t, index) => (
           <SidebarTile
-            key={field.id}
-            field={field}
+            key={t.field.id}
+            {...t}
             index={index}
-            register={register}
-            getSongDisplayDetails={getSongDisplayDetails}
           />
         ))}
       </ul>

@@ -5,7 +5,7 @@ import type { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
 import type { SetlistTileType } from '@/types/SetlistTileType';
 
 export interface SidebarTileProps {
-  field: FieldArrayWithId<FormValues, 'sidebarPool'>;
+  field: FieldArrayWithId<FormValues, 'sidebarPool', 'id'>;
   index: number;
   register: UseFormRegister<FormValues>;
   getSongDisplayDetails: (songId: string) => SetlistTileType; // maybe SongType
@@ -30,6 +30,7 @@ const SidebarTile = ({
   return (
     <article
       id="sidebar_tile"
+      data-cy='tile'
       ref={ref}
       className="overflow-hidden rounded-xl border border-dark_amethyst"
     >
