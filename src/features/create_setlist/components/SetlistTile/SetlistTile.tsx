@@ -1,11 +1,11 @@
-import type { UseFormRegister, FieldArrayWithId } from 'react-hook-form';
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import type { SetlistTileType } from '@/types/SetlistTileType';
-import type { FormValues } from '../../hooks/useSetlist';
 import type { SongType } from '@/types/SongType';
 import FilterAttribute from '../FilterAttribute';
 import { timeBreakdown } from '@/utils/addTimeDurations';
+import type { TileProps } from '../../types/TileProps';
+import NoDataFound from '@/components/NoDataFound';
 
 /**
  * Reusable tile for the setlist that will include the draggable tile plus
@@ -13,22 +13,9 @@ import { timeBreakdown } from '@/utils/addTimeDurations';
  * will have a different notes section for closing remarks.
  */
 
-export interface TileProps {
-  field: FieldArrayWithId<FormValues, 'setlist'>;
-  register: UseFormRegister<FormValues>;
-  getSongDisplayDetails: (songId: string) => SetlistTileType;
-  metaFilters: (keyof SongType)[];
-}
+export type SetlistTileProps = TileProps & { index: number };
 
-type SetlistTileProps = TileProps & { index: number };
-
-const SetlistTile = ({
-  field,
-  index,
-  register,
-  getSongDisplayDetails,
-  metaFilters,
-}: SetlistTileProps) => {
+const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
   const { ref } = useSortable({
     id: field.id,
     index,
@@ -37,8 +24,12 @@ const SetlistTile = ({
     group: 'setlist',
   });
 
+  const { register, getSongDisplayDetails, metaFilters } = commonTileProps;
+
   // Callback to master song state to fetch presentation layers cleanly
-  const metadata: SetlistTileType = getSongDisplayDetails(field.songId);
+  const metadata: SetlistTileType | undefined = getSongDisplayDetails(
+    field.songId,
+  );
 
   const formatters: Record<keyof SongType, (s: SetlistTileType) => string> = {
     id: (s) => s.id,
@@ -63,63 +54,75 @@ const SetlistTile = ({
       data-cy="tile"
       className="flex flex-col gap-4 overflow-hidden rounded-xl bg-periwinkle p-2"
     >
-      <div className="flex w-full items-center justify-center">
-        <h1 className="bg-wild_strawberry/20 rounded-xl p-2 text-2xl font-semibold underline">
-          Song #{index + 1}
-        </h1>
-      </div>
-      <article
-        id="setlist_article"
-        data-cy="article"
-        className="flex flex-col gap-2 overflow-hidden rounded-xl border border-dark_amethyst p-4 lg:gap-4"
-      >
-        <h2 className="text-center font-semibold">{metadata.title}</h2>
+      {metadata ? (
+        <>
+          <div className="flex w-full items-center justify-center">
+            <h1 className="bg-wild_strawberry/20 rounded-xl p-2 text-2xl font-semibold underline">
+              Song #{index + 1}
+            </h1>
+          </div>
+          <article
+            id="setlist_article"
+            data-cy="article"
+            className="flex flex-col gap-2 overflow-hidden rounded-xl border border-dark_amethyst p-4 lg:gap-4"
+          >
+            <h2 className="text-center font-semibold">{metadata.title}</h2>
 
-        <div
-          id="attributes_container"
-          data-cy="att_container"
-          className="flex flex-wrap gap-2"
-        >
-          {metaFilters.map((f) => (
-            <FilterAttribute key={f} label={f} data={formatters[f](metadata)} />
-          ))}
-        </div>
-      </article>
-      <div className="flex flex-col gap-2">
-        <textarea
-          id={field.id}
-          data-cy="notes"
-          placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
-          className="rounded-xl border-2 border-dark_amethyst bg-gray-200 p-2"
-          defaultValue={field.notes}
-          {...register(`setlist.${index}.notes`)}
-        />
-        <div className="flex flex-col gap-2 rounded-xl bg-gray-200 p-2 ring-2 ring-deep_space_blue">
-          <h2>Enter a custom transition time if different from the default.</h2>
-          <label className="flex gap-2">
-            Enter minutes
-            <input
-              className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right"
-              type="number"
-              id="min_tran"
-              data-cy="min_tran"
-              defaultValue={field.transitionTime.minutes}
-              {...register(`setlist.${index}.transitionTime.minutes`)}
+            <div
+              id="attributes_container"
+              data-cy="att_container"
+              className="flex flex-wrap gap-2"
+            >
+              {metaFilters.map((f) => (
+                <FilterAttribute
+                  key={f}
+                  label={f}
+                  data={formatters[f](metadata)}
+                />
+              ))}
+            </div>
+          </article>
+          <div className="flex flex-col gap-2">
+            <textarea
+              id={field.id}
+              data-cy="notes"
+              placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
+              className="rounded-xl border-2 border-dark_amethyst bg-gray-200 p-2"
+              defaultValue={field.notes}
+              {...register(`setlist.${index}.notes`)}
             />
-          </label>
-          <label className="flex gap-2">
-            Enter seconds
-            <input
-              className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
-              type="number"
-              id="sec_trans"
-              data-cy="sec_tran"
-              defaultValue={field.transitionTime.seconds}
-              {...register(`setlist.${index}.transitionTime.seconds`)}
-            />
-          </label>
-        </div>
-      </div>
+            <div className="flex flex-col gap-2 rounded-xl bg-gray-200 p-2 ring-2 ring-deep_space_blue">
+              <h2>
+                Enter a custom transition time if different from the default.
+              </h2>
+              <label className="flex gap-2">
+                Enter minutes
+                <input
+                  className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right"
+                  type="number"
+                  id="min_tran"
+                  data-cy="min_tran"
+                  defaultValue={field.transitionTime.minutes}
+                  {...register(`setlist.${index}.transitionTime.minutes`)}
+                />
+              </label>
+              <label className="flex gap-2">
+                Enter seconds
+                <input
+                  className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
+                  type="number"
+                  id="sec_trans"
+                  data-cy="sec_tran"
+                  defaultValue={field.transitionTime.seconds}
+                  {...register(`setlist.${index}.transitionTime.seconds`)}
+                />
+              </label>
+            </div>
+          </div>
+        </>
+      ) : (
+        <NoDataFound />
+      )}
     </section>
   );
 };

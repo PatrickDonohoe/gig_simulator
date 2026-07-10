@@ -1,12 +1,14 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 
-import SetlistTile, { type TileProps } from './SetlistTile';
+import SetlistTile from './SetlistTile';
+import type { SetlistTileProps } from './SetlistTile';
 import type { FormValues } from '../../hooks/useSetlist';
 
 // Local wrapper to inject RHF tools
 const SetlistTileWrapper = (props: {
-  getSongDisplayDetails: TileProps['getSongDisplayDetails'];
-  metaFilters: TileProps['metaFilters'];
+  getSongDisplayDetails: SetlistTileProps['commonTileProps']['getSongDisplayDetails'];
+  metaFilters: SetlistTileProps['commonTileProps']['metaFilters'];
+  onClick: SetlistTileProps['commonTileProps']['onClick'];
 }) => {
   const { register, control } = useForm<FormValues>({
     defaultValues: {
@@ -29,9 +31,12 @@ const SetlistTileWrapper = (props: {
     <SetlistTile
       field={fields[0]}
       index={0}
-      register={register}
-      getSongDisplayDetails={props.getSongDisplayDetails}
-      metaFilters={props.metaFilters}
+      commonTileProps={{
+        register,
+        getSongDisplayDetails: props.getSongDisplayDetails,
+        metaFilters: props.metaFilters,
+        onClick: props.onClick,
+      }}
     />
   );
 };
@@ -55,6 +60,8 @@ describe('<SetlistTile>', () => {
       ],
     });
 
+    const mockClick = cy.stub();
+
     // Passing simple mock arrays and the stubbed functions into the wrapper
     cy.mount(
       <SetlistTileWrapper
@@ -66,6 +73,7 @@ describe('<SetlistTile>', () => {
           'instrumentation',
           'artist',
         ]}
+        onClick={mockClick}
       />,
     );
 
@@ -81,4 +89,5 @@ describe('<SetlistTile>', () => {
         'Enter a custom transition time if different from the default.',
       );
   });
+  it('displays ')
 });

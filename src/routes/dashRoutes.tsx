@@ -1,7 +1,13 @@
-import type { RouteObject } from "react-router-dom";
+import type { RouteObject } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-import { CreateSetlistPage } from "@/features/create_setlist";
+import CreateSetlistPage from '@/features/create_setlist/CreateSetlistPage';
+import AnalyticsPage from '@/features/analytics/AnalyticsPage';
+import ReviewSetlistsPage from '@/features/review_setlists/ReviewSetlistsPage';
 
 export const DashRoutes: RouteObject[] = [
-  { index: true, element: <CreateSetlistPage /> }, // TODO: remove stub when page is complete
+  { index: true, element: <Navigate to="create" replace /> },
+  { path: 'create', element: <CreateSetlistPage /> },
+  { path: 'analytics', element: <AnalyticsPage /> },
+  { path: 'review', element: <ReviewSetlistsPage /> },
 ];

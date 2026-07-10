@@ -1,8 +1,9 @@
 import { useDroppable } from '@dnd-kit/react';
-import type { UseFormRegister } from 'react-hook-form';
+import type { FieldArrayWithId } from 'react-hook-form';
 
-import SetlistTile, { type TileProps } from '../SetlistTile/SetlistTile';
+import SetlistTile from '../SetlistTile/SetlistTile';
 import type { FormValues } from '../../hooks/useSetlist';
+import type { CommonTileProps } from '../../types/CommonTileProps';
 
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
@@ -10,12 +11,14 @@ import type { FormValues } from '../../hooks/useSetlist';
  */
 
 export interface SetlistProps {
-  tiles: TileProps[];
-  register: UseFormRegister<FormValues>;
+  tiles: FieldArrayWithId<FormValues, 'setlist'>[];
+  commonTileProps: CommonTileProps; // submit function passed also;
 }
 
-const Setlist = ({ tiles, register }: SetlistProps) => {
+const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
+
+  const { register } = commonTileProps;
   return (
     <section
       id="setlist"
@@ -26,14 +29,16 @@ const Setlist = ({ tiles, register }: SetlistProps) => {
         data-cy="title-container"
         className="flex items-center justify-center bg-baby_blue_ice py-4"
       >
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <input
             data-cy="title"
-            type='text'
+            type="text"
             className="rounded-xl border border-midnight_violet bg-periwinkle p-2"
-            placeholder='New Setlist #1'
+            placeholder="New Setlist #1"
             {...register('setlistName')}
           />
+
+          {/* TODO: Submit button needed here */}
         </div>
       </header>
 
@@ -45,7 +50,12 @@ const Setlist = ({ tiles, register }: SetlistProps) => {
             ref={ref}
           >
             {tiles.map((t, index) => (
-              <SetlistTile key={t.field.id} {...t} index={index} />
+              <SetlistTile
+                key={t.id}
+                field={t}
+                commonTileProps={commonTileProps}
+                index={index}
+              />
             ))}
           </ul>
         ) : (

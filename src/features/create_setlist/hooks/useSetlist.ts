@@ -2,11 +2,11 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import type { DragEndEvent } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 
-import type { SongType } from '@/types/SongType';
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
 import type { SetlistRow } from '../types/SetlistRow';
 import { emptySetlist } from '../components/constants/emptySetlist';
 import { saveSetList } from '@/utils/setlistStorage';
+import type { SetlistTileType } from '@/types/SetlistTileType';
 
 // export interface SidebarDragData {
 //   song: SongType;
@@ -20,7 +20,7 @@ export interface FormValues {
   setlist: SetlistRow[];
 }
 
-const useSetlist = (initialMasterSongs: SongType[]) => {
+const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
   // Master form tracks both dynamics workspace and setlist layouts simultaneously
   const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
@@ -41,17 +41,20 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
       setlistId: crypto.randomUUID(),
       setlistName: data.setlistName,
       songIds: data.setlist.map((row) => row.songId),
-    }
+    };
     saveSetList(dataWithId);
-  }
+  };
 
   // Functional lookup: Retrieves name only for the sidebar
   const getSongName = (songId: string): string => {
-    return initialMasterSongs.find((song) => String(song.id) === songId)?.title ?? 'not found'
-  }
+    return (
+      initialMasterSongs.find((song) => String(song.id) === songId)?.title ??
+      'not found'
+    );
+  };
 
   // Functional lookup: Keeps presentation layer details out of form memory
-  const getSongDisplayDetails = (songId: string): SongType | undefined => {
+  const getSongDisplayDetails = (songId: string): SetlistTileType | undefined => {
     return initialMasterSongs.find((song) => String(song.id) === songId);
   };
 
@@ -112,8 +115,8 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
   };
 
   return {
-    sidebarList: sidebarFields.fields,
-    setlistList: setlistFields.fields,
+    sidebarArr: sidebarFields.fields,
+    setlistArr: setlistFields.fields,
     register,
     handleDragEnd,
     getSongName,

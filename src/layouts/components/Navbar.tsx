@@ -1,25 +1,30 @@
 import NavbarLink from './NavbarLink';
+import { paths } from '@/routes/paths';
 
-import CreateIcon from '@icons/playlist-add-svgrepo-com.svg';
-import ReviewIcon from '@icons/playlist-2-svgrepo-com.svg';
-import AnalyticsIcon from '@icons/analytics-graph-chart-svgrepo-com.svg';
+import CreateIcon from '@icons/playlist-add-svgrepo-com.svg?react';
+import ReviewIcon from '@icons/playlist-2-svgrepo-com.svg?react';
+import AnalyticsIcon from '@icons/analytics-graph-chart-svgrepo-com.svg?react';
 
 const Navbar = () => {
   return (
     <nav id="navbar" className="flex h-16 items-center gap-4 border-b-2 px-4">
       <NavbarLink
-        address="/dash/create"
+        address={paths.createSetlist}
         label="Create Setlist"
-        icon={CreateIcon}
+        icon={<CreateIcon />}
       />
 
       <NavbarLink
-        address="/dash/review"
+        address={paths.reviewSetlists}
         label="Review Setlists"
-        icon={ReviewIcon}
+        icon={<ReviewIcon />}
       />
 
-      <NavbarLink address="/analytics" label="Analytics" icon={AnalyticsIcon} />
+      <NavbarLink
+        address={paths.analytics}
+        label="Analytics"
+        icon={<AnalyticsIcon />}
+      />
     </nav>
   );
 };

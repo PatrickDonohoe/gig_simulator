@@ -5,7 +5,7 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
-    "types": ["vite/client", "cypress"],
+    "types": ["vite/client", "cypress", "vite-plugin-svgr/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 

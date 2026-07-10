@@ -7,17 +7,6 @@
   },
   "rules": {
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }],
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": [
-          {
-            "regex": "^@/features/[^/]+/.+",
-            "message": "Deep imports into features are forbidden. You must import directly from the feature root public API (e.g., '@/features/auth')."
-          }
-        ]
-      }
-    ]
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
   }
 }

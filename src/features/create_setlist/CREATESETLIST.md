@@ -27,7 +27,7 @@ and displays them.
 
 Shell will also include a button that opens an add song form in a modal. Form
 will be of type SongType but without the id. That will be generated when added
-to the sidebarList.
+to the sidebarArr.
 
 ## Song Tiles
 

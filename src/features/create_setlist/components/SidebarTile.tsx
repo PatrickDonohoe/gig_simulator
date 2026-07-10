@@ -1,21 +1,19 @@
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import type { FormValues } from '../hooks/useSetlist';
-import type { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
-import type { SetlistTileType } from '@/types/SetlistTileType';
+import type { FieldArrayWithId } from 'react-hook-form';
+import type { CommonTileProps } from '../types/CommonTileProps';
 
 export interface SidebarTileProps {
   field: FieldArrayWithId<FormValues, 'sidebarPool', 'id'>;
   index: number;
-  register: UseFormRegister<FormValues>;
-  getSongDisplayDetails: (songId: string) => SetlistTileType; // maybe SongType
+  commonTileProps: CommonTileProps;
 }
 
 const SidebarTile = ({
   field,
   index,
-  register,
-  getSongDisplayDetails,
+  commonTileProps,
 }: SidebarTileProps) => {
   const { ref } = useSortable({
     id: field.id,
@@ -25,6 +23,8 @@ const SidebarTile = ({
     group: 'sidebar',
   });
 
+  const { getSongDisplayDetails, register } = commonTileProps;
+
   const metadata = getSongDisplayDetails(field.songId);
 
   return (
@@ -32,10 +32,10 @@ const SidebarTile = ({
       id="sidebar_tile"
       data-cy='tile'
       ref={ref}
-      className="overflow-hidden rounded-xl border border-dark_amethyst"
+      className="overflow-hidden rounded-xl border border-dark_amethyst p-2 bg-white"
     >
       <input type="hidden" {...register(`sidebarPool.${index}.songId`)} />
-      <span>{metadata?.title}</span>
+      <span className='underline'>{metadata?.title}</span>
     </article>
   );
 };

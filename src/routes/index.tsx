@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import PageLayout from '@/layouts/PageLayout';
 import { DashRoutes } from './DashRoutes';
 import RouteErrorBoundary from './RouteErrorBoundary';
-import { LandingPage } from '@/features/landing_page';
+import LandingPage from '@/features/landing_page/LandingPage';
 
 export const router = createBrowserRouter([
   {

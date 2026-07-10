@@ -1,11 +1,9 @@
-import type { UseFormRegister } from 'react-hook-form';
-
 import Setlist from './Setlist';
-import type { TileProps } from '../SetlistTile/SetlistTile';
-import type { FormValues } from '../../hooks/useSetlist';
+import type { SetlistProps } from './Setlist';
 
 describe('<Setlist>', () => {
-  const mockRegister = (() => ({})) as unknown as UseFormRegister<FormValues>;
+  const mockRegister =
+    (() => ({})) as unknown as SetlistProps['commonTileProps']['register'];
 
   const mockDetails = {
     id: 'song-123',
@@ -23,35 +21,34 @@ describe('<Setlist>', () => {
     ],
   };
 
+  const mockClick = cy.stub();
+
   it('mounts and shows the list when tiles.length > 0', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
-    const tiles: TileProps[] = [
+    const mockCommon: SetlistProps['commonTileProps'] = {
+      register: mockRegister,
+      getSongDisplayDetails: mockGetSongDisplayDetails,
+      metaFilters: ['duration', 'genre'],
+      onClick: mockClick,
+    };
+
+    const tiles: SetlistProps['tiles'] = [
       {
-        field: {
-          id: 'row-1',
-          songId: 'song-123',
-          notes: 'Opener',
-          transitionTime: { minutes: 1, seconds: 30 },
-        },
-        register: mockRegister,
-        getSongDisplayDetails: mockGetSongDisplayDetails,
-        metaFilters: ['duration', 'genre'],
+        id: 'row-1',
+        songId: 'song-123',
+        notes: 'Opener',
+        transitionTime: { minutes: 1, seconds: 30 },
       },
       {
-        field: {
-          id: 'row-2',
-          songId: 'song-234',
-          notes: '',
-          transitionTime: { minutes: 0, seconds: 0 },
-        },
-        register: mockRegister,
-        getSongDisplayDetails: mockGetSongDisplayDetails,
-        metaFilters: ['artist', 'instrumentation'],
+        id: 'row-2',
+        songId: 'song-234',
+        notes: '',
+        transitionTime: { minutes: 0, seconds: 0 },
       },
     ];
 
-    cy.mount(<Setlist tiles={tiles} />);
+    cy.mount(<Setlist tiles={tiles} commonTileProps={mockCommon} />);
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
@@ -59,7 +56,16 @@ describe('<Setlist>', () => {
   });
 
   it('shows the fallback when tiles is an empty array', () => {
-    cy.mount(<Setlist tiles={[]} />);
+    const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+
+    const mockCommon: SetlistProps['commonTileProps'] = {
+      register: mockRegister,
+      getSongDisplayDetails: mockGetSongDisplayDetails,
+      metaFilters: ['duration', 'genre'],
+      onClick: mockClick,
+    };
+
+    cy.mount(<Setlist tiles={[]} commonTileProps={mockCommon} />);
 
     cy.get('[data-cy=list]').should('not.exist');
     cy.get('[data-cy=setlist-fallback');
