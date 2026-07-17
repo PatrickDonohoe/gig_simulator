@@ -18,7 +18,7 @@ export interface SetlistProps {
 const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
 
-  const { register } = commonTileProps;
+  const { register, onClick } = commonTileProps;
   return (
     <section
       id="setlist"
@@ -29,7 +29,7 @@ const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
         data-cy="title-container"
         className="flex items-center justify-center bg-baby_blue_ice py-4"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex w-2/3 items-center justify-between">
           <input
             data-cy="title"
             type="text"
@@ -38,17 +38,23 @@ const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
             {...register('setlistName')}
           />
 
-          {/* TODO: Submit button needed here */}
+          <button
+            data-cy="submit"
+            type="submit"
+            className="flex-none rounded-lg border border-midnight_violet bg-golden_apricot p-2 text-midnight_violet hover:bg-midnight_violet/25"
+            onClick={onClick}
+          >
+            Save Setlist
+          </button>
         </div>
       </header>
 
-      <div className="mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border">
+      <div
+        ref={ref}
+        className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}
+      >
         {tiles.length > 0 ? (
-          <ul
-            className={`flex flex-col gap-4 lg:gap-6 ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}
-            data-cy="list"
-            ref={ref}
-          >
+          <ul className="flex flex-col gap-4 lg:gap-6" data-cy="list">
             {tiles.map((t, index) => (
               <SetlistTile
                 key={t.id}

@@ -1,4 +1,4 @@
-import type { UseFormRegister } from "react-hook-form";
+import type { UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 
 import type { FormValues } from "../hooks/useSetlist";
 import type { SetlistTileType } from "@/types/SetlistTileType";
@@ -9,4 +9,5 @@ export interface CommonTileProps {
   getSongDisplayDetails: (songId: string) => SetlistTileType | undefined;
   metaFilters: (keyof SongType)[];
   onClick: () => void;
+  onRemove: UseFieldArrayRemove;
 }

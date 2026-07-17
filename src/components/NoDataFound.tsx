@@ -1,7 +1,7 @@
-const NoDataFound = () => {
+const NoDataFound = ({ text }: { text: string }) => {
   return (
-    <div data-cy='no_data_found' className="flex justify-center items-center">
-      <p className="text-center">Unable to find matching data.</p>
+    <div data-cy='no_data_found' className="flex h-full items-center justify-center">
+      <p className="text-center">{text}</p>
     </div>
   )
 }

@@ -22,5 +22,5 @@ export const timeBreakdown = (secondsArg: number): DurationInput => {
   return { hours, minutes, seconds };
 };
 
-export const addTimeDurations = (durations: DurationInput[]) =>
+export const addTimeDurations = (durations: DurationInput[]): DurationInput =>
   timeBreakdown(totalSeconds(durations));

@@ -49,6 +49,14 @@ callback function will be used to retrieve data about the song. Special
 attention will need to be paid to whether the song has transition time or notes
 data.
 
+### Calculating Time
+
+- Song duration will be stored in the library as total seconds.
+- Total setlist duration will be calculated by useMemo whenever setlist changes.
+- Setlist and Sidebar arrays need to hold duration in seconds but display in
+  separate hour, minute, and second format.
+- Sidebar should be sortable by song length.
+
 ## ToDo List
 
 - [x] Write tests to ensure setlist will show multiple tiles and allow for
@@ -57,15 +65,22 @@ data.
       corresponding data.
 - [x] Write larger test to determine if tiles can be moved within their own
       array through DnD.
-- [ ] Add song button to sidebar.
-- [ ] Add song form modal.
-- [ ] Add "Save setlist" button to local storage for use on review setlists
+- [x] Add song button to sidebar.
+- [x] Add song form modal.
+- [x] Add "Save setlist" button to local storage for use on review setlists
       page.
-- [ ] Write tests with vitest to ensure the hook and util functions behave as
+- [ ] Write tests with Cypress to ensure the hook and util functions behave as
       expected.
-- [ ] Decide what to do with DragNDropArea. Should DNDA be the larger component
+- [x] Decide what to do with DragNDropArea. Should DNDA be the larger component
       for the sidebar and setlist or a page content?
-- [ ] Set up Setlist to map over tile data and pass metaFilters to the tile.
+- [x] Set up Setlist to map over tile data and pass metaFilters to the tile.
 - [ ] Add filter checkboxes above the setlist for displaying metadata in the
       setlist cards. House this logic in a separate hook from useSetlist.
 - [ ] Make page/main content component. Add title.
+- [ ] Why is a sidebar tile still showing up after it is dragged to the setlist? It still transforms into a setlist tile onDrop.
+- [x] Fix empty library to still be a droppable zone.
+- [ ] Make sidebar tiles take a limited height and not filled the entire library space.
+- [ ] Setlist tiles need to have a border.
+- [ ] Setlist needs a gap between tiles.
+- [ ] Get rid of "Song #1"
+- [ ] Add min/max to setlist portion of parent grid in CreateSetlistPage. There is no need for it to cover the rest of the page on wide screens.

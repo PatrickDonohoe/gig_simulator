@@ -1,9 +1,11 @@
 import type { FieldArrayWithId } from 'react-hook-form';
+import { useDroppable } from '@dnd-kit/react';
 
-import SidebarTile from '../SidebarTile';
-import type { CommonTileProps } from '../../types/CommonTileProps';
-import type { FormValues } from '../../hooks/useSetlist';
 import NoDataFound from '@/components/NoDataFound';
+import Library from '@/features/create_setlist/components/sidebar/Library';
+import SidebarHeader from '@/features/create_setlist/components/sidebar/SidebarHeader';
+import type { FormValues } from '@/features/create_setlist/hooks/useSetlist';
+import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 
 /**
  * Display songs moved to the workspace until assigned to a place in the
@@ -12,42 +14,45 @@ import NoDataFound from '@/components/NoDataFound';
  * @param sidebarArr Array of song ids that have not been assigned
  */
 
-export interface WorkspaceSidebarProps {
-  tiles: FieldArrayWithId<FormValues, 'sidebarPool'>[];
+interface SidebarProps {
+  tiles: FieldArrayWithId<FormValues, 'sidebar'>[];
   common: CommonTileProps;
 }
 
-const WorkspaceSidebar = ({ tiles, common }: WorkspaceSidebarProps) => {
-  return (
-    <aside id="workspace_sidebar" className="flex flex-col gap-4 p-4 bg-periwinkle rounded-xl">
-      <div id="work_sidebar_headers" className="flex flex-col">
-        <div className="flex justify-between items-center p-2 bg-golden_apricot">
-          <h1 data-cy="h1">Workspace</h1>
+const WorkspaceSidebar = ({ tiles, common }: SidebarProps) => {
+  const { onClick, ...rest } = common;
+  const { ref, isDropTarget } = useDroppable({ id: 'sidebar' });
 
-          <button className="flex-none py-1 px-2 border rounded-xl bg-muted_teal">Add Song</button>
-        </div>
-        <h2 data-cy="h2" className='bg-muted_teal p-2'>Choose a song, and drag it to your setlist.</h2>
-      </div>
+  return (
+    <aside
+      id="workspace_sidebar"
+      className="flex min-h-0 flex-col gap-4 bg-periwinkle p-4"
+    >
+      <SidebarHeader onClick={onClick} />
 
       {/* Intended to scroll. Consider wrapping tiles instead depending on size of tile. */}
-      {tiles.length > 0 ? (
-        <ul
-          id="work_tile_list"
-          data-cy='work_tile_list'
-          className="flex flex-col items-center gap-2 overflow-y-auto bg-gray-100 rounded-xl p-4"
+      <section
+        className='flex min-h-0 flex-1 flex-col bg-golden_apricot border border-midnight_violet rounded-xl'
+      >
+        <div
+          data-cy="wrapper_title"
+          className="flex items-center justify-center border-b-2 py-1"
         >
-          {tiles.map((t, index) => (
-            <SidebarTile
-              key={t.id}
-              field={t}
-              commonTileProps={common}
-              index={index}
-            />
-          ))}
-        </ul>
-      ) : (
-        <NoDataFound />
-      )}
+          <h2 className="text-xl font-semibold underline">Library</h2>
+        </div>
+
+        <div
+          data-cy="library_wrapper"
+          ref={ref}
+          className={`flex min-h-0 flex-1 flex-col rounded-b-xl ${isDropTarget ? 'bg-golden_apricot' : 'bg-gray-200'}`}
+        >
+          {tiles.length > 0 ? (
+            <Library tiles={tiles} common={rest} />
+          ) : (
+            <NoDataFound text="Your library is currently empty. Click the button above to add a song." />
+          )}
+        </div>
+      </section>
     </aside>
   );
 };

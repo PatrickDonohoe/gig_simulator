@@ -16,7 +16,7 @@ import type { SetlistTileType } from '@/types/SetlistTileType';
 // Using this type so that RHF can control the state of both arrays. The form will actually be submitted as just the setlist with its type.
 export interface FormValues {
   setlistName: string;
-  sidebarPool: { songId: string }[];
+  sidebar: { songId: string }[];
   setlist: SetlistRow[];
 }
 
@@ -26,13 +26,13 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
     defaultValues: {
       // Sidebar starts prepoluated with
       setlistName: '',
-      sidebarPool: initialMasterSongs.map((song) => ({ songId: song.id })),
+      sidebar: initialMasterSongs.map((song) => ({ songId: song.id })),
       setlist: emptySetlist,
     },
   });
 
   // Creating two distinct array field pipelines from the same form control engine
-  const sidebarFields = useFieldArray({ control, name: 'sidebarPool' });
+  const sidebarFields = useFieldArray({ control, name: 'sidebar' });
   const setlistFields = useFieldArray({ control, name: 'setlist' });
 
   // Submit function that will save the setlist to local storage
@@ -61,18 +61,29 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
   // function fired at the end of the dragging event to reorder songs within the
   // same array or move from one array to another.
   const handleDragEnd = (event: DragEndEvent) => {
-    // DnD establishing where the tile started and ended
+    // DnD establishing where the tile started and ended. The dragged item is
+    // always a sortable tile, but the drop target may either be another
+    // sortable tile (dropped directly on it) or the plain container droppable
+    // (dropped in empty space / between tiles) — the latter never satisfies
+    // isSortable, so it's handled separately via its own id/length instead of
+    // target.group/target.index.
     const { source, target } = event.operation;
-    if (!source || !target || !isSortable(source) || !isSortable(target))
-      return;
+    if (!source || !target || !isSortable(source)) return;
 
     // Labeling the source and target groups as something relevant to the component
     const fromGroup = source.initialGroup as 'sidebar' | 'setlist';
-    const toGroup = target.group as 'sidebar' | 'setlist';
+    const targetIsSortable = isSortable(target);
+    const toGroup = (targetIsSortable ? target.group : target.id) as
+      | 'sidebar'
+      | 'setlist';
 
     // Labeling the index of the starting and ending places in their arrays.
     const fromIndex = source.initialIndex;
-    const toIndex = target.index;
+    const toIndex = targetIsSortable
+      ? target.index
+      : toGroup === 'sidebar'
+        ? sidebarFields.fields.length
+        : setlistFields.fields.length;
 
     // Internal movement within the same group
     if (fromGroup === toGroup) {
@@ -117,6 +128,8 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
   return {
     sidebarArr: sidebarFields.fields,
     setlistArr: setlistFields.fields,
+    sidebarRemove: sidebarFields.remove,
+    setlistRemove: setlistFields.remove,
     register,
     handleDragEnd,
     getSongName,

@@ -38,6 +38,7 @@ describe('<WorkspaceSidebar>', () => {
 
   it('mounts and shows the headers.', () => {
     const mockClick = cy.stub();
+    const mockRemove = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
@@ -45,6 +46,7 @@ describe('<WorkspaceSidebar>', () => {
       getSongDisplayDetails: mockGetSongDisplayDetails,
       metaFilters: ['duration', 'genre'],
       onClick: mockClick,
+      onRemove: mockRemove,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);
@@ -57,6 +59,7 @@ describe('<WorkspaceSidebar>', () => {
 
   it('displays SidebarTiles if tiles.length > 0', () => {
     const mockClick = cy.stub();
+    const mockRemove = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
@@ -64,6 +67,7 @@ describe('<WorkspaceSidebar>', () => {
       getSongDisplayDetails: mockGetSongDisplayDetails,
       metaFilters: ['duration', 'genre'],
       onClick: mockClick,
+      onRemove: mockRemove,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);
