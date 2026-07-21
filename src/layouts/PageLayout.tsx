@@ -9,7 +9,9 @@ const PageLayout = () => {
     <div id="page_layout" className="flex h-screen flex-col">
       <Navbar />
 
-      <Outlet />
+      <div className="flex min-h-0 flex-1 flex-col">
+        <Outlet />
+      </div>
     </div>
   );
 };

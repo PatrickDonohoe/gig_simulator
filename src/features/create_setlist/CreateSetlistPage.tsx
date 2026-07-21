@@ -10,16 +10,12 @@ import type { SetlistTileType } from '@/types/SetlistTileType';
 import AddSongForm from './components/add_song/AddSongForm';
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
 import useAddSong from './hooks/useAddSong';
+import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 
-// TODO: create separate common prop objects for each component with different onClick functions
 const CreateSetlistPage = () => {
   const [allSongs, setAllSongs] = useState<SetlistTileType[]>(() =>
     getAllSongs(),
   );
-
-  const handleSongAdded = (newSong: SetlistTileType) => {
-    setAllSongs((prev) => [...prev, newSong]);
-  };
 
   const {
     register,
@@ -29,25 +25,35 @@ const CreateSetlistPage = () => {
     onSubmitList,
     setlistRemove,
     sidebarRemove,
+    sidebarAppend,
     handleDragEnd,
   } = useSetlist(allSongs);
 
-  const { filters } = useFilters();
+  const { activeFilters, handleFilter, resetFilters } = useFilters();
+
+  const handleSongAdded = (newSong: SetlistTileType) => {
+    setAllSongs((prev) => [...prev, newSong]);
+    sidebarAppend({ songId: newSong.id });
+  };
 
   const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
 
-  const commonSidebarTileProps = {
+  const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove'> = {
     register,
     getSongDisplayDetails,
-    metaFilters: filters,
+    activeFilters,
+    handleFilter,
+    resetFilters,
+  };
+
+  const commonSidebarTileProps: CommonTileProps = {
+    ...commonTileProps,
     onClick: () => handleIsAddSong(true),
     onRemove: sidebarRemove,
   };
 
-  const commonSetlistTileProps = {
-    register,
-    getSongDisplayDetails,
-    metaFilters: filters,
+  const commonSetlistTileProps: CommonTileProps = {
+    ...commonTileProps,
     onClick: onSubmitList,
     onRemove: setlistRemove,
   };
@@ -56,7 +62,10 @@ const CreateSetlistPage = () => {
     <DragDropProvider onDragEnd={handleDragEnd}>
       <div data-cy="page" className="grid min-h-0 flex-1 grid-cols-[24rem_1fr]">
         <WorkspaceSidebar tiles={sidebarArr} common={commonSidebarTileProps} />
+
         <Setlist tiles={setlistArr} commonTileProps={commonSetlistTileProps} />
+
+        {/* Modals: */}
         {isAddSong && (
           <ModalBackdrop handleClose={() => handleIsAddSong(false)}>
             <AddSongForm {...formData} />

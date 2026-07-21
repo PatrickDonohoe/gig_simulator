@@ -21,18 +21,21 @@ describe('<Setlist>', () => {
     ],
   };
 
-  
   it('mounts and shows the list when tiles.length > 0', () => {
     const mockClick = cy.stub();
     const mockRemove = cy.stub();
+    const mockHandle = cy.stub();
+    const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
-      metaFilters: ['duration', 'genre'],
+      activeFilters: ['duration', 'genre'],
       onClick: mockClick,
       onRemove: mockRemove,
+      handleFilter: mockHandle,
+      resetFilters: mockReset,
     };
 
     const tiles: SetlistProps['tiles'] = [
@@ -60,14 +63,18 @@ describe('<Setlist>', () => {
   it('shows the fallback when tiles is an empty array', () => {
     const mockClick = cy.stub();
     const mockRemove = cy.stub();
+    const mockHandle = cy.stub();
+    const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
-      metaFilters: ['duration', 'genre'],
+      activeFilters: ['duration', 'genre'],
       onClick: mockClick,
       onRemove: mockRemove,
+      handleFilter: mockHandle,
+      resetFilters: mockReset,
     };
 
     cy.mount(<Setlist tiles={[]} commonTileProps={mockCommon} />);

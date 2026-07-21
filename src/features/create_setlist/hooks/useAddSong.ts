@@ -39,11 +39,13 @@ const useAddSong = (onSave: (newSong: SetlistTileType) => void) => {
     },
   });
 
+  // Used to handle the array of instruments in the form.
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'instrumentation',
   });
 
+  // Is the add song form modal open
   const handleIsAddSong = (bool: boolean) => setIsAddSong(bool);
 
   const addSong = (data: AddSongFormValues) => {
@@ -74,6 +76,7 @@ const useAddSong = (onSave: (newSong: SetlistTileType) => void) => {
     submitAddSong: handleSubmit(addSong),
     errors,
     addSongError: error,
+    handleIsAddSong,
   };
 
   return {

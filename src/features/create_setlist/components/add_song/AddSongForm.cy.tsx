@@ -1,3 +1,5 @@
+import type { SubmitEvent } from 'react';
+
 import AddSongForm, { type AddSongFormProps } from './AddSongForm';
 
 describe('<AddSongForm>', () => {
@@ -10,10 +12,14 @@ describe('<AddSongForm>', () => {
     errors: {},
     isSubmitting: false,
     instrumentationFields: [{ id: 'field-1', value: '' }],
-    appendInstrumentation: cy.stub().as('appendInstrumentation'),
-    removeInstrumentation: cy.stub().as('removeInstrumentation'),
-    submitAddSong: cy.stub().as('submitAddSong'),
+    appendInstrumentation:
+      overrides.appendInstrumentation ?? cy.stub().as('appendInstrumentation'),
+    removeInstrumentation:
+      overrides.removeInstrumentation ?? cy.stub().as('removeInstrumentation'),
+    submitAddSong: overrides.submitAddSong ?? cy.stub().as('submitAddSong'),
     addSongError: null,
+    handleIsAddSong:
+      overrides.handleIsAddSong ?? cy.stub().as('handleIsAddSong'),
     ...overrides,
   });
 
@@ -54,7 +60,10 @@ describe('<AddSongForm>', () => {
   });
 
   it('calls the submit function when the submit button is clicked.', () => {
-    const submitAddSong = cy.stub().as('submitAddSong');
+    const submitAddSong = cy
+    .stub()
+    .callsFake((e: SubmitEvent) => e.preventDefault())
+    .as('submitAddSong');
     cy.mount(<AddSongForm {...buildProps({ submitAddSong })} />);
 
     cy.getByData('submit_button').click();

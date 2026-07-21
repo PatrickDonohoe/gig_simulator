@@ -39,14 +39,18 @@ describe('<WorkspaceSidebar>', () => {
   it('mounts and shows the headers.', () => {
     const mockClick = cy.stub();
     const mockRemove = cy.stub();
+    const mockHandle = cy.stub();
+    const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
-      metaFilters: ['duration', 'genre'],
+      activeFilters: ['duration', 'genre'],
       onClick: mockClick,
       onRemove: mockRemove,
+      handleFilter: mockHandle,
+      resetFilters: mockReset,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);
@@ -60,14 +64,18 @@ describe('<WorkspaceSidebar>', () => {
   it('displays SidebarTiles if tiles.length > 0', () => {
     const mockClick = cy.stub();
     const mockRemove = cy.stub();
+    const mockHandle = cy.stub();
+    const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
-      metaFilters: ['duration', 'genre'],
+      activeFilters: ['duration', 'genre'],
       onClick: mockClick,
       onRemove: mockRemove,
+      handleFilter: mockHandle,
+      resetFilters: mockReset,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);

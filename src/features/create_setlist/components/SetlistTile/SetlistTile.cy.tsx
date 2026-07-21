@@ -7,8 +7,11 @@ import type { FormValues } from '../../hooks/useSetlist';
 // Local wrapper to inject RHF tools
 const SetlistTileWrapper = (props: {
   getSongDisplayDetails: SetlistTileProps['commonTileProps']['getSongDisplayDetails'];
-  metaFilters: SetlistTileProps['commonTileProps']['metaFilters'];
+  activeFilters: SetlistTileProps['commonTileProps']['activeFilters'];
+  onRemove: SetlistTileProps['commonTileProps']['onRemove'];
   onClick: SetlistTileProps['commonTileProps']['onClick'];
+  resetFilters: SetlistTileProps['commonTileProps']['resetFilters'];
+  handleFilter: SetlistTileProps['commonTileProps']['handleFilter'];
 }) => {
   const { register, control } = useForm<FormValues>({
     defaultValues: {
@@ -34,8 +37,11 @@ const SetlistTileWrapper = (props: {
       commonTileProps={{
         register,
         getSongDisplayDetails: props.getSongDisplayDetails,
-        metaFilters: props.metaFilters,
+        activeFilters: props.activeFilters,
         onClick: props.onClick,
+        onRemove: props.onRemove,
+        handleFilter: props.handleFilter,
+        resetFilters: props.resetFilters,
       }}
     />
   );
@@ -61,19 +67,25 @@ describe('<SetlistTile>', () => {
     });
 
     const mockClick = cy.stub();
+    const mockRemove = cy.stub();
+    const mockHandle = cy.stub();
+    const mockReset = cy.stub();
 
     // Passing simple mock arrays and the stubbed functions into the wrapper
     cy.mount(
       <SetlistTileWrapper
         getSongDisplayDetails={mockGetSongDisplayDetails}
-        metaFilters={[
+        activeFilters={[
           'duration',
           'genre',
           'tempo',
           'instrumentation',
           'artist',
         ]}
+        onRemove={mockRemove}
         onClick={mockClick}
+        handleFilter={mockHandle}
+        resetFilters={mockReset}
       />,
     );
 
@@ -89,5 +101,5 @@ describe('<SetlistTile>', () => {
         'Enter a custom transition time if different from the default.',
       );
   });
-  it('displays ')
+  it('displays ');
 });

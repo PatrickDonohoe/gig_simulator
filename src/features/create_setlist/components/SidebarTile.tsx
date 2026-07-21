@@ -29,7 +29,7 @@ const SidebarTile = ({ field, index, commonTileProps }: SidebarTileProps) => {
       ref={ref}
       id="sidebar_tile"
       data-cy="tile"
-      className="flex w-full overflow-hidden rounded-xl border border-dark_amethyst bg-white p-2"
+      className="flex w-full overflow-hidden rounded-xl border border-dark_amethyst bg-white p-2 max-h-18"
     >
       <div data-cy="draggable" className="flex items-center justify-between">
         <input type="hidden" {...register(`sidebar.${index}.songId`)} />

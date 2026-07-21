@@ -19,6 +19,7 @@ export interface AddSongFormProps {
   removeInstrumentation: (index: number) => void;
   submitAddSong: () => void;
   addSongError: string | null;
+  handleIsAddSong: (bool: boolean) => void;
 }
 
 const AddSongForm = ({
@@ -30,6 +31,7 @@ const AddSongForm = ({
   appendInstrumentation,
   removeInstrumentation,
   addSongError,
+  handleIsAddSong,
 }: AddSongFormProps) => {
   return (
     <form
@@ -37,10 +39,21 @@ const AddSongForm = ({
       onSubmit={submitAddSong}
       className="flex flex-col gap-4 rounded-md border-2 border-midnight_violet bg-periwinkle p-3"
     >
-      <div className="flex items-center justify-center px-4 py-2">
-        <h1 data-cy="new_song" className="text-xl font-bold">
+      <div className="grid grid-cols-3 items-center px-4 py-2">
+        <h1
+          data-cy="new_song"
+          className="col-start-2 text-center text-xl font-bold"
+        >
           Add a new song to your library
         </h1>
+
+        <button
+          type="button"
+          className="col-start-3 justify-self-end rounded-xl border-2 border-midnight_violet px-4 py-2 font-bold"
+          onClick={() => handleIsAddSong(false)}
+        >
+          X
+        </button>
       </div>
 
       <div
@@ -89,21 +102,34 @@ const AddSongForm = ({
           error={errors.tempo}
         />
 
-        <FormInputStack
-          label="Song Duration"
-          inputId="duration.minutes"
-          register={register}
-          validationOptions={{ valueAsNumber: true }}
-          error={errors.duration?.minutes}
-        />
+        {/* Alternate Duration setup with inline minutes and seconds */}
+        <section className="flex flex-col gap-2 text-lg font-semibold">
+          <h2>Song Duration:</h2>
 
-        <FormInputStack
-          label="Song Duration"
-          inputId="duration.seconds"
-          register={register}
-          validationOptions={{ valueAsNumber: true }}
-          error={errors.duration?.seconds}
-        />
+          <div className="flex flex-col gap-2 rounded-xl border border-midnight_violet bg-baby_blue_ice p-1 md:flex-row">
+            <label className="flex flex-col text-sm">
+              Minutes:
+              <input
+                data-cy="duration_input"
+                type="number"
+                placeholder="min"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle"
+                {...register('duration.minutes')}
+              />
+            </label>
+
+            <label className="flex flex-col text-sm">
+              Seconds:
+              <input
+                data-cy="duration_input"
+                type="number"
+                placeholder="sec"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle"
+                {...register('duration.seconds')}
+              />
+            </label>
+          </div>
+        </section>
 
         <MultInputStack
           label="Instrumentation"

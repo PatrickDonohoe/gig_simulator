@@ -4,6 +4,7 @@ import type { FieldArrayWithId } from 'react-hook-form';
 import SetlistTile from '../SetlistTile/SetlistTile';
 import type { FormValues } from '../../hooks/useSetlist';
 import type { CommonTileProps } from '../../types/CommonTileProps';
+import SetlistHeader from '@/features/create_setlist/components/setlist/SetlistHeader';
 
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
@@ -18,40 +19,16 @@ export interface SetlistProps {
 const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
 
-  const { register, onClick } = commonTileProps;
   return (
     <section
       id="setlist"
       data-cy="setlist"
-      className={`flex h-full flex-col gap-2 pb-2`}
+      className="flex h-full flex-col gap-2 pb-2"
     >
-      <header
-        data-cy="title-container"
-        className="flex items-center justify-center bg-baby_blue_ice py-4"
-      >
-        <div className="flex w-2/3 items-center justify-between">
-          <input
-            data-cy="title"
-            type="text"
-            className="rounded-xl border border-midnight_violet bg-periwinkle p-2"
-            placeholder="New Setlist #1"
-            {...register('setlistName')}
-          />
-
-          <button
-            data-cy="submit"
-            type="submit"
-            className="flex-none rounded-lg border border-midnight_violet bg-golden_apricot p-2 text-midnight_violet hover:bg-midnight_violet/25"
-            onClick={onClick}
-          >
-            Save Setlist
-          </button>
-        </div>
-      </header>
-
+      <SetlistHeader {...commonTileProps} />
       <div
         ref={ref}
-        className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}
+        className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}
       >
         {tiles.length > 0 ? (
           <ul className="flex flex-col gap-4 lg:gap-6" data-cy="list">

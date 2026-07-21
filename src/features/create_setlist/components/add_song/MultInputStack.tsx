@@ -33,7 +33,8 @@ const MultInputStack = ({
             <input
               data-cy="input"
               type="text"
-              className="bg-golden_apricot rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle focus:bg-muted_teal"
+              placeholder='e.g. drum set'
+              className="bg-golden_apricot rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle focus:bg-muted_teal transition-all ease-in-out placeholder:text-midnight_violet/80"
               {...register(`instrumentation.${index}.value`)}
             />
             <button

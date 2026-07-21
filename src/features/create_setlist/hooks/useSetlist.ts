@@ -4,7 +4,6 @@ import { isSortable } from '@dnd-kit/react/sortable';
 
 import type { SubmitSetlistType } from '../types/SubmitSetlistType';
 import type { SetlistRow } from '../types/SetlistRow';
-import { emptySetlist } from '../components/constants/emptySetlist';
 import { saveSetList } from '@/utils/setlistStorage';
 import type { SetlistTileType } from '@/types/SetlistTileType';
 
@@ -27,7 +26,7 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
       // Sidebar starts prepoluated with
       setlistName: '',
       sidebar: initialMasterSongs.map((song) => ({ songId: song.id })),
-      setlist: emptySetlist,
+      setlist: [],
     },
   });
 
@@ -129,6 +128,7 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
     sidebarArr: sidebarFields.fields,
     setlistArr: setlistFields.fields,
     sidebarRemove: sidebarFields.remove,
+    sidebarAppend: sidebarFields.append,
     setlistRemove: setlistFields.remove,
     register,
     handleDragEnd,

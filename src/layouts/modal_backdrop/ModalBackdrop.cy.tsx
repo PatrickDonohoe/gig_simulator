@@ -17,6 +17,7 @@ describe('<ModalBackdrop>', () => {
       removeInstrumentation: cy.stub(),
       submitAddSong: cy.stub(),
       addSongError: null,
+      handleIsAddSong: cy.stub().as('handleIsAddSong'),
     };
 
     cy.mount(<ModalBackdrop handleClose={mockClose}><AddSongForm {...mockProps} /></ModalBackdrop>);

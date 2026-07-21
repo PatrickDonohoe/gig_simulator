@@ -24,7 +24,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
     group: 'setlist',
   });
 
-  const { register, getSongDisplayDetails, metaFilters, onRemove } =
+  const { register, getSongDisplayDetails, activeFilters, onRemove } =
     commonTileProps;
 
   // Callback to master song state to fetch presentation layers cleanly
@@ -57,18 +57,13 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
     instrumentation: (s) => s.instrumentation.join(', '),
   };
 
-  // Checking filters to see if any are present besides the title.
-  const filtersNotTitle: boolean =
-    metaFilters.filter((f) => f !== 'title').length > 0;
-
   return (
     <section
       ref={ref}
       id="setlist_tile"
       data-cy="tile"
-      className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-midnight_violet bg-periwinkle p-2"
+      className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-midnight_violet bg-golden_apricot p-2"
     >
-      <div className="flex w-full items-center justify-end"></div>
       <div className="grid w-full grid-flow-col grid-cols-3">
         <h1 className="bg-wild_strawberry/20 col-start-2 justify-self-center rounded-xl p-2 text-2xl font-semibold underline">
           Song #{index + 1}
@@ -81,21 +76,22 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
           <TrashCan className="size-8 justify-self-end" />
         </button>
       </div>
+
       <article
         id="setlist_article"
         data-cy="article"
-        className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst p-4 lg:gap-4"
+        className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-baby_blue_ice p-4 lg:gap-4"
       >
         <h2 className="text-center font-semibold">Title: {metadata.title}</h2>
 
         {/* The title filter/data is provided above. If filters besies the title are present, show them here. Otherwise, render nothing so that the title is centered vertically. */}
-        {filtersNotTitle && (
+        {activeFilters.length > 0 && (
           <div
             id="attributes_container"
             data-cy="att_container"
             className="flex flex-wrap gap-2"
           >
-            {metaFilters.map((f) => (
+            {activeFilters.map((f) => (
               <FilterAttribute
                 key={f}
                 label={f}
@@ -112,6 +108,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
           data-cy="notes"
           placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
           className="rounded-xl border-2 border-dark_amethyst bg-gray-200 p-2"
+          rows={3}
           defaultValue={field.notes}
           {...register(`setlist.${index}.notes`)}
         />
@@ -122,7 +119,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
           <label className="flex gap-2">
             Enter minutes
             <input
-              className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right"
+              className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right"
               type="number"
               id="minutes_tran"
               data-cy="min_tran"
@@ -134,7 +131,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
           <label className="flex gap-2">
             Enter seconds
             <input
-              className="max-w-20 rounded-xl border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
+              className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
               type="number"
               id="seconds_trans"
               data-cy="sec_tran"

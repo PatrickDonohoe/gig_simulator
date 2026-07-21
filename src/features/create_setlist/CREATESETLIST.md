@@ -73,14 +73,17 @@ data.
       expected.
 - [x] Decide what to do with DragNDropArea. Should DNDA be the larger component
       for the sidebar and setlist or a page content?
-- [x] Set up Setlist to map over tile data and pass metaFilters to the tile.
-- [ ] Add filter checkboxes above the setlist for displaying metadata in the
+- [x] Set up Setlist to map over tile data and pass activeFilters to the tile.
+- [x] Add filter checkboxes above the setlist for displaying metadata in the
       setlist cards. House this logic in a separate hook from useSetlist.
-- [ ] Make page/main content component. Add title.
-- [ ] Why is a sidebar tile still showing up after it is dragged to the setlist? It still transforms into a setlist tile onDrop.
+- [/] Make page/main content component. Add title.
+- [x] Why is a sidebar tile still showing up after it is dragged to the setlist?
+      It still transforms into a setlist tile onDrop.
 - [x] Fix empty library to still be a droppable zone.
-- [ ] Make sidebar tiles take a limited height and not filled the entire library space.
-- [ ] Setlist tiles need to have a border.
-- [ ] Setlist needs a gap between tiles.
+- [ ] Make sidebar tiles take a limited height and not filled the entire library
+      space.
+- [x] Setlist tiles need to have a border.
+- [x] Setlist needs a gap between tiles.
 - [ ] Get rid of "Song #1"
-- [ ] Add min/max to setlist portion of parent grid in CreateSetlistPage. There is no need for it to cover the rest of the page on wide screens.
+- [ ] Add min/max to setlist portion of parent grid in CreateSetlistPage. There
+      is no need for it to cover the rest of the page on wide screens.
