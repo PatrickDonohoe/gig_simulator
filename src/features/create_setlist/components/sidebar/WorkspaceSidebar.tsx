@@ -26,25 +26,25 @@ const WorkspaceSidebar = ({ tiles, common }: SidebarProps) => {
   return (
     <aside
       id="workspace_sidebar"
-      className="flex min-h-0 flex-col gap-4 bg-periwinkle p-4"
+      className="flex min-h-0 flex-col gap-4 bg-bg-main border-r-2 border-border-bold p-4"
     >
       <SidebarHeader onClick={onClick} />
 
       {/* Intended to scroll. Consider wrapping tiles instead depending on size of tile. */}
       <section
-        className='flex min-h-0 flex-1 flex-col bg-golden_apricot border border-midnight_violet rounded-xl'
+        className='flex min-h-0 flex-1 flex-col overflow-hidden bg-primary border border-border-bold rounded-xl'
       >
         <div
           data-cy="wrapper_title"
-          className="flex items-center justify-center border-b-2 py-1"
+          className="flex items-center justify-center border-b border-border-bold py-1"
         >
-          <h2 className="text-xl font-semibold underline">Library</h2>
+          <h2 className="text-xl font-semibold underline text-accent">Library</h2>
         </div>
 
         <div
           data-cy="library_wrapper"
           ref={ref}
-          className={`flex min-h-0 flex-1 flex-col rounded-b-xl ${isDropTarget ? 'bg-golden_apricot' : 'bg-gray-200'}`}
+          className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isDropTarget ? 'bg-accent' : 'bg-menu'}`}
         >
           {tiles.length > 0 ? (
             <Library tiles={tiles} common={rest} />

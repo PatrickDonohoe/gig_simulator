@@ -12,20 +12,20 @@ export interface LibraryProps {
 
 const Library = ({ tiles, common }: LibraryProps) => {
   return (
-    <ul
-      id="work_tile_list"
-      data-cy="work_tile_list"
-      className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto rounded-xl p-4"
-    >
-      {tiles.map((t, index) => (
+    // <ul
+    //   id="work_tile_list"
+    //   data-cy="work_tile_list"
+    //   className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4"
+    // >
+      tiles.map((t, index) => (
         <SidebarTile
           key={t.id}
           field={t}
           commonTileProps={common}
           index={index}
         />
-      ))}
-    </ul>
+      ))
+    // </ul>
   );
 };
 export default Library;

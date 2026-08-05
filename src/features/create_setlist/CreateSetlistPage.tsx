@@ -19,6 +19,8 @@ const CreateSetlistPage = () => {
 
   const {
     register,
+    setValue,
+    getValues,
     getSongDisplayDetails,
     sidebarArr,
     setlistArr,
@@ -40,6 +42,8 @@ const CreateSetlistPage = () => {
 
   const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove'> = {
     register,
+    setValue,
+    getValues,
     getSongDisplayDetails,
     activeFilters,
     handleFilter,

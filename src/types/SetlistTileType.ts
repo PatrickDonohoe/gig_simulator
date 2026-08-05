@@ -1,7 +1,12 @@
-import type { SongType } from './SongType';
-import type { DurationInput } from './DurationInput';
+import z from 'zod';
 
-export interface SetlistTileType extends SongType {
-  transitionTime: DurationInput;
-  notes: string;
-}
+import { SongTypeSchema } from './SongType';
+import { DurationSchema } from './DurationInput';
+
+export const SetlistTileSchema = z.strictObject({
+  ...SongTypeSchema.shape,
+  transitionTime: DurationSchema,
+  notes: z.optional(z.string()),
+})
+
+export type SetlistTileType = z.infer<typeof SetlistTileSchema>;

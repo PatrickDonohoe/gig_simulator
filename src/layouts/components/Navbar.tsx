@@ -7,7 +7,7 @@ import AnalyticsIcon from '@icons/analytics-graph-chart-svgrepo-com.svg?react';
 
 const Navbar = () => {
   return (
-    <nav id="navbar" className="flex h-16 items-center gap-4 border-b-2 px-4">
+    <nav id="navbar" className="flex items-center gap-4 border-b-2 border-text-main px-4 py-2 bg-bg-main">
       <NavbarLink
         address={paths.createSetlist}
         label="Create Setlist"

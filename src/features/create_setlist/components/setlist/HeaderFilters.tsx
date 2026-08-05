@@ -23,9 +23,11 @@ const HeaderFilters = ({
   resetFilters,
 }: HeaderFilterProps) => {
   return (
-    <section className="flex flex-col items-center justify-center gap-4">
-      <h2 className="text-center text-xl font-semibold">Filters:</h2>
-      <div className="flex items-center justify-center gap-6 flex-wrap">
+    <section className="flex flex-col items-center justify-center pb-1">
+      <h2 className="text-center text-xl font-semibold text-text-main">
+        Filters:
+      </h2>
+      <div className="flex flex-wrap items-center justify-center gap-6">
         {filters.map((f) => (
           <Filter
             key={f}
@@ -36,7 +38,7 @@ const HeaderFilters = ({
         ))}
 
         <button
-          className="flex-none rounded-xl border-2 border-midnight_violet px-4 py-2 underline"
+          className="flex-none font-semibold rounded-md ring bg-bg-main ring-midnight_violet px-4 py-1 text-text-main underline hover:text-text-muted hover:bg-bg-surface"
           onClick={resetFilters}
         >
           Clear All

@@ -37,19 +37,20 @@ const AddSongForm = ({
     <form
       data-cy="song_form"
       onSubmit={submitAddSong}
-      className="flex flex-col gap-4 rounded-md border-2 border-midnight_violet bg-periwinkle p-3"
+      className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
     >
       <div className="grid grid-cols-3 items-center px-4 py-2">
         <h1
           data-cy="new_song"
-          className="col-start-2 text-center text-xl font-bold"
+          className="col-start-2 text-center text-xl font-bold text-text-main"
         >
           Add a new song to your library
         </h1>
 
         <button
+          data-cy="close"
           type="button"
-          className="col-start-3 justify-self-end rounded-xl border-2 border-midnight_violet px-4 py-2 font-bold"
+          className="col-start-3 justify-self-end rounded-xl border-2 bg-bg-main hover:bg-primary-hover border-border-bold px-4 py-2 font-bold text-text-main hover:text-accent"
           onClick={() => handleIsAddSong(false)}
         >
           X
@@ -103,17 +104,17 @@ const AddSongForm = ({
         />
 
         {/* Alternate Duration setup with inline minutes and seconds */}
-        <section className="flex flex-col gap-2 text-lg font-semibold">
+        <section className="flex flex-col gap-2 text-lg font-semibold text-text-main">
           <h2>Song Duration:</h2>
 
-          <div className="flex flex-col gap-2 rounded-xl border border-midnight_violet bg-baby_blue_ice p-1 md:flex-row">
+          <div className="flex flex-col gap-2 rounded-xl border border-border-subtle bg-baby_blue_ice p-1 md:flex-row">
             <label className="flex flex-col text-sm">
               Minutes:
               <input
                 data-cy="duration_input"
                 type="number"
                 placeholder="min"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle"
                 {...register('duration.minutes')}
               />
             </label>
@@ -124,7 +125,7 @@ const AddSongForm = ({
                 data-cy="duration_input"
                 type="number"
                 placeholder="sec"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle"
                 {...register('duration.seconds')}
               />
             </label>
@@ -150,7 +151,7 @@ const AddSongForm = ({
         <button
           data-cy="submit_button"
           type="submit"
-          className="flex-none rounded-xl border bg-muted_teal px-2 py-1"
+          className="flex-none rounded-xl border bg-accent px-2 py-1 text-text-main hover:bg-bg-surface"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Adding...' : 'Add Song +'}

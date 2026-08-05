@@ -21,7 +21,7 @@ export interface FormValues {
 
 const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
   // Master form tracks both dynamics workspace and setlist layouts simultaneously
-  const { control, register, handleSubmit } = useForm<FormValues>({
+  const { control, register, handleSubmit, setValue, getValues } = useForm<FormValues>({
     defaultValues: {
       // Sidebar starts prepoluated with
       setlistName: '',
@@ -131,6 +131,8 @@ const useSetlist = (initialMasterSongs: SetlistTileType[]) => {
     sidebarAppend: sidebarFields.append,
     setlistRemove: setlistFields.remove,
     register,
+    setValue,
+    getValues,
     handleDragEnd,
     getSongName,
     getSongDisplayDetails,

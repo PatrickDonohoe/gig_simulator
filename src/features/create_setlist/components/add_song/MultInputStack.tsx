@@ -21,10 +21,10 @@ const MultInputStack = ({
   return (
     <label
       data-cy="mult_stack"
-      className="flex flex-col gap-2 text-lg font-semibold"
+      className="flex flex-col gap-2 text-lg font-semibold text-text-main"
     >
       {label}:
-      <div className="grid grid-cols-[1fr_3rem] gap-2 border border-midnight_violet p-2 rounded-xl">
+      <div className="grid grid-cols-[1fr_3rem_3rem] gap-2 rounded-xl border border-border-bold p-2">
         {fields.map((field, index) => (
           <div
             key={field.id}
@@ -33,33 +33,28 @@ const MultInputStack = ({
             <input
               data-cy="input"
               type="text"
-              placeholder='e.g. drum set'
-              className="bg-golden_apricot rounded-lg p-2 ring ring-midnight_violet hover:bg-periwinkle focus:bg-muted_teal transition-all ease-in-out placeholder:text-midnight_violet/80"
+              placeholder="e.g. drum set"
+              className="rounded-lg bg-bg-main p-2 ring ring-border-bold transition-all ease-in-out placeholder:text-text-muted hover:bg-accent focus:bg-bg-surface"
               {...register(`instrumentation.${index}.value`)}
             />
             <button
               data-cy="rmv_button"
-              type='button'
-              className="flex-none place-self-center ring-muted_teal hover:ring"
+              type="button"
+              className="flex-none place-self-center ring-border-bold hover:ring-accent"
               onClick={() => onRemove(index)}
             >
               <MinusIcon className="size-8" />
             </button>
+            <button
+              data-cy="add_button"
+              type="button"
+              onClick={onAdd}
+              className="flex-none place-self-center ring-border-bold hover:ring-accent"
+            >
+              <AddIcon className="size-8" />
+            </button>
           </div>
         ))}
-        <div
-          data-cy="add_btn_container"
-          className="col-span-full col-start-2 grid grid-cols-subgrid place-self-center py-2"
-        >
-          <button
-            data-cy="add_button"
-            type='button'
-            onClick={onAdd}
-            className="flex-none place-self-center ring-muted_teal hover:ring"
-          >
-            <AddIcon className="size-8" />
-          </button>
-        </div>
       </div>
     </label>
   );

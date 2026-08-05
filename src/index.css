@@ -10,9 +10,32 @@
   --color-midnight_violet: #22031f;
   --color-baby_blue_ice: #9ac4f8;
   --color-periwinkle: #c9d7f8;
+
+  --color-primary: #0f53f0;
+  --color-primary-hover: #0c42c0;
+  --color-accent: #ed9b40;
+
+  --color-bg-main: #eef3f6;
+  --color-bg-surface: #ffffff;
+  --color-menu: #d1d5dc;
+  --color-border-subtle: #dde7ee;
+  --color-border-bold: #5283f4;
+
+  --color-text-main: #0c1318;
+  --color-text-muted: #446e88;
 }
 
 @layer base {
+  .dark {
+    --color-bg-main: #0c1318;
+    --color-bg-surface: #111b22;
+    --color-menu: #2d4f7c;
+    --color-border-subtle: #223744;
+    /* --color-accent: #d8801c; */
+
+    --color-text-main: #dfe5e9;
+    --color-text-muted: #b1bfc9;
+  }
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;

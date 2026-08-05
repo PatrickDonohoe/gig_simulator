@@ -10,18 +10,13 @@ song data including notes and transition times if the song has them.
 
 ### Retrieving hook params
 
-Should I take an array of all songs in the library as an argument(defer problem
-to somewhere else), retrieve them with useEffect and util function (unknown
-dependency), or use a hook(defer problem to somewhere else but could be viewed
-as separation of concerns)?
-
-I could also store as a useEffect with util function and call the function
-directly onSubmit of the "add song" form.
+Using getAllSongs function from utils to get songs and establish state in the
+hook.
 
 ## Workspace Sidebar
 
-Sidebar that takes ids for cameras that have not been assigned to the setlist
-and displays them.
+Sidebar that takes ids for songs that have not been assigned to the setlist and
+displays them.
 
 ### Add Song
 
@@ -32,30 +27,33 @@ to the sidebarArr.
 ## Song Tiles
 
 Individual song tiles will include a lookup function to retrieve relevant song
-data from a master list held in context. Tiles will include hover and active
-states. Need a callback function to retrieve data about tile based on id.
+data from a master list (library) held in context. Tiles will include hover and
+active states.
 
 ## Setlist Form
 
 This form will utilize RHF's useForm and useFieldArray in addition to dnd-kit
-for moving songs back and forth from the sidebar. The form will be submitted as
-setlist id, setlist name, and an array of setlist tiles. The notes and
-transitionTime inputs will be added by insert on handleDragEnd.
+for moving songs back and forth from the sidebar. The notes and transitionTime
+inputs will be added to the tiles by insert on handleDragEnd. The form will be
+submitted as setlist id, setlist name, and an array of song ID, transition time,
+and notes. Transition times and notes for each song will be specific to each
+setlist, not the song.
 
 ### Retrieving Data for the Tile
 
-Because useFieldArray only passes down the field array's id and the song's id, a
-callback function will be used to retrieve data about the song. Special
-attention will need to be paid to whether the song has transition time or notes
-data.
+Because useFieldArray only passes down the field array's id and the song's id,
+the getSongDisplayDetails callback function will be used to retrieve data about
+the song. Special attention will need to be paid to whether the song has
+transition time or notes data.
 
 ### Calculating Time
 
 - Song duration will be stored in the library as total seconds.
-- Total setlist duration will be calculated by useMemo whenever setlist changes.
+- Total setlist duration will be calculated by useMemo whenever the setlist
+  changes.
 - Setlist and Sidebar arrays need to hold duration in seconds but display in
   separate hour, minute, and second format.
-- Sidebar should be sortable by song length.
+- Sidebar should be sortable by song length & title.
 
 ## ToDo List
 
@@ -80,10 +78,18 @@ data.
 - [x] Why is a sidebar tile still showing up after it is dragged to the setlist?
       It still transforms into a setlist tile onDrop.
 - [x] Fix empty library to still be a droppable zone.
-- [ ] Make sidebar tiles take a limited height and not filled the entire library
+- [x] Make sidebar tiles take a limited height and not filled the entire library
       space.
 - [x] Setlist tiles need to have a border.
 - [x] Setlist needs a gap between tiles.
-- [ ] Get rid of "Song #1"
-- [ ] Add min/max to setlist portion of parent grid in CreateSetlistPage. There
-      is no need for it to cover the rest of the page on wide screens.
+- [x] Get rid of "Song #1"
+- [ ] Add min/max width to the setlist portion of the parent grid in
+      CreateSetlistPage. There is no need for it to cover the rest of the page
+      on wide screens.
+- [ ] Add sort feature to the sidebar/library with song duration in the tile or
+      next to it.
+- [ ] Add setlist duration to setlist header next to the title.
+- [ ] Add transition time default input. It should setValue for transition times
+      in the current setlist.
+- [ ] Fix song submission to not include transition time and notes.
+- [ ] Fix setlist submission to include transition time and notes.

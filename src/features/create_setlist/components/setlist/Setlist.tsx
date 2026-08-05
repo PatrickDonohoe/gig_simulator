@@ -23,7 +23,7 @@ const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
     <section
       id="setlist"
       data-cy="setlist"
-      className="flex h-full flex-col gap-2 pb-2"
+      className="flex h-full flex-col gap-2 pb-2 bg-primary"
     >
       <SetlistHeader {...commonTileProps} />
       <div

@@ -6,6 +6,7 @@ import FilterAttribute from '../FilterAttribute';
 import { timeBreakdown } from '@/utils/addTimeDurations';
 import type { TileProps } from '../../types/TileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
+import NumberInput from '@/components/NumberInput';
 
 /**
  * Reusable tile for the setlist that will include the draggable tile plus
@@ -24,7 +25,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
     group: 'setlist',
   });
 
-  const { register, getSongDisplayDetails, activeFilters, onRemove } =
+  const { register, getValues, setValue, getSongDisplayDetails, activeFilters, onRemove } =
     commonTileProps;
 
   // Callback to master song state to fetch presentation layers cleanly
@@ -62,15 +63,15 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
       ref={ref}
       id="setlist_tile"
       data-cy="tile"
-      className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-midnight_violet bg-golden_apricot p-2"
+      className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle"
     >
       <div className="grid w-full grid-flow-col grid-cols-3">
-        <h1 className="bg-wild_strawberry/20 col-start-2 justify-self-center rounded-xl p-2 text-2xl font-semibold underline">
+        <h1 className="bg-wild_strawberry/20 col-start-2 justify-self-center rounded-xl p-2 text-2xl font-semibold text-bg-main underline">
           Song #{index + 1}
         </h1>
 
         <button
-          className="col-start-3 flex-none p-2"
+          className="col-start-3 flex-none p-2 text-bg-main hover:text-border-subtle/50"
           onClick={() => onRemove(index)}
         >
           <TrashCan className="size-8 justify-self-end" />
@@ -80,7 +81,7 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
       <article
         id="setlist_article"
         data-cy="article"
-        className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-baby_blue_ice p-4 lg:gap-4"
+        className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
       >
         <h2 className="text-center font-semibold">Title: {metadata.title}</h2>
 
@@ -107,38 +108,36 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
           id={field.id}
           data-cy="notes"
           placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
-          className="rounded-xl border-2 border-dark_amethyst bg-gray-200 p-2"
+          className="rounded-xl border-2 border-dark_amethyst bg-menu p-2 focus:outline-border-bold"
           rows={3}
           defaultValue={field.notes}
           {...register(`setlist.${index}.notes`)}
         />
 
-        <div className="flex flex-col gap-2 rounded-xl bg-gray-200 p-2 ring-2 ring-deep_space_blue">
+        <div className="flex flex-col gap-2 rounded-xl bg-menu p-2 ring-2 ring-deep_space_blue">
           <h2>Enter a custom transition time if different from the default.</h2>
 
-          <label className="flex gap-2">
-            Enter minutes
-            <input
-              className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right"
-              type="number"
-              id="minutes_tran"
-              data-cy="min_tran"
-              defaultValue={field.transitionTime.minutes}
-              {...register(`setlist.${index}.transitionTime.minutes`)}
-            />
-          </label>
+          <NumberInput
+            title="Enter Minutes"
+            cy_id="minutes_tran"
+            id="minutes"
+            defaultValue={field.transitionTime.minutes}
+            index={index}
+            register={register}
+            getValues={getValues}
+            setValue={setValue}
+          />
 
-          <label className="flex gap-2">
-            Enter seconds
-            <input
-              className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right hover:bg-muted_teal"
-              type="number"
-              id="seconds_trans"
-              data-cy="sec_tran"
-              defaultValue={field.transitionTime.seconds}
-              {...register(`setlist.${index}.transitionTime.seconds`)}
-            />
-          </label>
+          <NumberInput
+            title="Enter Seconds"
+            cy_id="seconds_tran"
+            id="seconds"
+            defaultValue={field.transitionTime.seconds}
+            index={index}
+            register={register}
+            getValues={getValues}
+            setValue={setValue}
+          />
         </div>
       </div>
     </section>

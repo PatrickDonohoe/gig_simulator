@@ -6,20 +6,20 @@ const SidebarHeader = ({
   onClick: CommonTileProps['onClick'];
 }) => {
   return (
-    <header id="work_sidebar_headers" className="flex flex-col font-semibold">
-      <div className="flex flex-col items-center justify-between bg-golden_apricot p-2 lg:flex-row">
+    <header id="work_sidebar_headers" className="flex flex-col font-semibold text-text-main">
+      <div className="flex flex-col items-center justify-between bg-accent p-2 lg:flex-row rounded-t-xl">
         <h1 data-cy="h1" className="text-xl">
           Workspace
         </h1>
 
         <button
           onClick={onClick}
-          className="flex-none rounded-xl border bg-muted_teal px-2 py-1 text-sm"
+          className="flex-none rounded-xl border bg-bg-main hover:bg-bg-surface px-2 py-1 text-sm hover:text-text-muted"
         >
-          Add a song to your library
+          Add Song +
         </button>
       </div>
-      <h2 data-cy="h2" className="bg-muted_teal p-2">
+      <h2 data-cy="h2" className="rounded-b-xl bg-menu p-2">
         Choose a song, and drag it to your setlist.
       </h2>
     </header>

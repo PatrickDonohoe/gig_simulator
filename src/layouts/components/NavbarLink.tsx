@@ -11,7 +11,7 @@ const NavbarLink = ({ address, label, icon }: NavLinkProps) => {
     <NavLink
       to={address}
       className={({ isActive }) =>
-        `${isActive ? 'bg-dusk_blue text-white' : 'bg-white text-dark_amethyst'} flex hover:bg-muted_teal justify-between items-center px-2 py-1 gap-2`
+        `${isActive ? 'bg-primary text-white' : 'bg-bg-main text-text-main'} flex hover:bg-border-subtle justify-between items-center px-2 py-1 gap-2`
       }
     >
       <div className="size-8 flex justify-center items-center">{icon}</div>
