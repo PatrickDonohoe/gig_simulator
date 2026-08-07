@@ -1,9 +1,8 @@
 import { useSortable } from '@dnd-kit/react/sortable';
 
-import type { SetlistTileType } from '@/types/SetlistTileType';
 import type { SongType } from '@/types/SongType';
 import FilterAttribute from '../FilterAttribute';
-import { timeBreakdown } from '@/utils/addTimeDurations';
+import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 import type { TileProps } from '../../types/TileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
 import NumberInput from '@/components/NumberInput';
@@ -25,11 +24,17 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
     group: 'setlist',
   });
 
-  const { register, getValues, setValue, getSongDisplayDetails, activeFilters, onRemove } =
-    commonTileProps;
+  const {
+    register,
+    getValues,
+    setValue,
+    getSongDisplayDetails,
+    activeFilters,
+    onRemove,
+  } = commonTileProps;
 
   // Callback to master song state to fetch presentation layers cleanly
-  const metadata: SetlistTileType = getSongDisplayDetails(field.songId) ?? {
+  const metadata: SongType = getSongDisplayDetails(field.songId) ?? {
     id: field.songId,
     title: 'unknown',
     artist: '',
@@ -37,12 +42,10 @@ const SetlistTile = ({ field, index, commonTileProps }: SetlistTileProps) => {
     key: '',
     tempo: '',
     instrumentation: [],
-    notes: '',
-    transitionTime: {},
     duration: 0,
   };
 
-  const formatters: Record<keyof SongType, (s: SetlistTileType) => string> = {
+  const formatters: Record<keyof SongType, (s: SongType) => string> = {
     id: (s) => s.id,
     title: (s) => s.title,
     artist: (s) => s.artist,

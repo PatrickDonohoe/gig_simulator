@@ -20,4 +20,12 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     exclude: [...configDefaults.exclude, 'src/**/*.cy.{ts,tsx}'],
   },
+  optimizeDeps: {
+    include: ['react-dom/client', 'react', 'react-dom'],
+    rolldownOptions: {
+      output: {
+        minify: false,
+      }
+    }
+  },
 });

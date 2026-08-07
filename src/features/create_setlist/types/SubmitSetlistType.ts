@@ -1,5 +1,7 @@
+import type { SetlistRow } from "@/features/create_setlist/types/SetlistRow";
+
 export interface SubmitSetlistType {
   setlistId: string;
   setlistName: string;
-  songIds: string[];
+  setlistSongs: SetlistRow[];
 }

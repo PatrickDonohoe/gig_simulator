@@ -12,6 +12,8 @@ const SetlistTileWrapper = (props: {
   onClick: SetlistTileProps['commonTileProps']['onClick'];
   resetFilters: SetlistTileProps['commonTileProps']['resetFilters'];
   handleFilter: SetlistTileProps['commonTileProps']['handleFilter'];
+  setValue: SetlistTileProps['commonTileProps']['setValue'];
+  getValues: SetlistTileProps['commonTileProps']['getValues'];
 }) => {
   const { register, control } = useForm<FormValues>({
     defaultValues: {
@@ -42,6 +44,8 @@ const SetlistTileWrapper = (props: {
         onRemove: props.onRemove,
         handleFilter: props.handleFilter,
         resetFilters: props.resetFilters,
+        setValue: props.setValue,
+        getValues: props.getValues,
       }}
     />
   );
@@ -70,6 +74,8 @@ describe('<SetlistTile>', () => {
     const mockRemove = cy.stub();
     const mockHandle = cy.stub();
     const mockReset = cy.stub();
+    const mockSet = cy.stub();
+    const mockGet = cy.stub();
 
     // Passing simple mock arrays and the stubbed functions into the wrapper
     cy.mount(
@@ -86,14 +92,16 @@ describe('<SetlistTile>', () => {
         onClick={mockClick}
         handleFilter={mockHandle}
         resetFilters={mockReset}
+        setValue={mockSet}
+        getValues={mockGet}
       />,
     );
 
     // verifying it works
     cy.get('input').should('exist');
     cy.get('[data-cy=notes]').should('have.text', 'Opener');
-    cy.get('[data-cy=min_tran]').should('have.value', '1');
-    cy.get('[data-cy=sec_tran]').should('have.value', '30');
+    cy.get('[data-cy=minutes_tran]').should('have.value', '1');
+    cy.get('[data-cy=seconds_tran]').should('have.value', '30');
     cy.get('h2')
       .should('be.visible')
       .and(
@@ -101,5 +109,5 @@ describe('<SetlistTile>', () => {
         'Enter a custom transition time if different from the default.',
       );
   });
-  it('displays ');
+  // it('displays ');
 });

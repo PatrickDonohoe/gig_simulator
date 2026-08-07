@@ -3,9 +3,8 @@ import { useState } from 'react';
 
 import { saveSong } from '@/utils/songStorage';
 import type { SongType } from '@/types/SongType';
-import type { SetlistTileType } from '@/types/SetlistTileType';
 import type { DurationInput } from '@/types/DurationInput';
-import { totalSeconds } from '@/utils/addTimeDurations';
+import { totalSeconds } from '@/utils/add_time/addTimeDurations';
 import type { AddSongFormProps } from '../components/add_song/AddSongForm';
 
 export type SubmitSong = Omit<SongType, 'id'>;
@@ -18,7 +17,7 @@ export interface AddSongFormValues extends Omit<
   duration: DurationInput;
 }
 
-const useAddSong = (onSave: (newSong: SetlistTileType) => void) => {
+const useAddSong = (onSave: (newSong: SongType) => void) => {
   const [isAddSong, setIsAddSong] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,13 +49,11 @@ const useAddSong = (onSave: (newSong: SetlistTileType) => void) => {
 
   const addSong = (data: AddSongFormValues) => {
     const songId: string = crypto.randomUUID();
-    const extendedData: SetlistTileType = {
+    const extendedData: SongType = {
       ...data,
       instrumentation: data.instrumentation.map((i) => i.value).filter(Boolean),
       duration: totalSeconds([data.duration]),
       id: songId,
-      transitionTime: { hours: 0, minutes: 0, seconds: 0 },
-      notes: '',
     };
 
     try {

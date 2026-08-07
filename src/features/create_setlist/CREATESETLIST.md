@@ -86,10 +86,11 @@ transition time or notes data.
 - [ ] Add min/max width to the setlist portion of the parent grid in
       CreateSetlistPage. There is no need for it to cover the rest of the page
       on wide screens.
-- [ ] Add sort feature to the sidebar/library with song duration in the tile or
-      next to it.
-- [ ] Add setlist duration to setlist header next to the title.
-- [ ] Add transition time default input. It should setValue for transition times
-      in the current setlist.
-- [ ] Fix song submission to not include transition time and notes.
-- [ ] Fix setlist submission to include transition time and notes.
+- [ ] Add sort feature to the sidebar/library.
+- [x] Add song duration to sidebar tile.
+- [x] Add setlist duration to setlist header next to the title.
+- [-] Add transition time default input. It should setValue for transition times
+      in the current setlist **skip this feature for now**.
+- [x] Fix song submission to not include transition time and notes.
+- [x] Fix setlist submission to include transition time and notes.
+- [ ] Need a test for sidebar tile.

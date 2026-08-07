@@ -30,6 +30,7 @@ const NumberInput = ({
   getValues,
 }: InputProps) => {
   const fieldName = `setlist.${index}.transitionTime.${id}` as const;
+  
   return (
     <div className="flex gap-2">
       <label className="flex gap-2">

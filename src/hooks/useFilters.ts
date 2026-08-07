@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { SongType } from '@/types/SongType';
 
 type SongTypeKeys = keyof SongType;
-export type FilterType = Exclude<SongTypeKeys, 'title'>;
+export type FilterType = Exclude<SongTypeKeys, 'title' | 'id' | 'key'>;
 
 const useFilters = () => {
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);

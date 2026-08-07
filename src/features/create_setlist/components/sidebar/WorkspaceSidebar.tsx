@@ -47,7 +47,7 @@ const WorkspaceSidebar = ({ tiles, common }: SidebarProps) => {
           className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isDropTarget ? 'bg-accent' : 'bg-menu'}`}
         >
           {tiles.length > 0 ? (
-            <Library tiles={tiles} common={rest} />
+            <Library data-cy='library' tiles={tiles} common={rest} />
           ) : (
             <NoDataFound text="Your library is currently empty. Click the button above to add a song." />
           )}

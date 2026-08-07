@@ -6,14 +6,14 @@ import Setlist from './components/setlist/Setlist';
 import useSetlist from './hooks/useSetlist';
 import { getAllSongs } from '@/utils/songStorage';
 import useFilters from '@/hooks/useFilters';
-import type { SetlistTileType } from '@/types/SetlistTileType';
 import AddSongForm from './components/add_song/AddSongForm';
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
 import useAddSong from './hooks/useAddSong';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
+import type { SongType } from '@/types/SongType';
 
 const CreateSetlistPage = () => {
-  const [allSongs, setAllSongs] = useState<SetlistTileType[]>(() =>
+  const [allSongs, setAllSongs] = useState<SongType[]>(() =>
     getAllSongs(),
   );
 
@@ -29,11 +29,12 @@ const CreateSetlistPage = () => {
     sidebarRemove,
     sidebarAppend,
     handleDragEnd,
+    setlistDuration,
   } = useSetlist(allSongs);
 
   const { activeFilters, handleFilter, resetFilters } = useFilters();
 
-  const handleSongAdded = (newSong: SetlistTileType) => {
+  const handleSongAdded = (newSong: SongType) => {
     setAllSongs((prev) => [...prev, newSong]);
     sidebarAppend({ songId: newSong.id });
   };
@@ -67,7 +68,7 @@ const CreateSetlistPage = () => {
       <div data-cy="page" className="grid min-h-0 flex-1 grid-cols-[24rem_1fr]">
         <WorkspaceSidebar tiles={sidebarArr} common={commonSidebarTileProps} />
 
-        <Setlist tiles={setlistArr} commonTileProps={commonSetlistTileProps} />
+        <Setlist tiles={setlistArr} commonTileProps={commonSetlistTileProps} setlistDuration={setlistDuration} />
 
         {/* Modals: */}
         {isAddSong && (

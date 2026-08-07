@@ -1,9 +1,11 @@
 import { useSortable } from '@dnd-kit/react/sortable';
 
-import type { FormValues } from '../hooks/useSetlist';
+import type { FormValues } from '../../../hooks/useSetlist';
 import type { FieldArrayWithId } from 'react-hook-form';
-import type { CommonTileProps } from '../types/CommonTileProps';
+import type { CommonTileProps } from '../../../types/CommonTileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
+import { timeBreakdown, formatDuration } from '@/utils/add_time/addTimeDurations';
+import type { DurationInput } from '@/types/DurationInput';
 
 export interface SidebarTileProps {
   field: FieldArrayWithId<FormValues, 'sidebar', 'id'>;
@@ -20,21 +22,29 @@ const SidebarTile = ({ field, index, commonTileProps }: SidebarTileProps) => {
     group: 'sidebar',
   });
 
+  // bundle of props passed down from useSetlist
   const { getSongDisplayDetails, register, onRemove } = commonTileProps;
 
+  // data about each song
   const metadata = getSongDisplayDetails(field.songId);
+
+  // song duration broken down into hours, minutes, seconds format.
+  const songLength: DurationInput = timeBreakdown(metadata?.duration ?? 0);
 
   return (
     <article
       ref={ref}
       id="sidebar_tile"
       data-cy="tile"
-      className="flex w-full overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 max-h-18 text-text-main"
+      className="flex max-h-18 w-full overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main"
     >
-      <div data-cy="draggable" className="flex items-center justify-between">
+      <div data-cy="draggable" className="flex items-center gap-4">
         <input type="hidden" {...register(`sidebar.${index}.songId`)} />
         <span data-cy="song_title" className="underline">
           {metadata?.title ?? 'unknown'}
+        </span>
+        <span>
+          {formatDuration(songLength.minutes)}:{formatDuration(songLength.seconds)}
         </span>
       </div>
 

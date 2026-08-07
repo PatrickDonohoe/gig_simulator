@@ -42,6 +42,8 @@ describe('<WorkspaceSidebar>', () => {
     const mockHandle = cy.stub();
     const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+    const mockSet = cy.stub();
+    const mockGet = cy.stub();
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -51,6 +53,8 @@ describe('<WorkspaceSidebar>', () => {
       onRemove: mockRemove,
       handleFilter: mockHandle,
       resetFilters: mockReset,
+      setValue: mockSet,
+      getValues: mockGet,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);
@@ -67,6 +71,8 @@ describe('<WorkspaceSidebar>', () => {
     const mockHandle = cy.stub();
     const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+    const mockSet = cy.stub();
+    const mockGet = cy.stub();
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -76,11 +82,12 @@ describe('<WorkspaceSidebar>', () => {
       onRemove: mockRemove,
       handleFilter: mockHandle,
       resetFilters: mockReset,
+      setValue: mockSet,
+      getValues: mockGet,
     };
 
     cy.mount(<WorkspaceSidebar tiles={tiles} common={mockCommon} />);
 
-    cy.get('[data-cy=work_tile_list').should('be.visible');
     cy.get('[data-cy=tile]').should('be.visible');
   });
 });

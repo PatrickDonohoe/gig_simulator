@@ -27,6 +27,8 @@ describe('<Setlist>', () => {
     const mockHandle = cy.stub();
     const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+    const mockSet = cy.stub();
+    const mockGet = cy.stub();
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -36,6 +38,8 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       handleFilter: mockHandle,
       resetFilters: mockReset,
+      setValue: mockSet,
+      getValues: mockGet,
     };
 
     const tiles: SetlistProps['tiles'] = [
@@ -53,7 +57,7 @@ describe('<Setlist>', () => {
       },
     ];
 
-    cy.mount(<Setlist tiles={tiles} commonTileProps={mockCommon} />);
+    cy.mount(<Setlist tiles={tiles} commonTileProps={mockCommon} setlistDuration={5} />);
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
@@ -66,6 +70,8 @@ describe('<Setlist>', () => {
     const mockHandle = cy.stub();
     const mockReset = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+    const mockSet = cy.stub();
+    const mockGet = cy.stub();
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -75,9 +81,11 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       handleFilter: mockHandle,
       resetFilters: mockReset,
+      setValue: mockSet,
+      getValues: mockGet,
     };
 
-    cy.mount(<Setlist tiles={[]} commonTileProps={mockCommon} />);
+    cy.mount(<Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} />);
 
     cy.get('[data-cy=list]').should('not.exist');
     cy.get('[data-cy=setlist-fallback');

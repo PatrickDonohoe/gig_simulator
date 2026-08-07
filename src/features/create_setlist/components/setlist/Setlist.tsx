@@ -14,9 +14,10 @@ import SetlistHeader from '@/features/create_setlist/components/setlist/SetlistH
 export interface SetlistProps {
   tiles: FieldArrayWithId<FormValues, 'setlist'>[];
   commonTileProps: CommonTileProps; // submit function passed also;
+  setlistDuration: number;
 }
 
-const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
+const Setlist = ({ tiles, commonTileProps, setlistDuration }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
 
   return (
@@ -25,7 +26,7 @@ const Setlist = ({ tiles, commonTileProps }: SetlistProps) => {
       data-cy="setlist"
       className="flex h-full flex-col gap-2 pb-2 bg-primary"
     >
-      <SetlistHeader {...commonTileProps} />
+      <SetlistHeader {...commonTileProps} setlistDuration={setlistDuration} />
       <div
         ref={ref}
         className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}

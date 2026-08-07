@@ -3,7 +3,7 @@ import type { FieldArrayWithId } from 'react-hook-form';
 import type { FormValues } from '@/features/create_setlist/hooks/useSetlist';
 import SidebarTile, {
   type SidebarTileProps,
-} from '@/features/create_setlist/components/SidebarTile';
+} from '@/features/create_setlist/components/sidebar/sidebar_tile/SidebarTile';
 
 export interface LibraryProps {
   tiles: FieldArrayWithId<FormValues, 'sidebar'>[];
@@ -17,14 +17,14 @@ const Library = ({ tiles, common }: LibraryProps) => {
     //   data-cy="work_tile_list"
     //   className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4"
     // >
-      tiles.map((t, index) => (
-        <SidebarTile
-          key={t.id}
-          field={t}
-          commonTileProps={common}
-          index={index}
-        />
-      ))
+    tiles.map((t, index) => (
+      <SidebarTile
+        key={t.id}
+        field={t}
+        commonTileProps={common}
+        index={index}
+      />
+    ))
     // </ul>
   );
 };

@@ -8,10 +8,8 @@ interface HeaderFilterProps {
 }
 
 const filters: FilterType[] = [
-  'id',
   'artist',
   'genre',
-  'key',
   'tempo',
   'duration',
   'instrumentation',
