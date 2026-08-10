@@ -65,7 +65,7 @@ const CreateSetlistPage = () => {
 
   return (
     <DragDropProvider onDragEnd={handleDragEnd}>
-      <div data-cy="page" className="grid min-h-0 flex-1 grid-cols-[24rem_1fr]">
+      <div data-cy="page" className="min-h-0 flex-1 flex">
         <WorkspaceSidebar tiles={sidebarArr} common={commonSidebarTileProps} />
 
         <Setlist tiles={setlistArr} commonTileProps={commonSetlistTileProps} setlistDuration={setlistDuration} />

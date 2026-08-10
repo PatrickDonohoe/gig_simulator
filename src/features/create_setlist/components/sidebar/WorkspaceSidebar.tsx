@@ -26,7 +26,7 @@ const WorkspaceSidebar = ({ tiles, common }: SidebarProps) => {
   return (
     <aside
       id="workspace_sidebar"
-      className="flex min-h-0 flex-col gap-4 bg-bg-main border-r-2 border-border-bold p-4"
+      className="flex flex-2 min-h-0 flex-col gap-4 bg-bg-main border-r-2 border-border-bold p-4"
     >
       <SidebarHeader onClick={onClick} />
 

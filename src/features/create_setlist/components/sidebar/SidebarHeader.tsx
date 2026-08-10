@@ -6,8 +6,8 @@ const SidebarHeader = ({
   onClick: CommonTileProps['onClick'];
 }) => {
   return (
-    <header id="work_sidebar_headers" className="flex flex-col font-semibold text-text-main">
-      <div className="flex flex-col items-center justify-between bg-accent p-2 lg:flex-row rounded-t-xl">
+    <header id="work_sidebar_headers" className="flex flex-col font-semibold text-text-main border border-border-bold rounded-xl overflow-hidden bg-primary">
+      <div className="flex flex-col items-center justify-between p-2 lg:flex-row border-b border-border-bold overflow-hidden">
         <h1 data-cy="h1" className="text-xl">
           Workspace
         </h1>

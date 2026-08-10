@@ -94,3 +94,11 @@ transition time or notes data.
 - [x] Fix song submission to not include transition time and notes.
 - [x] Fix setlist submission to include transition time and notes.
 - [ ] Need a test for sidebar tile.
+- [x] sidebar tile small breakpoint flex-col time & trash
+- [x] save setlist button small breakpoint "+" & text flex-col items-center
+- [x] filters less y space
+- [x] navbar small breakpoint match larger y spacing/height
+- [ ] watermark art for blank setlist
+- [x] fix navbar overflow on right side at small breakpoint
+- [x] make setlist header smaller y axis
+- [x] larger text breakpoint on save setlist button

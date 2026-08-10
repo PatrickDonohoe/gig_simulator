@@ -24,12 +24,12 @@ const Setlist = ({ tiles, commonTileProps, setlistDuration }: SetlistProps) => {
     <section
       id="setlist"
       data-cy="setlist"
-      className="flex h-full flex-col gap-2 pb-2 bg-primary"
+      className="flex flex-8 h-full flex-col gap-2 pb-2 bg-primary"
     >
       <SetlistHeader {...commonTileProps} setlistDuration={setlistDuration} />
       <div
         ref={ref}
-        className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'flex-1 bg-periwinkle'}`}
+        className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
       >
         {tiles.length > 0 ? (
           <ul className="flex flex-col gap-4 lg:gap-6" data-cy="list">

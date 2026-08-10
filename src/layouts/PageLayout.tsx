@@ -8,7 +8,7 @@ import HeaderLayout from '@/layouts/components/HeaderLayout';
 const PageLayout = () => {
   return (
     <ThemeProvider>
-      <div id="page_layout" className="flex h-screen flex-col bg-bg-main">
+      <div id="page_layout" className="flex h-screen flex-col bg-bg-main overflow-x-auto">
         <HeaderLayout />
         <div className="flex min-h-0 flex-1 flex-col">
           <Outlet />

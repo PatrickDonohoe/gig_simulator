@@ -36,25 +36,25 @@ const SidebarTile = ({ field, index, commonTileProps }: SidebarTileProps) => {
       ref={ref}
       id="sidebar_tile"
       data-cy="tile"
-      className="flex max-h-18 w-full overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main"
+      className="flex justify-between gap-2 max-h-18 w-full overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main"
     >
-      <div data-cy="draggable" className="flex items-center gap-4">
         <input type="hidden" {...register(`sidebar.${index}.songId`)} />
-        <span data-cy="song_title" className="underline">
+        <span data-cy="song_title" className="underline truncate">
           {metadata?.title ?? 'unknown'}
         </span>
-        <span>
-          {formatDuration(songLength.minutes)}:{formatDuration(songLength.seconds)}
-        </span>
-      </div>
-
-      <button
-        data-cy="remove"
-        className="flex-none p-2"
-        onClick={() => onRemove(index)}
-      >
-        <TrashCan className="size-4" />
-      </button>
+        <div className="flex flex-col items-center md:flex-row gap-1">
+          <span>
+            {formatDuration(songLength.minutes)}:{formatDuration(songLength.seconds)}
+          </span>
+          
+                <button
+          data-cy="remove"
+          className="flex-none p-2"
+          onClick={() => onRemove(index)}
+                >
+          <TrashCan className="size-4" />
+                </button>
+        </div>
     </article>
   );
 };
