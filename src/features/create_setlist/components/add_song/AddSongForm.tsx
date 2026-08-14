@@ -50,7 +50,7 @@ const AddSongForm = ({
         <button
           data-cy="close"
           type="button"
-          className="col-start-3 justify-self-end rounded-xl border-2 bg-bg-main hover:bg-primary-hover border-border-bold px-4 py-2 font-bold text-text-main hover:text-accent"
+          className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent"
           onClick={() => handleIsAddSong(false)}
         >
           X

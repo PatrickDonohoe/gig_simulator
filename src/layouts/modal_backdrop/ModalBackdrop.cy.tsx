@@ -1,5 +1,7 @@
-import ModalBackdrop from "./ModalBackdrop";
-import AddSongForm, { type AddSongFormProps } from "@/features/create_setlist/components/add_song/AddSongForm";
+import ModalBackdrop from './ModalBackdrop';
+import AddSongForm, {
+  type AddSongFormProps,
+} from '@/features/create_setlist/components/add_song/AddSongForm';
 
 describe('<ModalBackdrop>', () => {
   it('mounts and shows a background color', () => {
@@ -20,10 +22,18 @@ describe('<ModalBackdrop>', () => {
       handleIsAddSong: cy.stub().as('handleIsAddSong'),
     };
 
-    cy.mount(<ModalBackdrop handleClose={mockClose}><AddSongForm {...mockProps} /></ModalBackdrop>);
+    cy.mount(
+      <ModalBackdrop handleClose={mockClose}>
+        <AddSongForm {...mockProps} />
+      </ModalBackdrop>,
+    );
 
     cy.get('[data-cy=modal_layout]');
     cy.get('[data-cy=centering_div_ML]');
-    cy.get('[data-cy=modal_layout]').should('have.css', 'color', 'rgb(0, 0, 0)');
-  })
-})
+    cy.get('[data-cy=modal_layout]').should(
+      'have.css',
+      'color',
+      'rgb(0, 0, 0)',
+    );
+  });
+});

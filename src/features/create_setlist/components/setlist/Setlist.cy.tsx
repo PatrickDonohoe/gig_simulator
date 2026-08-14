@@ -57,7 +57,13 @@ describe('<Setlist>', () => {
       },
     ];
 
-    cy.mount(<Setlist tiles={tiles} commonTileProps={mockCommon} setlistDuration={5} />);
+    cy.mount(
+      <Setlist
+        tiles={tiles}
+        commonTileProps={mockCommon}
+        setlistDuration={5}
+      />,
+    );
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
@@ -85,7 +91,9 @@ describe('<Setlist>', () => {
       getValues: mockGet,
     };
 
-    cy.mount(<Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} />);
+    cy.mount(
+      <Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} />,
+    );
 
     cy.get('[data-cy=list]').should('not.exist');
     cy.get('[data-cy=setlist-fallback');

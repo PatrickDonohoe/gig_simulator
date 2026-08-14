@@ -61,9 +61,9 @@ describe('<AddSongForm>', () => {
 
   it('calls the submit function when the submit button is clicked.', () => {
     const submitAddSong = cy
-    .stub()
-    .callsFake((e: SubmitEvent) => e.preventDefault())
-    .as('submitAddSong');
+      .stub()
+      .callsFake((e: SubmitEvent) => e.preventDefault())
+      .as('submitAddSong');
     cy.mount(<AddSongForm {...buildProps({ submitAddSong })} />);
 
     cy.getByData('submit_button').click();

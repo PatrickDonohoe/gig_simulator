@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 export interface NavLinkProps {
   address: string;
@@ -11,12 +11,12 @@ const NavbarLink = ({ address, label, icon }: NavLinkProps) => {
     <NavLink
       to={address}
       className={({ isActive }) =>
-        `${isActive ? 'bg-primary text-white' : 'bg-bg-main text-text-main'} flex hover:bg-border-subtle justify-between items-center px-2 gap-1`
+        `${isActive ? 'bg-primary text-white' : 'bg-bg-main text-text-main'} flex items-center justify-between gap-1 px-2 hover:bg-border-subtle`
       }
     >
-      <div className="size-8 flex justify-center items-center">{icon}</div>
-      
-      <span className='text-sm lg:text-base md:flex-nowrap'>{label}</span>
+      <div className="flex size-8 items-center justify-center">{icon}</div>
+
+      <span className="text-sm md:flex-nowrap lg:text-base">{label}</span>
     </NavLink>
   );
 };

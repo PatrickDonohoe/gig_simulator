@@ -4,7 +4,8 @@ import type { FieldArrayWithId } from 'react-hook-form';
 import SetlistTile from '../SetlistTile/SetlistTile';
 import type { FormValues } from '../../hooks/useSetlist';
 import type { CommonTileProps } from '../../types/CommonTileProps';
-import SetlistHeader from '@/features/create_setlist/components/setlist/SetlistHeader';
+import SetlistHeader from '@/components/SetlistHeader';
+import SetlistShell from '@/layouts/components/SetlistShell';
 
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
@@ -19,14 +20,27 @@ export interface SetlistProps {
 
 const Setlist = ({ tiles, commonTileProps, setlistDuration }: SetlistProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
+  const { register, onClick, ...rest } = commonTileProps;
 
   return (
-    <section
-      id="setlist"
-      data-cy="setlist"
-      className="flex flex-8 h-full flex-col gap-2 pb-2 bg-primary"
-    >
-      <SetlistHeader {...commonTileProps} setlistDuration={setlistDuration} />
+    <SetlistShell>
+      <SetlistHeader {...rest} setlistDuration={setlistDuration}>
+        <input
+          data-cy="title"
+          type="text"
+          className="grow rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted lg:col-start-2"
+          placeholder="New Setlist #1"
+          {...register('setlistName')}
+        />
+        <button
+          data-cy="submit"
+          type="submit"
+          className="flex flex-3 flex-row items-center justify-center gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg"
+          onClick={onClick}
+        >
+          <span>+</span> <span>Save Setlist</span>
+        </button>
+      </SetlistHeader>
       <div
         ref={ref}
         className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
@@ -56,7 +70,7 @@ const Setlist = ({ tiles, commonTileProps, setlistDuration }: SetlistProps) => {
           </div>
         )}
       </div>
-    </section>
+    </SetlistShell>
   );
 };
 export default Setlist;

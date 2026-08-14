@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import ThemeProvider from '@/context/ThemeProvider';
 import HeaderLayout from '@/layouts/components/HeaderLayout';
@@ -8,7 +8,10 @@ import HeaderLayout from '@/layouts/components/HeaderLayout';
 const PageLayout = () => {
   return (
     <ThemeProvider>
-      <div id="page_layout" className="flex h-screen flex-col bg-bg-main overflow-x-auto">
+      <div
+        id="page_layout"
+        className="flex h-screen flex-col overflow-x-auto bg-bg-main"
+      >
         <HeaderLayout />
         <div className="flex min-h-0 flex-1 flex-col">
           <Outlet />

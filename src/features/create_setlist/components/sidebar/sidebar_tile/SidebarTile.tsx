@@ -4,7 +4,10 @@ import type { FormValues } from '../../../hooks/useSetlist';
 import type { FieldArrayWithId } from 'react-hook-form';
 import type { CommonTileProps } from '../../../types/CommonTileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
-import { timeBreakdown, formatDuration } from '@/utils/add_time/addTimeDurations';
+import {
+  timeBreakdown,
+  formatDuration,
+} from '@/utils/add_time/addTimeDurations';
 import type { DurationInput } from '@/types/DurationInput';
 
 export interface SidebarTileProps {
@@ -36,25 +39,26 @@ const SidebarTile = ({ field, index, commonTileProps }: SidebarTileProps) => {
       ref={ref}
       id="sidebar_tile"
       data-cy="tile"
-      className="flex justify-between gap-2 max-h-18 w-full overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main"
+      className="flex max-h-18 w-full justify-between gap-2 overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main"
     >
-        <input type="hidden" {...register(`sidebar.${index}.songId`)} />
-        <span data-cy="song_title" className="underline truncate">
-          {metadata?.title ?? 'unknown'}
+      <input type="hidden" {...register(`sidebar.${index}.songId`)} />
+      <span data-cy="song_title" className="truncate underline">
+        {metadata?.title ?? 'unknown'}
+      </span>
+      <div className="flex flex-col items-center gap-1 md:flex-row">
+        <span>
+          {formatDuration(songLength.minutes)}:
+          {formatDuration(songLength.seconds)}
         </span>
-        <div className="flex flex-col items-center md:flex-row gap-1">
-          <span>
-            {formatDuration(songLength.minutes)}:{formatDuration(songLength.seconds)}
-          </span>
-          
-                <button
+
+        <button
           data-cy="remove"
           className="flex-none p-2"
           onClick={() => onRemove(index)}
-                >
+        >
           <TrashCan className="size-4" />
-                </button>
-        </div>
+        </button>
+      </div>
     </article>
   );
 };

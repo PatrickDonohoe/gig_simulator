@@ -9,7 +9,7 @@ const ModalBackdrop = ({ handleClose, children }: ModalProps) => {
       <div
         id="modal_layout"
         data-cy="modal_layout"
-        className="bg-black/50 fixed top-0 right-0 left-0 z-40 h-screen min-h-full"
+        className="fixed top-0 right-0 left-0 z-40 h-screen min-h-full bg-black/50"
         onClick={handleClose}
       />
 
@@ -17,7 +17,7 @@ const ModalBackdrop = ({ handleClose, children }: ModalProps) => {
       <div
         id="centering_div_ML"
         data-cy="centering_div_ML"
-        className="pointer-events-none overlflow-y-auto fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="overlflow-y-auto pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4"
       >
         <div
           id="modal_children_wrapper"

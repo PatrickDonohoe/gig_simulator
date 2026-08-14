@@ -25,7 +25,10 @@ const HeaderFilters = ({
       <h2 className="text-center text-xl font-semibold text-text-main">
         Filters:
       </h2>
-      <div data-cy='filters' className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+      <div
+        data-cy="filters"
+        className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2"
+      >
         {filters.map((f) => (
           <Filter
             key={f}
@@ -36,7 +39,7 @@ const HeaderFilters = ({
         ))}
 
         <button
-          className="flex-none font-semibold rounded-md ring bg-bg-main ring-border-bold px-4 text-text-main underline hover:text-text-muted hover:bg-bg-surface"
+          className="flex-none rounded-md bg-bg-main px-4 font-semibold text-text-main underline ring ring-border-bold hover:bg-bg-surface hover:text-text-muted"
           onClick={resetFilters}
         >
           Clear All

@@ -13,10 +13,13 @@ const ThemeToggle = () => {
   return (
     <button
       data-cy="button"
-      className='group flex-none w-20 rounded-full border-2 border-border-bold p-1 hover:border-accent bg-bg-surface hover:bg-bg-main text-text-muted hover:text-text-main'
+      className="group w-20 flex-none rounded-full border-2 border-border-bold bg-bg-surface p-1 text-text-muted hover:border-accent hover:bg-bg-main hover:text-text-main"
       onClick={() => handleTheme(isDark ? 'light' : 'dark')}
     >
-      <div data-cy="toggle" className={`relative size-8 ${!isDark && 'translate-x-full'}`}>
+      <div
+        data-cy="toggle"
+        className={`relative size-8 ${!isDark && 'translate-x-full'}`}
+      >
         <Moon
           data-cy="moon"
           className={`absolute inset-0 h-full w-full transition-all duration-300 ease-in-out ${isDark ? `${visible} group-hover:translate-x-1` : notVisible}`}

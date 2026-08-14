@@ -1,5 +1,5 @@
-import type { RouteObject } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import type { RouteObject } from 'react-router';
+import { Navigate } from 'react-router';
 
 import CreateSetlistPage from '@/features/create_setlist/CreateSetlistPage';
 import AnalyticsPage from '@/features/analytics/AnalyticsPage';

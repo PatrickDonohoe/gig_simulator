@@ -13,9 +13,7 @@ import type { CommonTileProps } from '@/features/create_setlist/types/CommonTile
 import type { SongType } from '@/types/SongType';
 
 const CreateSetlistPage = () => {
-  const [allSongs, setAllSongs] = useState<SongType[]>(() =>
-    getAllSongs(),
-  );
+  const [allSongs, setAllSongs] = useState<SongType[]>(() => getAllSongs());
 
   const {
     register,
@@ -32,7 +30,8 @@ const CreateSetlistPage = () => {
     setlistDuration,
   } = useSetlist(allSongs);
 
-  const { activeFilters, handleFilter, resetFilters } = useFilters();
+  const createFilters = useFilters();
+  const { activeFilters, handleFilter, resetFilters } = createFilters;
 
   const handleSongAdded = (newSong: SongType) => {
     setAllSongs((prev) => [...prev, newSong]);
@@ -65,10 +64,14 @@ const CreateSetlistPage = () => {
 
   return (
     <DragDropProvider onDragEnd={handleDragEnd}>
-      <div data-cy="page" className="min-h-0 flex-1 flex">
+      <div data-cy="page" className="flex min-h-0 flex-1">
         <WorkspaceSidebar tiles={sidebarArr} common={commonSidebarTileProps} />
 
-        <Setlist tiles={setlistArr} commonTileProps={commonSetlistTileProps} setlistDuration={setlistDuration} />
+        <Setlist
+          tiles={setlistArr}
+          commonTileProps={commonSetlistTileProps}
+          setlistDuration={setlistDuration}
+        />
 
         {/* Modals: */}
         {isAddSong && (

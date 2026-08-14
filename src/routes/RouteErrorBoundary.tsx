@@ -1,13 +1,13 @@
-import { useRouteError, isRouteErrorResponse, Link } from "react-router-dom";
+import { useRouteError, isRouteErrorResponse, Link } from 'react-router';
 
-import RouteNotFoundFallback from "./RouteNotFoundFallback";
+import RouteNotFoundFallback from './RouteNotFoundFallback';
 
 const RouteErrorBoundary = () => {
   const error = useRouteError();
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
-      return <RouteNotFoundFallback />
+      return <RouteNotFoundFallback />;
     }
   }
 
@@ -15,8 +15,8 @@ const RouteErrorBoundary = () => {
     <div>
       <h2>Something went wrong</h2>
       <p>{error instanceof Error ? error.message : 'Unknown error'}</p>
-      <Link to='/'>Return Home</Link>
+      <Link to="/">Return Home</Link>
     </div>
-  )
-}
-export default RouteErrorBoundary
+  );
+};
+export default RouteErrorBoundary;

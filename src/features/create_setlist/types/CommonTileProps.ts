@@ -1,8 +1,13 @@
-import type { UseFieldArrayRemove, UseFormRegister, UseFormSetValue, UseFormGetValues } from "react-hook-form";
+import type {
+  UseFieldArrayRemove,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormGetValues,
+} from 'react-hook-form';
 
-import type { FormValues } from "../hooks/useSetlist";
-import type { SongType } from "@/types/SongType";
-import type { FilterType } from "@/hooks/useFilters";
+import type { FormValues } from '../hooks/useSetlist';
+import type { SongType } from '@/types/SongType';
+import type { FilterType } from '@/hooks/useFilters';
 
 export interface CommonTileProps {
   register: UseFormRegister<FormValues>;

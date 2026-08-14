@@ -1,4 +1,4 @@
-import type { FilterType } from "@/hooks/useFilters";
+import type { FilterType } from '@/hooks/useFilters';
 
 interface FilterProps {
   isChecked: boolean;
@@ -8,10 +8,16 @@ interface FilterProps {
 
 const Filter = ({ isChecked, id, handleFilter }: FilterProps) => {
   return (
-    <label className="flex items-center gap-2 text-white hover:text-gray-300 bg-primary px-1 rounded-md cursor-pointer hover:bg-primary-hover">
-      <input type="checkbox" name={id} id={id} checked={isChecked} onChange={handleFilter} />
+    <label className="flex cursor-pointer items-center gap-2 rounded-md bg-primary px-1 text-white hover:bg-primary-hover hover:text-gray-300">
+      <input
+        type="checkbox"
+        name={id}
+        id={id}
+        checked={isChecked}
+        onChange={handleFilter}
+      />
       <span className="capitalize">{id}</span>
     </label>
-  )
-}
-export default Filter
+  );
+};
+export default Filter;

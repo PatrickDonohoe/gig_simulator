@@ -25,7 +25,7 @@ export default defineConfig({
     rolldownOptions: {
       output: {
         minify: false,
-      }
-    }
+      },
+    },
   },
 });

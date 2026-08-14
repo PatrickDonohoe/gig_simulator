@@ -1,7 +1,7 @@
-import type { DurationInput } from "@/types/DurationInput";
+import type { DurationInput } from '@/types/DurationInput';
 
 export interface SetlistRow {
   songId: string;
-  notes: string;
+  notes?: string;
   transitionTime: DurationInput;
 }

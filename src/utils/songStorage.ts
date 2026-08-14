@@ -1,6 +1,6 @@
-import z from "zod";
+import z from 'zod';
 
-import {SongTypeSchema, type SongType } from "@/types/SongType";
+import { SongTypeSchema, type SongType } from '@/types/SongType';
 
 // key for all songs data to be retrieved from local storage
 const STORAGE_KEY = 'songs';
@@ -8,7 +8,7 @@ const STORAGE_KEY = 'songs';
 // schema to evaluate the returned record from local storage
 const SongsRecordSchema = z.record(z.string(), SongTypeSchema);
 
-// return all songs 
+// return all songs
 const readAll = (): Record<string, SongType> => {
   const raw: string | null = localStorage.getItem(STORAGE_KEY);
   if (!raw) return {};
@@ -22,7 +22,7 @@ const readAll = (): Record<string, SongType> => {
   }
   const result = SongsRecordSchema.safeParse(json);
   return result.success ? result.data : {};
-}
+};
 
 export const saveSong = (song: SongType): void => {
   const all = readAll();

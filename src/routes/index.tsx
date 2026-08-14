@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router';
 
 import PageLayout from '@/layouts/PageLayout';
 import { DashRoutes } from './DashRoutes';
@@ -8,7 +8,7 @@ import LandingPage from '@/features/landing_page/LandingPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPage />
+    element: <LandingPage />,
   },
   {
     path: '/dash',

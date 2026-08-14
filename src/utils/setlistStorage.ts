@@ -1,4 +1,4 @@
-import type { SubmitSetlistType } from "@/features/create_setlist/types/SubmitSetlistType";
+import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 
 const STORAGE_KEY = 'setlists';
 

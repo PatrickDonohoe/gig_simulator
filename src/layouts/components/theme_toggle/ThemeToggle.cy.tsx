@@ -18,19 +18,23 @@ const mountWithTheme = (overrides: Partial<ThemeContextType> = {}) => {
   );
 };
 
-const StatefulThemeToggle = ({ initial }: { initial: ThemeContextType['resolvedTheme']}) => {
+const StatefulThemeToggle = ({
+  initial,
+}: {
+  initial: ThemeContextType['resolvedTheme'];
+}) => {
   const [resolvedTheme, setResolvedTheme] = useState(initial);
   const value: ThemeContextType = {
     theme: resolvedTheme,
     resolvedTheme,
-    handleTheme: (t) => setResolvedTheme(t as typeof resolvedTheme)
-  }
+    handleTheme: (t) => setResolvedTheme(t as typeof resolvedTheme),
+  };
   return (
     <ThemeContext.Provider value={value}>
       <ThemeToggle />
     </ThemeContext.Provider>
-  )
-}
+  );
+};
 
 describe('<ThemeToggle>', () => {
   it('calls handleTheme and changes theme when clicked', () => {
@@ -56,7 +60,7 @@ describe('<ThemeToggle>', () => {
   });
 
   it('changes the visible icon after click', () => {
-    cy.mount(<StatefulThemeToggle initial='light' />);
+    cy.mount(<StatefulThemeToggle initial="light" />);
 
     cy.getByData('button').click();
 
