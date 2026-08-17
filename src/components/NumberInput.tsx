@@ -4,7 +4,7 @@ import type {
   UseFormGetValues,
 } from 'react-hook-form';
 
-import type { FormValues } from '@/features/create_setlist/hooks/useSetlist';
+import type { FormValues } from '@/features/create_setlist/hooks/use_setlist/useSetlist';
 import Minus from '@icons/minus-square-svgrepo-com.svg?react';
 import Plus from '@icons/add-square-svgrepo-com.svg?react';
 

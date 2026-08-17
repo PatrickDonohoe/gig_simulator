@@ -5,7 +5,7 @@ import type {
   UseFormGetValues,
 } from 'react-hook-form';
 
-import type { FormValues } from '../hooks/useSetlist';
+import type { FormValues } from '../hooks/use_setlist/useSetlist';
 import type { SongType } from '@/types/SongType';
 import type { FilterType } from '@/hooks/useFilters';
 

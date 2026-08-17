@@ -2,11 +2,17 @@ import { useForm, useFieldArray, useWatch } from 'react-hook-form';
 import type { DragEndEvent } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 
-import type { SubmitSetlistType } from '../types/SubmitSetlistType';
-import type { SetlistRow } from '../types/SetlistRow';
-import { saveSetList } from '@/utils/setlistStorage';
+import type { SubmitSetlistType } from '../../types/SubmitSetlistType';
+import type { SetlistRow } from '../../types/SetlistRow';
+import { saveSetList } from '@/utils/setlist_storage/setlistStorage';
 import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
+import {
+  resolveDragOperation,
+  toSetlistRow,
+  toSidebarItem,
+  type Group,
+} from './dragOperations';
 
 // Need a default transition time that can be changed and reflected in the form.
 // Need a sync button to make other times match.
@@ -88,11 +94,9 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     if (!source || !target || !isSortable(source)) return;
 
     // Labeling the source and target groups as something relevant to the component
-    const fromGroup = source.initialGroup as 'sidebar' | 'setlist';
+    const fromGroup = source.initialGroup as Group;
     const targetIsSortable = isSortable(target);
-    const toGroup = (targetIsSortable ? target.group : target.id) as
-      | 'sidebar'
-      | 'setlist';
+    const toGroup = (targetIsSortable ? target.group : target.id) as Group;
 
     // Labeling the index of the starting and ending places in their arrays.
     const fromIndex = source.initialIndex;
@@ -102,43 +106,38 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
         ? sidebarFields.fields.length
         : setlistFields.fields.length;
 
-    // Internal movement within the same group
-    if (fromGroup === toGroup) {
-      if (fromIndex === toIndex) return; // if the item didn't move, return
+    const operation = resolveDragOperation(
+      fromGroup,
+      toGroup,
+      fromIndex,
+      toIndex,
+    );
 
-      if (fromGroup === 'sidebar') sidebarFields.move(fromIndex, toIndex);
-      if (fromGroup === 'setlist') setlistFields.move(fromIndex, toIndex);
-      return;
-    }
+    switch (operation.type) {
+      case 'none':
+        return;
 
-    // Transfer from sidebar -> setlist
-    if (fromGroup === 'sidebar' && toGroup === 'setlist') {
-      const movingData = sidebarFields.fields[fromIndex];
+      case 'move':
+        if (operation.group === 'sidebar') {
+          sidebarFields.move(operation.fromIndex, operation.toIndex);
+        } else {
+          setlistFields.move(operation.fromIndex, operation.toIndex);
+        }
+        return;
 
-      // Injecting into target location
-      setlistFields.insert(toIndex, {
-        songId: movingData.songId,
-        notes: '', // initializing default fields on arrival
-        transitionTime: { hours: 0, minutes: 0, seconds: 0 }, // other default field
-      });
+      case 'sidebarToSetlist': {
+        const movingData = sidebarFields.fields[operation.fromIndex];
+        setlistFields.insert(operation.toIndex, toSetlistRow(movingData));
+        sidebarFields.remove(operation.fromIndex);
+        return;
+      }
 
-      // Deleting song from sidebar
-      sidebarFields.remove(fromIndex);
-      return;
-    }
-
-    // Transfer from setlist -> sidebar
-    if (fromGroup === 'setlist' && toGroup === 'sidebar') {
-      const movingData = setlistFields.fields[fromIndex];
-
-      // Adding the song to the sidebar with only the necessary data
-      sidebarFields.insert(toIndex, {
-        songId: movingData.songId,
-      });
-
-      // Deleting the song from the setlist
-      setlistFields.remove(fromIndex);
-      return;
+      case 'setlistToSidebar': {
+        const movingData = setlistFields.fields[operation.fromIndex];
+        sidebarFields.insert(operation.toIndex, toSidebarItem(movingData));
+        setlistFields.remove(operation.fromIndex);
+        return;
+      }
     }
   };
 
@@ -149,6 +148,7 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     sidebarRemove: sidebarFields.remove,
     sidebarAppend: sidebarFields.append,
     setlistRemove: setlistFields.remove,
+    setlistAppend: setlistFields.append,
     register,
     setValue,
     getValues,

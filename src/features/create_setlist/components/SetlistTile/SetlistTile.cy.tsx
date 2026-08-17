@@ -2,7 +2,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 
 import SetlistTile from './SetlistTile';
 import type { SetlistTileProps } from './SetlistTile';
-import type { FormValues } from '../../hooks/useSetlist';
+import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 
 // Local wrapper to inject RHF tools
 const SetlistTileWrapper = (props: {

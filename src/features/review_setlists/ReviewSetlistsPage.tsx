@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import useReview from '@/features/review_setlists/hooks/useReview';
+import useReview from '@/features/review_setlists/hooks/use_review/useReview';
 import SetlistSidebar from '@/features/review_setlists/setlist_sidebar/SetlistSidebar';
 import CurrentSetlist from '@/features/review_setlists/current_setlist/CurrentSetlist';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';

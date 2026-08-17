@@ -1,10 +1,11 @@
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
-import CurrentSongs from '@/features/review_setlists/current_setlist/CurrentSongs';
+import { type CurrentSongsProps } from '@/features/review_setlists/current_setlist/CurrentSongs';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
 import type { SetlistTileType } from '@/types/SetlistTileType';
 import SetlistHeader, {
   type SetlistHeaderProps,
 } from '@/components/SetlistHeader';
+import ViewCurrentMainPanel from '@/features/review_setlists/current_setlist/ViewCurrentMainPanel';
 
 export interface ViewCurrentProps {
   songsDisplayData: SetlistTileType[];
@@ -20,6 +21,8 @@ const ViewCurrent = ({
   headerData,
 }: ViewCurrentProps) => {
   const { activeFilters } = headerData;
+
+  const currentSongs: CurrentSongsProps = { songsDisplayData, activeFilters };
   return (
     <div>
       <SetlistHeader {...headerData}>
@@ -44,12 +47,10 @@ const ViewCurrent = ({
         </div>
       </SetlistHeader>
 
-      <section>
-        <CurrentSongs
-          songsDisplayData={songsDisplayData}
-          activeFilters={activeFilters}
-        />
-      </section>
+      <ViewCurrentMainPanel
+        isSongs={songsDisplayData.length > 0}
+        currentSongs={currentSongs}
+      />
     </div>
   );
 };

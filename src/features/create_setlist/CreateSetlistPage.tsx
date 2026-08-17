@@ -3,7 +3,7 @@ import { DragDropProvider } from '@dnd-kit/react';
 
 import WorkspaceSidebar from './components/sidebar/WorkspaceSidebar';
 import Setlist from './components/setlist/Setlist';
-import useSetlist from './hooks/useSetlist';
+import useSetlist from './hooks/use_setlist/useSetlist';
 import { getAllSongs } from '@/utils/songStorage';
 import useFilters from '@/hooks/useFilters';
 import AddSongForm from './components/add_song/AddSongForm';

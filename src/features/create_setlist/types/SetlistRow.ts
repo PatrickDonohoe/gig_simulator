@@ -1,7 +1,11 @@
-import type { DurationInput } from '@/types/DurationInput';
+import z from 'zod';
 
-export interface SetlistRow {
-  songId: string;
-  notes?: string;
-  transitionTime: DurationInput;
-}
+import { DurationSchema } from '@/types/DurationInput';
+
+export const SetlistRowSchema = z.object({
+  songId: z.string(),
+  notes: z.optional(z.string()),
+  transitionTime: DurationSchema,
+});
+
+export type SetlistRow = z.infer<typeof SetlistRowSchema>;

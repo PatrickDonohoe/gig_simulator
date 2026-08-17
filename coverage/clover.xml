@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1786984262294" clover="3.2.0">
+  <project timestamp="1786984262294" name="All files">
+    <metrics statements="131" coveredstatements="98" conditionals="119" coveredconditionals="80" methods="31" coveredmethods="25" elements="281" coveredelements="203" complexity="0" loc="131" ncloc="131" packages="4" files="5" classes="5"/>
+    <package name="features.create_setlist.hooks.use_setlist">
+      <metrics statements="64" coveredstatements="40" conditionals="76" coveredconditionals="44" methods="10" coveredmethods="9"/>
+      <file name="dragOperations.ts" path="C:\Users\patri\Documents\front_end\gig_simulator\gig_simulator\src\features\create_setlist\hooks\use_setlist\dragOperations.ts">
+        <metrics statements="11" coveredstatements="10" conditionals="12" coveredconditionals="11" methods="3" coveredmethods="3"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="19" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="24" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="28" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+      </file>
+      <file name="useSetlist.ts" path="C:\Users\patri\Documents\front_end\gig_simulator\gig_simulator\src\features\create_setlist\hooks\use_setlist\useSetlist.ts">
+        <metrics statements="53" coveredstatements="30" conditionals="64" coveredconditionals="33" methods="7" coveredmethods="6"/>
+        <line num="27" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="18" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="34" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="18" type="stmt"/>
+        <line num="47" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="18" type="cond" truecount="7" falsecount="1"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="55" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="59" count="8" type="stmt"/>
+        <line num="62" count="18" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="80" count="18" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="82" count="18" type="cond" truecount="2" falsecount="2"/>
+        <line num="86" count="18" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="94" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="111" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="116" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="137" count="0" type="stmt"/>
+        <line num="139" count="18" type="stmt"/>
+        <line num="140" count="18" type="stmt"/>
+        <line num="141" count="18" type="stmt"/>
+        <line num="143" count="18" type="stmt"/>
+        <line num="144" count="18" type="stmt"/>
+        <line num="145" count="18" type="stmt"/>
+        <line num="146" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="153" count="18" type="cond" truecount="4" falsecount="11"/>
+        <line num="154" count="18" type="stmt"/>
+      </file>
+    </package>
+    <package name="features.review_setlists.hooks.use_review">
+      <metrics statements="34" coveredstatements="32" conditionals="31" coveredconditionals="27" methods="11" coveredmethods="10"/>
+      <file name="useReview.ts" path="C:\Users\patri\Documents\front_end\gig_simulator\gig_simulator\src\features\review_setlists\hooks\use_review\useReview.ts">
+        <metrics statements="34" coveredstatements="32" conditionals="31" coveredconditionals="27" methods="11" coveredmethods="10"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="15" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="7" type="cond" truecount="2" falsecount="2"/>
+        <line num="27" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="32" count="7" type="stmt"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="7" type="stmt"/>
+        <line num="47" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="7" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="7" type="cond" truecount="2" falsecount="2"/>
+        <line num="59" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="60" count="3" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="7" type="stmt"/>
+        <line num="75" count="3" type="stmt"/>
+        <line num="76" count="3" type="stmt"/>
+        <line num="77" count="7" type="cond" truecount="7" falsecount="0"/>
+        <line num="79" count="6" type="stmt"/>
+        <line num="85" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="12" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="setlistStorage.ts" path="C:\Users\patri\Documents\front_end\gig_simulator\gig_simulator\src\utils\setlistStorage.ts">
+        <metrics statements="12" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils.add_time">
+      <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="9" methods="6" coveredmethods="6"/>
+      <file name="addTimeDurations.ts" path="C:\Users\patri\Documents\front_end\gig_simulator\gig_simulator\src\utils\add_time\addTimeDurations.ts">
+        <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="9" methods="6" coveredmethods="6"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="16" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="7" type="stmt"/>
+        <line num="24" count="7" type="stmt"/>
+        <line num="25" count="7" type="stmt"/>
+        <line num="26" count="7" type="stmt"/>
+        <line num="27" count="7" type="stmt"/>
+        <line num="29" count="7" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="4" type="cond" truecount="3" falsecount="1"/>
+      </file>
+    </package>
+  </project>
+</coverage>

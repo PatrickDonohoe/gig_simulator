@@ -4,7 +4,7 @@ import FilterAttribute from '@/features/create_setlist/components/FilterAttribut
 import type { SongType } from '@/types/SongType';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 
-interface CurrentSongsProps {
+export interface CurrentSongsProps {
   songsDisplayData: SetlistTileType[];
   activeFilters: FilterType[];
 }

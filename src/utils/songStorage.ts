@@ -9,7 +9,7 @@ const STORAGE_KEY = 'songs';
 const SongsRecordSchema = z.record(z.string(), SongTypeSchema);
 
 // return all songs
-const readAll = (): Record<string, SongType> => {
+const parseSong = (): Record<string, SongType> => {
   const raw: string | null = localStorage.getItem(STORAGE_KEY);
   if (!raw) return {};
   let json: unknown;
@@ -25,11 +25,11 @@ const readAll = (): Record<string, SongType> => {
 };
 
 export const saveSong = (song: SongType): void => {
-  const all = readAll();
+  const all = parseSong();
   all[song.id] = song;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
 };
 
-export const getSong = (id: string): SongType | undefined => readAll()[id];
+export const getSong = (id: string): SongType | undefined => parseSong()[id];
 
-export const getAllSongs = (): SongType[] => Object.values(readAll());
+export const getAllSongs = (): SongType[] => Object.values(parseSong());

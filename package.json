@@ -11,7 +11,8 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "cy": "cypress open",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@dnd-kit/helpers": "^0.5.0",
@@ -34,6 +35,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/coverage-v8": "4.1.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "cypress": "^15.18.0",
     "jsdom": "^30.0.1",
@@ -42,6 +44,7 @@
     "oxlint-tsgolint": "^0.24.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.9",
+    "vitest-localstorage-mock": "^0.1.2"
   }
 }

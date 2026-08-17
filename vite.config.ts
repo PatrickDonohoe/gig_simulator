@@ -17,7 +17,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
+    setupFiles: ['./vitest.setup.ts', 'vitest-localstorage-mock'],
     exclude: [...configDefaults.exclude, 'src/**/*.cy.{ts,tsx}'],
   },
   optimizeDeps: {

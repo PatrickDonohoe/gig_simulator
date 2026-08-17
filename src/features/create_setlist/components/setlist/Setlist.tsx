@@ -2,7 +2,7 @@ import { useDroppable } from '@dnd-kit/react';
 import type { FieldArrayWithId } from 'react-hook-form';
 
 import SetlistTile from '../SetlistTile/SetlistTile';
-import type { FormValues } from '../../hooks/useSetlist';
+import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import type { CommonTileProps } from '../../types/CommonTileProps';
 import SetlistHeader from '@/components/SetlistHeader';
 import SetlistShell from '@/layouts/components/SetlistShell';

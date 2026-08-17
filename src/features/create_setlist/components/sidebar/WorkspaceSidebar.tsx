@@ -3,7 +3,7 @@ import { useDroppable } from '@dnd-kit/react';
 
 import NoDataFound from '@/components/NoDataFound';
 import Library from '@/features/create_setlist/components/sidebar/Library';
-import type { FormValues } from '@/features/create_setlist/hooks/useSetlist';
+import type { FormValues } from '@/features/create_setlist/hooks/use_setlist/useSetlist';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 import SidebarShell from '@/layouts/components/SidebarShell';
 

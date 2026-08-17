@@ -1,6 +1,6 @@
 import type { FieldArrayWithId } from 'react-hook-form';
 
-import type { FormValues } from '@/features/create_setlist/hooks/useSetlist';
+import type { FormValues } from '@/features/create_setlist/hooks/use_setlist/useSetlist';
 import SidebarTile, {
   type SidebarTileProps,
 } from '@/features/create_setlist/components/sidebar/sidebar_tile/SidebarTile';

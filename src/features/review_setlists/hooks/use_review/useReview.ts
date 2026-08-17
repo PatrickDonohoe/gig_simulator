@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
-import { getAllSetLists } from '@/utils/setlistStorage';
+import { getAllSetLists } from '@/utils/setlist_storage/setlistStorage';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import { getAllSongs } from '@/utils/songStorage';
 import type { SetlistTileType } from '@/types/SetlistTileType';
@@ -49,10 +49,12 @@ const useReview = () => {
   // Data used to map out the setlist choices in the sidebar
   const sidebarSetlists = useMemo(() => {
     // map over each set in the setlist array extracting the id and title
-    return setlists.map(({ setlistId, setlistName }) => ({
-      setlistId,
-      setlistName,
-    }));
+    return setlists
+      ? setlists.map(({ setlistId, setlistName }) => ({
+          setlistId,
+          setlistName,
+        }))
+      : [];
   }, [setlists]);
 
   const setlistData = useMemo<SubmitSetlistType | undefined>(() => {

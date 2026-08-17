@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/react/sortable';
 
-import type { FormValues } from '../../../hooks/useSetlist';
+import type { FormValues } from '../../../hooks/use_setlist/useSetlist';
 import type { FieldArrayWithId } from 'react-hook-form';
 import type { CommonTileProps } from '../../../types/CommonTileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
