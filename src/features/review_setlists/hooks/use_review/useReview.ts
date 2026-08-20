@@ -26,7 +26,7 @@ const useReview = () => {
     // Setlist-specific data(notes, transition time) about each song in the selected setlist.
     const songTransitions = selectedListId
       ? setlists.find((s) => s.setlistId === selectedListId)?.setlistSongs
-      : undefined;
+      : [];
 
     // All songs in the user's library
     const songArr = getAllSongs();
@@ -84,6 +84,7 @@ const useReview = () => {
     sidebarSetlists,
     setlistData,
     setlistDuration,
+    setlists,
   };
 };
 

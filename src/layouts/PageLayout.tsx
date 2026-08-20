@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 
-import ThemeProvider from '@/context/ThemeProvider';
+import ThemeProvider from '@/context/theme/ThemeProvider';
 import HeaderLayout from '@/layouts/components/HeaderLayout';
 
 /** Controls layout only for general page view. */

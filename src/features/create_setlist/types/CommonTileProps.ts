@@ -5,9 +5,8 @@ import type {
   UseFormGetValues,
 } from 'react-hook-form';
 
-import type { FormValues } from '../hooks/use_setlist/useSetlist';
+import type { FormValues } from '../../../hooks/use_setlist/useSetlist';
 import type { SongType } from '@/types/SongType';
-import type { FilterType } from '@/hooks/useFilters';
 
 export interface CommonTileProps {
   register: UseFormRegister<FormValues>;
@@ -16,7 +15,4 @@ export interface CommonTileProps {
   getSongDisplayDetails: (songId: string) => SongType | undefined;
   onClick: () => void;
   onRemove: UseFieldArrayRemove;
-  activeFilters: FilterType[];
-  handleFilter: (f: FilterType) => void;
-  resetFilters: () => void;
 }

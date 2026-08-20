@@ -1,19 +1,18 @@
-import SetlistShell from '@/layouts/components/SetlistShell';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
 import type { SetlistTileType } from '@/types/SetlistTileType';
-import type { SetlistHeaderProps } from '@/components/SetlistHeader';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
-import useFilters from '@/hooks/useFilters';
-import ViewCurrent from '@/features/review_setlists/current_setlist/ViewCurrent';
-import EditCurrent from '@/features/review_setlists/current_setlist/EditCurrent';
-import PerformCurrent from '@/features/review_setlists/current_setlist/PerformCurrent';
+import SetlistViewMode from '@/features/review_setlists/current_setlist/view/SetlistViewMode';
+import SetlistEditMode from '@/features/review_setlists/current_setlist/edit/SetlistEditMode';
+import SetlistPerformMode from '@/features/review_setlists/current_setlist/perform/SetlistPerformMode';
+import type { SavedSetlistsListProps } from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsList';
 
 export interface CurrentSetlistProps {
   viewMode: ViewMode;
   songsDisplayData: SetlistTileType[];
   handleMode: (mode: ViewMode) => void;
-  setlistData: SubmitSetlistType;
+  setlistData: SubmitSetlistType | undefined;
   setlistDuration: number;
+  sidebarProps: SavedSetlistsListProps;
 }
 
 const CurrentSetlist = ({
@@ -22,31 +21,28 @@ const CurrentSetlist = ({
   handleMode,
   setlistData,
   setlistDuration,
+  sidebarProps,
 }: CurrentSetlistProps) => {
-  const reviewFilters = useFilters();
-  const { activeFilters, handleFilter, resetFilters } = reviewFilters;
 
-  const headerData: Omit<SetlistHeaderProps, 'children'> = {
-    activeFilters,
-    handleFilter,
-    resetFilters,
+  const viewModeProps = {
+    songsDisplayData,
+    handleMode,
+    setlistName: setlistData?.setlistName,
     setlistDuration,
+    sidebarProps,
+    setlistData,
   };
+
   return (
-    <SetlistShell>
-      {viewMode === 'view' ? (
-        <ViewCurrent
-          songsDisplayData={songsDisplayData}
-          handleMode={handleMode}
-          setlistData={setlistData}
-          headerData={headerData}
-        />
-      ) : viewMode === 'edit' ? (
-        <EditCurrent />
+    <>
+      {viewMode === 'edit' && setlistData ? (
+        <SetlistEditMode setlistId={setlistData.setlistId} />
+      ) : viewMode === 'perform' && setlistData ? (
+        <SetlistPerformMode />
       ) : (
-        <PerformCurrent />
+        <SetlistViewMode {...viewModeProps} />
       )}
-    </SetlistShell>
+    </>
   );
 };
 export default CurrentSetlist;

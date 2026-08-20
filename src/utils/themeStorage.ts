@@ -1,4 +1,4 @@
-import type { ThemeType } from '@/context/ThemeContext';
+import type { ThemeType } from '@/context/theme/ThemeContext';
 
 const THEME_KEY = 'theme';
 

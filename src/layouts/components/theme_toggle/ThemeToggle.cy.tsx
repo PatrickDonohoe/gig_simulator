@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-import { ThemeContext, type ThemeContextType } from '@/context/ThemeContext';
+import {
+  ThemeContext,
+  type ThemeContextType,
+} from '@/context/theme/ThemeContext';
 import ThemeToggle from '@/layouts/components/theme_toggle/ThemeToggle';
 
 const mountWithTheme = (overrides: Partial<ThemeContextType> = {}) => {

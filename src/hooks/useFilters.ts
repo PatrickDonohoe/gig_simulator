@@ -1,22 +1,18 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 
-import type { SongType } from '@/types/SongType';
+import {
+  FiltersContext,
+  type FiltersContextType,
+} from '@/context/filters/FiltersContext';
 
-type SongTypeKeys = keyof SongType;
-export type FilterType = Exclude<SongTypeKeys, 'title' | 'id' | 'key'>;
+const useFilters = (): FiltersContextType => {
+  const context = useContext(FiltersContext);
 
-const useFilters = () => {
-  const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
+  if (!context) {
+    throw new Error('useFilters must be used within a FiltersProvider.');
+  }
 
-  const handleFilter = (f: FilterType) => {
-    setActiveFilters((prev) =>
-      prev.includes(f) ? prev.filter((pf) => pf !== f) : [...prev, f],
-    );
-  };
-
-  const resetFilters = () => setActiveFilters([]);
-
-  return { activeFilters, handleFilter, resetFilters };
+  return context;
 };
 
 export default useFilters;

@@ -20,10 +20,10 @@ const mockedGetAllSongs = vi.mocked(getAllSongs);
 describe('songsDisplayData', () => {
 
 
-  it('should return undefined if selectedListId is not defined', () => {
+  it('should return an empty array if selectedListId is not defined', () => {
     const { result } = renderHook(() => useReview());
 
-    expect(result.current.songsDisplayData).toBeUndefined();
+    expect(result.current.songsDisplayData).toStrictEqual([]);
   });
 
   it('should return undefined if no setlist matches the selected id', () => {

@@ -39,6 +39,8 @@ Will allow edits of all setlist-related fields. Requirements:
 
 - [ ] Cancel button is added.
 - [ ] Edit button becomes a save button.
+- [ ] Form content is the same as the create setlist page.
+- [ ] Sidebar needs to be the same as the create setlist page.
 
 ### Sidebar
 

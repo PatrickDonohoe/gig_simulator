@@ -1,20 +1,20 @@
 import SidebarHeader, {
   type SideHeaderProps,
-} from '@/features/create_setlist/components/sidebar/SidebarHeader';
+} from '@/layouts/components/SidebarHeader';
 
 interface SideShellProps {
-  HeaderProps: SideHeaderProps;
+  headerProps: SideHeaderProps;
   children: React.ReactNode;
   className: string;
 }
 
-const SidebarShell = ({ HeaderProps, children, className }: SideShellProps) => {
+const SidebarShell = ({ headerProps, children, className }: SideShellProps) => {
   return (
     <aside
       id="sidebar"
-      className={`flex min-h-0 flex-2 flex-col gap-4 border-r-2 ${className} p-4`}
+      className={`flex min-h-0 flex-2 flex-col gap-4 ${className} pr-4`}
     >
-      <SidebarHeader {...HeaderProps} />
+      <SidebarHeader {...headerProps} />
 
       {children}
     </aside>

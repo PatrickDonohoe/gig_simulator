@@ -1,86 +1,41 @@
-import { useState } from 'react';
-import { DragDropProvider } from '@dnd-kit/react';
+import { useMemo } from 'react';
 
-import WorkspaceSidebar from './components/sidebar/WorkspaceSidebar';
-import Setlist from './components/setlist/Setlist';
-import useSetlist from './hooks/use_setlist/useSetlist';
-import { getAllSongs } from '@/utils/songStorage';
-import useFilters from '@/hooks/useFilters';
 import AddSongForm from './components/add_song/AddSongForm';
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
-import useAddSong from './hooks/useAddSong';
-import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
-import type { SongType } from '@/types/SongType';
+import { submitSetlist } from '@/features/create_setlist/services/submitFuncs';
+import SetlistEditor from '@/components/setlist/SetlistEditor';
+import useSetlistEditorState from '@/hooks/use_setlist/useSetlistEditorState';
+import { getAllSongs } from '@/utils/songStorage';
 
 const CreateSetlistPage = () => {
-  const [allSongs, setAllSongs] = useState<SongType[]>(() => getAllSongs());
+  const librarySongs = useMemo(() => {
+    return getAllSongs();
+  }, []);
 
   const {
-    register,
-    setValue,
-    getValues,
-    getSongDisplayDetails,
-    sidebarArr,
-    setlistArr,
-    onSubmitList,
-    setlistRemove,
-    sidebarRemove,
-    sidebarAppend,
+    sidebar,
+    setlist,
     handleDragEnd,
-    setlistDuration,
-  } = useSetlist(allSongs);
-
-  const createFilters = useFilters();
-  const { activeFilters, handleFilter, resetFilters } = createFilters;
-
-  const handleSongAdded = (newSong: SongType) => {
-    setAllSongs((prev) => [...prev, newSong]);
-    sidebarAppend({ songId: newSong.id });
-  };
-
-  const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
-
-  const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove'> = {
-    register,
-    setValue,
-    getValues,
-    getSongDisplayDetails,
-    activeFilters,
-    handleFilter,
-    resetFilters,
-  };
-
-  const commonSidebarTileProps: CommonTileProps = {
-    ...commonTileProps,
-    onClick: () => handleIsAddSong(true),
-    onRemove: sidebarRemove,
-  };
-
-  const commonSetlistTileProps: CommonTileProps = {
-    ...commonTileProps,
-    onClick: onSubmitList,
-    onRemove: setlistRemove,
-  };
+    handleIsAddSong,
+    isAddSong,
+    formData,
+  } = useSetlistEditorState(librarySongs, submitSetlist);
 
   return (
-    <DragDropProvider onDragEnd={handleDragEnd}>
-      <div data-cy="page" className="flex min-h-0 flex-1">
-        <WorkspaceSidebar tiles={sidebarArr} common={commonSidebarTileProps} />
+    <div data-cy="page" className="flex min-h-0 flex-1">
+      <SetlistEditor
+        sidebar={sidebar}
+        setlist={setlist}
+        handleDragEnd={handleDragEnd}
+      />
 
-        <Setlist
-          tiles={setlistArr}
-          commonTileProps={commonSetlistTileProps}
-          setlistDuration={setlistDuration}
-        />
-
-        {/* Modals: */}
-        {isAddSong && (
-          <ModalBackdrop handleClose={() => handleIsAddSong(false)}>
-            <AddSongForm {...formData} />
-          </ModalBackdrop>
-        )}
-      </div>
-    </DragDropProvider>
+      {/* Modals: */}
+      {isAddSong && (
+        <ModalBackdrop handleClose={() => handleIsAddSong(false)}>
+          <AddSongForm {...formData} />
+        </ModalBackdrop>
+      )}
+    </div>
   );
 };
 export default CreateSetlistPage;
