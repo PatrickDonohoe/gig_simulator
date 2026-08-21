@@ -54,7 +54,7 @@ const SetlistViewMode = ({
             <SavedSetlistsSidebarEmpty />
           </SavedSetlistsShell>
         )}
-        <div data-cy='view-page-content' className="flex flex-8 flex-col border border-border-bold">
+        <div data-cy='view-page-content' className={`flex flex-8 flex-col border border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}>
           <SetlistViewModeHeader
             setlistDuration={setlistDuration}
             setlistName={setlistData?.setlistName}

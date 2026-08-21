@@ -14,9 +14,7 @@ const filters: FilterType[] = [
   'instrumentation',
 ];
 
-const HeaderFilters = ({
-  noSetlist,
-}: HeaderFilterProps) => {
+const HeaderFilters = () => {
   const { activeFilters, handleFilter, resetFilters } = useFilters();
   
   return (
@@ -40,7 +38,7 @@ const HeaderFilters = ({
         <button
           className="flex-none rounded-md bg-bg-main px-4 font-semibold text-text-main underline ring ring-border-bold hover:bg-bg-surface hover:text-text-muted"
           onClick={resetFilters}
-          disabled={noSetlist}
+          // disabled={noSetlist}
         >
           Clear All
         </button>

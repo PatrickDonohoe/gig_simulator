@@ -14,7 +14,7 @@ const SetlistViewModeHeader = ({
   setlistName,
   handleMode,
   otherModes,
-  noSetlist,
+  // noSetlist,
 }: ViewModeHeaderProps) => {
   return (
     <div className="flex flex-col">
@@ -29,7 +29,7 @@ const SetlistViewModeHeader = ({
               key={index}
               className="flex items-center justify-center rounded-xl border border-border-bold px-2 capitalize"
               onClick={() => handleMode(mode)}
-              disabled={noSetlist}
+              // disabled={noSetlist}
             >
               {mode}
             </button>
@@ -37,7 +37,7 @@ const SetlistViewModeHeader = ({
         </div>
       </SetlistHeader>
 
-      <HeaderFilters noSetlist={noSetlist} />
+      <HeaderFilters />
     </div>
   );
 };
