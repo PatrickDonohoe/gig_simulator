@@ -3,6 +3,7 @@ import type {
   UseFormRegister,
   UseFormSetValue,
   UseFormGetValues,
+  UseFormWatch,
 } from 'react-hook-form';
 
 import type { FormValues } from '../../../hooks/use_setlist/useSetlist';
@@ -12,6 +13,7 @@ export interface CommonTileProps {
   register: UseFormRegister<FormValues>;
   setValue: UseFormSetValue<FormValues>;
   getValues: UseFormGetValues<FormValues>;
+  watch: UseFormWatch<FormValues>;
   getSongDisplayDetails: (songId: string) => SongType | undefined;
   onClick: () => void;
   onRemove: UseFieldArrayRemove;

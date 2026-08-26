@@ -33,5 +33,5 @@
       "@routes/*": ["./src/routes/*"]
     }
   },
-  "include": ["src", "cypress/support"]
+  "include": ["src", "cypress/support", "cypress/e2e"]
 }

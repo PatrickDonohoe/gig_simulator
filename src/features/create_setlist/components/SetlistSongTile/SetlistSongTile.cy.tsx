@@ -3,6 +3,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import SetlistSongTile from './SetlistSongTile';
 import type { SetlistSongTileProps } from './SetlistSongTile';
 import type { FormValues } from '../../../../hooks/use_setlist/useSetlist';
+import FiltersProvider from '@/context/filters/FiltersProvider';
 
 // Local wrapper to inject RHF tools
 const SetlistSongTileWrapper = (props: {
@@ -12,7 +13,7 @@ const SetlistSongTileWrapper = (props: {
   setValue: SetlistSongTileProps['commonTileProps']['setValue'];
   getValues: SetlistSongTileProps['commonTileProps']['getValues'];
 }) => {
-  const { register, control } = useForm<FormValues>({
+  const { register, control, watch } = useForm<FormValues>({
     defaultValues: {
       setlist: [
         {
@@ -40,6 +41,7 @@ const SetlistSongTileWrapper = (props: {
         onRemove: props.onRemove,
         setValue: props.setValue,
         getValues: props.getValues,
+        watch,
       }}
     />
   );
@@ -71,21 +73,23 @@ describe('<SetlistSongTile>', () => {
 
     // Passing simple mock arrays and the stubbed functions into the wrapper
     cy.mount(
-      <SetlistSongTileWrapper
-        getSongDisplayDetails={mockGetSongDisplayDetails}
-        onRemove={mockRemove}
-        onClick={mockClick}
-        setValue={mockSet}
-        getValues={mockGet}
-      />,
+      <FiltersProvider>
+        <SetlistSongTileWrapper
+          getSongDisplayDetails={mockGetSongDisplayDetails}
+          onRemove={mockRemove}
+          onClick={mockClick}
+          setValue={mockSet}
+          getValues={mockGet}
+        />
+      </FiltersProvider>,
     );
 
     // verifying it works
     cy.get('input').should('exist');
-    cy.get('[data-cy=notes]').should('have.text', 'Opener');
-    cy.get('[data-cy=minutes_tran]').should('have.value', '1');
-    cy.get('[data-cy=seconds_tran]').should('have.value', '30');
-    cy.get('h2')
+    cy.getByData('notes-0').should('have.text', 'Opener');
+    cy.getByData('minutes-tran-0').should('have.value', '1');
+    cy.getByData('seconds-tran-0').should('have.value', '30');
+    cy.get('h3')
       .should('be.visible')
       .and(
         'contain.text',

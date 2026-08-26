@@ -4,7 +4,7 @@ import type { DurationInput } from '@/types/DurationInput';
 export const durationToSeconds = (duration: DurationInput): number => {
   const h = (duration.hours ?? 0) * 3600;
   const m = (duration.minutes ?? 0) * 60;
-  const s = duration.seconds ?? 0;
+  const s = Number(duration.seconds ?? 0);
 
   return h + m + s;
 };

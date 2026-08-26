@@ -31,6 +31,7 @@ const MultInputStack = ({
             className="col-span-full grid grid-flow-col grid-cols-subgrid"
           >
             <input
+              id={`instrument-${index}`}
               data-cy="input"
               type="text"
               placeholder="e.g. drum set"

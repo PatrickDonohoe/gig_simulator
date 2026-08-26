@@ -45,6 +45,7 @@ const SetlistSongTile = ({
     setValue,
     getSongDisplayDetails,
     onRemove,
+    watch,
   } = commonTileProps;
 
   // Callback to master song state to fetch presentation layers cleanly
@@ -79,7 +80,7 @@ const SetlistSongTile = ({
     <section
       ref={ref}
       id="setlist_tile"
-      data-cy="tile"
+      data-cy={`setlist-tile-${index}`}
       className={`flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${isDragSource ? 'hidden' : ''}`}
     >
       <div className="grid w-full grid-flow-col grid-cols-3">
@@ -88,6 +89,7 @@ const SetlistSongTile = ({
         </h1>
 
         <button
+        data-cy={`trash-button-${index}`}
           className="justify-self-end col-start-3 flex-none p-2 text-bg-main hover:text-border-subtle/50"
           onClick={() => onRemove(index)}
         >
@@ -97,7 +99,7 @@ const SetlistSongTile = ({
 
       <article
         id="setlist_article"
-        data-cy="article"
+        data-cy={`setlist-article-${index}`}
         className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
       >
         <h2 className="text-center font-semibold">Title: {metadata.title}</h2>
@@ -123,7 +125,7 @@ const SetlistSongTile = ({
       <div className="flex flex-col gap-2">
         <textarea
           id={field.id}
-          data-cy="notes"
+          data-cy={`notes-${index}`}
           placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
           className="rounded-xl border-2 border-dark_amethyst bg-menu p-2 focus:outline-border-bold"
           rows={3}
@@ -132,28 +134,30 @@ const SetlistSongTile = ({
         />
 
         <div className="flex flex-col gap-2 rounded-xl bg-menu p-2 ring-2 ring-deep_space_blue">
-          <h2>Enter a custom transition time if different from the default.</h2>
+          <h3>Enter a custom transition time if different from the default.</h3>
 
           <NumberInput
             title="Enter Minutes"
-            cy_id="minutes_tran"
+            cy_id={`minutes-tran-${index}`}
             id="minutes"
             defaultValue={field.transitionTime.minutes}
             index={index}
             register={register}
             getValues={getValues}
             setValue={setValue}
+            watch={watch}
           />
 
           <NumberInput
             title="Enter Seconds"
-            cy_id="seconds_tran"
+            cy_id={`seconds-tran-${index}`}
             id="seconds"
             defaultValue={field.transitionTime.seconds}
             index={index}
             register={register}
             getValues={getValues}
             setValue={setValue}
+            watch={watch}
           />
         </div>
       </div>

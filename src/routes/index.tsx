@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import PageLayout from '@/layouts/PageLayout';
-import { DashRoutes } from './dashRoutes';
+import { DashRoutes } from './DashRoutes';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import LandingPage from '@/features/landing_page/LandingPage';
 

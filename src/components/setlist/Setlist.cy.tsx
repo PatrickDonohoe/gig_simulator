@@ -1,5 +1,6 @@
 import Setlist from './Setlist';
 import type { SetlistProps } from './Setlist';
+import FiltersProvider from '@/context/filters/FiltersProvider';
 
 describe('<Setlist>', () => {
   const mockRegister =
@@ -27,6 +28,8 @@ describe('<Setlist>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
+    const mockWatch = cy.stub();
+    const mockErrors = {};
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -35,6 +38,7 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
+      watch: mockWatch,
     };
 
     const tiles: SetlistProps['tiles'] = [
@@ -53,16 +57,20 @@ describe('<Setlist>', () => {
     ];
 
     cy.mount(
-      <Setlist
-        tiles={tiles}
-        commonTileProps={mockCommon}
-        setlistDuration={5}
-      />,
+      <FiltersProvider>
+        <Setlist
+          tiles={tiles}
+          commonTileProps={mockCommon}
+          setlistDuration={5}
+          errors={mockErrors}
+          isValid={true}
+        />
+      </FiltersProvider>,
     );
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
-    cy.get('[data-cy=tile').should('have.length', 2);
+    cy.getByData('list').find('[data-cy^="setlist-tile-"]').should('have.length', 2);
   });
 
   it('shows the fallback when tiles is an empty array', () => {
@@ -71,6 +79,8 @@ describe('<Setlist>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
+    const mockWatch = cy.stub();
+    const mockErrors = {};
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
@@ -79,10 +89,13 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
+      watch: mockWatch,
     };
 
     cy.mount(
-      <Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} />,
+      <FiltersProvider>
+        <Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} errors={mockErrors} isValid={false} />
+      </FiltersProvider>,
     );
 
     cy.get('[data-cy=list]').should('not.exist');

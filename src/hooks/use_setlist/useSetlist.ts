@@ -1,8 +1,10 @@
 import { useForm, useFieldArray, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type { DragEndEvent } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
+import z from 'zod';
 
-import type { SetlistRow } from '../../features/create_setlist/types/SetlistRow';
+import { SetlistRowSchema } from '../../features/create_setlist/types/SetlistRow';
 import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
 import { diffGroupedMove, toSetlistRow, type GroupedIds } from './dragOperations';
@@ -10,17 +12,24 @@ import { diffGroupedMove, toSetlistRow, type GroupedIds } from './dragOperations
 // Need a default transition time that can be changed and reflected in the form.
 // Need a sync button to make other times match.
 
-// Using this type so that RHF can control the state of both arrays. The form will actually be submitted as just the setlist with its type.
-export interface FormValues {
-  setlistName: string;
-  sidebar: { songId: string }[];
-  setlist: SetlistRow[];
-}
+// Using this schema so that RHF can control the state of both arrays and
+// validate on submit. Reuses SetlistRowSchema as-is (rather than a
+// form-specific copy) since NumberInput's fields register with
+// valueAsNumber: true, so the numbers RHF holds already match DurationSchema.
+// The form will actually be submitted as just the setlist with its type.
+const FormValuesSchema = z.object({
+  setlistName: z.string().min(1, 'A setlist name is required.'),
+  sidebar: z.array(z.object({ songId: z.string() })),
+  setlist: z.array(SetlistRowSchema),
+});
+export type FormValues = z.infer<typeof FormValuesSchema>;
 
 const useSetlist = (initialMasterSongs: SongType[]) => {
   // Master form tracks both dynamics workspace and setlist layouts simultaneously
-  const { control, register, handleSubmit, setValue, getValues } =
+  const { control, register, handleSubmit, setValue, getValues, watch, formState: { errors, isValid } } =
     useForm<FormValues>({
+      resolver: zodResolver(FormValuesSchema),
+      mode: 'onChange',
       defaultValues: {
         // Sidebar starts prepoluated with
         setlistName: '',
@@ -119,6 +128,9 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     // getSongName,
     getSongDisplayDetails,
     handleSubmit,
+    watch,
+    errors,
+    isValid,
   };
 };
 

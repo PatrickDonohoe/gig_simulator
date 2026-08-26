@@ -2,19 +2,17 @@ import SetlistHeader from '@/components/setlist/SetlistHeader';
 import HeaderFilters from '@/components/setlist/HeaderFilters';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
 
-interface ViewModeHeaderProps {
+export interface ViewModeHeaderProps {
   setlistDuration: number;
   setlistName: string | undefined;
   handleMode: (mode: ViewMode) => void;
   otherModes: ViewMode[];
-  noSetlist: boolean;
 }
 const SetlistViewModeHeader = ({
   setlistDuration,
   setlistName,
   handleMode,
   otherModes,
-  // noSetlist,
 }: ViewModeHeaderProps) => {
   return (
     <div className="flex flex-col">

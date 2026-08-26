@@ -12,7 +12,7 @@ import SavedSetlistsShell from '@/features/review_setlists/saved_setlists_sideba
 import SavedSetlistsSidebarEmpty from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsSidebarEmpty';
 import SetlistViewSongList from '@/features/review_setlists/current_setlist/view/SetlistViewSongList';
 import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
-import SetlistViewModeHeader from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import type { ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 
 export interface SetlistViewModeProps {
@@ -42,9 +42,16 @@ const SetlistViewMode = ({
         : 'Create a setlist first.',
   };
 
+  const viewHeader: ViewModeHeaderProps = {
+    setlistDuration,
+    setlistName: setlistData?.setlistName,
+    handleMode,
+    otherModes: ['edit', 'perform'],
+  };
+
   return (
     <FiltersProvider>
-      <section data-cy='view-page' className="flex min-h-0 flex-1 px-4">
+      <section data-cy="view-page" className="flex min-h-0 flex-1 px-4">
         {sidebarProps.setlists.length > 0 ? (
           <SavedSetlistsShell headerProps={headerProps}>
             <SavedSetlistsList {...sidebarProps} />
@@ -54,17 +61,12 @@ const SetlistViewMode = ({
             <SavedSetlistsSidebarEmpty />
           </SavedSetlistsShell>
         )}
-        <div data-cy='view-page-content' className={`flex flex-8 flex-col border border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}>
-          <SetlistViewModeHeader
-            setlistDuration={setlistDuration}
-            setlistName={setlistData?.setlistName}
-            handleMode={handleMode}
-            noSetlist={!!setlistData?.setlistId}
-            otherModes={['edit', 'perform']}
-          />
-      
+        <div
+          data-cy="view-page-content"
+          className={`flex flex-8 flex-col border border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}
+        >
           {songsDisplayData.length > 0 ? (
-            <SetlistViewSongList songsDisplayData={songsDisplayData} />
+            <SetlistViewSongList songsDisplayData={songsDisplayData} viewHeader={viewHeader} />
           ) : (
             <SetlistEmpty />
           )}

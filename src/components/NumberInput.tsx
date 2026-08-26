@@ -2,6 +2,7 @@ import type {
   UseFormRegister,
   UseFormSetValue,
   UseFormGetValues,
+  UseFormWatch,
 } from 'react-hook-form';
 
 import type { FormValues } from '@/hooks/use_setlist/useSetlist';
@@ -17,6 +18,7 @@ interface InputProps {
   title: string;
   setValue: UseFormSetValue<FormValues>;
   getValues: UseFormGetValues<FormValues>;
+  watch: UseFormWatch<FormValues>;
 }
 
 const NumberInput = ({
@@ -28,8 +30,10 @@ const NumberInput = ({
   title,
   setValue,
   getValues,
+  watch,
 }: InputProps) => {
   const fieldName = `setlist.${index}.transitionTime.${id}` as const;
+  const value = watch(fieldName)
 
   return (
     <div className="flex gap-2">
@@ -39,9 +43,11 @@ const NumberInput = ({
           type="text"
           inputMode="numeric"
           data-cy={cy_id}
-          className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right hover:bg-primary-hover"
+          className="max-w-20 rounded-md border border-dark_amethyst px-2 text-right hover:bg-bg-surface focus:bg-bg-surface"
           defaultValue={defaultValue}
-          {...register(`setlist.${index}.transitionTime.${id}`)}
+          {...register(`setlist.${index}.transitionTime.${id}`, {
+            valueAsNumber: true,
+          })}
         />
       </label>
 
@@ -51,7 +57,7 @@ const NumberInput = ({
         onClick={() =>
           setValue(fieldName, Number(getValues(fieldName) || 0) - 1)
         }
-        disabled={Number(getValues(fieldName)) === 0}
+        disabled={Number(value) < 1}
       >
         <Minus className="size-8" />
       </button>
@@ -62,7 +68,7 @@ const NumberInput = ({
         onClick={() =>
           setValue(fieldName, Number(getValues(fieldName) || 0) + 1)
         }
-        disabled={Number(getValues(fieldName)) >= 59}
+        disabled={Number(value) >= 59}
       >
         <Plus className="size-8" />
       </button>

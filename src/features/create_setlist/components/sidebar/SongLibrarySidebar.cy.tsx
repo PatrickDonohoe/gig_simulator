@@ -1,4 +1,4 @@
-import SongLibrarySidebar from './SongLibrarySidebar';
+import SongLibrarySidebar, { type SongLibrarySidebarProps } from './SongLibrarySidebar';
 import type { SetlistProps } from '../../../../components/setlist/Setlist';
 
 describe('<SongLibrarySidebar>', () => {
@@ -34,7 +34,7 @@ describe('<SongLibrarySidebar>', () => {
   };
 
   const mockRegister =
-    (() => ({})) as unknown as SetlistProps['commonTileProps']['register'];
+    (() => ({})) as unknown as SongLibrarySidebarProps['common']['register'];
 
   it('mounts and shows the headers.', () => {
     const mockClick = cy.stub();
@@ -42,14 +42,16 @@ describe('<SongLibrarySidebar>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
+    const mockWatch = cy.stub();
 
-    const mockCommon: SetlistProps['commonTileProps'] = {
+    const mockCommon: SongLibrarySidebarProps['common'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
       onClick: mockClick,
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
+      watch: mockWatch,
     };
 
     cy.mount(<SongLibrarySidebar tiles={tiles} common={mockCommon} />);
@@ -66,14 +68,16 @@ describe('<SongLibrarySidebar>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
+    const mockWatch = cy.stub();
 
-    const mockCommon: SetlistProps['commonTileProps'] = {
+    const mockCommon: SongLibrarySidebarProps['common'] = {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
       onClick: mockClick,
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
+      watch: mockWatch,
     };
 
     cy.mount(<SongLibrarySidebar tiles={tiles} common={mockCommon} />);

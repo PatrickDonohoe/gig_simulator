@@ -59,6 +59,7 @@ const useAddSong = (onSave: (newSong: SongType) => void) => {
     try {
       saveSong(extendedData);
       onSave(extendedData);
+      setIsAddSong(false);
     } catch (dbError) {
       setError(dbError instanceof Error ? dbError.message : null);
     }

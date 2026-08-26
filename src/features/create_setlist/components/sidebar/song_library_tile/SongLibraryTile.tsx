@@ -13,7 +13,7 @@ import type { DurationInput } from '@/types/DurationInput';
 export interface SongLibraryTileProps {
   field: FieldArrayWithId<FormValues, 'sidebar', 'id'>;
   index: number;
-  commonTileProps: Omit<CommonTileProps, 'onClick'>;
+  commonTileProps: Omit<CommonTileProps, 'onClick' | 'errors'>;
 }
 
 const SongLibraryTile = ({
@@ -49,7 +49,7 @@ const SongLibraryTile = ({
   return (
     <article
       ref={ref}
-      id="sidebar_tile"
+      id={`sidebar_tile_${index}`}
       data-cy="tile"
       className={`flex max-h-18 w-full justify-between gap-2 overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main ${isDragSource ? 'hidden' : ''}`}
     >

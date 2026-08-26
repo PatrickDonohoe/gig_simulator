@@ -35,6 +35,7 @@ const AddSongForm = ({
 }: AddSongFormProps) => {
   return (
     <form
+      id='song_form'
       data-cy="song_form"
       onSubmit={submitAddSong}
       className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
@@ -111,6 +112,7 @@ const AddSongForm = ({
             <label className="flex flex-col text-sm">
               Minutes:
               <input
+              id='duration-minutes'
                 data-cy="duration_input"
                 type="number"
                 placeholder="min"
@@ -122,6 +124,7 @@ const AddSongForm = ({
             <label className="flex flex-col text-sm">
               Seconds:
               <input
+              id='duration-seconds'
                 data-cy="duration_input"
                 type="number"
                 placeholder="sec"

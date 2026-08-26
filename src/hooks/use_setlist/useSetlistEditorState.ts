@@ -18,6 +18,7 @@ const useSetlistEditorState = (
     register,
     setValue,
     getValues,
+    watch,
     getSongDisplayDetails,
     sidebarArr,
     setlistArr,
@@ -27,6 +28,8 @@ const useSetlistEditorState = (
     sidebarAppend,
     handleDragEnd,
     setlistDuration,
+    errors,
+    isValid,
   } = useSetlist(allSongs);
 
   const handleSongAdded = (newSong: SongType) => {
@@ -36,10 +39,11 @@ const useSetlistEditorState = (
 
   const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
 
-  const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove'> = {
+  const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove' | 'isValid' | 'errors'> = {
     register,
     setValue,
     getValues,
+    watch,
     getSongDisplayDetails,
   };
 
@@ -51,7 +55,7 @@ const useSetlistEditorState = (
 
   const commonSetlistTileProps: CommonTileProps = {
     ...commonTileProps,
-    onClick: () => handleSubmit(onSubmit),
+    onClick: handleSubmit(onSubmit),
     onRemove: setlistRemove,
   };
 
@@ -64,6 +68,8 @@ const useSetlistEditorState = (
     tiles: setlistArr,
     commonTileProps: commonSetlistTileProps,
     setlistDuration,
+    errors,
+    isValid,
   };
 
   return {

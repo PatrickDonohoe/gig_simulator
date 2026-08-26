@@ -128,4 +128,43 @@ describe('useSetlist', () => {
       instrumentation: [],
     });
   });
+
+  it('should calculate the correct total setlist time w/o transitions', () => {
+    const { result } = renderHook(() => useSetlist(mockSongs));
+
+    act(() => {
+      result.current.setlistAppend({
+        songId: '1',
+        notes: '',
+        transitionTime: { hours: 0, minutes: 0, seconds: 0 },
+      });
+      result.current.setlistAppend({
+        songId: '2',
+        notes: 'stuff',
+        transitionTime: { hours: 0, minutes: 0, seconds: 0 },
+      });
+    });
+
+    expect(result.current.setlistDuration).toEqual(420)
+  })
+
+  it('should calculate the correct total setlist time including transitions', () => {
+    const { result } = renderHook(() => useSetlist(mockSongs));
+
+    act(() => {
+      result.current.setlistAppend({
+        songId: '1',
+        notes: '',
+        transitionTime: { hours: 0, minutes: 4, seconds: 35 },
+      });
+      result.current.setlistAppend({
+        songId: '2',
+        notes: 'stuff',
+        transitionTime: { hours: 0, minutes: 3, seconds: 22 },
+      });
+      
+      
+    });
+    expect(result.current.setlistDuration).toEqual(897);
+  });
 });

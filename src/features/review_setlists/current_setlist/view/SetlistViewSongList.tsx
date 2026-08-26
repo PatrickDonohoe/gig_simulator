@@ -3,13 +3,16 @@ import FilterAttribute from '@/features/create_setlist/components/FilterAttribut
 import type { SongType } from '@/types/SongType';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 import useFilters from '@/hooks/useFilters';
+import SetlistViewModeHeader, { type ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 
 export interface SetlistViewSongListProps {
   songsDisplayData: SetlistTileType[];
+  viewHeader: ViewModeHeaderProps;
 }
 
 const SetlistViewSongList = ({
   songsDisplayData,
+  viewHeader,
 }: SetlistViewSongListProps) => {
   const formatters: Record<keyof SongType, (s: SongType) => string> = {
     id: (s) => s.id,
@@ -31,6 +34,8 @@ const SetlistViewSongList = ({
 
   return (
     <div>
+      <SetlistViewModeHeader {...viewHeader} />
+      
       {songsDisplayData.map((song, index) => (
         <div
           key={song.id}
