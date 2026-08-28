@@ -13,7 +13,8 @@ Panel will include three states:
 
 - [ ] empty
 - [ ] selected setlist
-- [ ] edit mode
+- [ ] edit mode w/ songs
+- [ ] edit mode w/o songs
 
 #### Empty State
 
@@ -51,3 +52,4 @@ include:
 - [ ] Active tile state will differ from inactive.
 - [ ] Tiles will be generated from an array of setlists.
 - [ ] Setlists will be retrieved from storage or db when that is set up.
+- [ ] In Edit Mode, sidebar will consist of songs not in the chosen setlist.

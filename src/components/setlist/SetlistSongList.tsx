@@ -10,14 +10,12 @@ export interface SongListProps {
   commonTileProps: CommonTileProps; // submit function passed also;
 }
 
-const SetlistSongList = ({
-  tiles,
-  commonTileProps,
-}: SongListProps) => {
+const SetlistSongList = ({ tiles, commonTileProps }: SongListProps) => {
   const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
 
   return (
     <div
+      data-cy="setlist-songlist"
       ref={ref}
       className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
     >

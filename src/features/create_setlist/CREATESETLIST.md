@@ -3,10 +3,11 @@
 ## useSetlist
 
 Handles RHF form and field array, dnd sorting and moving from one area to
-another retrieval of details for display inside each tile. There will be
-separate callback functions for sidebar and setlist to retrieve tile data. The
-sidebar function will only return name. The setlist function will return all
-song data including notes and transition times if the song has them.
+another retrieves details for display inside each tile. There will be separate
+callback functions for sidebar and setlist to retrieve tile data. The sidebar
+function will only return name. The setlist function will return all song data.
+Song transitions will be stored as an array of transition objects (notes and
+time to switch songs) in the setlist object.
 
 ### Retrieving hook params
 
@@ -33,18 +34,28 @@ active states.
 ## Setlist Form
 
 This form will utilize RHF's useForm and useFieldArray in addition to dnd-kit
-for moving songs back and forth from the sidebar. The notes and transitionTime
-inputs will be added to the tiles by insert on handleDragEnd. The form will be
-submitted as setlist id, setlist name, and an array of song ID, transition time,
-and notes. Transition times and notes for each song will be specific to each
+for moving songs back and forth from the sidebar to the setlist or reordering
+within the setlist. The notes and transitionTime inputs will be added to the
+tiles by insert on handleDragEnd. The form will be submitted as setlist id,
+setlist name, and an array of song ID's mixed with transition entries.
+Transition entries(times and notes) for each song will be specific to each
 setlist, not the song.
 
 ### Retrieving Data for the Tile
 
 Because useFieldArray only passes down the field array's id and the song's id,
 the getSongDisplayDetails callback function will be used to retrieve data about
-the song. Special attention will need to be paid to whether the song has
-transition time or notes data.
+the song.
+
+### Setlist Transitions
+
+Transitions will move independently from the songs around them. There will be a
+button between each song pair, before the first song, and after the last song
+that will add a transition in place. There will be a delete button on the
+transition tile to remove it.
+
+These tiles will be reordable within the setlist but can't be moved to the
+sidebar.
 
 ### Calculating Time
 

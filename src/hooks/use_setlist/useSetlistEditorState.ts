@@ -7,10 +7,18 @@ import type { CommonTileProps } from '@/features/create_setlist/types/CommonTile
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';
 
+// Takes list of all songs in the library
+/**
+ * 
+ * @param initialMasterSongs is a list of all songs in the library
+ * @param onSubmit takes the submit function for either the edit form with id or create form without id
+ * @returns consolidated props for passing down to destination components
+ * @summary used to combine the allSongs state with useAddSong and useSetlist.
+ */
+
 const useSetlistEditorState = (
   initialMasterSongs: SongType[],
   onSubmit: (data: FormValues) => void,
-  // initialSetlist?: SubmitSetlistType,
 ) => {
   const [allSongs, setAllSongs] = useState<SongType[]>(initialMasterSongs);
 

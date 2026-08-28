@@ -7,13 +7,13 @@ export interface SavedSetlistTileProps {
 
 const SavedSetlistTile = ({ set, handleSetlist }: SavedSetlistTileProps) => {
   return (
-    <div
-      data-cy="tile"
+    <button
+      data-cy="sidebar-tile"
       className="flex items-center justify-center bg-bg-main px-4 py-2 text-text-main"
       onClick={() => handleSetlist(set.setlistId)}
     >
       {set.setlistName}
-    </div>
+    </button>
   );
 };
 export default SavedSetlistTile;

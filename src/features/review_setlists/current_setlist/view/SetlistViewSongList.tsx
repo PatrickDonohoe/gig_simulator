@@ -49,11 +49,11 @@ const SetlistViewSongList = ({
           </div>
 
           <article
-            id="setlist_article"
+            id="setlist-article"
             data-cy="article"
             className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
           >
-            <h2 className="text-center font-semibold">Title: {song.title}</h2>
+            <h2 id='song-title' className="text-center font-semibold">Title: {song.title}</h2>
 
             {/* The title filter/data is provided above. If filters other than the title are present, show them here. Otherwise, render nothing so that the title is centered vertically. */}
             {activeFilters.length > 0 && (
@@ -74,13 +74,13 @@ const SetlistViewSongList = ({
           </article>
 
           <div className="flex flex-col gap-2">
-            <p className="rounded-xl border-2 border-border-bold bg-bg-main p-2 focus:border-border-bold">
+            <p data-cy='song-notes' className="rounded-xl border-2 border-border-bold bg-bg-main p-2 focus:border-border-bold">
               {song.notes || 'Click the edit button to add notes.'}
             </p>
 
-            <span className="text-text-main">
-              {song.transitionTime.minutes || '00'}:{' '}
-              {song.transitionTime.seconds || '00'}
+            <span data-cy='song-transition' className="text-text-main">
+              {song.transitionTime.minutes ?? '00'}:{' '}
+              {song.transitionTime.seconds ?? '00'}
             </span>
           </div>
         </div>

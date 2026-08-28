@@ -7,7 +7,11 @@ import z from 'zod';
 import { SetlistRowSchema } from '../../features/create_setlist/types/SetlistRow';
 import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
-import { diffGroupedMove, toSetlistRow, type GroupedIds } from './dragOperations';
+import {
+  diffGroupedMove,
+  toSetlistRow,
+  type GroupedIds,
+} from './dragOperations';
 
 // Need a default transition time that can be changed and reflected in the form.
 // Need a sync button to make other times match.
@@ -26,17 +30,25 @@ export type FormValues = z.infer<typeof FormValuesSchema>;
 
 const useSetlist = (initialMasterSongs: SongType[]) => {
   // Master form tracks both dynamics workspace and setlist layouts simultaneously
-  const { control, register, handleSubmit, setValue, getValues, watch, formState: { errors, isValid } } =
-    useForm<FormValues>({
-      resolver: zodResolver(FormValuesSchema),
-      mode: 'onChange',
-      defaultValues: {
-        // Sidebar starts prepoluated with
-        setlistName: '',
-        sidebar: initialMasterSongs.map((song) => ({ songId: song.id })),
-        setlist: [],
-      },
-    });
+  const {
+    control,
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    watch,
+    formState: { errors, isValid },
+  } = useForm<FormValues>({
+    resolver: zodResolver(FormValuesSchema),
+    mode: 'onChange',
+    defaultValues: {
+      // Sidebar starts prepoluated with
+      setlistName: '',
+      // An array of all library songs' id's.
+      sidebar: initialMasterSongs.map((song) => ({ songId: song.id })),
+      setlist: [],
+    },
+  });
 
   // Creating two distinct array field pipelines from the same form control engine
   const sidebarFields = useFieldArray({ control, name: 'sidebar' });
