@@ -20,6 +20,7 @@ describe('<ModalBackdrop>', () => {
       submitAddSong: cy.stub(),
       addSongError: null,
       handleIsAddSong: cy.stub().as('handleIsAddSong'),
+      setFocus: cy.stub().as('setFocus'),
     };
 
     cy.mount(

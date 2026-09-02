@@ -18,6 +18,7 @@ describe('<AddSongForm>', () => {
       overrides.removeInstrumentation ?? cy.stub().as('removeInstrumentation'),
     submitAddSong: overrides.submitAddSong ?? cy.stub().as('submitAddSong'),
     addSongError: null,
+    setFocus: overrides.setFocus ?? cy.stub().as('setFocus'),
     handleIsAddSong:
       overrides.handleIsAddSong ?? cy.stub().as('handleIsAddSong'),
     ...overrides,
