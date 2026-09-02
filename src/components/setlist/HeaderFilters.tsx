@@ -16,7 +16,7 @@ const filters: FilterType[] = [
 
 const HeaderFilters = () => {
   const { activeFilters, handleFilter, resetFilters } = useFilters();
-  
+
   return (
     <section className="flex items-center justify-center gap-4 p-2">
       <h2 className="text-center text-xl font-semibold text-text-main">
@@ -24,7 +24,7 @@ const HeaderFilters = () => {
       </h2>
       <div
         data-cy="filters"
-        className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-2 border-border-bold rounded-lg p-2"
+        className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-lg border-2 border-border-bold p-2"
       >
         {filters.map((f) => (
           <Filter

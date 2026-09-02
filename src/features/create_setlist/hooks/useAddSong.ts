@@ -25,6 +25,8 @@ const useAddSong = (onSave: (newSong: SongType) => void) => {
     register,
     control,
     handleSubmit,
+    reset,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<AddSongFormValues>({
     defaultValues: {
@@ -60,6 +62,7 @@ const useAddSong = (onSave: (newSong: SongType) => void) => {
       saveSong(extendedData);
       onSave(extendedData);
       setIsAddSong(false);
+      reset();
     } catch (dbError) {
       setError(dbError instanceof Error ? dbError.message : null);
     }
@@ -75,6 +78,7 @@ const useAddSong = (onSave: (newSong: SongType) => void) => {
     errors,
     addSongError: error,
     handleIsAddSong,
+    setFocus,
   };
 
   return {

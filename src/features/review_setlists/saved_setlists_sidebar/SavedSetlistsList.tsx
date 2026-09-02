@@ -6,7 +6,10 @@ export interface SavedSetlistsListProps {
   handleSetlist: (id: string) => void;
 }
 
-const SavedSetlistsList = ({ setlists, handleSetlist }: SavedSetlistsListProps) => {
+const SavedSetlistsList = ({
+  setlists,
+  handleSetlist,
+}: SavedSetlistsListProps) => {
   return (
     <div
       data-cy="list"

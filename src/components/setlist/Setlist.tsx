@@ -4,7 +4,9 @@ import { ErrorMessage } from '@hookform/error-message';
 import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import SetlistHeader from '@/components/setlist/SetlistHeader';
 import SetlistShell from '@/layouts/components/SetlistShell';
-import SetlistSongList, { type SongListProps } from '@/components/setlist/SetlistSongList';
+import SetlistSongList, {
+  type SongListProps,
+} from '@/components/setlist/SetlistSongList';
 import HeaderFilters from '@/components/setlist/HeaderFilters';
 
 /**
@@ -20,8 +22,14 @@ export interface SetlistProps extends SongListProps {
   isValid: boolean;
 }
 
-const Setlist = ({ tiles, commonTileProps, setlistDuration, errors, isValid }: SetlistProps) => {
-  
+const Setlist = ({
+  tiles,
+  commonTileProps,
+  setlistDuration,
+  errors,
+  isValid,
+  setlistInsert,
+}: SetlistProps) => {
   const { register, ...rest } = commonTileProps;
 
   return (
@@ -33,10 +41,12 @@ const Setlist = ({ tiles, commonTileProps, setlistDuration, errors, isValid }: S
           type="text"
           className="grow rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted lg:col-start-2"
           placeholder="New Setlist #1"
-          {...register('setlistName', { required: 'A setlist name is required.' })}
+          {...register('setlistName', {
+            required: 'A setlist name is required.',
+          })}
         />
 
-        <ErrorMessage data-cy='error' name='setlistName' errors={errors} />
+        <ErrorMessage as='span' data-cy="error" name="setlistName" errors={errors} />
 
         <button
           data-cy="submit"
@@ -50,7 +60,11 @@ const Setlist = ({ tiles, commonTileProps, setlistDuration, errors, isValid }: S
 
       <HeaderFilters />
 
-      <SetlistSongList tiles={tiles} commonTileProps={commonTileProps} />
+      <SetlistSongList
+        tiles={tiles}
+        commonTileProps={commonTileProps}
+        setlistInsert={setlistInsert}
+      />
     </SetlistShell>
   );
 };

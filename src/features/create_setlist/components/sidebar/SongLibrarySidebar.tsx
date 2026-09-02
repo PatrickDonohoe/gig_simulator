@@ -21,7 +21,10 @@ export interface SongLibrarySidebarProps {
 
 const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
   const { onClick, ...rest } = common;
-  const { ref, isDropTarget } = useDroppable({ id: 'sidebar' });
+  const { ref, isDropTarget } = useDroppable({
+    id: 'sidebar',
+    accept: 'song-item',
+  });
 
   const headerProps = {
     onClick: onClick,
@@ -36,7 +39,10 @@ const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
       className="border-border-bold bg-bg-main"
     >
       {/* Intended to scroll. */}
-      <section data-cy='library-sidebar' className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border-bold bg-primary">
+      <section
+        data-cy="library-sidebar"
+        className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border-bold bg-primary"
+      >
         <div
           data-cy="wrapper_title"
           className="flex items-center justify-center border-b border-border-bold py-1"

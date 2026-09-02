@@ -12,12 +12,22 @@ const setlistA1: SubmitSetlistType = {
   setlistName: 'A 1',
   setlistSongs: [
     {
+      kind: 'song',
       songId: 'sa1',
+    },
+    {
+      kind: 'transition',
+      transitionId: 't1',
       transitionTime: { hours: 0, minutes: 1, seconds: 5 },
       notes: 'Do this quickly.',
     },
     {
+      kind: 'song',
       songId: 'sa2',
+    },
+    {
+      kind: 'transition',
+      transitionId: 't2',
       transitionTime: { hours: 0, minutes: 3, seconds: 9 },
       notes: 'Tell a story about a bear.',
     },
@@ -40,8 +50,8 @@ describe('getAllSetLists', () => {
   it('retrieves all setlists in an array', () => {
     expect(getAllSetLists()).toHaveLength(2);
     expect(getAllSetLists()).toContainEqual(newSetlist);
-  })
-})
+  });
+});
 
 describe('saveSetlist', () => {
   beforeEach(() => {

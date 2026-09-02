@@ -6,12 +6,14 @@ import { submitSetlist } from '@/features/create_setlist/services/submitFuncs';
 import SetlistEditor from '@/components/setlist/SetlistEditor';
 import useSetlistEditorState from '@/hooks/use_setlist/useSetlistEditorState';
 import { getAllSongs } from '@/utils/songStorage';
+import { emptySetlistFormValues } from '@/utils/build_form_values/buildSetlistFormValues';
 
 const CreateSetlistPage = () => {
-  const librarySongs = useMemo(() => {
-    return getAllSongs();
-  }, []);
-
+  const librarySongs = useMemo(() => getAllSongs(), []);
+  const defaultValues = useMemo(
+    () => emptySetlistFormValues(librarySongs),
+    [librarySongs],
+  );
   const {
     sidebar,
     setlist,
@@ -19,7 +21,7 @@ const CreateSetlistPage = () => {
     handleIsAddSong,
     isAddSong,
     formData,
-  } = useSetlistEditorState(librarySongs, submitSetlist);
+  } = useSetlistEditorState(librarySongs, submitSetlist, defaultValues);
 
   return (
     <div data-cy="page" className="flex min-h-0 flex-1">

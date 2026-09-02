@@ -26,6 +26,7 @@ const SidebarHeader = ({
         <button
           id="sidebar-header-button"
           onClick={onClick}
+          type="button"
           className="flex-none rounded-xl border bg-bg-main px-2 py-1 text-sm hover:bg-bg-surface hover:text-text-muted"
         >
           {buttonText}

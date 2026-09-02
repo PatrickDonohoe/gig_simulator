@@ -9,16 +9,17 @@ import type { SongLibrarySidebarProps } from '@/features/create_setlist/componen
 
 // Takes list of all songs in the library
 /**
- * 
- * @param initialMasterSongs is a list of all songs in the library
- * @param onSubmit takes the submit function for either the edit form with id or create form without id
- * @returns consolidated props for passing down to destination components
+ * @param initialMasterSongs Is a list of all songs in the library
+ * @param onSubmit Takes the submit function for either the edit form with id or
+ *   create form without id
+ * @returns Consolidated props for passing down to destination components
  * @summary used to combine the allSongs state with useAddSong and useSetlist.
  */
 
 const useSetlistEditorState = (
   initialMasterSongs: SongType[],
   onSubmit: (data: FormValues) => void,
+  defaultValues: FormValues,
 ) => {
   const [allSongs, setAllSongs] = useState<SongType[]>(initialMasterSongs);
 
@@ -31,6 +32,7 @@ const useSetlistEditorState = (
     sidebarArr,
     setlistArr,
     handleSubmit,
+    setlistInsert,
     setlistRemove,
     sidebarRemove,
     sidebarAppend,
@@ -38,16 +40,19 @@ const useSetlistEditorState = (
     setlistDuration,
     errors,
     isValid,
-  } = useSetlist(allSongs);
+  } = useSetlist(allSongs, defaultValues);
 
   const handleSongAdded = (newSong: SongType) => {
     setAllSongs((prev) => [...prev, newSong]);
-    sidebarAppend({ songId: newSong.id });
+    sidebarAppend({ songId: newSong.id, kind: 'song' });
   };
 
   const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
 
-  const commonTileProps: Omit<CommonTileProps, 'onClick' | 'onRemove' | 'isValid' | 'errors'> = {
+  const commonTileProps: Omit<
+    CommonTileProps,
+    'onClick' | 'onRemove' | 'isValid' | 'errors'
+  > = {
     register,
     setValue,
     getValues,
@@ -78,6 +83,7 @@ const useSetlistEditorState = (
     setlistDuration,
     errors,
     isValid,
+    setlistInsert,
   };
 
   return {

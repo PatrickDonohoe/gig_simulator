@@ -1,11 +1,14 @@
-import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
-import MultInputStack from './MultInputStack';
+import { useEffect } from 'react';
 import type {
   FieldArrayWithId,
   FieldErrors,
   UseFormRegister,
+  UseFormSetFocus,
 } from 'react-hook-form';
 import type { AddSongFormValues } from '../../hooks/useAddSong';
+
+import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
+import MultInputStack from './MultInputStack';
 
 export interface AddSongFormProps {
   register: UseFormRegister<AddSongFormValues>;
@@ -20,6 +23,7 @@ export interface AddSongFormProps {
   submitAddSong: () => void;
   addSongError: string | null;
   handleIsAddSong: (bool: boolean) => void;
+  setFocus: UseFormSetFocus<AddSongFormValues>;
 }
 
 const AddSongForm = ({
@@ -32,10 +36,19 @@ const AddSongForm = ({
   removeInstrumentation,
   addSongError,
   handleIsAddSong,
+  setFocus,
 }: AddSongFormProps) => {
+
+  useEffect(() => {
+    setFocus('title')
+    console.log('active after setFocus:', document.activeElement);
+    requestAnimationFrame(() => console.log('active next frame:', document.activeElement))
+  }, [setFocus]);
+    
+
   return (
     <form
-      id='song_form'
+      id="song_form"
       data-cy="song_form"
       onSubmit={submitAddSong}
       className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
@@ -51,7 +64,7 @@ const AddSongForm = ({
         <button
           data-cy="close"
           type="button"
-          className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent"
+          className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent focus:border-accent"
           onClick={() => handleIsAddSong(false)}
         >
           X
@@ -112,11 +125,11 @@ const AddSongForm = ({
             <label className="flex flex-col text-sm">
               Minutes:
               <input
-              id='duration-minutes'
+                id="duration-minutes"
                 data-cy="duration_input"
                 type="number"
                 placeholder="min"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle focus:ring-accent"
                 {...register('duration.minutes')}
               />
             </label>
@@ -124,11 +137,11 @@ const AddSongForm = ({
             <label className="flex flex-col text-sm">
               Seconds:
               <input
-              id='duration-seconds'
+                id="duration-seconds"
                 data-cy="duration_input"
                 type="number"
                 placeholder="sec"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle"
+                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle focus:ring-accent"
                 {...register('duration.seconds')}
               />
             </label>
@@ -154,7 +167,7 @@ const AddSongForm = ({
         <button
           data-cy="submit_button"
           type="submit"
-          className="flex-none rounded-xl border bg-accent px-2 py-1 text-text-main hover:bg-bg-surface"
+          className="flex-none rounded-xl border border-text-main bg-accent px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Adding...' : 'Add Song +'}

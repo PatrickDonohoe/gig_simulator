@@ -1,18 +1,22 @@
-import type { SetlistTileType } from '@/types/SetlistTileType';
 import FilterAttribute from '@/features/create_setlist/components/FilterAttribute';
 import type { SongType } from '@/types/SongType';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 import useFilters from '@/hooks/useFilters';
-import SetlistViewModeHeader, { type ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import SetlistViewModeHeader, {
+  type ViewModeHeaderProps,
+} from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 
 export interface SetlistViewSongListProps {
-  songsDisplayData: SetlistTileType[];
+  setlistSongs: SubmitSetlistType['setlistSongs'];
   viewHeader: ViewModeHeaderProps;
+  getSongData: (songId: string) => SongType | undefined;
 }
 
 const SetlistViewSongList = ({
-  songsDisplayData,
+  setlistSongs,
   viewHeader,
+  getSongData,
 }: SetlistViewSongListProps) => {
   const formatters: Record<keyof SongType, (s: SongType) => string> = {
     id: (s) => s.id,
@@ -35,56 +39,64 @@ const SetlistViewSongList = ({
   return (
     <div>
       <SetlistViewModeHeader {...viewHeader} />
-      
-      {songsDisplayData.map((song, index) => (
-        <div
-          key={song.id}
-          data-cy="tile"
-          className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle"
-        >
-          <div className="grid w-full grid-flow-col grid-cols-3">
-            <h1 className="bg-wild_strawberry/20 col-start-2 justify-self-center rounded-xl p-2 text-2xl font-semibold text-bg-main underline">
-              Song #{index + 1}
-            </h1>
-          </div>
 
-          <article
-            id="setlist-article"
-            data-cy="article"
-            className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
-          >
-            <h2 id='song-title' className="text-center font-semibold">Title: {song.title}</h2>
+      <div
+        data-cy="list"
+        className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle"
+      >
+        {setlistSongs.map((item, index) => {
+          if (item.kind !== 'song') {
+            return (
+              // Transition Tile
+              <div key={item.transitionId} className="flex flex-col gap-2">
+                <p
+                  data-cy={`song-notes-${index}`}
+                  className="rounded-xl border-2 border-border-bold bg-bg-main p-2 focus:border-border-bold"
+                >
+                  {item.notes || 'Click the edit button to add notes.'}
+                </p>
 
-            {/* The title filter/data is provided above. If filters other than the title are present, show them here. Otherwise, render nothing so that the title is centered vertically. */}
-            {activeFilters.length > 0 && (
-              <div
-                id="attributes_container"
-                data-cy="att_container"
-                className="flex flex-wrap gap-2"
-              >
-                {activeFilters.map((f) => (
-                  <FilterAttribute
-                    key={f}
-                    label={f}
-                    data={formatters[f](song)}
-                  />
-                ))}
+                <span data-cy="song-transition" className="text-text-main">
+                  {item.transitionTime.minutes ?? '00'}:
+                  {item.transitionTime.seconds ?? '00'}
+                </span>
               </div>
-            )}
-          </article>
+            );
+          }
 
-          <div className="flex flex-col gap-2">
-            <p data-cy='song-notes' className="rounded-xl border-2 border-border-bold bg-bg-main p-2 focus:border-border-bold">
-              {song.notes || 'Click the edit button to add notes.'}
-            </p>
+          const song = getSongData(item.songId);
 
-            <span data-cy='song-transition' className="text-text-main">
-              {song.transitionTime.minutes ?? '00'}:{' '}
-              {song.transitionTime.seconds ?? '00'}
-            </span>
-          </div>
-        </div>
-      ))}
+          return (
+            <article
+              key={item.songId}
+              id="setlist-article"
+              data-cy="article"
+              className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
+            >
+              <h2 id="song-title" className="text-center font-semibold">
+                Title: {song?.title ?? 'Unavailable'}
+              </h2>
+
+              {/* The title filter/data is provided above. If filters other than the title are present, show them here. Otherwise, render nothing so that the title is centered vertically. */}
+              {activeFilters.length > 0 && (
+                <div
+                  id="attributes_container"
+                  data-cy="att_container"
+                  className="flex flex-wrap gap-2"
+                >
+                  {activeFilters.map((f) => (
+                    <FilterAttribute
+                      key={f}
+                      label={f}
+                      data={song ? formatters[f](song) : 'Unavailable'}
+                    />
+                  ))}
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </div>
     </div>
   );
 };

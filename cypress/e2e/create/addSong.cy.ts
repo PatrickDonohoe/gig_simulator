@@ -7,7 +7,7 @@ describe('adding song to library', () => {
   it('opens add song modal when the add song + button is clicked', () => {
     cy.visit('/dash/create');
     cy.get('#sidebar-header-button').click();
-    cy.get('#song_form').should('be.visible')
+    cy.get('#song_form').should('be.visible');
   });
 
   it('allows user input into the form, submits, and disappears after submit', () => {
@@ -58,5 +58,5 @@ describe('adding song to library', () => {
       });
       expect(saved.instrumentation).to.deep.equal([song.instrument]);
     });
-  })
-})
+  });
+});

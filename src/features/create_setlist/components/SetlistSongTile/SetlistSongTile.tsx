@@ -3,10 +3,9 @@ import { useSortable } from '@dnd-kit/react/sortable';
 import type { SongType } from '@/types/SongType';
 import FilterAttribute from '../FilterAttribute';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
-import type { TileProps } from '../../types/TileProps';
 import TrashCan from '@icons/trash-can-svgrepo-com.svg?react';
-import NumberInput from '@/components/NumberInput';
 import useFilters from '@/hooks/useFilters';
+import type { SongTileProps } from '../../types/TileProps';
 
 /**
  * Reusable tile for the setlist that will include the draggable tile plus
@@ -14,13 +13,7 @@ import useFilters from '@/hooks/useFilters';
  * will have a different notes section for closing remarks.
  */
 
-export type SetlistSongTileProps = TileProps & { index: number };
-
-const SetlistSongTile = ({
-  field,
-  index,
-  commonTileProps,
-}: SetlistSongTileProps) => {
+const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   const { ref, isDragSource } = useSortable({
     id: field.id,
     index,
@@ -39,14 +32,7 @@ const SetlistSongTile = ({
 
   const { activeFilters } = useFilters();
 
-  const {
-    register,
-    getValues,
-    setValue,
-    getSongDisplayDetails,
-    onRemove,
-    watch,
-  } = commonTileProps;
+  const { getSongDisplayDetails, onRemove } = commonTileProps;
 
   // Callback to master song state to fetch presentation layers cleanly
   const metadata: SongType = getSongDisplayDetails(field.songId) ?? {
@@ -89,8 +75,8 @@ const SetlistSongTile = ({
         </h1>
 
         <button
-        data-cy={`trash-button-${index}`}
-          className="justify-self-end col-start-3 flex-none p-2 text-bg-main hover:text-border-subtle/50"
+          data-cy={`trash-button-${index}`}
+          className="col-start-3 flex-none justify-self-end p-2 text-bg-main hover:text-border-subtle/50"
           onClick={() => onRemove(index)}
         >
           <TrashCan className="size-8 justify-self-end" />
@@ -121,46 +107,6 @@ const SetlistSongTile = ({
           </div>
         )}
       </article>
-
-      <div className="flex flex-col gap-2">
-        <textarea
-          id={field.id}
-          data-cy={`notes-${index}`}
-          placeholder="Add any notes here about your transition such as key change, instrument change, or something to share with the audience."
-          className="rounded-xl border-2 border-dark_amethyst bg-menu p-2 focus:outline-border-bold"
-          rows={3}
-          defaultValue={field.notes}
-          {...register(`setlist.${index}.notes`)}
-        />
-
-        <div className="flex flex-col gap-2 rounded-xl bg-menu p-2 ring-2 ring-deep_space_blue">
-          <h3>Enter a custom transition time if different from the default.</h3>
-
-          <NumberInput
-            title="Enter Minutes"
-            cy_id={`minutes-tran-${index}`}
-            id="minutes"
-            defaultValue={field.transitionTime.minutes}
-            index={index}
-            register={register}
-            getValues={getValues}
-            setValue={setValue}
-            watch={watch}
-          />
-
-          <NumberInput
-            title="Enter Seconds"
-            cy_id={`seconds-tran-${index}`}
-            id="seconds"
-            defaultValue={field.transitionTime.seconds}
-            index={index}
-            register={register}
-            getValues={getValues}
-            setValue={setValue}
-            watch={watch}
-          />
-        </div>
-      </div>
     </section>
   );
 };

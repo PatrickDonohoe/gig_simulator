@@ -61,9 +61,10 @@ const SetlistEditor = ({
             const tile =
               sidebar.tiles.find((t) => t.id === source.id) ??
               setlist.tiles.find((t) => t.id === source.id);
-            const song = tile
-              ? setlist.commonTileProps.getSongDisplayDetails(tile.songId)
-              : undefined;
+            const song =
+              tile?.kind === 'song'
+                ? setlist.commonTileProps.getSongDisplayDetails(tile.songId)
+                : undefined;
             return song ? (
               <DragPreviewCard title={song.title} duration={song.duration} />
             ) : null;

@@ -4,7 +4,7 @@ import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
 import { getAllSetLists } from '@/utils/setlist_storage/setlistStorage';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import { getAllSongs } from '@/utils/songStorage';
-import type { SetlistTileType } from '@/types/SetlistTileType';
+import type { SongType } from '@/types/SongType';
 
 const useReview = () => {
   const [selectedListId, setSelectedListId] = useState<string | undefined>(
@@ -20,31 +20,6 @@ const useReview = () => {
     window.addEventListener('focus', refetch);
     return () => window.removeEventListener('focus', refetch);
   }, []);
-
-  // All display data for the songs in the selected setlist
-  const songsDisplayData = useMemo<SetlistTileType[] | undefined>(() => {
-    // Setlist-specific data(notes, transition time) about each song in the selected setlist.
-    const songTransitions = selectedListId
-      ? setlists.find((s) => s.setlistId === selectedListId)?.setlistSongs
-      : [];
-
-    // All songs in the user's library
-    const songArr = getAllSongs();
-
-    // Join SetlistRow data with SongType data for each song (matching id) in a single pass,
-    // since songArr.find() only returns the SongType and would otherwise lose notes/transitionTime.
-    const dataWithTrans = songTransitions
-      ?.map((row) => {
-        const song = songArr.find((s) => s.id === row.songId);
-        return song
-          ? { ...song, transitionTime: row.transitionTime, notes: row.notes }
-          : undefined;
-      })
-      // If data is not equal to undefined, remove null and undefined from its type profile.
-      .filter((data): data is NonNullable<typeof data> => data !== undefined);
-
-    return dataWithTrans;
-  }, [selectedListId, setlists]);
 
   // Data used to map out the setlist choices in the sidebar
   const sidebarSetlists = useMemo(() => {
@@ -63,20 +38,46 @@ const useReview = () => {
       : undefined;
   }, [selectedListId, setlists]);
 
+  // All display data for the songs in the selected setlist
+  const songsDisplayData = useMemo<SongType[]>(() => {
+    // All songs in the user's library
+    const songArr = getAllSongs();
+
+    return !setlistData
+      ? []
+      : setlistData.setlistSongs
+          .filter((ss) => ss.kind === 'song')
+          .map((row) => songArr.find((s) => s.id === row.songId))
+          .filter((s): s is SongType => s !== undefined);
+  }, [setlistData]);
+
   const setlistDuration = useMemo(() => {
-    return songsDisplayData
+    const transitionDuration = setlistData
+      ? setlistData.setlistSongs
+          .filter((ss) => ss.kind === 'transition')
+          .reduce((sum, current) => {
+            const duration = durationToSeconds(current.transitionTime);
+            return sum + duration;
+          }, 0)
+      : 0;
+
+    const playtime = songsDisplayData
       ? songsDisplayData.reduce((sum, current) => {
-          const transitionDuration = durationToSeconds(current.transitionTime);
           return transitionDuration + current.duration + sum;
         }, 0)
       : 0;
-  }, [songsDisplayData]);
+
+    return transitionDuration + playtime;
+  }, [songsDisplayData, setlistData]);
 
   // Used when a user makes a selection from the sidebar.
   const handleSetlist = (id: string) => {
     setlists.find((s) => s.setlistId === id);
     setSelectedListId(id);
   };
+
+  const getSongData = (songId: string) =>
+    songsDisplayData.find((song) => song.id === songId);
 
   return {
     songsDisplayData,
@@ -85,6 +86,7 @@ const useReview = () => {
     setlistData,
     setlistDuration,
     setlists,
+    getSongData,
   };
 };
 

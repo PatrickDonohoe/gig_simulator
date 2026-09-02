@@ -44,13 +44,25 @@ describe('<Setlist>', () => {
     const tiles: SetlistProps['tiles'] = [
       {
         id: 'row-1',
+        kind: 'song',
         songId: 'song-123',
+      },
+      {
+        id: 'row-t1',
+        kind: 'transition',
+        transitionId: 't1',
         notes: 'Opener',
         transitionTime: { minutes: 1, seconds: 30 },
       },
       {
         id: 'row-2',
+        kind: 'song',
         songId: 'song-234',
+      },
+      {
+        id: 'row-t2',
+        kind: 'transition',
+        transitionId: 't2',
         notes: '',
         transitionTime: { minutes: 0, seconds: 0 },
       },
@@ -64,13 +76,16 @@ describe('<Setlist>', () => {
           setlistDuration={5}
           errors={mockErrors}
           isValid={true}
+          setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
         />
       </FiltersProvider>,
     );
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
-    cy.getByData('list').find('[data-cy^="setlist-tile-"]').should('have.length', 2);
+    cy.getByData('list')
+      .find('[data-cy^="setlist-tile-"]')
+      .should('have.length', 2);
   });
 
   it('shows the fallback when tiles is an empty array', () => {
@@ -94,7 +109,14 @@ describe('<Setlist>', () => {
 
     cy.mount(
       <FiltersProvider>
-        <Setlist tiles={[]} commonTileProps={mockCommon} setlistDuration={10} errors={mockErrors} isValid={false} />
+        <Setlist
+          tiles={[]}
+          commonTileProps={mockCommon}
+          setlistDuration={10}
+          errors={mockErrors}
+          isValid={false}
+          setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
+        />
       </FiltersProvider>,
     );
 

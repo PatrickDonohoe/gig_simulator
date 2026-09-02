@@ -1,19 +1,18 @@
-import SongLibrarySidebar, { type SongLibrarySidebarProps } from './SongLibrarySidebar';
-import type { SetlistProps } from '../../../../components/setlist/Setlist';
+import SongLibrarySidebar, {
+  type SongLibrarySidebarProps,
+} from './SongLibrarySidebar';
 
 describe('<SongLibrarySidebar>', () => {
-  const tiles: SetlistProps['tiles'] = [
+  const tiles: SongLibrarySidebarProps['tiles'] = [
     {
       id: 'row-1',
+      kind: 'song',
       songId: 'song-123',
-      notes: 'Opener',
-      transitionTime: { minutes: 1, seconds: 30 },
     },
     {
       id: 'row-2',
+      kind: 'song',
       songId: 'song-234',
-      notes: '',
-      transitionTime: { minutes: 0, seconds: 0 },
     },
   ];
 

@@ -1,6 +1,9 @@
 import z from 'zod';
 
-import { SubmitSetlistSchema, type SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
+import {
+  SubmitSetlistSchema,
+  type SubmitSetlistType,
+} from '@/features/create_setlist/types/SubmitSetlistType';
 
 const SetlistRecordSchema = z.record(z.string(), SubmitSetlistSchema);
 

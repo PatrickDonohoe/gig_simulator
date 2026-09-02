@@ -1,4 +1,7 @@
-import { formatDuration, timeBreakdown } from '@/utils/add_time/addTimeDurations';
+import {
+  formatDuration,
+  timeBreakdown,
+} from '@/utils/add_time/addTimeDurations';
 
 export interface DragPreviewCardProps {
   title: string;

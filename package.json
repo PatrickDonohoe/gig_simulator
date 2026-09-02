@@ -12,9 +12,14 @@
     "fmt:check": "oxfmt --check",
     "cy": "cypress open",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "dep:check": "depcruise src",
+    "dep:graph": "depcruise src --output-type mermaid --output-to dependency-graph.mmd",
+    "dep:svg": "depcruise src --output-type dot | dot -T svg -o dependency-graph.svg",
+    "dep:html": "depcruise src --output-type x-dot-webpage --output-to dependency-graph.html"
   },
   "dependencies": {
+    "@dnd-kit/dom": "^0.5.0",
     "@dnd-kit/helpers": "^0.5.0",
     "@dnd-kit/react": "^0.5.0",
     "@hookform/error-message": "^2.0.1",
@@ -40,10 +45,12 @@
     "@vitest/coverage-v8": "4.1.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "cypress": "^15.18.0",
+    "dependency-cruiser": "^18.2.0",
     "jsdom": "^30.0.1",
     "oxfmt": "^0.57.0",
     "oxlint": "^1.71.0",
     "oxlint-tsgolint": "^0.24.0",
+    "sonda": "^0.14.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
     "vitest": "^4.1.9",

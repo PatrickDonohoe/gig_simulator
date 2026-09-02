@@ -9,11 +9,11 @@ const ReviewSetlistsPage = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('view');
 
   const {
-    songsDisplayData,
     handleSetlist,
     sidebarSetlists,
     setlistData,
     setlistDuration,
+    getSongData,
   } = useReview();
 
   const sidebarProps: SavedSetlistsListProps = {
@@ -24,16 +24,20 @@ const ReviewSetlistsPage = () => {
   const handleMode = (mode: ViewMode) => setViewMode(mode);
 
   return (
-    <div data-cy="page" className="flex flex-col min-h-0 flex-1">
+    <div data-cy="page" className="flex min-h-0 flex-1 flex-col">
       {/* TODO: Add a header, instructions for the page, and some decoration. */}
-      <header className="flex justify-center items-center bg-bg-main gap-4 py-4 text-text-main">
-        <h1 className="font-semibold text-3xl underline">Review your setlists</h1>
-        <span className="text-xl">Select a setlist from the left to review or edit.</span>
+      <header className="flex items-center justify-center gap-4 bg-bg-main py-4 text-text-main">
+        <h1 className="text-3xl font-semibold underline">
+          Review your setlists
+        </h1>
+        <span className="text-xl">
+          Select a setlist from the left to review or edit.
+        </span>
       </header>
 
       <CurrentSetlist
         viewMode={viewMode}
-        songsDisplayData={songsDisplayData || []}
+        getSongData={getSongData}
         handleMode={handleMode}
         setlistData={setlistData}
         setlistDuration={setlistDuration}

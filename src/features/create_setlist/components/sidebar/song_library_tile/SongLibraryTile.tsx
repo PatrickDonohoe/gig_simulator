@@ -65,6 +65,7 @@ const SongLibraryTile = ({
 
         <button
           data-cy="remove"
+          type='button'
           className="flex-none p-2"
           onClick={() => onRemove(index)}
         >

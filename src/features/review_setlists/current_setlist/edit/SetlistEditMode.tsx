@@ -7,6 +7,11 @@ import { submitEditSetlist } from '@/features/create_setlist/services/submitFunc
 import useSetlistEditorState from '@/hooks/use_setlist/useSetlistEditorState';
 import { getAllSongs } from '@/utils/songStorage';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
+import {
+  emptySetlistFormValues,
+  setlistToFormValues,
+} from '@/utils/build_form_values/buildSetlistFormValues';
+import { getSetlist } from '@/utils/setlist_storage/setlistStorage';
 
 // Main content of ReviewSetlistPage when in 'edit' mode.
 export interface SetlistEditModeProps {
@@ -14,9 +19,15 @@ export interface SetlistEditModeProps {
 }
 
 const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
-  const librarySongs = useMemo(() => {
-    return getAllSongs();
-  }, []);
+  const librarySongs = useMemo(() => getAllSongs(), []);
+  const saved = useMemo(() => getSetlist(setlistId), [setlistId]);
+  const defaultValues = useMemo(
+    () =>
+      saved
+        ? setlistToFormValues(saved, librarySongs)
+        : emptySetlistFormValues(librarySongs),
+    [saved, librarySongs],
+  );
 
   const {
     sidebar,
@@ -25,8 +36,10 @@ const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
     isAddSong,
     handleIsAddSong,
     formData,
-  } = useSetlistEditorState(librarySongs, (data) =>
-    submitEditSetlist({ ...data, setlistId: setlistId }),
+  } = useSetlistEditorState(
+    librarySongs,
+    (data) => submitEditSetlist({ ...data, setlistId: setlistId }),
+    defaultValues,
   );
 
   return (

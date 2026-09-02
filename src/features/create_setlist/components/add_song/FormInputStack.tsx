@@ -35,7 +35,7 @@ const FormInputStack = <TFieldValues extends FieldValues>({
         data-cy={`input-${inputId}`}
         type="text"
         placeholder={placeholder}
-        className={`${className} rounded-lg bg-bg-main p-2 ring ring-border-bold hover:bg-golden_apricot hover:text-midnight_violet active:bg-bg-surface`}
+        className={`${className} rounded-lg bg-bg-main p-2 ring ring-border-bold hover:bg-golden_apricot hover:text-midnight_violet active:bg-bg-surface focus:ring-accent`}
         {...register(inputId, validationOptions)}
       />
       {error && (

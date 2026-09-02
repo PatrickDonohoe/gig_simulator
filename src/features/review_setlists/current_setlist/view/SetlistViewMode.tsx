@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router';
 
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
-import type { SetlistTileType } from '@/types/SetlistTileType';
 
 import SavedSetlistsList, {
   type SavedSetlistsListProps,
@@ -14,21 +13,22 @@ import SetlistViewSongList from '@/features/review_setlists/current_setlist/view
 import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
 import type { ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 import FiltersProvider from '@/context/filters/FiltersProvider';
+import type { SongType } from '@/types/SongType';
 
 export interface SetlistViewModeProps {
-  songsDisplayData: SetlistTileType[];
   handleMode: (mode: ViewMode) => void;
   setlistData: SubmitSetlistType | undefined;
   setlistDuration: number;
   sidebarProps: SavedSetlistsListProps;
+  getSongData: (songId: string) => SongType | undefined;
 }
 
 const SetlistViewMode = ({
-  songsDisplayData,
   handleMode,
   setlistData,
   setlistDuration,
   sidebarProps,
+  getSongData,
 }: SetlistViewModeProps) => {
   const navigate = useNavigate();
 
@@ -65,8 +65,12 @@ const SetlistViewMode = ({
           data-cy="view-page-content"
           className={`flex flex-8 flex-col border border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}
         >
-          {songsDisplayData.length > 0 ? (
-            <SetlistViewSongList songsDisplayData={songsDisplayData} viewHeader={viewHeader} />
+          {setlistData && setlistData.setlistSongs.length > 0 ? (
+            <SetlistViewSongList
+              setlistSongs={setlistData.setlistSongs}
+              viewHeader={viewHeader}
+              getSongData={getSongData}
+            />
           ) : (
             <SetlistEmpty />
           )}

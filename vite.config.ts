@@ -3,10 +3,12 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import svgr from 'vite-plugin-svgr';
+import sonda from 'sonda/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    sonda(),
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
@@ -28,4 +30,7 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    sourcemap: true
+  }
 });

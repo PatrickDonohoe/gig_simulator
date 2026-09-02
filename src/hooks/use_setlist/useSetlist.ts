@@ -4,7 +4,10 @@ import type { DragEndEvent } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 import z from 'zod';
 
-import { SetlistRowSchema } from '../../features/create_setlist/types/SetlistRow';
+import {
+  SetlistRowSchema,
+  SongRowSchema,
+} from '../../features/create_setlist/types/SetlistRow';
 import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
 import {
@@ -22,13 +25,17 @@ import {
 // valueAsNumber: true, so the numbers RHF holds already match DurationSchema.
 // The form will actually be submitted as just the setlist with its type.
 const FormValuesSchema = z.object({
+  setlistId: z.string().optional(),
   setlistName: z.string().min(1, 'A setlist name is required.'),
-  sidebar: z.array(z.object({ songId: z.string() })),
+  sidebar: z.array(SongRowSchema),
   setlist: z.array(SetlistRowSchema),
 });
 export type FormValues = z.infer<typeof FormValuesSchema>;
 
-const useSetlist = (initialMasterSongs: SongType[]) => {
+const useSetlist = (
+  initialMasterSongs: SongType[],
+  defaultValues: FormValues,
+) => {
   // Master form tracks both dynamics workspace and setlist layouts simultaneously
   const {
     control,
@@ -41,13 +48,7 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
   } = useForm<FormValues>({
     resolver: zodResolver(FormValuesSchema),
     mode: 'onChange',
-    defaultValues: {
-      // Sidebar starts prepoluated with
-      setlistName: '',
-      // An array of all library songs' id's.
-      sidebar: initialMasterSongs.map((song) => ({ songId: song.id })),
-      setlist: [],
-    },
+    defaultValues,
   });
 
   // Creating two distinct array field pipelines from the same form control engine
@@ -62,14 +63,14 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
 
   // Calculate the total setlist duration.
   const setlistDuration = (watchedItems || []).reduce((sum, current) => {
-    // Take "current", which represents each row of the array, and add its transformed duration property.
-    const transitionDuration = durationToSeconds(current.transitionTime);
-    // Retrieve duration in matching song from master song list.
-    const songDuration =
-      initialMasterSongs.find((song) => song.id === current.songId)?.duration ||
-      0;
+    // Take "current", which represents the current row of the array, and add its transformed transition duration or its song duration property to the sum.
+    const duration =
+      current.kind === 'transition'
+        ? durationToSeconds(current.transitionTime)
+        : initialMasterSongs.find((song) => song.id === current.songId)
+            ?.duration || 0;
 
-    return sum + transitionDuration + songDuration;
+    return sum + duration;
   }, 0);
 
   // Functional lookup: Keeps presentation layer details out of form memory
@@ -122,7 +123,12 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     // (setlistDuration) — mutating it second, after another field array
     // already changed in the same tick, was leaving its fields stale.
     setlistFields.remove(fromIndex);
-    sidebarFields.insert(toIndex, { songId: movingData.songId });
+    if (movingData.kind === 'transition' && toGroup === 'sidebar') return;
+    if (movingData.kind === 'song')
+      sidebarFields.insert(toIndex, {
+        songId: movingData.songId,
+        kind: movingData.kind,
+      });
   };
 
   return {
@@ -133,6 +139,7 @@ const useSetlist = (initialMasterSongs: SongType[]) => {
     sidebarAppend: sidebarFields.append,
     setlistRemove: setlistFields.remove,
     setlistAppend: setlistFields.append,
+    setlistInsert: setlistFields.insert,
     register,
     setValue,
     getValues,

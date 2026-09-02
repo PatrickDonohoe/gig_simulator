@@ -33,7 +33,7 @@ const NumberInput = ({
   watch,
 }: InputProps) => {
   const fieldName = `setlist.${index}.transitionTime.${id}` as const;
-  const value = watch(fieldName)
+  const value = watch(fieldName);
 
   return (
     <div className="flex gap-2">

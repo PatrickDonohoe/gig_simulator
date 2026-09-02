@@ -1,5 +1,6 @@
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import type { SongType } from '@/types/SongType';
+import type { TransitionType } from '@/features/create_setlist/types/SetlistRow';
 
 describe('adding a setlist', () => {
   const song1: SongType = {
@@ -24,8 +25,9 @@ describe('adding a setlist', () => {
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
   };
 
-  const setlistSong1: SubmitSetlistType['setlistSongs'][number] = {
-    songId: 's1',
+  const setlistSong1: TransitionType = {
+    kind: 'transition',
+    transitionId: 't1',
     notes: 's1 has some notes',
     transitionTime: {
       hours: 0,
@@ -34,8 +36,9 @@ describe('adding a setlist', () => {
     },
   };
 
-  const setlistSong2: SubmitSetlistType['setlistSongs'][number] = {
-    songId: 's3',
+  const setlistSong2: TransitionType = {
+    kind: 'transition',
+    transitionId: 't3',
     notes: 's3 has more notes',
     transitionTime: {
       hours: 0,
@@ -73,7 +76,7 @@ describe('adding a setlist', () => {
     cy.getByData('setlist-fallback').should('be.visible');
 
     cy.dragTile('#sidebar_tile_0', '[data-cy=setlist-fallback]');
-    cy.getByData('list')
+    cy.getByData('setlist-songlist')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 1);
 
@@ -91,50 +94,57 @@ describe('adding a setlist', () => {
     cy.getByData('submit').should('be.disabled');
   });
 
-  it('submits and adds to local storage the setlist data', () => {
-    const setlist: SubmitSetlistType = {
-      setlistId: 'a1',
-      setlistName: 'Rager Party',
-      setlistSongs: [setlistSong1, setlistSong2],
-    };
+  it('submits and adds to local storage the notes and transition times', () => {
+    const setlistName = 'Rager Party';
+
+    // A transition is created via the "Add a Transition" button on a song tile
+    // (there's no way to drag one in), and it lands at combined index
+    // songIndex + 1. With two songs dropped, adding a transition after song 0
+    // then after the last song gives [song, transition, song, transition],
+    // so the transition tiles sit at combined indexes 1 and 3.
+    const transitions = [
+      { index: 1, addAfter: 0, row: setlistSong1 },
+      { index: 3, addAfter: 2, row: setlistSong2 },
+    ];
 
     cy.visit('/dash/create', {
       // before the window loads, add these songs to the library
       onBeforeLoad(win) {
         win.localStorage.setItem(
           'songs',
-          JSON.stringify({ s1: song3, s3: song1 }),
+          JSON.stringify({ [song1.id]: song1, [song3.id]: song3 }),
         );
       },
     });
 
-    // dragging tiles to the setlist, because it can't be prepoluated.
+    // dragging tiles to the setlist, because it can't be prepopulated.
     cy.dragTile('#sidebar_tile_0', '[data-cy=setlist-fallback]'); // first drop: fallback exists
     cy.getByData('list')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 1); // waits for the first drop to actually land
 
-    cy.dragTile('#sidebar_tile_0', '[data-cy=list]'); // second drop: fallback is gone and song3 is now index 0
+    cy.dragTile('#sidebar_tile_0', '[data-cy=list]'); // second drop: fallback is gone
     cy.getByData('list')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 2);
 
-    cy.getByData('title').type(setlist.setlistName);
+    cy.getByData('title').type(setlistName);
 
-    cy.getByData('list')
-      .find('[data-cy^="setlist-tile-"]')
-      .each((_$tile, i) => {
-        const row = setlist.setlistSongs[i];
-        cy.getByData(`notes-${i}`)
-          .clear()
-          .type(row.notes ?? '');
-        cy.getByData(`minutes-tran-${i}`)
-          .clear()
-          .type(String(row.transitionTime.minutes));
-        cy.getByData(`seconds-tran-${i}`)
-          .clear()
-          .type(String(row.transitionTime.seconds));
-      });
+    // insert the transition rows, then fill each one's notes / minutes / seconds
+    transitions.forEach(({ index, addAfter, row }) => {
+      cy.getByData(`add-transition-${addAfter}`).click();
+      cy.getByData(`transition-tile-${index}`).should('exist');
+
+      cy.getByData(`notes-${index}`)
+        .clear()
+        .type(row.notes ?? '');
+      cy.getByData(`minutes-tran-${index}`)
+        .clear()
+        .type(String(row.transitionTime.minutes));
+      cy.getByData(`seconds-tran-${index}`)
+        .clear()
+        .type(String(row.transitionTime.seconds));
+    });
 
     cy.getByData('submit').click();
 
@@ -143,18 +153,22 @@ describe('adding a setlist', () => {
       .invoke('getItem', 'setlists')
       .should('not.be.null')
       .then((raw) => {
-        // searching through all setlists retrieved for a matching setlist name, because setlistId is unknown at the time of submission
+        // setlistId is a fresh UUID at submit time, so match on the name instead
         const saved = Object.values(JSON.parse(raw as string)).find(
-          (s: any) => s.setlistName === setlist.setlistName,
+          (s: any) => s.setlistName === setlistName,
         ) as SubmitSetlistType;
 
-        // comparing songs in the found setlist to the original matching setlist
-        setlist.setlistSongs.forEach((expected) => {
-          const actual = saved.setlistSongs.find(
-            (r) => r.songId === expected.songId,
+        const savedTransitions = saved.setlistSongs.filter(
+          (r): r is TransitionType => r.kind === 'transition',
+        );
+        const expectedTransitions = transitions.map((t) => t.row);
+
+        expect(savedTransitions).to.have.length(expectedTransitions.length);
+        savedTransitions.forEach((actual, i) => {
+          expect(actual.notes).to.eq(expectedTransitions[i].notes);
+          expect(actual.transitionTime).to.deep.eq(
+            expectedTransitions[i].transitionTime,
           );
-          expect(actual?.notes).to.eq(expected.notes);
-          expect(actual?.transitionTime).to.deep.eq(expected.transitionTime);
         });
       });
   });

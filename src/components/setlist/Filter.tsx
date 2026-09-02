@@ -1,4 +1,4 @@
-import type { FilterType } from "@/context/filters/FiltersContext";
+import type { FilterType } from '@/context/filters/FiltersContext';
 
 interface FilterProps {
   isChecked: boolean;

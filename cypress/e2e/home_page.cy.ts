@@ -1,6 +1,6 @@
 describe('The Home Page', () => {
   it('successfully loads', () => {
-    cy.visit('/')
+    cy.visit('/');
   });
 
   it('finds the link and redirects to the dash page', () => {
@@ -8,4 +8,4 @@ describe('The Home Page', () => {
     cy.get('#to-dash').click();
     cy.url().should('include', '/dash');
   });
-})
+});

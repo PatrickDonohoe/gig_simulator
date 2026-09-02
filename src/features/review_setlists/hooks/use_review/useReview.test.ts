@@ -18,8 +18,6 @@ const mockedGetAllSetLists = vi.mocked(getAllSetLists);
 const mockedGetAllSongs = vi.mocked(getAllSongs);
 
 describe('songsDisplayData', () => {
-
-
   it('should return an empty array if selectedListId is not defined', () => {
     const { result } = renderHook(() => useReview());
 
@@ -38,7 +36,7 @@ describe('songsDisplayData', () => {
       result.current.handleSetlist('does-not-exist');
     });
 
-    expect(result.current.songsDisplayData).toBe(undefined);
+    expect(result.current.songsDisplayData).toEqual([]);
   });
 
   it('should return an empty array if the matched setlist has no corresponding songs', () => {
@@ -48,7 +46,12 @@ describe('songsDisplayData', () => {
         setlistName: 'Set A',
         setlistSongs: [
           {
+            kind: 'song',
             songId: '1',
+          },
+          {
+            kind: 'transition',
+            transitionId: 't1',
             notes: '',
             transitionTime: { hours: 0, minutes: 0, seconds: 0 },
           },
@@ -73,7 +76,12 @@ describe('songsDisplayData', () => {
         setlistName: 'Set A',
         setlistSongs: [
           {
+            kind: 'song',
             songId: '1',
+          },
+          {
+            kind: 'transition',
+            transitionId: 't1',
             notes: 'opener',
             transitionTime: { hours: 0, minutes: 0, seconds: 30 },
           },
@@ -109,8 +117,6 @@ describe('songsDisplayData', () => {
         tempo: '120',
         duration: 180,
         instrumentation: [],
-        notes: 'opener',
-        transitionTime: { hours: 0, minutes: 0, seconds: 30 },
       },
     ]);
   });

@@ -35,13 +35,13 @@ const MultInputStack = ({
               data-cy="input"
               type="text"
               placeholder="e.g. drum set"
-              className="rounded-lg bg-bg-main p-2 ring ring-border-bold transition-all ease-in-out placeholder:text-text-muted hover:bg-accent focus:bg-bg-surface"
+              className="rounded-lg border-2 border-border-bold bg-bg-main p-2 transition-all ease-in-out placeholder:text-text-muted hover:bg-accent focus:bg-bg-surface focus-visible:border-accent"
               {...register(`instrumentation.${index}.value`)}
             />
             <button
               data-cy="rmv_button"
               type="button"
-              className="flex-none place-self-center ring-border-bold hover:ring-accent"
+              className="focus-visible:border-border-bold border-2 border-hidden flex-none place-self-center focus-visible:border-solid rounded-md focus-visible:outline-none"
               onClick={() => onRemove(index)}
             >
               <MinusIcon className="size-8" />
@@ -50,7 +50,7 @@ const MultInputStack = ({
               data-cy="add_button"
               type="button"
               onClick={onAdd}
-              className="flex-none place-self-center ring-border-bold hover:ring-accent"
+              className="focus-visible:border-border-bold border-2 border-hidden flex-none place-self-center focus-visible:border-solid rounded-md focus-visible:outline-none"
             >
               <AddIcon className="size-8" />
             </button>

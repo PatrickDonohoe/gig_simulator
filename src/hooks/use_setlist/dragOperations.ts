@@ -46,7 +46,6 @@ export const diffGroupedMove = (
 // so an item arriving from the sidebar still has the sidebar's plain
 // { songId } shape. This backfills the setlist-only fields it needs.
 export const toSetlistRow = (sidebarItem: { songId: string }): SetlistRow => ({
+  kind: 'song',
   songId: sidebarItem.songId,
-  notes: '',
-  transitionTime: { hours: 0, minutes: 0, seconds: 0 },
 });
