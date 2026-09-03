@@ -83,7 +83,7 @@ describe('adding a setlist', () => {
     cy.getByData('setlist-fallback').should('not.exist');
     cy.getByData('list').should('have.length', 1);
     cy.getByData('list')
-      .find('[data-cy=setlist-tile-0]')
+      .find('[data-cy=setlist-tile-song-1]')
       .should('contain.text', song.title);
   });
 

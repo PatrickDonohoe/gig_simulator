@@ -66,7 +66,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     <section
       ref={ref}
       id="setlist_tile"
-      data-cy={`setlist-tile-${index}`}
+      data-cy={`setlist-tile-${field.songId}`}
       className={`flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${isDragSource ? 'hidden' : ''}`}
     >
       <div className="grid w-full grid-flow-col grid-cols-3">
