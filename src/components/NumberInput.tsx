@@ -1,8 +1,9 @@
-import type {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormGetValues,
-  UseFormWatch,
+import {
+  useWatch,
+  type Control,
+  type UseFormRegister,
+  type UseFormSetValue,
+  type UseFormGetValues,
 } from 'react-hook-form';
 
 import type { FormValues } from '@/hooks/use_setlist/useSetlist';
@@ -18,7 +19,7 @@ interface InputProps {
   title: string;
   setValue: UseFormSetValue<FormValues>;
   getValues: UseFormGetValues<FormValues>;
-  watch: UseFormWatch<FormValues>;
+  control: Control<FormValues>;
 }
 
 const NumberInput = ({
@@ -30,10 +31,13 @@ const NumberInput = ({
   title,
   setValue,
   getValues,
-  watch,
+  control,
 }: InputProps) => {
   const fieldName = `setlist.${index}.transitionTime.${id}` as const;
-  const value = watch(fieldName);
+  // useWatch (a hook), not form.watch() — the latter is a plain method call that
+  // React Compiler memoizes away, so the button `disabled` states below would
+  // never re-evaluate after setValue.
+  const value = useWatch({ control, name: fieldName });
 
   return (
     <div className="flex gap-2">

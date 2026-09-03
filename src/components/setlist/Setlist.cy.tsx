@@ -28,7 +28,7 @@ describe('<Setlist>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
-    const mockWatch = cy.stub();
+    const mockControl = {} as unknown as SetlistProps['commonTileProps']['control'];
     const mockErrors = {};
 
     const mockCommon: SetlistProps['commonTileProps'] = {
@@ -38,7 +38,7 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
-      watch: mockWatch,
+      control: mockControl,
     };
 
     const tiles: SetlistProps['tiles'] = [
@@ -94,7 +94,7 @@ describe('<Setlist>', () => {
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
-    const mockWatch = cy.stub();
+    const mockControl = {} as unknown as SetlistProps['commonTileProps']['control'];
     const mockErrors = {};
 
     const mockCommon: SetlistProps['commonTileProps'] = {
@@ -104,7 +104,7 @@ describe('<Setlist>', () => {
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
-      watch: mockWatch,
+      control: mockControl,
     };
 
     cy.mount(

@@ -24,10 +24,10 @@ const useSetlistEditorState = (
   const [allSongs, setAllSongs] = useState<SongType[]>(initialMasterSongs);
 
   const {
+    control,
     register,
     setValue,
     getValues,
-    watch,
     getSongDisplayDetails,
     sidebarArr,
     setlistArr,
@@ -53,10 +53,10 @@ const useSetlistEditorState = (
     CommonTileProps,
     'onClick' | 'onRemove' | 'isValid' | 'errors'
   > = {
+    control,
     register,
     setValue,
     getValues,
-    watch,
     getSongDisplayDetails,
   };
 

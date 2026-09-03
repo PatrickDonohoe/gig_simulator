@@ -1,4 +1,4 @@
-import type { SetlistRow } from '../../features/create_setlist/types/SetlistRow';
+import type { SongRowType } from '../../features/create_setlist/types/SetlistRow';
 
 export type Group = 'sidebar' | 'setlist';
 
@@ -14,8 +14,11 @@ export interface ResolvedMove {
 }
 
 const locate = (id: string, grouped: GroupedIds): [Group, number] | null => {
+  // for loop using variable "group" as a string literal of sidebar or setlist
   for (const group of ['sidebar', 'setlist'] as const) {
+    // Searches through each group looking for where the id's match or returning -1
     const index = grouped[group].findIndex((item) => item.id === id);
+    // If the matching id was found, return the tuple of the group containing the id and its index
     if (index !== -1) return [group, index];
   }
   return null;
@@ -31,21 +34,25 @@ export const diffGroupedMove = (
   before: GroupedIds,
   after: GroupedIds,
 ): ResolvedMove | null => {
+  // Finding the group and index before movement and after.
   const from = locate(id, before);
   const to = locate(id, after);
   if (!from || !to) return null;
 
+  // Declaring constants as not null after null return.
   const [fromGroup, fromIndex] = from;
   const [toGroup, toIndex] = to;
+  // If the item did not move, return null.
   if (fromGroup === toGroup && fromIndex === toIndex) return null;
 
   return { fromGroup, fromIndex, toGroup, toIndex };
 };
 
-// @dnd-kit/helpers' move() relocates an item into the setlist group as-is,
-// so an item arriving from the sidebar still has the sidebar's plain
-// { songId } shape. This backfills the setlist-only fields it needs.
-export const toSetlistRow = (sidebarItem: { songId: string }): SetlistRow => ({
+// A song row is identical in the sidebar and the setlist ({ kind: 'song',
+// songId }), so this isn't a shape conversion — it just drops the `id` key
+// useFieldArray injects onto `fields` entries so it doesn't leak into form
+// state when the row is re-inserted into the other array.
+export const toSongRow = ({ songId }: { songId: string }): SongRowType => ({
   kind: 'song',
-  songId: sidebarItem.songId,
+  songId,
 });

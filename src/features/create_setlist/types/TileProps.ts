@@ -22,7 +22,7 @@ export interface TransitionTileProps {
   field: TransitionField;
   commonTileProps: Pick<
     CommonTileProps,
-    'register' | 'getValues' | 'setValue' | 'watch'
+    'register' | 'getValues' | 'setValue' | 'control' | 'onRemove'
   >;
   index: number;
 }

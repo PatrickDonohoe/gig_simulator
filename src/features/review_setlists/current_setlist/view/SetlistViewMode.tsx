@@ -61,10 +61,17 @@ const SetlistViewMode = ({
             <SavedSetlistsSidebarEmpty />
           </SavedSetlistsShell>
         )}
+
         <div
           data-cy="view-page-content"
-          className={`flex flex-8 flex-col border border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}
+          className={`flex flex-8 flex-col border-x-2 border-b-2 border-border-bold ${!setlistData?.setlistId ? 'pointer-events-none grayscale-50' : ''}`}
         >
+          <header className="flex items-center justify-center gap-4 bg-bg-main py-4 text-text-main">
+            <h1 className="text-3xl font-semibold underline">
+              Review your setlists
+            </h1>
+          </header>
+
           {setlistData && setlistData.setlistSongs.length > 0 ? (
             <SetlistViewSongList
               setlistSongs={setlistData.setlistSongs}

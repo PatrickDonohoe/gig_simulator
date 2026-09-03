@@ -41,7 +41,7 @@ const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
       {/* Intended to scroll. */}
       <section
         data-cy="library-sidebar"
-        className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border-bold bg-primary"
+        className="flex min-h-0 flex-1 flex-col overflow-hidden mb-2 border border-border-bold bg-primary"
       >
         <div
           data-cy="wrapper_title"

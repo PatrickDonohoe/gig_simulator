@@ -9,7 +9,7 @@ const AddTransition = ({ onClick, dataCy }: AddTransitionProps) => {
       type="button"
       data-cy={dataCy}
       onClick={onClick}
-      className="border border-border-bold"
+      className="border border-border-bold text-text-main rounded-md bg-accent/50 shadow-lg"
     >
       Add a Transition
     </button>

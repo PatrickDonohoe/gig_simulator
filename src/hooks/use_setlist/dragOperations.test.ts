@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   diffGroupedMove,
-  // toSetlistRow,
+  toSongRow,
   type GroupedIds,
 } from '@/hooks/use_setlist/dragOperations';
 
@@ -72,12 +72,9 @@ describe('diffGroupedMove', () => {
   });
 });
 
-// describe('toSetlistRow', () => {
-//   it('adds default notes and transitionTime to a sidebar item', () => {
-//     expect(toSetlistRow({ songId: '5' })).toEqual({
-//       songId: '5',
-//       notes: '',
-//       transitionTime: { hours: 0, minutes: 0, seconds: 0 },
-//     });
-//   });
-// });
+describe('toSongRow', () => {
+  it('keeps only kind and songId, dropping the useFieldArray id', () => {
+    const field = { kind: 'song' as const, songId: '5', id: 'rhf-key' };
+    expect(toSongRow(field)).toEqual({ kind: 'song', songId: '5' });
+  });
+});

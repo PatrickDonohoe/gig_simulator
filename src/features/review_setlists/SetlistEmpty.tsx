@@ -10,15 +10,16 @@ const SetlistEmpty = () => {
       <SetlistShell>
         <section data-cy="empty" className="flex min-h-0 flex-1 flex-col">
           <div className="flex items-center justify-center bg-primary py-4">
-            <h1 className="flex items-center justify-center rounded-xl bg-bg-main p-4 text-center text-2xl text-text-main">
-              No setlist selected.
+            <h1 className="flex items-center justify-center bg-bg-main p-4 text-center text-2xl text-text-main">
+              No setlist selected
             </h1>
           </div>
 
           <div
             data-cy="svg-container"
-            className="flex min-h-0 flex-1 items-center justify-center bg-gray-300"
+            className="flex flex-col min-h-0 flex-1 items-center justify-center bg-gray-300"
           >
+            <h2 className='text-xl font-semibold'>Choose a setlist from the left to continue.</h2>
             <EmptyList className="size-80 text-primary" />
           </div>
         </section>

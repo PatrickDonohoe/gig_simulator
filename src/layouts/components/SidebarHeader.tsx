@@ -32,7 +32,8 @@ const SidebarHeader = ({
           {buttonText}
         </button>
       </div>
-      <h2 data-cy="h2" className="bg-menu p-2">
+      
+      <h2 data-cy="h2" className="bg-menu p-2 text-center">
         {header2}
       </h2>
     </header>

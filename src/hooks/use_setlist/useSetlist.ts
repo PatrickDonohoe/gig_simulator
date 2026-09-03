@@ -12,7 +12,7 @@ import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
 import {
   diffGroupedMove,
-  toSetlistRow,
+  toSongRow,
   type GroupedIds,
 } from './dragOperations';
 
@@ -95,40 +95,50 @@ const useSetlist = (
       sidebar: sidebarFields.fields.map((f) => ({ id: f.id })),
       setlist: setlistFields.fields.map((f) => ({ id: f.id })),
     };
+    // The resulting sidebar and setlist arrays after the move given the state before the move and the operation performed.
     const after = move(before, event);
+    // Returns the location of the tile before and after the move or null if no operation was completed.
     const resolved = diffGroupedMove(String(source.id), before, after);
     if (!resolved) return;
 
+    // Defines resolved as not null.
     const { fromGroup, fromIndex, toGroup, toIndex } = resolved;
 
+    // If the tile was sorted within its own group
     if (fromGroup === toGroup) {
+      // If that group was the sidebar, sort from one index to another.
       if (fromGroup === 'sidebar') {
         sidebarFields.move(fromIndex, toIndex);
       } else {
+        // If it was the setlist, sort within the setlist.
         setlistFields.move(fromIndex, toIndex);
       }
       return;
     }
 
     if (fromGroup === 'sidebar' && toGroup === 'setlist') {
+      // Retrieve that tile's data.
       const movingData = sidebarFields.fields[fromIndex];
-      setlistFields.insert(toIndex, toSetlistRow(movingData));
+      // Song rows are the same shape in both arrays; toSongRow just strips the
+      // useFieldArray `id` key before re-inserting.
+      setlistFields.insert(toIndex, toSongRow(movingData));
+      // Remove the tile from the sidebar.
       sidebarFields.remove(fromIndex);
       return;
     }
 
+    // If moving from setlist to sidebar, retrieve tile data from setlist array.
     const movingData = setlistFields.fields[fromIndex];
     // setlist is mutated before sidebar (matching the other transfer branch
     // above) because it's the field array with an extra useWatch subscriber
     // (setlistDuration) — mutating it second, after another field array
     // already changed in the same tick, was leaving its fields stale.
     setlistFields.remove(fromIndex);
+    // Do not allow transitions to move from setlist to sidebar.
     if (movingData.kind === 'transition' && toGroup === 'sidebar') return;
+    // Allow songs to move from setlist to sidebar. Adds song to sidebar at the given index.
     if (movingData.kind === 'song')
-      sidebarFields.insert(toIndex, {
-        songId: movingData.songId,
-        kind: movingData.kind,
-      });
+      sidebarFields.insert(toIndex, toSongRow(movingData));
   };
 
   return {
@@ -140,6 +150,7 @@ const useSetlist = (
     setlistRemove: setlistFields.remove,
     setlistAppend: setlistFields.append,
     setlistInsert: setlistFields.insert,
+    control,
     register,
     setValue,
     getValues,

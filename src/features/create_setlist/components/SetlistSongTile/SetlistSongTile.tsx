@@ -18,7 +18,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     id: field.id,
     index,
     type: 'song-item',
-    accept: 'song-item',
+    accept: ['song-item', 'trans-item'],
     group: 'setlist',
     // OptimisticSortingPlugin (default) live-mutates the DOM directly across
     // sortable groups to preview the reorder mid-drag. Combined with a
@@ -70,16 +70,17 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
       className={`flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${isDragSource ? 'hidden' : ''}`}
     >
       <div className="grid w-full grid-flow-col grid-cols-3">
-        <h1 className="bg-wild_strawberry/20 col-start-2 justify-self-center rounded-xl p-2 text-2xl font-semibold text-bg-main underline">
-          Song #{index + 1}
+        <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold text-bg-main underline">
+          Song
         </h1>
 
         <button
           data-cy={`trash-button-${index}`}
+          type='button'
           className="col-start-3 flex-none justify-self-end p-2 text-bg-main hover:text-border-subtle/50"
           onClick={() => onRemove(index)}
         >
-          <TrashCan className="size-8 justify-self-end" />
+          <TrashCan className="size-6 justify-self-end" />
         </button>
       </div>
 

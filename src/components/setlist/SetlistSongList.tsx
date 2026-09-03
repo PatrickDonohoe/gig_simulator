@@ -25,7 +25,7 @@ const SetlistSongList = ({
       id="setlist-songlist"
       data-cy="setlist-songlist"
       ref={ref}
-      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto rounded-xl border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
+      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
     >
       {tiles.length > 0 ? (
         <ul className="flex flex-col gap-4 lg:gap-6" data-cy="list">
