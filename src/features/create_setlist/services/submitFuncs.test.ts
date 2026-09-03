@@ -9,7 +9,6 @@ import type { FormValues } from '@/hooks/use_setlist/useSetlist';
 describe('submitSetlist', () => {
   const formValues: FormValues = {
     setlistName: 'sName1a',
-    sidebar: [{ kind: 'song', songId: '1a' }, { kind: 'song', songId: '2a' }, { kind: 'song', songId: '3a' }],
     setlist: [
       {
         kind: 'song',

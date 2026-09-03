@@ -29,29 +29,19 @@ const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
     [saved, librarySongs],
   );
 
-  const {
-    sidebar,
-    setlist,
-    handleDragEnd,
-    isAddSong,
-    handleIsAddSong,
-    formData,
-  } = useSetlistEditorState(
-    librarySongs,
-    (data) => submitEditSetlist({ ...data, setlistId: setlistId }),
-    defaultValues,
-  );
+  const { sidebar, setlist, isAddSong, handleIsAddSong, formData } =
+    useSetlistEditorState(
+      librarySongs,
+      (data) => submitEditSetlist({ ...data, setlistId: setlistId }),
+      defaultValues,
+    );
 
   return (
     <div>
       <div>Edit Page Header here</div>
 
       {/* Editor Sidebar and Form */}
-      <SetlistEditor
-        sidebar={sidebar}
-        setlist={setlist}
-        handleDragEnd={handleDragEnd}
-      />
+      <SetlistEditor sidebar={sidebar} setlist={setlist} />
 
       {isAddSong && (
         <ModalBackdrop handleClose={() => handleIsAddSong(false)}>

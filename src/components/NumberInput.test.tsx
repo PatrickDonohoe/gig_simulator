@@ -10,7 +10,6 @@ const Harness = () => {
     mode: 'onChange',
     defaultValues: {
       setlistName: '',
-      sidebar: [],
       setlist: [
         {
           kind: 'transition',

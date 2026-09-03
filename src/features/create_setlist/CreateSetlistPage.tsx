@@ -14,22 +14,12 @@ const CreateSetlistPage = () => {
     () => emptySetlistFormValues(librarySongs),
     [librarySongs],
   );
-  const {
-    sidebar,
-    setlist,
-    handleDragEnd,
-    handleIsAddSong,
-    isAddSong,
-    formData,
-  } = useSetlistEditorState(librarySongs, submitSetlist, defaultValues);
+  const { sidebar, setlist, handleIsAddSong, isAddSong, formData } =
+    useSetlistEditorState(librarySongs, submitSetlist, defaultValues);
 
   return (
     <div data-cy="page" className="flex min-h-0 flex-1">
-      <SetlistEditor
-        sidebar={sidebar}
-        setlist={setlist}
-        handleDragEnd={handleDragEnd}
-      />
+      <SetlistEditor sidebar={sidebar} setlist={setlist} />
 
       {/* Modals: */}
       {isAddSong && (

@@ -1,8 +1,15 @@
+import { useEffect, useMemo, useRef } from 'react';
 import { useForm, useFieldArray, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { DragEndEvent } from '@dnd-kit/react';
-import { move } from '@dnd-kit/helpers';
 import z from 'zod';
+
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import type {
+  BaseEventPayload,
+  ElementDragType,
+} from '@atlaskit/pragmatic-drag-and-drop/types';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
 
 import {
   SetlistRowSchema,
@@ -10,40 +17,29 @@ import {
 } from '../../features/create_setlist/types/SetlistRow';
 import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
-import {
-  diffGroupedMove,
-  toSongRow,
-  type GroupedIds,
-} from './dragOperations';
+import { toSongRow } from './dragOperations';
+import { isDragData } from './useDndTile';
 
-// Need a default transition time that can be changed and reflected in the form.
-// Need a sync button to make other times match.
-
-// Using this schema so that RHF can control the state of both arrays and
-// validate on submit. Reuses SetlistRowSchema as-is (rather than a
-// form-specific copy) since NumberInput's fields register with
-// valueAsNumber: true, so the numbers RHF holds already match DurationSchema.
-// The form will actually be submitted as just the setlist with its type.
+// The form is the single source of truth for the setlist. The sidebar (the song
+// library) is derived below: every library song that isn't already placed.
 const FormValuesSchema = z.object({
   setlistId: z.string().optional(),
   setlistName: z.string().min(1, 'A setlist name is required.'),
-  sidebar: z.array(SongRowSchema),
   setlist: z.array(SetlistRowSchema),
 });
 export type FormValues = z.infer<typeof FormValuesSchema>;
+type SongRow = z.infer<typeof SongRowSchema>;
 
 const useSetlist = (
   initialMasterSongs: SongType[],
   defaultValues: FormValues,
 ) => {
-  // Master form tracks both dynamics workspace and setlist layouts simultaneously
   const {
     control,
     register,
     handleSubmit,
     setValue,
     getValues,
-    watch,
     formState: { errors, isValid },
   } = useForm<FormValues>({
     resolver: zodResolver(FormValuesSchema),
@@ -51,116 +47,113 @@ const useSetlist = (
     defaultValues,
   });
 
-  // Creating two distinct array field pipelines from the same form control engine
-  const sidebarFields = useFieldArray({ control, name: 'sidebar' });
   const setlistFields = useFieldArray({ control, name: 'setlist' });
 
-  // Watch the transition duration across all items in the setlist array.
-  const watchedItems = useWatch({
-    control,
-    name: 'setlist',
-  });
+  // One subscription drives both the derived sidebar and the running total.
+  const rows = useWatch({ control, name: 'setlist' }) ?? [];
 
-  // Calculate the total setlist duration.
-  const setlistDuration = (watchedItems || []).reduce((sum, current) => {
-    // Take "current", which represents the current row of the array, and add its transformed transition duration or its song duration property to the sum.
+  // Sidebar = library minus songs already in the setlist. Keyed on a stable
+  // string so the memo only recomputes when the placed set actually changes.
+  const placedKey = rows
+    .filter((r): r is SongRow => r.kind === 'song')
+    .map((r) => r.songId)
+    .sort()
+    .join('|');
+
+  const sidebarSongs = useMemo(() => {
+    const placed = new Set(placedKey ? placedKey.split('|') : []);
+    return initialMasterSongs
+      .filter((s) => !placed.has(s.id))
+      .sort((a, b) => a.title.localeCompare(b.title));
+  }, [initialMasterSongs, placedKey]);
+
+  const setlistDuration = rows.reduce((sum, current) => {
     const duration =
       current.kind === 'transition'
         ? durationToSeconds(current.transitionTime)
         : initialMasterSongs.find((song) => song.id === current.songId)
             ?.duration || 0;
-
     return sum + duration;
   }, 0);
 
-  // Functional lookup: Keeps presentation layer details out of form memory
-  const getSongDisplayDetails = (songId: string): SongType | undefined => {
-    return initialMasterSongs.find((song) => String(song.id) === songId);
-  };
+  const getSongDisplayDetails = (songId: string): SongType | undefined =>
+    initialMasterSongs.find((song) => String(song.id) === songId);
 
-  // function fired at the end of the dragging event to reorder songs within the
-  // same array or move from one array to another.
-  const handleDragEnd = (event: DragEndEvent) => {
-    if (event.canceled) return;
-    const { source } = event.operation;
-    if (!source) return;
+  // ---- drag and drop -------------------------------------------------------
+  // A single monitor owns every drop. It commits exactly one field-array
+  // mutation, so there's no cross-array ordering to get wrong. The handler is
+  // stashed in a ref so the monitor can mount once and always see fresh state.
+  const onDropRef = useRef<
+    (args: BaseEventPayload<ElementDragType>) => void
+  >(() => {});
 
-    // @dnd-kit/helpers' move() correctly resolves where a drop landed
-    // (whether on another tile or the empty container, which group it ends
-    // up in, etc) — but it only knows about plain { id } lists, never RHF's
-    // actual row data, so this is a disposable snapshot used purely to
-    // compute the result. The real mutation still goes through RHF's own
-    // fieldArray move/insert/remove below.
-    const before: GroupedIds = {
-      sidebar: sidebarFields.fields.map((f) => ({ id: f.id })),
-      setlist: setlistFields.fields.map((f) => ({ id: f.id })),
-    };
-    // The resulting sidebar and setlist arrays after the move given the state before the move and the operation performed.
-    const after = move(before, event);
-    // Returns the location of the tile before and after the move or null if no operation was completed.
-    const resolved = diffGroupedMove(String(source.id), before, after);
-    if (!resolved) return;
+  onDropRef.current = ({ source, location }) => {
+    const targets = location.current.dropTargets;
+    if (targets.length === 0 || !isDragData(source.data)) return;
+    const drag = source.data;
 
-    // Defines resolved as not null.
-    const { fromGroup, fromIndex, toGroup, toIndex } = resolved;
+    const container = targets.find(
+      (t) =>
+        t.data.dndType === 'setlist-container' ||
+        t.data.dndType === 'sidebar-container',
+    )?.data.dndType;
+    const overRow = targets.find((t) => t.data.dndType === 'setlist-row')?.data;
+    const current = getValues('setlist');
 
-    // If the tile was sorted within its own group
-    if (fromGroup === toGroup) {
-      // If that group was the sidebar, sort from one index to another.
-      if (fromGroup === 'sidebar') {
-        sidebarFields.move(fromIndex, toIndex);
-      } else {
-        // If it was the setlist, sort within the setlist.
-        setlistFields.move(fromIndex, toIndex);
+    // library song -> setlist (add), unless dropped back over the library
+    if (drag.dndType === 'library-song') {
+      if (container === 'sidebar-container') return;
+      let insertAt = current.length;
+      if (overRow && typeof overRow.index === 'number') {
+        const edge = extractClosestEdge(overRow);
+        insertAt = overRow.index + (edge === 'bottom' ? 1 : 0);
       }
+      setlistFields.insert(insertAt, toSongRow({ songId: drag.songId }));
       return;
     }
 
-    if (fromGroup === 'sidebar' && toGroup === 'setlist') {
-      // Retrieve that tile's data.
-      const movingData = sidebarFields.fields[fromIndex];
-      // Song rows are the same shape in both arrays; toSongRow just strips the
-      // useFieldArray `id` key before re-inserting.
-      setlistFields.insert(toIndex, toSongRow(movingData));
-      // Remove the tile from the sidebar.
-      sidebarFields.remove(fromIndex);
+    // setlist row dropped back over the library -> remove (songs only)
+    if (container === 'sidebar-container') {
+      if (drag.rowKind === 'song') setlistFields.remove(drag.index);
       return;
     }
 
-    // If moving from setlist to sidebar, retrieve tile data from setlist array.
-    const movingData = setlistFields.fields[fromIndex];
-    // setlist is mutated before sidebar (matching the other transfer branch
-    // above) because it's the field array with an extra useWatch subscriber
-    // (setlistDuration) — mutating it second, after another field array
-    // already changed in the same tick, was leaving its fields stale.
-    setlistFields.remove(fromIndex);
-    // Do not allow transitions to move from setlist to sidebar.
-    if (movingData.kind === 'transition' && toGroup === 'sidebar') return;
-    // Allow songs to move from setlist to sidebar. Adds song to sidebar at the given index.
-    if (movingData.kind === 'song')
-      sidebarFields.insert(toIndex, toSongRow(movingData));
+    // reorder within the setlist
+    let destination = current.length - 1;
+    if (overRow && typeof overRow.index === 'number') {
+      destination = getReorderDestinationIndex({
+        startIndex: drag.index,
+        indexOfTarget: overRow.index,
+        closestEdgeOfTarget: extractClosestEdge(overRow),
+        axis: 'vertical',
+      });
+    }
+    if (destination !== drag.index) setlistFields.move(drag.index, destination);
   };
+
+  useEffect(
+    () =>
+      monitorForElements({
+        canMonitor: ({ source }) => isDragData(source.data),
+        onDrop: (args) => onDropRef.current(args),
+      }),
+    [],
+  );
 
   return {
-    sidebarArr: sidebarFields.fields,
-    setlistArr: setlistFields.fields,
-    setlistDuration,
-    sidebarRemove: sidebarFields.remove,
-    sidebarAppend: sidebarFields.append,
-    setlistRemove: setlistFields.remove,
-    setlistAppend: setlistFields.append,
-    setlistInsert: setlistFields.insert,
     control,
     register,
     setValue,
     getValues,
-    handleDragEnd,
-    // getSongName,
-    getSongDisplayDetails,
     handleSubmit,
-    watch,
     errors,
     isValid,
+    setlistArr: setlistFields.fields,
+    sidebarSongs,
+    setlistDuration,
+    setlistInsert: setlistFields.insert,
+    setlistRemove: setlistFields.remove,
+    getSongDisplayDetails,
   };
 };
 

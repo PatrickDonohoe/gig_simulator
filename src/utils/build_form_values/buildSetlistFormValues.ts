@@ -2,31 +2,24 @@ import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSe
 import type { FormValues } from '@/hooks/use_setlist/useSetlist';
 import type { SongType } from '@/types/SongType';
 
-// Sets default values for the RHF when no setlist was found.
+// The sidebar (song library) is now derived at render time from
+// `librarySongs` minus whatever songs are already in the setlist, so the form
+// only needs to seed the setlist itself. `librarySongs` is kept in the
+// signature so callers don't have to change and so it's obvious the library is
+// still the other half of the picture.
+
 export const emptySetlistFormValues = (
-  librarySongs: SongType[],
+  _librarySongs: SongType[],
 ): FormValues => ({
   setlistName: '',
-  sidebar: librarySongs.map((s) => ({ songId: s.id, kind: 'song' })),
   setlist: [],
 });
 
-// Sets default values for the RHF if a setlist is found.
 export const setlistToFormValues = (
   saved: SubmitSetlistType,
-  librarySongs: SongType[],
-): FormValues => {
-  // songs only
-  const inSetlist = new Set(
-    saved.setlistSongs.filter((r) => r.kind === 'song').map((r) => r.songId),
-  );
-  return {
-    setlistId: saved.setlistId,
-    setlistName: saved.setlistName,
-    sidebar: librarySongs
-      .map((ls) => ls.id)
-      .filter((lsId) => !inSetlist.has(lsId))
-      .map((song) => ({ songId: song, kind: 'song' })),
-    setlist: saved.setlistSongs,
-  };
-};
+  _librarySongs: SongType[],
+): FormValues => ({
+  setlistId: saved.setlistId,
+  setlistName: saved.setlistName,
+  setlist: saved.setlistSongs,
+});

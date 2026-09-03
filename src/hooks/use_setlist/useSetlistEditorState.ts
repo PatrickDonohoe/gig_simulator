@@ -7,13 +7,11 @@ import type { CommonTileProps } from '@/features/create_setlist/types/CommonTile
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';
 
-// Takes list of all songs in the library
 /**
- * @param initialMasterSongs Is a list of all songs in the library
- * @param onSubmit Takes the submit function for either the edit form with id or
- *   create form without id
- * @returns Consolidated props for passing down to destination components
- * @summary used to combine the allSongs state with useAddSong and useSetlist.
+ * @param initialMasterSongs Every song in the library
+ * @param onSubmit Submit handler (create form, or edit form bound to an id)
+ * @returns Consolidated props for the setlist editor tree
+ * @summary Combines the library song state with useAddSong and useSetlist.
  */
 
 const useSetlistEditorState = (
@@ -29,29 +27,27 @@ const useSetlistEditorState = (
     setValue,
     getValues,
     getSongDisplayDetails,
-    sidebarArr,
+    sidebarSongs,
     setlistArr,
     handleSubmit,
     setlistInsert,
     setlistRemove,
-    sidebarRemove,
-    sidebarAppend,
-    handleDragEnd,
     setlistDuration,
     errors,
     isValid,
   } = useSetlist(allSongs, defaultValues);
 
+  // A newly added song lands in the library, so it shows up in the derived
+  // sidebar automatically — no separate sidebar mutation needed.
   const handleSongAdded = (newSong: SongType) => {
     setAllSongs((prev) => [...prev, newSong]);
-    sidebarAppend({ songId: newSong.id, kind: 'song' });
   };
 
   const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
 
-  const commonTileProps: Omit<
+  const commonTileProps: Pick<
     CommonTileProps,
-    'onClick' | 'onRemove' | 'isValid' | 'errors'
+    'control' | 'register' | 'setValue' | 'getValues' | 'getSongDisplayDetails'
   > = {
     control,
     register,
@@ -60,26 +56,18 @@ const useSetlistEditorState = (
     getSongDisplayDetails,
   };
 
-  const commonSidebarTileProps: CommonTileProps = {
-    ...commonTileProps,
-    onClick: () => handleIsAddSong(true),
-    onRemove: sidebarRemove,
-  };
-
-  const commonSetlistTileProps: CommonTileProps = {
-    ...commonTileProps,
-    onClick: handleSubmit(onSubmit),
-    onRemove: setlistRemove,
-  };
-
   const sidebar: SongLibrarySidebarProps = {
-    tiles: sidebarArr,
-    common: commonSidebarTileProps,
+    songs: sidebarSongs,
+    onAddSong: () => handleIsAddSong(true),
   };
 
   const setlist: SetlistProps = {
     tiles: setlistArr,
-    commonTileProps: commonSetlistTileProps,
+    commonTileProps: {
+      ...commonTileProps,
+      onClick: handleSubmit(onSubmit),
+      onRemove: setlistRemove,
+    },
     setlistDuration,
     errors,
     isValid,
@@ -89,7 +77,6 @@ const useSetlistEditorState = (
   return {
     sidebar,
     setlist,
-    handleDragEnd,
     isAddSong,
     formData,
     handleIsAddSong,

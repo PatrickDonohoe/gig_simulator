@@ -1,33 +1,28 @@
-import type { FieldArrayWithId } from 'react-hook-form';
-import { useDroppable } from '@dnd-kit/react';
-
 import NoDataFound from '@/components/NoDataFound';
 import SongLibraryList from '@/features/create_setlist/components/sidebar/SongLibraryList';
-import type { FormValues } from '@/hooks/use_setlist/useSetlist';
-import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
+import type { SongType } from '@/types/SongType';
 import SidebarShell from '@/layouts/components/SidebarShell';
+import { useContainerDrop } from '@/hooks/use_setlist/useDndTile';
 
 /**
- * Display songs moved to the workspace until assigned to a place in the
- * setlist.
- *
- * @param sidebarArr Array of song ids that have not been assigned
+ * The song library. Shows every library song that isn't already in the setlist
+ * (the list is derived upstream). Dropping a setlist song back here removes it
+ * from the setlist.
  */
 
 export interface SongLibrarySidebarProps {
-  tiles: FieldArrayWithId<FormValues, 'sidebar'>[];
-  common: Omit<CommonTileProps, 'errors'>;
+  songs: SongType[];
+  onAddSong: () => void;
 }
 
-const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
-  const { onClick, ...rest } = common;
-  const { ref, isDropTarget } = useDroppable({
-    id: 'sidebar',
-    accept: 'song-item',
-  });
+const SongLibrarySidebar = ({ songs, onAddSong }: SongLibrarySidebarProps) => {
+  const { ref, isOver } = useContainerDrop(
+    { dndType: 'sidebar-container' },
+    (drag) => drag.dndType === 'setlist-row' && drag.rowKind === 'song',
+  );
 
   const headerProps = {
-    onClick: onClick,
+    onClick: onAddSong,
     header: 'Workspace',
     buttonText: 'Add Song +',
     header2: 'Choose a song, and drag it to your setlist.',
@@ -38,10 +33,9 @@ const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
       headerProps={headerProps}
       className="border-border-bold bg-bg-main"
     >
-      {/* Intended to scroll. */}
       <section
         data-cy="library-sidebar"
-        className="flex min-h-0 flex-1 flex-col overflow-hidden mb-2 border border-border-bold bg-primary"
+        className="mb-2 flex min-h-0 flex-1 flex-col overflow-hidden border border-border-bold bg-primary"
       >
         <div
           data-cy="wrapper_title"
@@ -55,12 +49,12 @@ const SongLibrarySidebar = ({ tiles, common }: SongLibrarySidebarProps) => {
         <div
           data-cy="library_wrapper"
           ref={ref}
-          className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isDropTarget ? 'bg-accent' : 'bg-menu'}`}
+          className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isOver ? 'bg-accent' : 'bg-menu'}`}
         >
-          {tiles.length > 0 ? (
-            <SongLibraryList data-cy="library" tiles={tiles} common={rest} />
+          {songs.length > 0 ? (
+            <SongLibraryList songs={songs} />
           ) : (
-            <NoDataFound text="Your library is currently empty. Click the button above to add a song." />
+            <NoDataFound text="No songs to place. Add one, or drag a song back here from the setlist." />
           )}
         </div>
       </section>

@@ -1,4 +1,3 @@
-import { useDroppable } from '@dnd-kit/react';
 import type { FieldArrayWithId, UseFieldArrayInsert } from 'react-hook-form';
 
 import SetlistSongTile from '@/features/create_setlist/components/SetlistSongTile/SetlistSongTile';
@@ -6,6 +5,7 @@ import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import type { CommonTileProps } from '../../features/create_setlist/types/CommonTileProps';
 import TransitionTile from '@/components/setlist/transition_tile/TransitionTile';
 import AddTransition from '@/components/AddTransition';
+import { useContainerDrop } from '@/hooks/use_setlist/useDndTile';
 
 export interface SongListProps {
   tiles: FieldArrayWithId<FormValues, 'setlist'>[];
@@ -18,17 +18,20 @@ const SetlistSongList = ({
   commonTileProps,
   setlistInsert,
 }: SongListProps) => {
-  const { ref, isDropTarget } = useDroppable({ id: 'setlist' });
+  const { ref, isOver } = useContainerDrop(
+    { dndType: 'setlist-container' },
+    () => true,
+  );
 
   return (
     <div
       id="setlist-songlist"
       data-cy="setlist-songlist"
       ref={ref}
-      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isDropTarget ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
+      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isOver ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
     >
       {tiles.length > 0 ? (
-        <ul className="flex flex-col gap-4 lg:gap-6" data-cy="list">
+        <ul className="flex w-full flex-col gap-4 lg:gap-6" data-cy="list">
           {tiles.map((t, index) => {
             if (t.kind === 'transition') {
               return (
