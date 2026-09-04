@@ -19,7 +19,7 @@ const SongLibraryTile = ({ song }: SongLibraryTileProps) => {
     <article
       ref={ref}
       data-cy="tile"
-      data-song-id={song.id}
+      data-song-id={`tile-${song.id}`}
       className={`flex max-h-18 w-full cursor-grab justify-between gap-2 overflow-hidden rounded-xl border border-border-bold bg-bg-main p-2 text-text-main ${dragging ? 'opacity-40' : ''}`}
     >
       <span data-cy="song_title" className="truncate underline">

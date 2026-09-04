@@ -72,10 +72,10 @@ describe('adding a setlist', () => {
       },
     });
 
-    cy.get('#sidebar_tile_0').should('be.visible');
+    cy.get('[data-song-id=tile-song-1]').should('be.visible');
     cy.getByData('setlist-fallback').should('be.visible');
 
-    cy.dragTile('#sidebar_tile_0', '[data-cy=setlist-fallback]');
+    cy.dragTile('[data-song-id=tile-song-1]', '[data-cy=setlist-fallback]');
     cy.getByData('setlist-songlist')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 1);
@@ -118,12 +118,12 @@ describe('adding a setlist', () => {
     });
 
     // dragging tiles to the setlist, because it can't be prepopulated.
-    cy.dragTile('#sidebar_tile_0', '[data-cy=setlist-fallback]'); // first drop: fallback exists
+    cy.dragTile('[data-song-id=tile-s1]', '[data-cy=setlist-fallback]'); // first drop: fallback exists
     cy.getByData('list')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 1); // waits for the first drop to actually land
 
-    cy.dragTile('#sidebar_tile_0', '[data-cy=list]'); // second drop: fallback is gone
+    cy.dragTile('[data-song-id=tile-s3]', '[data-cy=list]'); // second drop: fallback is gone
     cy.getByData('list')
       .find('[data-cy^="setlist-tile-"]')
       .should('have.length', 2);
@@ -171,5 +171,56 @@ describe('adding a setlist', () => {
           );
         });
       });
+  });
+
+  it('shows a success banner and resets the form after successful submission.', () => {
+    const transitions = [
+      { index: 1, addAfter: 0, row: setlistSong1 },
+      { index: 3, addAfter: 2, row: setlistSong2 },
+    ];
+
+    cy.visit('/dash/create', {
+      // before the window loads, add these songs to the library
+      onBeforeLoad(win) {
+        win.localStorage.setItem(
+          'songs',
+          JSON.stringify({ [song1.id]: song1, [song3.id]: song3 }),
+        );
+      },
+    });
+
+    cy.dragTile('[data-song-id=tile-s1]', '[data-cy=setlist-fallback]'); // first drop: fallback exists
+    cy.dragTile('[data-song-id=tile-s3]', '[data-cy=list]'); // second drop: fallback is gone
+
+    cy.getByData('title').type('Rager Party');
+
+    // insert the transition rows, then fill each one's notes / minutes / seconds
+    transitions.forEach(({ index, addAfter, row }) => {
+      cy.getByData(`add-transition-${addAfter}`).click();
+      cy.getByData(`transition-tile-${index}`).should('exist');
+
+      cy.getByData(`notes-${index}`)
+        .clear()
+        .type(row.notes ?? '');
+      cy.getByData(`minutes-tran-${index}`)
+        .clear()
+        .type(String(row.transitionTime.minutes));
+      cy.getByData(`seconds-tran-${index}`)
+        .clear()
+        .type(String(row.transitionTime.seconds));
+    });
+
+    cy.getByData('submit').click();
+
+    // Success Banner
+    cy.get('#success_banner').should('exist');
+    cy.get('#success_title').contains('Setlist Saved');
+    cy.get('#success_message').contains(
+      'Setlist changes have been successfully saved.',
+    );
+
+    // Reset setlist form
+    cy.getByData('title').should('have.value', '');
+    cy.getByData('setlist-fallback').should('exist');
   });
 });

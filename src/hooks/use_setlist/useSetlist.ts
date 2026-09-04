@@ -40,6 +40,7 @@ const useSetlist = (
     handleSubmit,
     setValue,
     getValues,
+    reset,
     formState: { errors, isValid },
   } = useForm<FormValues>({
     resolver: zodResolver(FormValuesSchema),
@@ -146,6 +147,7 @@ const useSetlist = (
     setValue,
     getValues,
     handleSubmit,
+    reset,
     errors,
     isValid,
     setlistArr: setlistFields.fields,

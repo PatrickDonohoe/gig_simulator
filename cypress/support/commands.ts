@@ -4,21 +4,37 @@ Cypress.Commands.add('getByData', (selector: string) => {
   return cy.get(`[data-cy="${selector}"]`);
 });
 
-// Simulates a dnd-kit pointer drag between two elements. dnd-kit's
-// PointerSensor requires a real `PointerEvent` (an `instanceof` check
-// rejects Cypress's default MouseEvent), an initial move past its 5px
-// activation-distance constraint, and live layout to resolve collisions —
-// so this only works against a fully rendered page, not a mounted
-// component in isolation.
+// Simulates a pragmatic-drag-and-drop drag between two elements.
+// Pragmatic dnd is built on the native HTML5 Drag and Drop API: it starts a
+// drag from a document-level `dragstart` listener that requires a real,
+// populated `DataTransfer` (an `instanceof` / null check rejects anything
+// else), and it tracks drop targets itself by reading `event.target` off
+// `dragenter`/`dragover`/`drop` — so, unlike a pointer-based sim, each event
+// must be dispatched directly on the element it needs to be seen on rather
+// than on `body` at interpolated coordinates.
+//
+// No `dragend` is triggered: the library's `drop` handling already runs its
+// full teardown (`onDrop` on the source, the drop target, and any monitor)
+// synchronously off the `drop` event itself, and a successful drop can
+// unmount the source tile (eg. a library song moving into the setlist) —
+// re-querying it afterwards for `dragend` is both unnecessary and flaky.
+//
+// `force: true` is required on every trigger: pragmatic dnd plants a 2px
+// "honey pot" element at the drag's start position (a workaround for a real
+// browser bug where stray hover events fire under the still-depressed
+// pointer) and only tears it down on a later real pointer/drag event. With
+// no real pointer moving between our synthetic events, the honey pot from
+// one drag can still be sitting over the next drag's source tile, which
+// Cypress's default actionability check treats as "covered" and refuses to
+// act on.
 Cypress.Commands.add(
   'dragTile',
-  (sourceSelector: string, targetSelector: string, steps = 10) => {
-    const pointerOpts = {
-      eventConstructor: 'PointerEvent',
-      pointerId: 1,
-      isPrimary: true,
-      button: 0,
-      pointerType: 'mouse',
+  (sourceSelector: string, targetSelector: string) => {
+    const dragEventOpts = {
+      eventConstructor: 'DragEvent',
+      bubbles: true,
+      cancelable: true,
+      force: true,
     } as const;
 
     cy.get(sourceSelector).then(($source) => {
@@ -31,27 +47,34 @@ Cypress.Commands.add(
         const endX = targetRect.left + targetRect.width / 2;
         const endY = targetRect.top + targetRect.height / 2;
 
-        cy.get(sourceSelector).trigger('pointerdown', {
-          ...pointerOpts,
+        const dataTransfer = new DataTransfer();
+
+        cy.get(sourceSelector).trigger('dragstart', {
+          ...dragEventOpts,
+          dataTransfer,
           clientX: startX,
           clientY: startY,
         });
 
-        for (let i = 1; i <= steps; i++) {
-          const x = startX + ((endX - startX) * i) / steps;
-          const y = startY + ((endY - startY) * i) / steps;
-          cy.get('body').trigger('pointermove', {
-            ...pointerOpts,
-            clientX: x,
-            clientY: y,
+        cy.get(targetSelector)
+          .trigger('dragenter', {
+            ...dragEventOpts,
+            dataTransfer,
+            clientX: endX,
+            clientY: endY,
+          })
+          .trigger('dragover', {
+            ...dragEventOpts,
+            dataTransfer,
+            clientX: endX,
+            clientY: endY,
+          })
+          .trigger('drop', {
+            ...dragEventOpts,
+            dataTransfer,
+            clientX: endX,
+            clientY: endY,
           });
-        }
-
-        cy.get('body').trigger('pointerup', {
-          ...pointerOpts,
-          clientX: endX,
-          clientY: endY,
-        });
       });
     });
   },
@@ -94,17 +117,13 @@ declare global {
       getByData(selector: string): Chainable<JQuery<HTMLElement>>;
 
       /**
-       * Drags a dnd-kit sortable element from `sourceSelector` onto
-       * `targetSelector` via simulated pointer events.
+       * Drags a pragmatic-drag-and-drop element from `sourceSelector` onto
+       * `targetSelector` via simulated native drag events.
        *
        * @example
        *   cy.dragTile('#sidebar_tile_0', '[data-cy=setlist-fallback]');
        */
-      dragTile(
-        sourceSelector: string,
-        targetSelector: string,
-        steps?: number,
-      ): Chainable<void>;
+      dragTile(sourceSelector: string, targetSelector: string): Chainable<void>;
     }
   }
 }

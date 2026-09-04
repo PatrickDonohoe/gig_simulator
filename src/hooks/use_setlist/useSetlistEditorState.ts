@@ -6,6 +6,7 @@ import useAddSong from '@/features/create_setlist/hooks/useAddSong';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';
+import { notifySuccess } from '@/utils/Toast';
 
 /**
  * @param initialMasterSongs Every song in the library
@@ -30,6 +31,7 @@ const useSetlistEditorState = (
     sidebarSongs,
     setlistArr,
     handleSubmit,
+    reset,
     setlistInsert,
     setlistRemove,
     setlistDuration,
@@ -44,6 +46,12 @@ const useSetlistEditorState = (
   };
 
   const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
+
+  const handleSubmitAndReset = handleSubmit((data) => {
+    onSubmit(data);
+    notifySuccess('Setlist Saved', 'Setlist changes have been successfully saved.');
+    reset();
+  });
 
   const commonTileProps: Pick<
     CommonTileProps,
@@ -65,7 +73,7 @@ const useSetlistEditorState = (
     tiles: setlistArr,
     commonTileProps: {
       ...commonTileProps,
-      onClick: handleSubmit(onSubmit),
+      onClick: handleSubmitAndReset,
       onRemove: setlistRemove,
     },
     setlistDuration,
