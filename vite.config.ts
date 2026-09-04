@@ -8,7 +8,7 @@ import sonda from 'sonda/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    sonda(),
+    sonda({ open: false }),
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
