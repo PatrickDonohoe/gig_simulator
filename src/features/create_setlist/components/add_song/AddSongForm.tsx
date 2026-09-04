@@ -121,7 +121,7 @@ const AddSongForm = ({
         <section className="flex flex-col gap-2 text-lg font-semibold text-text-main">
           <h2>Song Duration:</h2>
 
-          <div className="flex flex-col gap-2 rounded-xl border border-border-subtle bg-baby_blue_ice p-1 md:flex-row">
+          <div className="flex flex-col gap-2 rounded-xl border border-border-subtle bg-menu p-1 md:flex-row">
             <label className="flex flex-col text-sm">
               Minutes:
               <input
@@ -129,7 +129,7 @@ const AddSongForm = ({
                 data-cy="duration_input"
                 type="number"
                 placeholder="min"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle focus:ring-accent"
+                className="active:bg-muted-teal rounded-lg p-2 ring bg-bg-main ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.minutes')}
               />
             </label>
@@ -141,7 +141,7 @@ const AddSongForm = ({
                 data-cy="duration_input"
                 type="number"
                 placeholder="sec"
-                className="active:bg-muted-teal rounded-lg p-2 ring ring-border-subtle hover:bg-periwinkle focus:ring-accent"
+                className="active:bg-muted-teal rounded-lg p-2 ring bg-bg-main ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.seconds')}
               />
             </label>
