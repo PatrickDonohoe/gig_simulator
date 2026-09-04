@@ -167,7 +167,7 @@ const AddSongForm = ({
         <button
           data-cy="submit_button"
           type="submit"
-          className="flex-none rounded-xl border border-text-main bg-accent px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
+          className="flex-none rounded-xl border border-text-main bg-menu px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Adding...' : 'Add Song +'}
