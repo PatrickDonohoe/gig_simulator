@@ -15,12 +15,12 @@ const SavedSetlistsShell = ({
   children,
 }: SavedSetlistsShellProps) => {
   return (
-    <SidebarShell headerProps={headerProps} className="border-border-bold">
+    <SidebarShell headerProps={headerProps}>
       <section
         data-cy="sidebar-setlists-shell"
         className="flex min-h-0 flex-1 flex-col justify-start overflow-hidden border border-border-bold bg-primary"
       >
-        <div className="flex items-center justify-center border-b-8 border-border-bold bg-bg-main py-2 text-2xl font-semibold text-text-main">
+        <div className="flex items-center justify-center border-b-8 border-primary bg-bg-main py-2 text-2xl font-semibold text-text-main">
           <span>{headerProps.header}</span>
         </div>
         {children}

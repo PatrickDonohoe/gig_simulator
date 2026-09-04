@@ -13,7 +13,7 @@ const SavedSetlistsList = ({
   return (
     <div
       data-cy="list"
-      className="flex flex-col gap-4 bg-bg-main text-text-main"
+      className="flex min-h-0 px-2 flex-1 flex-col items-center gap-2 overflow-y-auto bg-primary text-text-main"
     >
       {setlists.map((set) => (
         <SavedSetlistTile

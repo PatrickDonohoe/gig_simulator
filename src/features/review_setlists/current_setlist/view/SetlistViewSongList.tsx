@@ -6,6 +6,7 @@ import SetlistViewModeHeader, {
   type ViewModeHeaderProps,
 } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
+import Between from '@icons/spacing-vertical-svgrepo-com.svg?react';
 
 export interface SetlistViewSongListProps {
   setlistSongs: SubmitSetlistType['setlistSongs'];
@@ -13,6 +14,17 @@ export interface SetlistViewSongListProps {
   getSongData: (songId: string) => SongType | undefined;
 }
 
+/**
+ * @param setlistSongs Is an array of the song id's and transition data for the
+ *   selected setlist.
+ * @param viewHeader Is the setlist data needed for the header and the callback
+ *   fn to change the mode.
+ * @param getSongData Is the callback fn to retrieve song data for a specific
+ *   tile.
+ * @returns A header (including setlist name and filters) and the mapped songs
+ *   and transitions specific to this setlist.
+ * @summary Presents the body of the setlist.
+ */
 const SetlistViewSongList = ({
   setlistSongs,
   viewHeader,
@@ -37,30 +49,46 @@ const SetlistViewSongList = ({
   const { activeFilters } = useFilters();
 
   return (
-    <div>
+    <div
+      id="setlist-view-song-list"
+      className="flex min-h-0 flex-1 flex-col divide-y-2 divide-border-bold"
+    >
       <SetlistViewModeHeader {...viewHeader} />
 
       <div
         data-cy="list"
-        className="flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle"
+        className="flex min-h-0 flex-1 flex-col items-center gap-4 overflow-hidden bg-accent p-2 text-text-main hover:border-border-subtle"
       >
         {setlistSongs.map((item, index) => {
           if (item.kind !== 'song') {
             return (
               // Transition Tile
-              <div key={item.transitionId} className="flex flex-col gap-2">
-                <p
-                  data-cy={`song-notes-${index}`}
-                  className="rounded-xl border-2 border-border-bold bg-bg-main p-2 focus:border-border-bold"
-                >
-                  {item.notes || 'Click the edit button to add notes.'}
-                </p>
+              <article
+                key={item.transitionId}
+                className="flex items-center gap-6"
+              >
+                <Between className="size-8" />
 
-                <span data-cy="song-transition" className="text-text-main">
-                  {item.transitionTime.minutes ?? '00'}:
-                  {item.transitionTime.seconds ?? '00'}
-                </span>
-              </div>
+                <div className="flex flex-col gap-2 border-2 border-border-bold bg-bg-main p-2">
+                  <p data-cy={`song-notes-${index}`}>
+                    {item.notes ? (
+                      <>
+                        <strong>Notes: </strong> <span>{item.notes}</span>
+                      </>
+                    ) : (
+                      'Click the edit button to add notes.'
+                    )}
+                  </p>
+                  <span
+                    data-cy="song-transition"
+                    className="text-center text-text-main"
+                  >
+                    <strong>Transition Time:</strong> {'  '}
+                    {item.transitionTime.minutes ?? '00'}:
+                    {item.transitionTime.seconds ?? '00'}
+                  </span>
+                </div>
+              </article>
             );
           }
 
@@ -71,7 +99,7 @@ const SetlistViewSongList = ({
               key={item.songId}
               id="setlist-article"
               data-cy="article"
-              className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
+              className="flex w-1/2 max-w-75 flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
             >
               <h2 id="song-title" className="text-center font-semibold">
                 Title: {song?.title ?? 'Unavailable'}

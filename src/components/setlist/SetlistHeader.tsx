@@ -15,11 +15,11 @@ const SetlistHeader = ({ setlistDuration, children }: SetlistHeaderProps) => {
     // <header data-cy="setlist_header" className="flex flex-col bg-bg-main">
     <div
       data-cy="title-container"
-      className="flex gap-4 border-b border-border-bold bg-bg-main px-6 py-2"
+      className="flex gap-4 bg-bg-main px-6 py-2"
     >
       <div
         data-cy="time_div"
-        className="border-bold flex max-w-60 flex-3 items-center justify-center gap-1 rounded-lg border border-border-bold bg-primary p-1 text-sm font-semibold text-accent md:text-base lg:text-lg"
+        className=" flex max-w-60 flex-3 items-center justify-center gap-1 rounded-lg bg-primary p-1 text-sm font-semibold text-accent md:text-base lg:text-lg"
       >
         <span>Total:</span>
 

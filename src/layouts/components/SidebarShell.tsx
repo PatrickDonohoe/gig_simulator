@@ -5,7 +5,7 @@ import SidebarHeader, {
 interface SideShellProps {
   headerProps: SideHeaderProps;
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 const SidebarShell = ({ headerProps, children, className }: SideShellProps) => {

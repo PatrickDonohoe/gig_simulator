@@ -38,7 +38,7 @@ describe('adding song to library', () => {
     cy.get('#song_form').should('not.exist');
 
     // the tile only renders title + duration, so check that much in the DOM
-    cy.get('#sidebar_tile_0')
+    cy.getByData('tile')
       .find('[data-cy=song_title]')
       .should('have.text', song.title);
 

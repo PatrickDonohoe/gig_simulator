@@ -1,8 +1,8 @@
 import NoDataFound from '@/components/NoDataFound';
-import SongLibraryList from '@/features/create_setlist/components/sidebar/SongLibraryList';
 import type { SongType } from '@/types/SongType';
 import SidebarShell from '@/layouts/components/SidebarShell';
 import { useContainerDrop } from '@/hooks/use_setlist/useDndTile';
+import SongLibraryTile from '@/features/create_setlist/components/sidebar/song_library_tile/SongLibraryTile';
 
 /**
  * The song library. Shows every library song that isn't already in the setlist
@@ -52,7 +52,7 @@ const SongLibrarySidebar = ({ songs, onAddSong }: SongLibrarySidebarProps) => {
           className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isOver ? 'bg-accent' : 'bg-menu'}`}
         >
           {songs.length > 0 ? (
-            <SongLibraryList songs={songs} />
+            songs.map((song) => <SongLibraryTile key={song.id} song={song} />)
           ) : (
             <NoDataFound text="No songs to place. Add one, or drag a song back here from the setlist." />
           )}
