@@ -31,7 +31,7 @@ const SetlistSongList = ({
       className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isOver ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
     >
       {tiles.length > 0 ? (
-        <ul className="flex w-full flex-col gap-4 lg:gap-6" data-cy="list">
+        <ul className="flex w-full flex-col gap-4" data-cy="list">
           {tiles.map((t, index) => {
             if (t.kind === 'transition') {
               return (
@@ -50,7 +50,7 @@ const SetlistSongList = ({
             const nextIsTransition = tiles[index + 1]?.kind === 'transition';
 
             return (
-              <div key={t.id} className="flex flex-col gap-2">
+              <div key={t.id} className="flex flex-col gap-4">
                 <SetlistSongTile
                   field={t}
                   commonTileProps={commonTileProps}

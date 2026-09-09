@@ -5,46 +5,48 @@ import type {
   UseFormRegister,
   UseFormSetFocus,
 } from 'react-hook-form';
-import type { AddSongFormValues } from '../../hooks/useAddSong';
+import type { SongFormValues } from '@/types/SongFormType';
 
 import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
 import MultInputStack from './MultInputStack';
 
 export interface AddSongFormProps {
-  register: UseFormRegister<AddSongFormValues>;
-  errors: FieldErrors<AddSongFormValues>;
+  errors: FieldErrors<SongFormValues>;
   isSubmitting: boolean;
   instrumentationFields: FieldArrayWithId<
-    AddSongFormValues,
-    'instrumentation'
+  SongFormValues,
+  'instrumentation'
   >[];
+  addSongError: string | null;
+  title: string;
+  submitLabel: string;
+  onClose: () => void;
+  register: UseFormRegister<SongFormValues>;
   appendInstrumentation: () => void;
   removeInstrumentation: (index: number) => void;
   submitAddSong: () => void;
-  addSongError: string | null;
-  handleIsAddSong: (bool: boolean) => void;
-  setFocus: UseFormSetFocus<AddSongFormValues>;
+  setFocus: UseFormSetFocus<SongFormValues>;
 }
 
 const AddSongForm = ({
-  register,
   errors,
   isSubmitting,
-  submitAddSong,
   instrumentationFields,
+  addSongError,
+  register,
+  submitAddSong,
   appendInstrumentation,
   removeInstrumentation,
-  addSongError,
-  handleIsAddSong,
   setFocus,
+  onClose,
 }: AddSongFormProps) => {
-
   useEffect(() => {
-    setFocus('title')
+    setFocus('title');
     console.log('active after setFocus:', document.activeElement);
-    requestAnimationFrame(() => console.log('active next frame:', document.activeElement))
+    requestAnimationFrame(() =>
+      console.log('active next frame:', document.activeElement),
+    );
   }, [setFocus]);
-    
 
   return (
     <form
@@ -65,7 +67,7 @@ const AddSongForm = ({
           data-cy="close"
           type="button"
           className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent focus:border-accent"
-          onClick={() => handleIsAddSong(false)}
+          onClick={onClose}
         >
           X
         </button>
@@ -129,7 +131,7 @@ const AddSongForm = ({
                 data-cy="duration_input"
                 type="number"
                 placeholder="min"
-                className="active:bg-muted-teal rounded-lg p-2 ring bg-bg-main ring-border-subtle hover:bg-bg-surface focus:ring-accent"
+                className="active:bg-muted-teal rounded-lg bg-bg-main p-2 ring ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.minutes')}
               />
             </label>
@@ -141,7 +143,7 @@ const AddSongForm = ({
                 data-cy="duration_input"
                 type="number"
                 placeholder="sec"
-                className="active:bg-muted-teal rounded-lg p-2 ring bg-bg-main ring-border-subtle hover:bg-bg-surface focus:ring-accent"
+                className="active:bg-muted-teal rounded-lg bg-bg-main p-2 ring ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.seconds')}
               />
             </label>
@@ -167,7 +169,7 @@ const AddSongForm = ({
         <button
           data-cy="submit_button"
           type="submit"
-          className="flex-none rounded-xl border border-text-main bg-menu px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
+          className="flex-none rounded-xl border border-text-main bg-menu px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main focus-visible:outline-none"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Adding...' : 'Add Song +'}

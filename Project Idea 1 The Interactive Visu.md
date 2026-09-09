@@ -19,3 +19,30 @@ simplified, distraction-free version for stage-mode.
   time, and quick transposition tool.
 - analytics tab maps out tempo patterns, key distributions, and covers vs
   original works using "recharts"
+- Add library tab to review, add, and edit songs.
+
+## Add/Edit Song Form
+
+- [ ] Need an edit song form.
+- [ ] Need to open this form as a modal on the create setlist page, edit setlist page, and library page.
+- [ ] Will share all fields with the add song form. Should likely use AddSongForm but modify props to accomodate both uses.
+- [ ] Song data will be provided as default values when the song to be edited is chosen and the modal is opened or as an empty object if creating a new song.
+- [ ] Default values will be applied to the form 'onChange'.
+- [ ] Need a resolver of the same type as the form where both have an optional id.
+
+## Modals
+
+- [ ] add dialog tag to all modals.
+
+## Routing
+
+- [ ] Create outlet in review setlists page for each tab.
+- [ ] Include in route the chosen setlist as id at the end of the URL for reload purposes.
+
+## State Management
+
+- [ ] library persistence across pages. Consider Zustand or Context.
+
+## Library Page
+
+- [ ] Add song library page with similar layout to add, edit, and delete songs.

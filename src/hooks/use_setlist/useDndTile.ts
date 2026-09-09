@@ -5,6 +5,8 @@ import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/element/preserve-offset-on-source';
 import {
   attachClosestEdge,
   extractClosestEdge,
@@ -85,6 +87,29 @@ export const useSetlistRowTile = <T extends HTMLElement = HTMLDivElement>(args: 
           index,
           rowKind,
         }),
+        // The OS pointer icon during a native drag is controlled by the
+        // browser (via `dropEffect`) and can't be restyled with CSS, so we
+        // fake the "picked up" look with a custom drag preview instead: a
+        // tilted, shadowed clone of the tile that follows the pointer.
+        onGenerateDragPreview: ({ nativeSetDragImage, location }) => {
+          setCustomNativeDragPreview({
+            nativeSetDragImage,
+            getOffset: preserveOffsetOnSource({
+              element: el,
+              input: location.current.input,
+            }),
+            render: ({ container }) => {
+              const preview = el.cloneNode(true) as HTMLElement;
+              const { width, height } = el.getBoundingClientRect();
+              preview.style.width = `${width}px`;
+              preview.style.height = `${height}px`;
+              // preview.style.transform = 'rotate(3deg)';
+              preview.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.35)';
+              container.appendChild(preview);
+              return () => preview.remove();
+            },
+          });
+        },
         onDragStart: () => setDragging(true),
         onDrop: () => setDragging(false),
       }),
@@ -92,6 +117,10 @@ export const useSetlistRowTile = <T extends HTMLElement = HTMLDivElement>(args: 
         element: el,
         canDrop: ({ source }) => isDragData(source.data),
         getIsSticky: () => true,
+        // Native HTML5 drag owns the cursor while dragging, driven by
+        // `dropEffect` rather than CSS `cursor` — 'move' gives the
+        // grabbing-style reorder cursor instead of the browser default.
+        getDropEffect: () => 'move',
         getData: ({ input, element }) =>
           attachClosestEdge(
             { dndType: 'setlist-row', rowId, index } satisfies DropData,
@@ -128,6 +157,7 @@ export const useContainerDrop = <T extends HTMLElement = HTMLDivElement>(
     return dropTargetForElements({
       element: el,
       canDrop: ({ source }) => isDragData(source.data) && accept(source.data),
+      getDropEffect: () => 'move',
       getData: () => data as Record<string | symbol, unknown>,
       onDragEnter: () => setIsOver(true),
       onDragLeave: () => setIsOver(false),

@@ -29,7 +29,7 @@ const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
     [saved, librarySongs],
   );
 
-  const { sidebar, setlist, isAddSong, handleIsAddSong, formData } =
+  const { sidebar, setlist, isSongFormOpen, closeSongForm, formData } =
     useSetlistEditorState(
       librarySongs,
       (data) => submitEditSetlist({ ...data, setlistId: setlistId }),
@@ -43,8 +43,8 @@ const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
       {/* Editor Sidebar and Form */}
       <SetlistEditor sidebar={sidebar} setlist={setlist} />
 
-      {isAddSong && (
-        <ModalBackdrop handleClose={() => handleIsAddSong(false)}>
+      {isSongFormOpen && (
+        <ModalBackdrop handleClose={closeSongForm}>
           <AddSongForm {...formData} />
         </ModalBackdrop>
       )}

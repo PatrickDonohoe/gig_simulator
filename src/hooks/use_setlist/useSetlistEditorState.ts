@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { SongType } from '@/types/SongType';
 import useSetlist, { type FormValues } from '@/hooks/use_setlist/useSetlist';
-import useAddSong from '@/features/create_setlist/hooks/useAddSong';
+import useSongForm from '@/features/create_setlist/hooks/useSongForm';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';
@@ -12,7 +12,7 @@ import { notifySuccess } from '@/utils/Toast';
  * @param initialMasterSongs Every song in the library
  * @param onSubmit Submit handler (create form, or edit form bound to an id)
  * @returns Consolidated props for the setlist editor tree
- * @summary Combines the library song state with useAddSong and useSetlist.
+ * @summary Combines the library song state with useSongForm and useSetlist.
  */
 
 const useSetlistEditorState = (
@@ -45,11 +45,14 @@ const useSetlistEditorState = (
     setAllSongs((prev) => [...prev, newSong]);
   };
 
-  const { formData, handleIsAddSong, isAddSong } = useAddSong(handleSongAdded);
+  const { formData, openAddSong, openEditSong, closeSongForm, isSongFormOpen } = useSongForm(handleSongAdded);
 
   const handleSubmitAndReset = handleSubmit((data) => {
     onSubmit(data);
-    notifySuccess('Setlist Saved', 'Setlist changes have been successfully saved.');
+    notifySuccess(
+      'Setlist Saved',
+      'Setlist changes have been successfully saved.',
+    );
     reset();
   });
 
@@ -66,7 +69,7 @@ const useSetlistEditorState = (
 
   const sidebar: SongLibrarySidebarProps = {
     songs: sidebarSongs,
-    onAddSong: () => handleIsAddSong(true),
+    onAddSong: openAddSong,
   };
 
   const setlist: SetlistProps = {
@@ -85,9 +88,11 @@ const useSetlistEditorState = (
   return {
     sidebar,
     setlist,
-    isAddSong,
+    isSongFormOpen,
     formData,
-    handleIsAddSong,
+    openAddSong,
+    openEditSong,
+    closeSongForm,
   };
 };
 

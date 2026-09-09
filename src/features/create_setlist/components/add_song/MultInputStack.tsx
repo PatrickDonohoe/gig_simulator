@@ -1,7 +1,7 @@
 import AddIcon from '@icons/add-square-svgrepo-com.svg?react';
 import MinusIcon from '@icons/minus-square-svgrepo-com.svg?react';
 import type { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
-import type { AddSongFormValues } from '../../hooks/useAddSong';
+import type { AddSongFormValues } from '../../hooks/useSongForm';
 
 interface MultStackProps {
   label: string;
@@ -41,7 +41,7 @@ const MultInputStack = ({
             <button
               data-cy="rmv_button"
               type="button"
-              className="focus-visible:border-border-bold border-2 border-hidden flex-none place-self-center focus-visible:border-solid rounded-md focus-visible:outline-none"
+              className="flex-none place-self-center rounded-md border-2 border-hidden focus-visible:border-solid focus-visible:border-border-bold focus-visible:outline-none"
               onClick={() => onRemove(index)}
             >
               <MinusIcon className="size-8" />
@@ -50,7 +50,7 @@ const MultInputStack = ({
               data-cy="add_button"
               type="button"
               onClick={onAdd}
-              className="focus-visible:border-border-bold border-2 border-hidden flex-none place-self-center focus-visible:border-solid rounded-md focus-visible:outline-none"
+              className="flex-none place-self-center rounded-md border-2 border-hidden focus-visible:border-solid focus-visible:border-border-bold focus-visible:outline-none"
             >
               <AddIcon className="size-8" />
             </button>

@@ -8,19 +8,20 @@ describe('<AddSongForm>', () => {
   const buildProps = (
     overrides: Partial<AddSongFormProps> = {},
   ): AddSongFormProps => ({
-    register: mockRegister,
-    errors: {},
     isSubmitting: false,
     instrumentationFields: [{ id: 'field-1', value: '' }],
+    errors: {},
+    addSongError: null,
+    title: '',
+    submitLabel: 'Add Song +',
+    onClose: cy.stub().as('onClose'),
+    register: mockRegister,
     appendInstrumentation:
       overrides.appendInstrumentation ?? cy.stub().as('appendInstrumentation'),
     removeInstrumentation:
       overrides.removeInstrumentation ?? cy.stub().as('removeInstrumentation'),
     submitAddSong: overrides.submitAddSong ?? cy.stub().as('submitAddSong'),
-    addSongError: null,
     setFocus: overrides.setFocus ?? cy.stub().as('setFocus'),
-    handleIsAddSong:
-      overrides.handleIsAddSong ?? cy.stub().as('handleIsAddSong'),
     ...overrides,
   });
 

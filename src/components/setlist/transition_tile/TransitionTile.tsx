@@ -18,25 +18,27 @@ const TransitionTile = ({
   const { register, getValues, setValue, control, onRemove } = commonTileProps;
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full text-text-main">
       <DropEdge edge={closestEdge} />
       <div
         ref={ref}
         data-cy={`transition-tile-${index}`}
-        className={`flex flex-col gap-2 rounded-md border-2 border-border-bold bg-bg-main p-2 ${dragging ? 'opacity-40' : ''}`}
+        className={`flex flex-col gap-2 cursor-grab rounded-md border-2 border-border-bold bg-bg-main p-2 ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
-          <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold text-text-main underline">
+          <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold  underline">
             Transition
           </h1>
+
           <button
-            className="col-start-3 flex-none justify-self-end p-2 text-text-main hover:text-border-subtle"
+            className="col-start-3 flex-none justify-self-end p-2 hover:text-border-subtle"
             type="button"
             onClick={() => onRemove(index)}
           >
             <TrashCan className="size-6 justify-self-end" />
           </button>
         </div>
+
         <textarea
           id={field.id}
           data-cy={`notes-${index}`}

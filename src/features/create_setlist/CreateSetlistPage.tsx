@@ -14,7 +14,7 @@ const CreateSetlistPage = () => {
     () => emptySetlistFormValues(librarySongs),
     [librarySongs],
   );
-  const { sidebar, setlist, handleIsAddSong, isAddSong, formData } =
+  const { sidebar, setlist, closeSongForm, isSongFormOpen, formData } =
     useSetlistEditorState(librarySongs, submitSetlist, defaultValues);
 
   return (
@@ -22,8 +22,8 @@ const CreateSetlistPage = () => {
       <SetlistEditor sidebar={sidebar} setlist={setlist} />
 
       {/* Modals: */}
-      {isAddSong && (
-        <ModalBackdrop handleClose={() => handleIsAddSong(false)}>
+      {isSongFormOpen && (
+        <ModalBackdrop handleClose={closeSongForm}>
           <AddSongForm {...formData} />
         </ModalBackdrop>
       )}

@@ -6,6 +6,7 @@ import useFilters from '@/hooks/useFilters';
 import type { SongTileProps } from '../../types/TileProps';
 import { useSetlistRowTile } from '@/hooks/use_setlist/useDndTile';
 import DropEdge from '@/components/setlist/DropEdge';
+import Edit from '@icons/edit-3-svgrepo-com.svg?react';
 
 /**
  * A song row in the setlist: draggable to reorder, or back to the library to
@@ -55,21 +56,31 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
       <section
         ref={ref}
         data-cy={`setlist-tile-${field.songId}`}
-        className={`flex max-h-96 flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
+        className={`flex max-h-96 cursor-grab flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
           <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold text-bg-main underline">
             Song
           </h1>
 
-          <button
-            data-cy={`trash-button-${index}`}
-            type="button"
-            className="col-start-3 flex-none justify-self-end p-2 text-bg-main hover:text-border-subtle/50"
-            onClick={() => onRemove(index)}
-          >
-            <TrashCan className="size-6 justify-self-end" />
-          </button>
+          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main hover:text-border-subtle/50">
+            <button
+              data-cy={`edit-button-${index}`}
+              type="button"
+              className="flex-none"
+              // onClick={() => onEdit(index)}
+            >
+              <Edit className="size-6 justify-self-end" />
+            </button>
+            <button
+              data-cy={`trash-button-${index}`}
+              type="button"
+              className="flex-none"
+              onClick={() => onRemove(index)}
+            >
+              <TrashCan className="size-6 justify-self-end" />
+            </button>
+          </div>
         </div>
 
         <article
@@ -79,10 +90,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
           <h2 className="text-center font-semibold">Title: {metadata.title}</h2>
 
           {activeFilters.length > 0 && (
-            <div
-              data-cy="att_container"
-              className="flex flex-wrap gap-2"
-            >
+            <div data-cy="att_container" className="flex flex-wrap gap-6">
               {activeFilters.map((f) => (
                 <FilterAttribute
                   key={f}
