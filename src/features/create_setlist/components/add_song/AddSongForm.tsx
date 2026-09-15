@@ -10,6 +10,10 @@ import type { SongFormValues } from '@/types/SongFormType';
 import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
 import MultInputStack from './MultInputStack';
 
+/**
+ * formData is destructured
+ */
+
 export interface AddSongFormProps {
   errors: FieldErrors<SongFormValues>;
   isSubmitting: boolean;

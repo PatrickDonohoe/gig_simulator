@@ -40,12 +40,25 @@ const useSetlistEditorState = (
   } = useSetlist(allSongs, defaultValues);
 
   // A newly added song lands in the library, so it shows up in the derived
-  // sidebar automatically — no separate sidebar mutation needed.
-  const handleSongAdded = (newSong: SongType) => {
-    setAllSongs((prev) => [...prev, newSong]);
+  // sidebar automatically — no separate sidebar mutation needed. An edited
+  // song is replaced in place, which also updates any setlist tile that
+  // references its id via getSongDisplayDetails.
+  const handleSongSaved = (song: SongType, formMode: 'add' | 'edit') => {
+    switch (formMode) {
+      case 'add':
+        setAllSongs((prev) => [...prev, song]);
+        return;
+      case 'edit':
+        setAllSongs((prev) => prev.map((s) => (s.id === song.id ? song : s)));
+        return;
+      default: {
+        const _exhaustive: never = formMode;
+        throw new Error('Unhandled form mode: ' + String(_exhaustive));
+      }
+    }
   };
 
-  const { formData, openAddSong, openEditSong, closeSongForm, isSongFormOpen } = useSongForm(handleSongAdded);
+  const { formData, openAddSong, openEditSong, closeSongForm, isSongFormOpen } = useSongForm(handleSongSaved);
 
   const handleSubmitAndReset = handleSubmit((data) => {
     onSubmit(data);
@@ -78,6 +91,7 @@ const useSetlistEditorState = (
       ...commonTileProps,
       onClick: handleSubmitAndReset,
       onRemove: setlistRemove,
+      onEdit: openEditSong,
     },
     setlistDuration,
     errors,
@@ -91,7 +105,6 @@ const useSetlistEditorState = (
     isSongFormOpen,
     formData,
     openAddSong,
-    openEditSong,
     closeSongForm,
   };
 };

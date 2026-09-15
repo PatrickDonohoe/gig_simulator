@@ -16,7 +16,8 @@ import type { DurationInput } from '@/types/DurationInput';
 export type AddSongFormValues = SongFormValues;
 
 const useSongForm = (
-  onSave: (newSong: SongType) => void,
+  // either needs to be a different function based on add | edit, or make it a union
+  onSave: (newSong: SongType, formMode: 'add' | 'edit') => void,
 ) => {
   const [target, setTarget] = useState<SongType | 'new' | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +52,9 @@ const useSongForm = (
     reset(target === 'new' ? emptySongFormValues() : songToFormValues(target));
   }, [target, reset]);
 
+  // RHF submit function for both add and edit song
   const addSong = (data: SongFormValues) => {
+    if (target === null) return;
     // Convert from strings to numbers
     const durationInput: DurationInput = {
       hours: Number(data.duration.hours) || 0,
@@ -68,7 +71,7 @@ const useSongForm = (
 
     try {
       saveSong(song); // saves song to storage
-      onSave(song); // adds song to the sidebar library
+      onSave(song, editingSong ? 'edit' : 'add');
       closeSongForm();
       reset(emptySongFormValues()); // resets the form
     } catch (dbError) {

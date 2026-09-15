@@ -38,16 +38,18 @@ const MultInputStack = ({
               className="rounded-lg border-2 border-border-bold bg-bg-main p-2 transition-all ease-in-out placeholder:text-text-muted hover:bg-accent focus:bg-bg-surface focus-visible:border-accent"
               {...register(`instrumentation.${index}.value`)}
             />
+            
             <button
-              data-cy="rmv_button"
+              data-cy={`rmv_button-${index}`}
               type="button"
               className="flex-none place-self-center rounded-md border-2 border-hidden focus-visible:border-solid focus-visible:border-border-bold focus-visible:outline-none"
               onClick={() => onRemove(index)}
             >
               <MinusIcon className="size-8" />
             </button>
+
             <button
-              data-cy="add_button"
+              data-cy={`add_button-${index}`}
               type="button"
               onClick={onAdd}
               className="flex-none place-self-center rounded-md border-2 border-hidden focus-visible:border-solid focus-visible:border-border-bold focus-visible:outline-none"

@@ -12,6 +12,8 @@ import HeaderFilters from '@/components/setlist/HeaderFilters';
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
  * and notes.
+ * 
+ * The interface here destructures the passed {...setlist}.
  */
 
 export interface SetlistProps extends SongListProps {

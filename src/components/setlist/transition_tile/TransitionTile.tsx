@@ -20,6 +20,7 @@ const TransitionTile = ({
   return (
     <div className="relative w-full text-text-main">
       <DropEdge edge={closestEdge} />
+      
       <div
         ref={ref}
         data-cy={`transition-tile-${index}`}

@@ -21,7 +21,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   });
 
   const { activeFilters } = useFilters();
-  const { getSongDisplayDetails, onRemove } = commonTileProps;
+  const { getSongDisplayDetails, onRemove, onEdit } = commonTileProps;
 
   const metadata: SongType = getSongDisplayDetails(field.songId) ?? {
     id: field.songId,
@@ -53,6 +53,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   return (
     <div className="relative w-full">
       <DropEdge edge={closestEdge} />
+
       <section
         ref={ref}
         data-cy={`setlist-tile-${field.songId}`}
@@ -63,19 +64,19 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
             Song
           </h1>
 
-          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main hover:text-border-subtle/50">
+          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main ">
             <button
               data-cy={`edit-button-${index}`}
               type="button"
-              className="flex-none"
-              // onClick={() => onEdit(index)}
+              className="flex-none hover:text-border-subtle/50"
+              onClick={() => onEdit(metadata)}
             >
               <Edit className="size-6 justify-self-end" />
             </button>
             <button
               data-cy={`trash-button-${index}`}
               type="button"
-              className="flex-none"
+              className="flex-none hover:text-border-subtle/50"
               onClick={() => onRemove(index)}
             >
               <TrashCan className="size-6 justify-self-end" />
@@ -87,7 +88,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
           data-cy={`setlist-article-${index}`}
           className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
         >
-          <h2 className="text-center font-semibold">Title: {metadata.title}</h2>
+          <h2 data-cy={`title-${index}`} className="text-center font-semibold">Title: {metadata.title}</h2>
 
           {activeFilters.length > 0 && (
             <div data-cy="att_container" className="flex flex-wrap gap-6">
