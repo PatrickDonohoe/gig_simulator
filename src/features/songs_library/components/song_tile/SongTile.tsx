@@ -4,7 +4,10 @@ import Pencil from '@icons/edit-3-svgrepo-com.svg?react';
 import GrabArea from '@icons/grab-horizontal-svgrepo-com.svg?react';
 
 /**
- * @param index Place in the array of songs.
+ * @param id the song's id
+ * @param title the song's title
+ * @param getSongDisplayDetails retrieves this song's data once displayed
+ * 
  * @returns A reusable song tile that expands, collapses, and allows for edits.
  */
 
@@ -12,6 +15,7 @@ export interface SongTileProps {
   // index: number;
   id: string;
   title: string;
+  getSongDisplayDetails: (id: string) => void;
 }
 
 const SongTile = ({ id, title }: SongTileProps) => {

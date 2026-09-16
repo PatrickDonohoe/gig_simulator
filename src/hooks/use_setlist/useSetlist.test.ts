@@ -1,7 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 import useSetlist from '@/hooks/use_setlist/useSetlist';
+import { useLibraryStore } from '@/stores/useLibraryStore';
 import type { SongType } from '@/types/SongType';
 import {
   emptySetlistFormValues,
@@ -60,9 +61,13 @@ const mockSetlist: SubmitSetlistType = {
 const mockDefault = emptySetlistFormValues(mockSongs);
 const mockValues = setlistToFormValues(mockSetlist, mockSongs);
 
+beforeEach(() => {
+  useLibraryStore.setState({ librarySongs: mockSongs });
+});
+
 describe('useSetlist', () => {
   it('starts with an empty setlist and the whole library in the sidebar', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     expect(result.current.setlistArr).toEqual([]);
     expect(result.current.setlistDuration).toBe(0);
@@ -75,7 +80,7 @@ describe('useSetlist', () => {
   });
 
   it('drops a placed song out of the derived sidebar', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     act(() => {
       result.current.setlistInsert(0, { kind: 'song', songId: '1' });
@@ -86,7 +91,7 @@ describe('useSetlist', () => {
   });
 
   it('returns a song to the sidebar when it leaves the setlist', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     act(() => {
       result.current.setlistInsert(0, { kind: 'song', songId: '2' });
@@ -100,7 +105,7 @@ describe('useSetlist', () => {
   });
 
   it('looks up display details by id', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     expect(result.current.getSongDisplayDetails('2')).toMatchObject({
       id: '2',
@@ -110,7 +115,7 @@ describe('useSetlist', () => {
   });
 
   it('totals song durations', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     act(() => {
       result.current.setlistInsert(0, { kind: 'song', songId: '1' });
@@ -121,7 +126,7 @@ describe('useSetlist', () => {
   });
 
   it('totals song durations plus transitions', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockDefault));
+    const { result } = renderHook(() => useSetlist(mockDefault));
 
     act(() => {
       result.current.setlistInsert(0, { kind: 'song', songId: '1' });
@@ -146,7 +151,8 @@ describe('useSetlist', () => {
 
 describe('useSetlist in edit mode', () => {
   it('hydrates the setlist and derives the remaining sidebar', () => {
-    const { result } = renderHook(() => useSetlist(mockSongs, mockValues));
+    // passing mockValues here, because it represents the setlistToFormValues option when creating defaultValues in SetlistEditMode.
+    const { result } = renderHook(() => useSetlist(mockValues));
 
     expect(result.current.getValues()).toMatchObject({
       setlistId: mockSetlist.setlistId,

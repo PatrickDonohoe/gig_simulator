@@ -2,28 +2,34 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { saveSong } from '@/utils/songStorage';
 import type { SongType } from '@/types/SongType';
 import { totalSeconds } from '@/utils/add_time/addTimeDurations';
-import type { AddSongFormProps } from '../components/add_song/AddSongForm';
+import type { AddSongFormProps } from '../../components/add_song/AddSongForm';
 import { SongFormSchema, type SongFormValues } from '@/types/SongFormType';
 import {
   emptySongFormValues,
   songToFormValues,
 } from '@/utils/build_form_values/buildSongFormValues';
 import type { DurationInput } from '@/types/DurationInput';
+import { useLibraryStore } from '@/stores/useLibraryStore';
 
+// reexporting to avoid refactoring
 export type AddSongFormValues = SongFormValues;
 
-const useSongForm = (
-  // either needs to be a different function based on add | edit, or make it a union
-  onSave: (newSong: SongType, formMode: 'add' | 'edit') => void,
-) => {
+const useSongForm = () => {
   const [target, setTarget] = useState<SongType | 'new' | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const update = useLibraryStore((state) => state.updateSong);
+  const create = useLibraryStore((state) => state.addSong);
+
   const isOpen = target !== null;
-  const editingSong = target === 'new' ? null : target;
+  // If the song form is not open or it is a "new song" form, return null.
+  // Otherwise, return the target. If the target is null, it will return null.
+  // If the target is of type SongType, it will return as a not null value.
+  const editingSong = !isOpen || target === 'new' ? null : target;
+
+  // These three functions set the value of target when implemented.
   const openAddSong = () => setTarget('new');
   const openEditSong = (song: SongType) => setTarget(song);
   const closeSongForm = () => setTarget(null);
@@ -46,11 +52,17 @@ const useSongForm = (
     name: 'instrumentation',
   });
 
-  // prefills the correct default values based on use case of the form
+  // Prefills the correct default values based on use case of the form.
+  // If target is changed or the form is reset, the form is passed the new values.
   useEffect(() => {
     if (target === null) return;
     reset(target === 'new' ? emptySongFormValues() : songToFormValues(target));
   }, [target, reset]);
+
+  // During onSubmit, if the song is being edited, update the song in the library.
+  // If not, add the song to the library.
+  const handleSongSaved = (song: SongType) =>
+    editingSong ? update(song) : create(song);
 
   // RHF submit function for both add and edit song
   const addSong = (data: SongFormValues) => {
@@ -70,8 +82,7 @@ const useSongForm = (
     };
 
     try {
-      saveSong(song); // saves song to storage
-      onSave(song, editingSong ? 'edit' : 'add');
+      handleSongSaved(song);
       closeSongForm();
       reset(emptySongFormValues()); // resets the form
     } catch (dbError) {
@@ -95,11 +106,15 @@ const useSongForm = (
   };
 
   return {
+    target,
     formData,
     openAddSong,
     openEditSong,
     closeSongForm,
     isSongFormOpen: isOpen,
+    handleSongSaved,
+    update,
+    create,
   };
 };
 

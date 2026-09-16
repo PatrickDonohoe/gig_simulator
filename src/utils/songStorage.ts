@@ -33,3 +33,9 @@ export const saveSong = (song: SongType): void => {
 export const getSong = (id: string): SongType | undefined => parseSong()[id];
 
 export const getAllSongs = (): SongType[] => Object.values(parseSong());
+
+export const deleteSong = (id: string): void => {
+  const all = parseSong();
+  delete all[id];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+};

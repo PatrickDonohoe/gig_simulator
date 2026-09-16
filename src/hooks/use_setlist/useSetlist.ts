@@ -19,6 +19,7 @@ import type { SongType } from '@/types/SongType';
 import { durationToSeconds } from '@/utils/add_time/addTimeDurations';
 import { toSongRow } from './dragOperations';
 import { isDragData } from './useDndTile';
+import { useLibraryStore } from '@/stores/useLibraryStore';
 
 // The form is the single source of truth for the setlist. The sidebar (the song
 // library) is derived below: every library song that isn't already placed.
@@ -31,7 +32,6 @@ export type FormValues = z.infer<typeof FormValuesSchema>;
 type SongRow = z.infer<typeof SongRowSchema>;
 
 const useSetlist = (
-  initialMasterSongs: SongType[],
   defaultValues: FormValues,
 ) => {
   const {
@@ -47,6 +47,8 @@ const useSetlist = (
     mode: 'onChange',
     defaultValues,
   });
+
+  const initialMasterSongs = useLibraryStore((state) => state.librarySongs);
 
   const setlistFields = useFieldArray({ control, name: 'setlist' });
 

@@ -1,7 +1,7 @@
 import AddIcon from '@icons/add-square-svgrepo-com.svg?react';
 import MinusIcon from '@icons/minus-square-svgrepo-com.svg?react';
 import type { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
-import type { AddSongFormValues } from '../../hooks/useSongForm';
+import type { AddSongFormValues } from '../../hooks/song_form/useSongForm';
 
 interface MultStackProps {
   label: string;
@@ -38,7 +38,7 @@ const MultInputStack = ({
               className="rounded-lg border-2 border-border-bold bg-bg-main p-2 transition-all ease-in-out placeholder:text-text-muted hover:bg-accent focus:bg-bg-surface focus-visible:border-accent"
               {...register(`instrumentation.${index}.value`)}
             />
-            
+
             <button
               data-cy={`rmv_button-${index}`}
               type="button"

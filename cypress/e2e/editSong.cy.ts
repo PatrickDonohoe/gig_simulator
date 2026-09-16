@@ -105,5 +105,25 @@ describe('edit an existing song on the create setlist page', () => {
     cy.getByData('submit_button').click();
     cy.get('#song_form').should('not.exist');
     cy.getByData('title-0').should('contain.text', 'song1b');
+
+    // everything else only lives in storage, so verify the update persisted
+    // under the original id rather than being saved as a new song
+    cy.window().then((win) => {
+      const stored = JSON.parse(win.localStorage.getItem('songs') ?? '{}');
+
+      expect(Object.keys(stored)).to.have.length(2);
+      expect(stored[song1.id]).to.include({
+        id: song1.id,
+        title: 'song1b',
+        artist: song1.artist,
+        genre: song1.genre,
+        key: song1.key,
+        tempo: song1.tempo,
+        duration: song1.duration,
+      });
+      expect(stored[song1.id].instrumentation).to.deep.equal(
+        song1.instrumentation,
+      );
+    });
   });
 });

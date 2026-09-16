@@ -1,5 +1,7 @@
 import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import { afterEach, vi } from 'vitest';
+
+vi.mock('zustand');
 
 // jsdom doesn't implement ResizeObserver, but @dnd-kit/dom requires it at import time.
 class ResizeObserverStub {

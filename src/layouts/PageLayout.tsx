@@ -1,13 +1,22 @@
 import { Outlet } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 import ThemeProvider from '@/context/theme/ThemeProvider';
 import HeaderLayout from '@/layouts/components/HeaderLayout';
+import { useLibraryStore } from '@/stores/useLibraryStore';
 
 /** Controls layout only for general page view. */
 
 const PageLayout = () => {
+
+  const getLibrary = useLibraryStore((state) => state.getLibrary);
+
+  useEffect(() => {
+    getLibrary();
+  }, [getLibrary]);
+  
   return (
     <ThemeProvider>
       <ToastContainer
