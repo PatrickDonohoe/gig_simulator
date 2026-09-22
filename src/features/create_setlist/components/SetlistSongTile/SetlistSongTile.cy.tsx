@@ -38,7 +38,7 @@ describe('<SetlistSongTile>', () => {
       artist: 'Mock Artist',
       genre: 'rock',
       key: 'C',
-      tempo: '132',
+      tempo: 132,
       duration: 330,
       instrumentation: [
         'drumset',

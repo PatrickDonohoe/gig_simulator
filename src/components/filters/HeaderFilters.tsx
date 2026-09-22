@@ -2,10 +2,6 @@ import useFilters from '@/hooks/useFilters';
 import type { FilterType } from '@/context/filters/FiltersContext';
 import Filter from '@/components/setlist/Filter';
 
-export interface HeaderFilterProps {
-  noSetlist: boolean;
-}
-
 const filters: FilterType[] = [
   'artist',
   'genre',
@@ -38,7 +34,6 @@ const HeaderFilters = () => {
         <button
           className="flex-none rounded-md bg-bg-main px-4 font-semibold text-text-main underline ring ring-border-bold hover:bg-bg-surface hover:text-text-muted"
           onClick={resetFilters}
-          // disabled={noSetlist}
         >
           Clear All
         </button>

@@ -1,5 +1,5 @@
 import useSetlist, { type FormValues } from '@/hooks/use_setlist/useSetlist';
-import useSongForm from '@/features/create_setlist/hooks/song_form/useSongForm';
+import useSongForm from '@/hooks/useSongForm';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';

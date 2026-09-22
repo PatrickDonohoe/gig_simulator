@@ -7,12 +7,12 @@ import SetlistShell from '@/layouts/components/SetlistShell';
 import SetlistSongList, {
   type SongListProps,
 } from '@/components/setlist/SetlistSongList';
-import HeaderFilters from '@/components/setlist/HeaderFilters';
+import HeaderFilters from '@/components/filters/HeaderFilters';
 
 /**
  * Area where dropped song tiles go. Tiles will be separated by transition times
  * and notes.
- * 
+ *
  * The interface here destructures the passed {...setlist}.
  */
 
@@ -48,7 +48,12 @@ const Setlist = ({
           })}
         />
 
-        <ErrorMessage as='span' data-cy="error" name="setlistName" errors={errors} />
+        <ErrorMessage
+          as="span"
+          data-cy="error"
+          name="setlistName"
+          errors={errors}
+        />
 
         <button
           data-cy="submit"

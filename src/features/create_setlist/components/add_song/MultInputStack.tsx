@@ -1,12 +1,12 @@
 import AddIcon from '@icons/add-square-svgrepo-com.svg?react';
 import MinusIcon from '@icons/minus-square-svgrepo-com.svg?react';
 import type { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
-import type { AddSongFormValues } from '../../hooks/song_form/useSongForm';
+import type { SongFormValues } from '@/types/SongFormType';
 
 interface MultStackProps {
   label: string;
-  fields: FieldArrayWithId<AddSongFormValues, 'instrumentation'>[];
-  register: UseFormRegister<AddSongFormValues>;
+  fields: FieldArrayWithId<SongFormValues, 'instrumentation'>[];
+  register: UseFormRegister<SongFormValues>;
   onAdd: () => void;
   onRemove: (index: number) => void;
 }

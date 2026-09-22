@@ -53,7 +53,7 @@ describe('adding song to library', () => {
         artist: song.artist,
         genre: song.genre,
         key: song.key,
-        tempo: song.tempo,
+        tempo: Number(song.tempo),
         duration: song.minutes * 60 + song.seconds,
       });
       expect(saved.instrumentation).to.deep.equal([song.instrument]);

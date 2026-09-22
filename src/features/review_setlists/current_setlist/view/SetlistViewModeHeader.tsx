@@ -1,5 +1,5 @@
 import SetlistHeader from '@/components/setlist/SetlistHeader';
-import HeaderFilters from '@/components/setlist/HeaderFilters';
+import HeaderFilters from '@/components/filters/HeaderFilters';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
 
 export interface ViewModeHeaderProps {
@@ -28,7 +28,10 @@ const SetlistViewModeHeader = ({
   otherModes,
 }: ViewModeHeaderProps) => {
   return (
-    <div id="view-header" className="flex flex-col divide-y-2 divide-border-bold">
+    <div
+      id="view-header"
+      className="flex flex-col divide-y-2 divide-border-bold"
+    >
       <SetlistHeader setlistDuration={setlistDuration}>
         <h1 className="max-w-120 flex-5 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted lg:col-start-2">
           {setlistName ?? 'Add your Setlist Title here'}

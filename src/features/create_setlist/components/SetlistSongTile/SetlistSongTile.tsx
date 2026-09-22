@@ -29,7 +29,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     artist: '',
     genre: '',
     key: '',
-    tempo: '',
+    tempo: 0,
     instrumentation: [],
     duration: 0,
   };
@@ -40,7 +40,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     artist: (s) => s.artist,
     genre: (s) => s.genre,
     key: (s) => s.key,
-    tempo: (s) => s.tempo,
+    tempo: (s) => String(s.tempo),
     duration: (s) => {
       const { hours, minutes, seconds } = timeBreakdown(s.duration);
       return hours && hours > 0

@@ -27,7 +27,7 @@ const TransitionTile = ({
         className={`flex flex-col gap-2 cursor-grab rounded-md border-2 border-border-bold bg-bg-main p-2 ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
-          <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold  underline">
+          <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold underline">
             Transition
           </h1>
 

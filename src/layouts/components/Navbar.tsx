@@ -3,6 +3,7 @@ import { paths } from '@/routes/paths';
 
 import CreateIcon from '@icons/playlist-add-svgrepo-com.svg?react';
 import ReviewIcon from '@icons/playlist-2-svgrepo-com.svg?react';
+import Library from '@icons/music-note-navlink.svg?react';
 import AnalyticsIcon from '@icons/analytics-graph-chart-svgrepo-com.svg?react';
 
 const Navbar = () => {
@@ -21,6 +22,12 @@ const Navbar = () => {
         address={paths.reviewSetlists}
         label="Review Setlists"
         icon={<ReviewIcon />}
+      />
+
+      <NavbarLink 
+        address={paths.library}
+        label='Song Library'
+        icon={<Library />}
       />
 
       <NavbarLink

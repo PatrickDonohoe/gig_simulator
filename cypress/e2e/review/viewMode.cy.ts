@@ -41,7 +41,7 @@ describe('review setlist in view mode', () => {
     artist: 'artist1',
     genre: 'rock',
     key: 'C',
-    tempo: '120',
+    tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
   };
@@ -52,7 +52,7 @@ describe('review setlist in view mode', () => {
     artist: 'artist2',
     genre: 'rock',
     key: 'D',
-    tempo: '132',
+    tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
   };

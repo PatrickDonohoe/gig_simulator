@@ -21,7 +21,7 @@ export const songToFormValues = (song: SongType): SongFormValues => {
     artist: song.artist,
     genre: song.genre,
     key: song.key,
-    tempo: song.tempo,
+    tempo: String(song.tempo),
     duration: {
       hours: String(timeToNumbers.hours),
       minutes: String(timeToNumbers.minutes),

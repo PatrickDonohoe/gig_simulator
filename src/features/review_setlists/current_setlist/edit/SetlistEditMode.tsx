@@ -38,10 +38,8 @@ const SetlistEditMode = ({ setlistId }: SetlistEditModeProps) => {
   return (
     <div>
       <div>Edit Page Header here</div>
-
       {/* Editor Sidebar and Form */}
       <SetlistEditor sidebar={sidebar} setlist={setlist} />
-
       {isSongFormOpen && (
         <ModalBackdrop handleClose={closeSongForm}>
           <AddSongForm {...formData} />

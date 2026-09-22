@@ -15,7 +15,7 @@ describe('<Setlist>', () => {
     artist: 'Mock Artist',
     genre: 'rock',
     key: 'C',
-    tempo: '132',
+    tempo: 132,
     duration: 330,
     instrumentation: [
       'drumset',
@@ -102,37 +102,6 @@ describe('<Setlist>', () => {
   };
 
   it('mounts and shows the list when tiles.length > 0', () => {
-    // const mockClick = cy.stub();
-    // const mockRemove = cy.stub();
-    // const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
-    // const mockSet = cy.stub();
-    // const mockGet = cy.stub();
-    // const mockControl =
-    //   {} as unknown as SetlistProps['commonTileProps']['control'];
-    // const mockErrors = {};
-
-    // const mockCommon: SetlistProps['commonTileProps'] = {
-    //   register: mockRegister,
-    //   getSongDisplayDetails: mockGetSongDisplayDetails,
-    //   onClick: mockClick,
-    //   onRemove: mockRemove,
-    //   setValue: mockSet,
-    //   getValues: mockGet,
-    //   control: mockControl,
-    // };
-
-    // cy.mount(
-    //   <FiltersProvider>
-    //     <Setlist
-    //       tiles={tiles}
-    //       commonTileProps={mockCommon}
-    //       setlistDuration={5}
-    //       errors={mockErrors}
-    //       isValid={true}
-    //       setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
-    //     />
-    //   </FiltersProvider>,
-    // );
 
     const onClick = cy.stub().as('onClick');
     const onRemove = cy.stub().as('onRemove');

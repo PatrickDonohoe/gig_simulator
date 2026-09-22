@@ -1,22 +1,23 @@
-import { useForm, useFieldArray } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import {
+  SongFormContext,
+  type SongFormContextType,
+} from '@/context/song_form/SongFormContext';
+import { useLibraryStore } from '@/stores/useLibraryStore';
 import type { SongType } from '@/types/SongType';
-import { totalSeconds } from '@/utils/add_time/addTimeDurations';
-import type { AddSongFormProps } from '../../components/add_song/AddSongForm';
 import { SongFormSchema, type SongFormValues } from '@/types/SongFormType';
 import {
   emptySongFormValues,
   songToFormValues,
 } from '@/utils/build_form_values/buildSongFormValues';
 import type { DurationInput } from '@/types/DurationInput';
-import { useLibraryStore } from '@/stores/useLibraryStore';
+import { totalSeconds } from '@/utils/add_time/addTimeDurations';
+import type { AddSongFormProps } from '@/features/create_setlist/components/add_song/AddSongForm';
 
-// reexporting to avoid refactoring
-export type AddSongFormValues = SongFormValues;
-
-const useSongForm = () => {
+const SongFormProvider = ({ children }: { children: React.ReactNode }) => {
   const [target, setTarget] = useState<SongType | 'new' | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -76,6 +77,7 @@ const useSongForm = () => {
 
     const song: SongType = {
       ...data,
+      tempo: Number(data.tempo) || 0,
       instrumentation: data.instrumentation.map((i) => i.value).filter(Boolean),
       duration: totalSeconds([durationInput]),
       id: data.id ?? crypto.randomUUID(),
@@ -105,7 +107,7 @@ const useSongForm = () => {
     setFocus,
   };
 
-  return {
+  const value: SongFormContextType = {
     target,
     formData,
     openAddSong,
@@ -113,9 +115,12 @@ const useSongForm = () => {
     closeSongForm,
     isSongFormOpen: isOpen,
     handleSongSaved,
-    update,
-    create,
   };
-};
 
-export default useSongForm;
+  return (
+    <SongFormContext.Provider value={value}>
+      {children}
+    </SongFormContext.Provider>
+  );
+};
+export default SongFormProvider;
