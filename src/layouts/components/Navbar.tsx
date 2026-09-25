@@ -24,9 +24,9 @@ const Navbar = () => {
         icon={<ReviewIcon />}
       />
 
-      <NavbarLink 
+      <NavbarLink
         address={paths.library}
-        label='Song Library'
+        label="Song Library"
         icon={<Library />}
       />
 

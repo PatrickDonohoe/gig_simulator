@@ -14,7 +14,8 @@ import { useLibraryStore } from '@/stores/useLibraryStore';
 type ColumnType = Exclude<keyof SongType, 'id' | 'instrumentation'>;
 
 export interface SortType {
-  key: ColumnType; dir: 'asc' | 'desc'
+  key: ColumnType;
+  dir: 'asc' | 'desc';
 }
 
 const useSort = () => {
@@ -44,10 +45,7 @@ const useSort = () => {
   );
 
   // Call site of sortItems with argument.
-  const sorted = useMemo(
-    () => sortItems(songs),
-    [sortItems, songs],
-  );
+  const sorted = useMemo(() => sortItems(songs), [sortItems, songs]);
 
   // Resets the sort to title, asc when changing views.
   const resetSort = () =>

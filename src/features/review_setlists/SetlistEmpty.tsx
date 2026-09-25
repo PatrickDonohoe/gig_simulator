@@ -17,9 +17,11 @@ const SetlistEmpty = () => {
 
           <div
             data-cy="svg-container"
-            className="flex flex-col min-h-0 flex-1 items-center justify-center bg-gray-300"
+            className="flex min-h-0 flex-1 flex-col items-center justify-center bg-gray-300"
           >
-            <h2 className='text-xl font-semibold'>Choose a setlist from the left to continue.</h2>
+            <h2 className="text-xl font-semibold">
+              Choose a setlist from the left to continue.
+            </h2>
             <EmptyList className="size-80 text-primary" />
           </div>
         </section>

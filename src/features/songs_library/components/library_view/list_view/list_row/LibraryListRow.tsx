@@ -11,10 +11,12 @@ const LibraryListRow = ({ song, onSelect }: ListRowProps) => {
     <li
       id={`list-row-${song.id}`}
       onClick={onSelect}
-      className="grid grid-cols-subgrid divide divide-text-main odd:bg-bg-main/80 even:bg-bg-main/50"
+      className="divide grid grid-cols-subgrid divide-text-main odd:bg-bg-main/80 even:bg-bg-main/50"
     >
       {headerKeys.map((headK) => (
-        <div key={headK} id={`cell-${song.id}-${headK}`}>{song[headK]}</div>
+        <div key={headK} id={`cell-${song.id}-${headK}`}>
+          {song[headK]}
+        </div>
       ))}
     </li>
   );

@@ -10,13 +10,12 @@ import { useLibraryStore } from '@/stores/useLibraryStore';
 /** Controls layout only for general page view. */
 
 const PageLayout = () => {
-
   const getLibrary = useLibraryStore((state) => state.getLibrary);
 
   useEffect(() => {
     getLibrary();
   }, [getLibrary]);
-  
+
   return (
     <ThemeProvider>
       <ToastContainer
@@ -31,7 +30,7 @@ const PageLayout = () => {
         className="flex h-screen flex-col overflow-x-auto bg-bg-main"
       >
         <HeaderLayout />
-        
+
         <div className="flex min-h-0 flex-1 flex-col">
           <Outlet />
         </div>

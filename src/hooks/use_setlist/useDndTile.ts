@@ -65,7 +65,9 @@ export const useLibraryTile = <T extends HTMLElement = HTMLDivElement>(
 
 // A setlist row: draggable, and a drop target that reports which edge the
 // pointer is closest to so a drop indicator can be drawn.
-export const useSetlistRowTile = <T extends HTMLElement = HTMLDivElement>(args: {
+export const useSetlistRowTile = <
+  T extends HTMLElement = HTMLDivElement,
+>(args: {
   rowId: string;
   index: number;
   rowKind: 'song' | 'transition';

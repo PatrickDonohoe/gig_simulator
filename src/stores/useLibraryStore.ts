@@ -31,7 +31,9 @@ export const useLibraryStore = create<LibraryStore>((set, get) => ({
   updateSong: (song) => {
     saveSong(song);
     set((state) => ({
-      librarySongs: state.librarySongs.map((s) => (s.id === song.id ? song : s)),
+      librarySongs: state.librarySongs.map((s) =>
+        s.id === song.id ? song : s,
+      ),
     }));
   },
 

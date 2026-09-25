@@ -31,9 +31,7 @@ const FormValuesSchema = z.object({
 export type FormValues = z.infer<typeof FormValuesSchema>;
 type SongRow = z.infer<typeof SongRowSchema>;
 
-const useSetlist = (
-  defaultValues: FormValues,
-) => {
+const useSetlist = (defaultValues: FormValues) => {
   const {
     control,
     register,
@@ -86,9 +84,9 @@ const useSetlist = (
   // A single monitor owns every drop. It commits exactly one field-array
   // mutation, so there's no cross-array ordering to get wrong. The handler is
   // stashed in a ref so the monitor can mount once and always see fresh state.
-  const onDropRef = useRef<
-    (args: BaseEventPayload<ElementDragType>) => void
-  >(() => {});
+  const onDropRef = useRef<(args: BaseEventPayload<ElementDragType>) => void>(
+    () => {},
+  );
 
   onDropRef.current = ({ source, location }) => {
     const targets = location.current.dropTargets;

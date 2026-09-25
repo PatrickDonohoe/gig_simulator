@@ -13,11 +13,11 @@ import useSongForm from '@/hooks/useSongForm';
 
 const LibraryMainPanel = () => {
   const library = useLibraryStore((state) => state.librarySongs);
-  const { formData, openAddSong, closeSongForm, isSongFormOpen } = useSongForm();
+  const { formData, openAddSong, closeSongForm, isSongFormOpen } =
+    useSongForm();
 
   return (
     <div id="library-main-panel" className="flex flex-col gap-6">
-
       {library.length > 0 ? (
         <LibraryFilled />
       ) : (

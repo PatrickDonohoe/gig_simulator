@@ -24,10 +24,15 @@ simplified, distraction-free version for stage-mode.
 ## Add/Edit Song Form
 
 - [x] Need an edit song form.
-- [/] Need to open this form as a modal on the create setlist page, edit setlist page, and library page.
-- [x] Will share all fields with the add song form. Should likely use AddSongForm but modify props to accomodate both uses.
-- [x] Song data will be provided as default values when the song to be edited is chosen and the modal is opened or as an empty object if creating a new song.
-- [x] Need a resolver of the same type as the form where both have an optional id.
+- [/] Need to open this form as a modal on the create setlist page, edit setlist
+  page, and library page.
+- [x] Will share all fields with the add song form. Should likely use
+      AddSongForm but modify props to accomodate both uses.
+- [x] Song data will be provided as default values when the song to be edited is
+      chosen and the modal is opened or as an empty object if creating a new
+      song.
+- [x] Need a resolver of the same type as the form where both have an optional
+      id.
 
 ## Modals
 
@@ -36,7 +41,8 @@ simplified, distraction-free version for stage-mode.
 ## Routing
 
 - [ ] Create outlet in review setlists page for each tab.
-- [ ] Include in route the chosen setlist as id at the end of the URL for reload purposes.
+- [ ] Include in route the chosen setlist as id at the end of the URL for reload
+      purposes.
 
 ## State Management
 

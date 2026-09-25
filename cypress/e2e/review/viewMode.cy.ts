@@ -128,7 +128,7 @@ describe('review setlist in view mode', () => {
           JSON.stringify({ [song1.id]: song1, [song2.id]: song2 }),
         );
       },
-    }); 
+    });
 
     cy.getByData('sidebar-tile').contains(setlist1.setlistName).click();
     cy.get('#setlist-article').contains(`Title: ${song1.title}`);

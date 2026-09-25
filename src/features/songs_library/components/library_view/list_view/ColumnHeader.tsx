@@ -11,12 +11,13 @@ interface ColumnHeaderProps {
 }
 
 /**
- * 
- * @param headerKey is the key from SongType that is shown in the cell.
- * @param sortDir is the direction of the sort given isSortDir is true.
- * @param isSortKey determines here whether the arrow icons will appear and which direction it will face.
- * @param onClick changes the direction of the sort if isSortKey is true or changes the sort column if it is false.
- * @returns a header cell in a table that functions as a button for sorting.
+ * @param headerKey Is the key from SongType that is shown in the cell.
+ * @param sortDir Is the direction of the sort given isSortDir is true.
+ * @param isSortKey Determines here whether the arrow icons will appear and
+ *   which direction it will face.
+ * @param onClick Changes the direction of the sort if isSortKey is true or
+ *   changes the sort column if it is false.
+ * @returns A header cell in a table that functions as a button for sorting.
  */
 
 const ColumnHeader = ({

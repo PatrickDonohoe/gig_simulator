@@ -102,7 +102,6 @@ describe('<Setlist>', () => {
   };
 
   it('mounts and shows the list when tiles.length > 0', () => {
-
     const onClick = cy.stub().as('onClick');
     const onRemove = cy.stub().as('onRemove');
 

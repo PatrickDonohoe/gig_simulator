@@ -9,7 +9,7 @@ const AddTransition = ({ onClick, dataCy }: AddTransitionProps) => {
       type="button"
       data-cy={dataCy}
       onClick={onClick}
-      className="border border-border-bold text-black rounded-md bg-accent/50 shadow-lg max-w-36 px-2 mx-auto hover:bg-accent/70 hover:ring"
+      className="mx-auto max-w-36 rounded-md border border-border-bold bg-accent/50 px-2 text-black shadow-lg hover:bg-accent/70 hover:ring"
     >
       Add a Transition
     </button>

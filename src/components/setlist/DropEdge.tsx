@@ -8,7 +8,7 @@ const DropEdge = ({ edge }: { edge: Edge | null }) => {
   return (
     <div
       data-cy="drop-edge"
-      className={`pointer-events-none absolute left-0 right-0 z-10 h-0.5 rounded bg-deep_space_blue ${
+      className={`pointer-events-none absolute right-0 left-0 z-10 h-0.5 rounded bg-deep_space_blue ${
         edge === 'top' ? '-top-2' : '-bottom-2'
       }`}
     />

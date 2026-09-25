@@ -1,8 +1,8 @@
-import LibraryListRow from "@/features/songs_library/components/library_view/list_view/list_row/LibraryListRow";
-import type { SongType } from "@/types/SongType";
+import LibraryListRow from '@/features/songs_library/components/library_view/list_view/list_row/LibraryListRow';
+import type { SongType } from '@/types/SongType';
 
 describe('<LibraryListRow>', () => {
-  const mockSong: SongType =   {
+  const mockSong: SongType = {
     id: '1',
     title: 'Song One',
     artist: 'Artist One',
@@ -27,9 +27,11 @@ describe('<LibraryListRow>', () => {
   });
 
   it('calls onSelect when the row is clicked', () => {
-    cy.mount(<LibraryListRow song={mockSong} onSelect={cy.stub().as('onSelect')} />);
+    cy.mount(
+      <LibraryListRow song={mockSong} onSelect={cy.stub().as('onSelect')} />,
+    );
 
     cy.get('#list-row-1').click();
     cy.get('@onSelect').should('have.been.calledOnce');
-  })
-})
+  });
+});

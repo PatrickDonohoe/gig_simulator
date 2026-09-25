@@ -20,11 +20,11 @@ const TransitionTile = ({
   return (
     <div className="relative w-full text-text-main">
       <DropEdge edge={closestEdge} />
-      
+
       <div
         ref={ref}
         data-cy={`transition-tile-${index}`}
-        className={`flex flex-col gap-2 cursor-grab rounded-md border-2 border-border-bold bg-bg-main p-2 ${dragging ? 'opacity-40' : ''}`}
+        className={`flex cursor-grab flex-col gap-2 rounded-md border-2 border-border-bold bg-bg-main p-2 ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
           <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold underline">

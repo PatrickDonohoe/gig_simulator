@@ -84,7 +84,8 @@ const SongTile = ({ song, openEdit }: SongTileProps) => {
         className="flex gap-1 px-1"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <GrabArea className="size-8" /><GrabArea className="size-8" />
+        <GrabArea className="size-8" />
+        <GrabArea className="size-8" />
       </button>
     </li>
   );

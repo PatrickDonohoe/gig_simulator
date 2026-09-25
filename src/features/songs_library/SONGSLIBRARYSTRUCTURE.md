@@ -1,8 +1,9 @@
 # Library Page Data Structure
 
 This page will need a hook, context, or store to orchestrate the displayed data
-between the searchbar, filters, and sorting.
-Overall data flow will go from the library store => filter => refine remaining filters => search => sort => LibraryFilled.
+between the searchbar, filters, and sorting. Overall data flow will go from the
+library store => filter => refine remaining filters => search => sort =>
+LibraryFilled.
 
 ## Managing Songs
 
@@ -27,7 +28,9 @@ filtering. Only songs in the list view can be sorted.
 
 ## Next Steps
 
-- [ ] Assume a list of display results and set up conditional formatting of "no results" if display results is [] and list or tile view depending on local state.
+- [ ] Assume a list of display results and set up conditional formatting of "no
+      results" if display results is [] and list or tile view depending on local
+      state.
 - [ ] Create list view.
 - [ ] Create tile view.
 - [ ] Parse filters from display songs.

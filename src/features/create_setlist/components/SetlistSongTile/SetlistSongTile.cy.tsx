@@ -63,12 +63,7 @@ describe('<SetlistSongTile>', () => {
     );
 
     // verifying it works
-    cy.get('h2')
-      .should('be.visible')
-      .and(
-        'contain.text',
-        'Mock Song Title',
-      );
+    cy.get('h2').should('be.visible').and('contain.text', 'Mock Song Title');
   });
   // it('displays ');
 });

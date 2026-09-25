@@ -25,11 +25,7 @@ describe('<TransitionTile>', () => {
     onRemove?: TransitionTileProps['commonTileProps']['onRemove'];
   };
 
-  const TestBed = ({
-    field,
-    index,
-    onRemove,
-  }: Required<MountArgs>) => {
+  const TestBed = ({ field, index, onRemove }: Required<MountArgs>) => {
     const { register, setValue, getValues, control } = useForm<FormValues>({
       defaultValues: {
         setlistName: 'Test setlist',
@@ -75,7 +71,11 @@ describe('<TransitionTile>', () => {
     const index = args.index ?? 0;
     const onRemove =
       args.onRemove ??
-      (cy.stub().as('onRemove') as unknown as TransitionTileProps['commonTileProps']['onRemove']);
+      (cy
+        .stub()
+        .as(
+          'onRemove',
+        ) as unknown as TransitionTileProps['commonTileProps']['onRemove']);
 
     cy.mount(<TestBed field={field} index={index} onRemove={onRemove} />);
   };
@@ -129,14 +129,18 @@ describe('<TransitionTile>', () => {
   });
 
   it('seeds the minute and second inputs from transitionTime', () => {
-    mountTile({ field: makeField({ transitionTime: { minutes: 4, seconds: 7 } }) });
+    mountTile({
+      field: makeField({ transitionTime: { minutes: 4, seconds: 7 } }),
+    });
 
     cy.getByData('minutes-tran-0').should('have.value', '4');
     cy.getByData('seconds-tran-0').should('have.value', '7');
   });
 
   it('increments minutes through the stepper and reflects it in the form', () => {
-    mountTile({ field: makeField({ transitionTime: { minutes: 2, seconds: 15 } }) });
+    mountTile({
+      field: makeField({ transitionTime: { minutes: 2, seconds: 15 } }),
+    });
 
     stepperButtons('minutes-tran-0').last().click();
 
@@ -145,7 +149,9 @@ describe('<TransitionTile>', () => {
   });
 
   it('decrements seconds through the stepper', () => {
-    mountTile({ field: makeField({ transitionTime: { minutes: 2, seconds: 15 } }) });
+    mountTile({
+      field: makeField({ transitionTime: { minutes: 2, seconds: 15 } }),
+    });
 
     stepperButtons('seconds-tran-0').first().click();
 
@@ -154,14 +160,18 @@ describe('<TransitionTile>', () => {
   });
 
   it('disables the minus button when a unit is already at 0', () => {
-    mountTile({ field: makeField({ transitionTime: { minutes: 0, seconds: 30 } }) });
+    mountTile({
+      field: makeField({ transitionTime: { minutes: 0, seconds: 30 } }),
+    });
 
     stepperButtons('minutes-tran-0').first().should('be.disabled');
     stepperButtons('minutes-tran-0').last().should('be.enabled');
   });
 
   it('disables the plus button when a unit reaches 59', () => {
-    mountTile({ field: makeField({ transitionTime: { minutes: 3, seconds: 59 } }) });
+    mountTile({
+      field: makeField({ transitionTime: { minutes: 3, seconds: 59 } }),
+    });
 
     stepperButtons('seconds-tran-0').last().should('be.disabled');
     stepperButtons('seconds-tran-0').first().should('be.enabled');

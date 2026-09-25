@@ -10,17 +10,12 @@ import type { SongFormValues } from '@/types/SongFormType';
 import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
 import MultInputStack from './MultInputStack';
 
-/**
- * formData is destructured
- */
+/** FormData is destructured */
 
 export interface AddSongFormProps {
   errors: FieldErrors<SongFormValues>;
   isSubmitting: boolean;
-  instrumentationFields: FieldArrayWithId<
-  SongFormValues,
-  'instrumentation'
-  >[];
+  instrumentationFields: FieldArrayWithId<SongFormValues, 'instrumentation'>[];
   addSongError: string | null;
   title: string;
   submitLabel: string;

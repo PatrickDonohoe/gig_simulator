@@ -13,13 +13,10 @@ const SetlistHeader = ({ setlistDuration, children }: SetlistHeaderProps) => {
 
   return (
     // <header data-cy="setlist_header" className="flex flex-col bg-bg-main">
-    <div
-      data-cy="title-container"
-      className="flex gap-4 bg-bg-main px-6 py-2"
-    >
+    <div data-cy="title-container" className="flex gap-4 bg-bg-main px-6 py-2">
       <div
         data-cy="time_div"
-        className=" flex max-w-60 flex-3 items-center justify-center gap-1 rounded-lg bg-primary p-1 text-sm font-semibold text-accent md:text-base lg:text-lg"
+        className="flex max-w-60 flex-3 items-center justify-center gap-1 rounded-lg bg-primary p-1 text-sm font-semibold text-accent md:text-base lg:text-lg"
       >
         <span>Total:</span>
 

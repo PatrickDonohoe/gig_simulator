@@ -1,7 +1,7 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-import type { SongType } from "@/types/SongType";
-import type { AddSongFormProps } from "@/features/create_setlist/components/add_song/AddSongForm";
+import type { SongType } from '@/types/SongType';
+import type { AddSongFormProps } from '@/features/create_setlist/components/add_song/AddSongForm';
 
 export interface SongFormContextType {
   target: SongType | 'new' | null;
@@ -13,4 +13,6 @@ export interface SongFormContextType {
   handleSongSaved: (song: SongType) => void;
 }
 
-export const SongFormContext = createContext<SongFormContextType | undefined>(undefined);
+export const SongFormContext = createContext<SongFormContextType | undefined>(
+  undefined,
+);

@@ -1,6 +1,6 @@
 const compareValues = (
   a: string | number | null | undefined,
-  b: string | number | null | undefined
+  b: string | number | null | undefined,
 ): number => {
   // pushing empty/undefined to the bottom regardless of direction
   const aEmpty = a === undefined || a === null || a === '';

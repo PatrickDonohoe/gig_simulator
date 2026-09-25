@@ -1,6 +1,6 @@
-import FiltersProvider from "@/context/filters/FiltersProvider";
-import LibraryMainPanel from "@/features/songs_library/components/main_panel/LibraryMainPanel";
-import SongFormProvider from "@/context/song_form/SongFormProvider";
+import FiltersProvider from '@/context/filters/FiltersProvider';
+import LibraryMainPanel from '@/features/songs_library/components/main_panel/LibraryMainPanel';
+import SongFormProvider from '@/context/song_form/SongFormProvider';
 
 /**
  * @returns A page title, the library main panel, and possibly a "featured in"
@@ -8,7 +8,6 @@ import SongFormProvider from "@/context/song_form/SongFormProvider";
  */
 
 const SongsLibraryPage = () => {
-
   return (
     <FiltersProvider>
       <SongFormProvider>

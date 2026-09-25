@@ -64,7 +64,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
             Song
           </h1>
 
-          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main ">
+          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main">
             <button
               data-cy={`edit-button-${index}`}
               type="button"
@@ -88,7 +88,9 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
           data-cy={`setlist-article-${index}`}
           className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
         >
-          <h2 data-cy={`title-${index}`} className="text-center font-semibold">Title: {metadata.title}</h2>
+          <h2 data-cy={`title-${index}`} className="text-center font-semibold">
+            Title: {metadata.title}
+          </h2>
 
           {activeFilters.length > 0 && (
             <div data-cy="att_container" className="flex flex-wrap gap-6">

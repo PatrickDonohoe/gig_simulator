@@ -25,9 +25,6 @@ const ReviewSetlistsPage = () => {
 
   return (
     <div data-cy="page" className="flex min-h-0 flex-1 flex-col">
-
-      
-
       <CurrentSetlist
         viewMode={viewMode}
         getSongData={getSongData}
