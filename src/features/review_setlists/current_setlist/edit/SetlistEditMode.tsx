@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import SetlistEditor from '@/components/setlist/SetlistEditor';
-import AddSongForm from '@/features/create_setlist/components/add_song/AddSongForm';
+import AddSongForm from '@/components/add_song/AddSongForm';
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
 import { submitEditSetlist } from '@/features/create_setlist/services/submitFuncs';
 import useSetlistEditorState from '@/hooks/use_setlist/useSetlistEditorState';

@@ -3,7 +3,7 @@ import LibraryEmpty from '@/features/songs_library/components/library_empty/Libr
 import LibraryFilled from '@/features/songs_library/components/library_filled/LibraryFilled';
 
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
-import AddSongForm from '@/features/create_setlist/components/add_song/AddSongForm';
+import AddSongForm from '@/components/add_song/AddSongForm';
 import useSongForm from '@/hooks/useSongForm';
 
 /**
@@ -13,11 +13,11 @@ import useSongForm from '@/hooks/useSongForm';
 
 const LibraryMainPanel = () => {
   const library = useLibraryStore((state) => state.librarySongs);
-  const { formData, openAddSong, closeSongForm, isSongFormOpen } = useSongForm();
+  const { formData, openAddSong, closeSongForm, isSongFormOpen } =
+    useSongForm();
 
   return (
     <div id="library-main-panel" className="flex flex-col gap-6">
-
       {library.length > 0 ? (
         <LibraryFilled />
       ) : (

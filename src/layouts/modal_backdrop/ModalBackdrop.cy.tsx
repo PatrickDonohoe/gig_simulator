@@ -1,7 +1,7 @@
 import ModalBackdrop from './ModalBackdrop';
 import AddSongForm, {
   type AddSongFormProps,
-} from '@/features/create_setlist/components/add_song/AddSongForm';
+} from '@/components/add_song/AddSongForm';
 
 describe('<ModalBackdrop>', () => {
   it('mounts and shows a background color', () => {

@@ -15,7 +15,7 @@ import {
 } from '@/utils/build_form_values/buildSongFormValues';
 import type { DurationInput } from '@/types/DurationInput';
 import { totalSeconds } from '@/utils/add_time/addTimeDurations';
-import type { AddSongFormProps } from '@/features/create_setlist/components/add_song/AddSongForm';
+import type { AddSongFormProps } from '@/components/add_song/AddSongForm';
 
 const SongFormProvider = ({ children }: { children: React.ReactNode }) => {
   const [target, setTarget] = useState<SongType | 'new' | null>(null);
