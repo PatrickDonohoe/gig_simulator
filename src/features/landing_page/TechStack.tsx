@@ -16,7 +16,7 @@ const technologies: Tech[] = [
 
 const TechStack = () => {
   return (
-    <section id='tech-stack' className="flex flex-col gap-2 pt-2">
+    <section id="tech-stack" className="flex flex-col gap-2 pt-2">
       <h2 className="text-center text-2xl font-semibold text-shadow-md">
         Technologies Employed
       </h2>

@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <div
       id="landing-page"
-      className="flex flex-col items-center bg-bg-main text-text-main py-4 divide-y-2 divide-text-main"
+      className="flex flex-col items-center divide-y-2 divide-text-main bg-bg-main py-4 text-text-main"
     >
       <header className="grid grid-cols-3 items-center pb-4">
         <h1 className="col-start-2 text-center text-3xl underline text-shadow-lg">
@@ -16,15 +16,22 @@ const LandingPage = () => {
         <div id="link-container" className="flex items-center gap-4 px-4">
           {/* TODO: create temp admin login with pre-filled data */}
           <LPLink id="to-dash" address="dash" text="Try as Guest/Recruiter" />
-          
+
           <LPLink id="to-free-dash" address="dash" text="Create Free Account" />
         </div>
       </header>
 
-      <section id='video-container' className="flex flex-col md:flex-row gap-2 md:gap-8 p-4">
+      <section
+        id="video-container"
+        className="flex flex-col gap-2 p-4 md:flex-row md:gap-8"
+      >
         <div className="flex flex-col md:gap-4">
-          <h2 className="text-2xl text-shadow-md font-bold">Setlist Builder at work</h2>
-          <span className='font-semibold text-shadow-sm'>Drag and drop songs from your library to build a setlist.</span>
+          <h2 className="text-2xl font-bold text-shadow-md">
+            Setlist Builder at work
+          </h2>
+          <span className="font-semibold text-shadow-sm">
+            Drag and drop songs from your library to build a setlist.
+          </span>
         </div>
 
         <video src="" width={800} height={450} controls autoPlay muted loop>
@@ -33,10 +40,13 @@ const LandingPage = () => {
       </section>
 
       {/* Technical Breakdown */}
-      <section className="flex flex-row md:flex-col items-center p-4 gap-4">
+      <section className="flex flex-row items-center gap-4 p-4 md:flex-col">
         <h2 className="text-center text-2xl">Features:</h2>
 
-        <div id="tile-container" className="wrap flex flex-col md:flex-row gap-4">
+        <div
+          id="tile-container"
+          className="wrap flex flex-col gap-4 md:flex-row"
+        >
           <FeatureTile
             id="searchable"
             title="Searchable Song Catalog"
