@@ -15,7 +15,7 @@ const FeatureTile = ({ id, title, description, tooltip }: FeatureTileProps) => {
     >
       <h3 className="text-lg font-semibold">{title}</h3>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
         <p>{description}</p>
 
         <span title={tooltip} className="cursor-pointer">

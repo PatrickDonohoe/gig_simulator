@@ -17,9 +17,24 @@
 
 ### Hero Section
 
+#### Sticky Buttons
+
 - Primary CTA: "Try as Guest/Recruiter"
 - Secondary CTA: "Create Free Account"
-- Visual: Create an embedded preview video
+- TODO: Return to make these buttons sticky once the layout is final.
+
+#### Features Sections
+
+- Add Song by lookup
+- Drag and drop to build setlists
+- Add transitions
+- TODO: Add alternating flex-row & flex-row-reverse sections that display
+  feature card next to demo video for that feature.
+
+#### Features Coming Soon
+
+- Performance mode
+- Analytics
 
 ### Techincal Breakdown
 
@@ -27,6 +42,7 @@
 - Drag and drop workspace
 - Dynamic Timing System
 - PDF & Digital Export
+- TODO: Return to customize tooltips and introduce animation to tiles.
 
 ### Tech Stack
 

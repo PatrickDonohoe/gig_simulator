@@ -16,13 +16,13 @@ const technologies: Tech[] = [
 
 const TechStack = () => {
   return (
-    <section className="flex flex-col">
+    <section id='tech-stack' className="flex flex-col gap-2 pt-2">
       <h2 className="text-center text-2xl font-semibold text-shadow-md">
         Technologies Employed
       </h2>
 
       {/* TODO: add animation of vertical shift plus name or enlarge icon and surrounding icons by half plus add the name */}
-      <ul className="flex items-center">
+      <ul className="flex items-center gap-x-2">
         {technologies.map(({ name, icon }) => (
           <li
             key={name}

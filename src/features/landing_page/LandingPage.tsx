@@ -6,29 +6,37 @@ const LandingPage = () => {
   return (
     <div
       id="landing-page"
-      className="flex flex-col items-center gap-4 bg-bg-main text-text-main"
+      className="flex flex-col items-center bg-bg-main text-text-main py-4 divide-y-2 divide-text-main"
     >
-      <header className="grid grid-cols-3 items-center">
+      <header className="grid grid-cols-3 items-center pb-4">
         <h1 className="col-start-2 text-center text-3xl underline text-shadow-lg">
           Setlist Builder
         </h1>
 
-        <div id="link-container" className="flex items-center gap-4 px-4 py-2">
+        <div id="link-container" className="flex items-center gap-4 px-4">
           {/* TODO: create temp admin login with pre-filled data */}
           <LPLink id="to-dash" address="dash" text="Try as Guest/Recruiter" />
+          
           <LPLink id="to-free-dash" address="dash" text="Create Free Account" />
         </div>
       </header>
 
-      <video src="" width={800} height={450} controls autoPlay muted loop>
-        Video is missing or unsupported.
-      </video>
+      <section id='video-container' className="flex flex-col md:flex-row gap-2 md:gap-8 p-4">
+        <div className="flex flex-col md:gap-4">
+          <h2 className="text-2xl text-shadow-md font-bold">Setlist Builder at work</h2>
+          <span className='font-semibold text-shadow-sm'>Drag and drop songs from your library to build a setlist.</span>
+        </div>
+
+        <video src="" width={800} height={450} controls autoPlay muted loop>
+          Video is missing or unsupported.
+        </video>
+      </section>
 
       {/* Technical Breakdown */}
-      <section className="flex flex-col items-center rounded-md border-border-bold p-4">
+      <section className="flex flex-row md:flex-col items-center p-4 gap-4">
         <h2 className="text-center text-2xl">Features:</h2>
 
-        <div id="tile-container" className="wrap flex gap-4">
+        <div id="tile-container" className="wrap flex flex-col md:flex-row gap-4">
           <FeatureTile
             id="searchable"
             title="Searchable Song Catalog"
@@ -39,7 +47,7 @@ const LandingPage = () => {
           <FeatureTile
             id="drag-n-drop"
             title="Simple as Drag n Drop"
-            description="Once a song is added to your library, simply drag it to the desired location in your setlist and drop."
+            description="Once a song is added to your library, simply drag it to the desired location in your setlist and drop it into place."
             tooltip="Utilizes @atlaskit/pragmatic-drag-n-drop to move songs between the library sidebar and the setlist as well as moving transitions between songs."
           />
 
