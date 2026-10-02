@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Outlet } from 'react-router';
 
 import AddSongForm from '../../components/add_song/AddSongForm';
 import ModalBackdrop from '@/layouts/modal_backdrop/ModalBackdrop';
@@ -32,7 +33,10 @@ const CreateSetlistContent = () => {
   return (
     <>
       <SetlistEditor sidebar={sidebar} setlist={setlist} />
-      {/* Modals: */}
+
+      <Outlet />
+      
+      {/* Song Edit Modal */}
       {isSongFormOpen && (
         <ModalBackdrop handleClose={closeSongForm}>
           <AddSongForm {...formData} />

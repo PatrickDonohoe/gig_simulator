@@ -1,14 +1,14 @@
+import { Link } from "react-router";
+
 // This component is positioned at the top of the aside and contains the sidebar title and button.
 
 export interface SideHeaderProps {
-  onClick: () => void;
   header: string;
   buttonText: string;
   header2: string;
 }
 
 const SidebarHeader = ({
-  onClick,
   header,
   buttonText,
   header2,
@@ -23,14 +23,13 @@ const SidebarHeader = ({
           {header}
         </h1>
 
-        <button
+        <Link
           id="sidebar-header-button"
-          onClick={onClick}
-          type="button"
+          to='add-song'
           className="flex-none rounded-xl border bg-bg-main px-2 py-1 text-sm hover:bg-bg-surface hover:text-text-muted"
         >
           {buttonText}
-        </button>
+        </Link>
       </div>
       
       <h2 data-cy="h2" className="bg-menu p-2 text-center">

@@ -1,3 +1,5 @@
+import { Outlet } from "react-router";
+
 import FiltersProvider from "@/context/filters/FiltersProvider";
 import LibraryMainPanel from "@/features/songs_library/components/main_panel/LibraryMainPanel";
 import SongFormProvider from "@/context/song_form/SongFormProvider";
@@ -21,7 +23,10 @@ const SongsLibraryPage = () => {
               Library of Songs
             </h1>
           </div>
+
           <LibraryMainPanel />
+
+          <Outlet />
         </div>
       </SongFormProvider>
     </FiltersProvider>

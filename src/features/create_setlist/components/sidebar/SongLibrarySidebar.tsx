@@ -12,17 +12,15 @@ import SongLibraryTile from '@/features/create_setlist/components/sidebar/song_l
 
 export interface SongLibrarySidebarProps {
   songs: SongType[];
-  onAddSong: () => void;
 }
 
-const SongLibrarySidebar = ({ songs, onAddSong }: SongLibrarySidebarProps) => {
+const SongLibrarySidebar = ({ songs }: SongLibrarySidebarProps) => {
   const { ref, isOver } = useContainerDrop(
     { dndType: 'sidebar-container' },
     (drag) => drag.dndType === 'setlist-row' && drag.rowKind === 'song',
   );
 
   const headerProps = {
-    onClick: onAddSong,
     header: 'Workspace',
     buttonText: 'Add Song +',
     header2: 'Choose a song, and drag it to your setlist.',

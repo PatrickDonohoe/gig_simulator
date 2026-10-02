@@ -33,7 +33,7 @@ const useSetlistEditorState = (
     isValid,
   } = useSetlist(defaultValues);
 
-  const { formData, openAddSong, openEditSong, closeSongForm, isSongFormOpen } =
+  const { formData, openEditSong, closeSongForm, isSongFormOpen } =
     useSongForm();
 
   const handleSubmitAndReset = handleSubmit((data) => {
@@ -58,7 +58,6 @@ const useSetlistEditorState = (
 
   const sidebar: SongLibrarySidebarProps = {
     songs: sidebarSongs,
-    onAddSong: openAddSong,
   };
 
   const setlist: SetlistProps = {
@@ -80,7 +79,6 @@ const useSetlistEditorState = (
     setlist,
     isSongFormOpen,
     formData,
-    openAddSong,
     closeSongForm,
   };
 };

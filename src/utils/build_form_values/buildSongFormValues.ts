@@ -4,9 +4,9 @@ import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 
 export const emptySongFormValues = (): SongFormValues => ({
   title: '',
-  artist: '',
-  genre: '',
+  artists: '',
   key: '',
+  mode: 'not found',
   tempo: '',
   duration: { hours: '0', minutes: '0', seconds: '0' },
   instrumentation: [{ value: '' }],
@@ -18,9 +18,9 @@ export const songToFormValues = (song: SongType): SongFormValues => {
   return {
     id: song.id,
     title: song.title,
-    artist: song.artist,
-    genre: song.genre,
+    artists: song.artists,
     key: song.key,
+    mode: song.mode,
     tempo: String(song.tempo),
     duration: {
       hours: String(timeToNumbers.hours),

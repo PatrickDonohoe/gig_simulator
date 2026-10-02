@@ -73,6 +73,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
             >
               <Edit className="size-6 justify-self-end" />
             </button>
+            
             <button
               data-cy={`trash-button-${index}`}
               type="button"

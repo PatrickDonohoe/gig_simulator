@@ -1,11 +1,11 @@
-import { type SearchSong, SearchReturnSchema, SongReturnSchema, MultSongReturnSchema, SongAudioFeatures } from "@/types/SearchSong";
+import { type SearchSong, SearchReturnSchema, SongReturnSchema, MultSongReturnSchema, SongAudioFeatures, type AudioFeatures, type SongReturn, type SearchReturn, type MultSongReturn } from "@/types/SearchSong";
 
 const RECCO_BASE_URL = 'https://api.reccobeats.com/v1/track';
 
 export const searchTracks = async (
   { searchText, artist, artistId, sort, page, size }: SearchSong,
   signal?: AbortSignal,
-): Promise<unknown> => {
+): Promise<SearchReturn> => {
   const params = new URLSearchParams({ searchText });
   if (artist) params.set('artist', artist);
   if (artistId) params.set('artistId', artistId);
@@ -35,7 +35,7 @@ export const searchTracks = async (
 export const getTrack = async(
   id: string,
   signal: AbortSignal,
-): Promise<unknown> => {
+): Promise<SongReturn> => {
   const res = await fetch(`${RECCO_BASE_URL}/${id}`, {
     headers: { Accept: 'application/json' },
     signal,
@@ -58,7 +58,7 @@ export const getTrack = async(
 export const getTracks = async(
   ids: string[],
   signal?: AbortSignal,
-): Promise<unknown> => {
+): Promise<MultSongReturn> => {
   const params = new URLSearchParams({ ids: ids.join(',') })
   
   const res = await fetch(`${RECCO_BASE_URL}?${params}`, {
@@ -80,7 +80,7 @@ export const getTracks = async(
   return parsed.data;
 }
 
-export const getTrackAudio = async (id: string, signal?: AbortSignal): Promise<unknown> => {
+export const getTrackAudio = async (id: string, signal?: AbortSignal): Promise<AudioFeatures> => {
   const res = await fetch(`${RECCO_BASE_URL}/${id}/audio-features`, {
     headers: { Accept: 'application/json' },
     signal,

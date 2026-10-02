@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useEffectEvent } from 'react';
 import { useForm, useFieldArray, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
@@ -86,11 +86,8 @@ const useSetlist = (
   // A single monitor owns every drop. It commits exactly one field-array
   // mutation, so there's no cross-array ordering to get wrong. The handler is
   // stashed in a ref so the monitor can mount once and always see fresh state.
-  const onDropRef = useRef<
-    (args: BaseEventPayload<ElementDragType>) => void
-  >(() => {});
-
-  onDropRef.current = ({ source, location }) => {
+  const onDrop = useEffectEvent(
+    ({ source, location }: BaseEventPayload<ElementDragType>) => {
     const targets = location.current.dropTargets;
     if (targets.length === 0 || !isDragData(source.data)) return;
     const drag = source.data;
@@ -132,13 +129,13 @@ const useSetlist = (
       });
     }
     if (destination !== drag.index) setlistFields.move(drag.index, destination);
-  };
+  });
 
   useEffect(
     () =>
       monitorForElements({
         canMonitor: ({ source }) => isDragData(source.data),
-        onDrop: (args) => onDropRef.current(args),
+        onDrop: (args) => onDrop(args),
       }),
     [],
   );

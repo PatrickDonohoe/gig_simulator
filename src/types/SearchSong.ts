@@ -12,7 +12,6 @@ export const SearchSongSchema = z.object({
   size: z.number().min(1).max(50).optional(),
   page: z.number().min(0).max(1000).optional(),
 });
-
 export type SearchSong = z.infer<typeof SearchSongSchema>;
 
 export const SongReturnSchema = z.object({
@@ -32,12 +31,13 @@ export const SongReturnSchema = z.object({
   href: z.string(),
   availableCountries: z.string().optional(),
   popularity: z.number().min(0).max(100),
-  // TODO: add corresponding popularity icon next to song title either in library or create setlist.
 });
+export type SongReturn = z.infer<typeof SongReturnSchema>;
 
 export const MultSongReturnSchema = z.object({
   content: z.array(SongReturnSchema),
 });
+export type MultSongReturn = z.infer<typeof MultSongReturnSchema>;
 
 export const SearchReturnSchema = z.object({
   content: z.array(SongReturnSchema),
@@ -46,6 +46,7 @@ export const SearchReturnSchema = z.object({
   totalElements: z.number(),
   totalPages: z.number(),
 });
+export type SearchReturn = z.infer<typeof SearchReturnSchema>;
 
 // Schema for the returned audio features object.
 export const SongAudioFeatures = z.object({
@@ -64,3 +65,5 @@ export const SongAudioFeatures = z.object({
   tempo: z.number(),
   valence: z.number().min(0).max(1),
 });
+
+export type AudioFeatures = z.infer<typeof SongAudioFeatures>;
