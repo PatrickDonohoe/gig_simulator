@@ -31,9 +31,7 @@ const LibraryFilled = () => {
       id="library-filled"
       className="flex flex-col gap-4 bg-bg-main text-text-main"
     >
-      <div className="flex w-full items-center justify-center">
-        <h2 className="text-2xl">Library with Songs</h2>
-      </div>
+
 
       <div
         id="library-filled-body"
@@ -42,13 +40,13 @@ const LibraryFilled = () => {
         <div id="body-header" className="grid grid-cols-3 p-1 w-full">
           <div
             id="view-switching-buttons"
-            className="flex divide-x-2 divide-border-bold border-2 border-border-bold rounded-md bg-bg-main shadow-xl"
+            className="flex divide-x-2 divide-border-bold border-2 border-border-bold rounded-md bg-bg-main shadow-xl text-text-main"
           >
-            <button id="tile-button" className='px-2' onClick={() => handleView('list')}>
+            <button id="tile-button" className={`px-2 ${view === 'tile' ? 'text-accent' : 'text-text-main'}`} onClick={() => handleView('tile')}>
               <Tile className="size-8" />
             </button>
 
-            <button id="list-button" className='px-2' onClick={() => handleView('tile')}>
+            <button id="list-button" className={`px-2 ${view === 'list' ? 'text-accent' : 'text-text-main'}`} onClick={() => handleView('list')}>
               <List className="size-8" />
             </button>
           </div>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import useSongForm from '@/hooks/useSongForm';
 import type { SongType } from '@/types/SongType';
 import SongTile from '@/features/songs_library/components/song_tile/SongTile';
 import type { SortType } from '@/features/songs_library/hooks/sorting/useSort';
@@ -14,13 +13,13 @@ interface ListViewProps {
   toggleSort: (nk: SortType['key']) => void;
 }
 
+// TODO: change from grid to table
 const LibraryListView = ({
   results,
   sortDir,
   sortKey,
   toggleSort,
 }: ListViewProps) => {
-  const { openEditSong } = useSongForm();
 
   const [selectedTile, setSelectedTile] = useState<SongType>(results[0]);
 
@@ -61,7 +60,6 @@ const LibraryListView = ({
       <div className="flex p-2">
         <SongTile
           song={selectedTile}
-          openEdit={() => openEditSong(selectedTile)}
         />
       </div>
     </div>

@@ -17,16 +17,6 @@ const AddSongFlow = () => {
     <FullScreenSheet title='Add a song' onClose={close}>
       <Outlet />
       
-      {/* {trackId ? (
-        <>details</>
-      ) : (
-        <SongSearchStep 
-          query={query}
-          onSearch={handleSearch}
-          onSelect={handleSelect}
-          onPageChange={handlePage}
-        />
-      )} */}
     </FullScreenSheet>
   );
 };

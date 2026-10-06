@@ -12,9 +12,8 @@ describe('<AddSongForm>', () => {
     instrumentationFields: [{ id: 'field-1', value: '' }],
     errors: {},
     addSongError: null,
-    title: '',
+    title: 'Add a new song to your library',
     submitLabel: 'Add Song +',
-    onClose: cy.stub().as('onClose'),
     register: mockRegister,
     appendInstrumentation:
       overrides.appendInstrumentation ?? cy.stub().as('appendInstrumentation'),

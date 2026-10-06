@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 
 import Pencil from '@icons/edit-3-svgrepo-com.svg?react';
 import GrabArea from '@icons/grab-horizontal-svgrepo-com.svg?react';
 import Artist from '@icons/person-svgrepo-com.svg?react';
 import Title from '@icons/music-note-song-title.svg?react';
-import Genre from '@icons/album-collection-svgrepo-com.svg?react';
 import type { SongType } from '@/types/SongType';
 import {
   timeBreakdown,
@@ -19,11 +19,10 @@ import {
  */
 
 export interface SongTileProps {
-  openEdit: () => void; // id to be supplied as argument by the calling component.
   song: SongType;
 }
 
-const SongTile = ({ song, openEdit }: SongTileProps) => {
+const SongTile = ({ song }: SongTileProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const formattedTime = timeBreakdown(song.duration);
@@ -40,25 +39,21 @@ const SongTile = ({ song, openEdit }: SongTileProps) => {
         </div>
 
         {/* This button will open the (edit) song form. */}
-        <button
+        <Link
+          to={`edit-song/${song.id}`}
           id={`edit-${song.id}`}
-          type="button"
           className={`hover:text-accent ${isExpanded ? 'visible' : 'hidden'}`}
-          onClick={openEdit}
         >
           <Pencil className="size-8" />
-        </button>
+        </Link>
 
         <div
           className={`grid grid-cols-subgrid ${isExpanded ? 'opacity-100' : 'opacity-0'}`}
         >
+          {/* TODO: return to change svg */}
           <div className="flex items-center justify-center p-1">
             <Artist className="size-8" />{' '}
-            <span className="text-text-main">{song.artist}</span>
-          </div>
-          <div className="flex items-center justify-center p-1">
-            <Genre className="size-8" />{' '}
-            <span className="text-text-main">{song.genre}</span>
+            <span className="text-text-main">{song.artists}</span>
           </div>
           <div className="flex items-center justify-center p-1">
             <Artist className="size-8" />{' '}
@@ -84,7 +79,8 @@ const SongTile = ({ song, openEdit }: SongTileProps) => {
         className="flex gap-1 px-1"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <GrabArea className="size-8" /><GrabArea className="size-8" />
+        <GrabArea className="size-8" />
+        <GrabArea className="size-8" />
       </button>
     </li>
   );

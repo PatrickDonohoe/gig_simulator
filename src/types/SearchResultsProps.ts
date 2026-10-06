@@ -1,15 +1,16 @@
+import type { SongReturn } from "@/types/SearchSong";
+
 export interface SearchResultsProps {
   results: SearchResultsPage;
   isFetching: boolean;
   isPlaceholderData: boolean;
-  onSelect: (id: string) => void;
   onPageChange: (page: number) => void;
 }
 
 export interface SearchResultRow {
   id: string;
   title: string;
-  artists: string;
+  artists: SongReturn['artists'];
   durationSec: number;
 }
 

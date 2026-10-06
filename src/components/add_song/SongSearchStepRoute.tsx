@@ -11,26 +11,22 @@ const SongSearchStepRoute = () => {
   const searchText = urlParams.get('searchText') ?? '';
   const sort: SearchSong['sort'] =
     urlParams.get('sort') === 'desc' ? 'desc' : 'asc';
-  const p = urlParams.get('page');
-  const page = Number.isFinite(p) ? Number(p) : 0;
+  const p = Number(urlParams.get('page'));
+  const page = Number.isFinite(p) ? p : 0;
+  const artist = urlParams.get('artist') ?? '';
+  const artistId = urlParams.get('artistId') ?? '';
 
-  const handleSearch = (search: SearchSong) =>
+  const handleSearch = (search: Pick<SearchSong, 'searchText' | 'sort'>) =>
     setUrlParams({ searchText: search.searchText, sort: search.sort ?? 'asc' });
-
-  const onSelect = (id: string) =>
-    setUrlParams((prev) => {
-      prev.set('trackId', id);
-      return prev;
-    });
 
   const onPageChange = (page: number) =>
     setUrlParams((prev) => {
       prev.set('page', String(page));
-      return String(prev);
+      return prev;
     });
 
   const query =
-    searchText.trim().length >= 3 ? { searchText, sort, page } : null;
+    searchText.trim().length >= 3 ? { searchText: searchText.trim(), sort, page, artist, artistId } : null;
 
   const { data, isPending, isError, error, isFetching, isPlaceholderData } =
     useTrackSearch(query);
@@ -55,7 +51,6 @@ const SongSearchStepRoute = () => {
           results={data} // reconcile types
           isFetching={isFetching}
           isPlaceholderData={isPlaceholderData}
-          onSelect={onSelect}
           onPageChange={onPageChange}
         />
       ) : (

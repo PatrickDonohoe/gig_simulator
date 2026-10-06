@@ -41,9 +41,10 @@ const FullScreenSheet = ({
             {title}
           </h2>
 
+          {/* return to parent route whose state is preserved */}
           <button
             type="button"
-            onClick={onClose}
+            onClick={onClose} // navigates ('..'); 
             aria-label="Close"
             className="-my-1 flex-none px-2 py-1"
           >

@@ -10,7 +10,7 @@ export const toSearchResultsPage = (r: SearchReturn): SearchResultsPage => ({
   rows: r.content.map((s) => ({
     id: s.id,
     title: s.trackTitle,
-    artists: s.artists.length > 0 ? s.artists.map((a) => a.name).join(', ') : 'Unavailable',
+    artists: s.artists,
     durationSec: Math.round(s.durationMs / 1000),
   })),
   page: r.page,

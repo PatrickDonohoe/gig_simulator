@@ -58,22 +58,10 @@ const AddSongForm = ({
       <div className="grid grid-cols-3 items-center px-4 py-2">
         <h1
           data-cy="new_song"
-          className="col-start-2 text-center text-xl font-bold text-text-main"
+          className="col-start-2 text-center text-xl font-bold"
         >
           {title}
         </h1>
-
-        <Link to='..'>
-          Return to results
-        </Link>
-
-        <Link
-          data-cy="close"
-          className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent focus:border-accent"
-          to='../..'
-        >
-          X
-        </Link>
       </div>
 
       <div

@@ -16,6 +16,5 @@ export interface CommonTileProps {
   control: Control<FormValues>;
   getSongDisplayDetails: (songId: string) => SongType | undefined;
   onClick: () => void;
-  onEdit: (song: SongType) => void;
   onRemove: UseFieldArrayRemove;
 }

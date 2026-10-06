@@ -38,9 +38,9 @@ describe('review setlist in view mode', () => {
   const song1: SongType = {
     id: 'song1',
     title: 'song1a',
-    artist: 'artist1',
-    genre: 'rock',
+    artists: 'artist1',
     key: 'C',
+    mode: 'major',
     tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
@@ -49,9 +49,9 @@ describe('review setlist in view mode', () => {
   const song2: SongType = {
     id: 'song2',
     title: 'song2a',
-    artist: 'artist2',
-    genre: 'rock',
+    artists: 'artist2',
     key: 'D',
+    mode: 'minor',
     tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
@@ -128,7 +128,7 @@ describe('review setlist in view mode', () => {
           JSON.stringify({ [song1.id]: song1, [song2.id]: song2 }),
         );
       },
-    }); 
+    });
 
     cy.getByData('sidebar-tile').contains(setlist1.setlistName).click();
     cy.get('#setlist-article').contains(`Title: ${song1.title}`);

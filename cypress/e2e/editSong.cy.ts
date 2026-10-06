@@ -4,9 +4,9 @@ describe('edit an existing song on the create setlist page', () => {
   const song1: SongType = {
     id: 'song1',
     title: 'song1a',
-    artist: 'artist1',
-    genre: 'rock',
+    artists: 'artist1',
     key: 'C',
+    mode: 'major',
     tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
@@ -15,9 +15,9 @@ describe('edit an existing song on the create setlist page', () => {
   const song2: SongType = {
     id: 'song2',
     title: 'song2a',
-    artist: 'artist2',
-    genre: 'rock',
+    artists: 'artist2',
     key: 'D',
+    mode: 'minor',
     tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
@@ -115,8 +115,7 @@ describe('edit an existing song on the create setlist page', () => {
       expect(stored[song1.id]).to.include({
         id: song1.id,
         title: 'song1b',
-        artist: song1.artist,
-        genre: song1.genre,
+        artist: song1.artists,
         key: song1.key,
         tempo: song1.tempo,
         duration: song1.duration,

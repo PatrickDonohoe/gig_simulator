@@ -6,9 +6,9 @@ describe('adding a setlist', () => {
   const song1: SongType = {
     id: 's1',
     title: 'song1a',
-    artist: 'artist1',
-    genre: 'rock',
+    artists: 'artist1',
     key: 'C',
+    mode: 'minor',
     tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
@@ -17,9 +17,9 @@ describe('adding a setlist', () => {
   const song3: SongType = {
     id: 's3',
     title: 'song3a',
-    artist: 'artist3',
-    genre: 'rock',
+    artists: 'artist3',
     key: 'D',
+    mode: 'major',
     tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
@@ -56,7 +56,7 @@ describe('adding a setlist', () => {
     const song = {
       id: 'song-1',
       title: 'Test Song',
-      artist: 'Test Artist',
+      artists: 'Test Artist',
       genre: 'Rock',
       key: 'C',
       tempo: 120,

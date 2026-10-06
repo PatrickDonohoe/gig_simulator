@@ -3,8 +3,7 @@ import type { FilterType } from '@/context/filters/FiltersContext';
 import Filter from '@/components/setlist/Filter';
 
 const filters: FilterType[] = [
-  'artist',
-  'genre',
+  'artists',
   'tempo',
   'duration',
   'instrumentation',

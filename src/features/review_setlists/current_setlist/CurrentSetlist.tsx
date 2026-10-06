@@ -5,7 +5,8 @@ import SetlistEditMode from '@/features/review_setlists/current_setlist/edit/Set
 import SetlistPerformMode from '@/features/review_setlists/current_setlist/perform/SetlistPerformMode';
 import type { SavedSetlistsListProps } from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsList';
 import type { SongType } from '@/types/SongType';
-import SongFormProvider from '@/context/song_form/SongFormProvider';
+
+// TODO: return to set up as routes instead of state.
 
 export interface CurrentSetlistProps {
   viewMode: ViewMode;
@@ -36,12 +37,10 @@ const CurrentSetlist = ({
   return (
     <>
       {viewMode === 'edit' && setlistData ? (
-        <SongFormProvider>
-          <SetlistEditMode
-            key={setlistData.setlistId}
-            setlistId={setlistData.setlistId}
-          />
-        </SongFormProvider>
+        <SetlistEditMode
+          key={setlistData.setlistId}
+          setlistId={setlistData.setlistId}
+        />
       ) : viewMode === 'perform' && setlistData ? (
         <SetlistPerformMode />
       ) : (

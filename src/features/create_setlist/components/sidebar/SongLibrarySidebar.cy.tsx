@@ -6,9 +6,9 @@ describe('<SongLibrarySidebar>', () => {
     {
       id: 'song-123',
       title: 'Mock Song Title',
-      artist: 'Mock Artist',
-      genre: 'rock',
+      artists: 'Mock Artist',
       key: 'C',
+      mode: 'major',
       tempo: 132,
       duration: 330,
       instrumentation: ['drumset', 'electric bass'],
@@ -16,9 +16,9 @@ describe('<SongLibrarySidebar>', () => {
     {
       id: 'song-234',
       title: 'Another Song',
-      artist: 'Someone',
-      genre: 'pop',
+      artists: 'Someone',
       key: 'G',
+      mode: 'minor',
       tempo: 100,
       duration: 200,
       instrumentation: [],
@@ -26,7 +26,7 @@ describe('<SongLibrarySidebar>', () => {
   ];
 
   it('mounts and shows the headers.', () => {
-    cy.mount(<SongLibrarySidebar songs={songs} onAddSong={cy.stub()} />);
+    cy.mount(<SongLibrarySidebar songs={songs} />);
 
     cy.get('[data-cy=h1').should('be.visible').and('contain.text', 'Workspace');
     cy.get('[data-cy=h2')
@@ -35,7 +35,7 @@ describe('<SongLibrarySidebar>', () => {
   });
 
   it('renders a tile per library song', () => {
-    cy.mount(<SongLibrarySidebar songs={songs} onAddSong={cy.stub()} />);
+    cy.mount(<SongLibrarySidebar songs={songs} />);
 
     cy.get('[data-cy=tile]').should('have.length', 2);
   });

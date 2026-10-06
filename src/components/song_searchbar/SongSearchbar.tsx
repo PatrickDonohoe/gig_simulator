@@ -11,7 +11,7 @@ import type { SearchSong } from '@/types/SearchSong';
  */
 
 interface SearchbarProps {
-  onSearch: (params: SearchSong) => void;
+  onSearch: (params: Pick<SearchSong, 'searchText' | 'sort'>) => void;
   initialText?: string;
 }
 
@@ -28,14 +28,14 @@ const SongSearchbar = ({ onSearch, initialText = '' }: SearchbarProps) => {
 
   const submitSearch = (e: React.SubmitEvent) => {
     e.preventDefault();
-    onSearch({ searchText: searchText.trim(), sort: sortDir });
+    onSearch({ searchText: searchText, sort: sortDir });
   };
 
   return (
     <form
       id="song-searchbar"
       className="flex gap-4 rounded-lg border-2 border-border-bold bg-bg-main p-2 text-text-main focus-within:border-accent"
-      onSubmit={submitSearch} // onSubmit: received error: "ReccoBeats searchTracks failed: "Invalid input: expected string, received null""
+      onSubmit={submitSearch}
     >
       <div id="title-input" className="flex-1 flex-col gap-2">
         <label htmlFor="title" className="block">
@@ -59,7 +59,7 @@ const SongSearchbar = ({ onSearch, initialText = '' }: SearchbarProps) => {
           <button
             type="submit"
             disabled={isTooShort}
-            className="rounded-lg border-2 border-text-main p-2"
+            className="rounded-lg border-2 border-text-main px-4 py-2 bg-bg-main transition-colors hover:bg-accent dark:hover:text-black"
           >
             Search
           </button>

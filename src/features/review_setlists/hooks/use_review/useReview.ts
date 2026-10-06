@@ -5,6 +5,15 @@ import { getAllSetLists } from '@/utils/setlist_storage/setlistStorage';
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import { getAllSongs } from '@/utils/songStorage';
 import type { SongType } from '@/types/SongType';
+import type {
+  SongRowType,
+  TransitionType,
+} from '@/features/create_setlist/types/SetlistRow';
+import { removeSetlistSong } from '@/utils/setlist_storage/setlistStorage';
+
+export type ViewRow =
+  | TransitionType
+  | (SongRowType & { song: SongType | undefined });
 
 const useReview = () => {
   const [selectedListId, setSelectedListId] = useState<string | undefined>(
@@ -70,6 +79,22 @@ const useReview = () => {
     return transitionDuration + playtime;
   }, [songsDisplayData, setlistData]);
 
+  // pre-splits setlist data into rows to be mapped over.
+  const rows = useMemo<ViewRow[]>(() => {
+    if (!setlistData) return [];
+    const byId = new Map(getAllSongs().map((s) => [s.id, s]));
+    return setlistData.setlistSongs.map((row) =>
+      row.kind === 'song' ? { ...row, song: byId.get(row.songId) } : row,
+    );
+  }, [setlistData]);
+
+  // This hook owns state for the setlist, so the song will be removed from here.
+  const removeSong = (songId: string) => {
+    if (!setlistData) return;
+    removeSetlistSong(setlistData.setlistId, songId);
+    setSetlists(getAllSetLists()); // UI updates
+  };
+
   // Used when a user makes a selection from the sidebar.
   const handleSetlist = (id: string) => {
     setlists.find((s) => s.setlistId === id);
@@ -87,6 +112,8 @@ const useReview = () => {
     setlistDuration,
     setlists,
     getSongData,
+    removeSong,
+    rows,
   };
 };
 

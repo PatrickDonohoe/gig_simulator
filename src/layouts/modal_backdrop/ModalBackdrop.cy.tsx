@@ -17,7 +17,6 @@ describe('<ModalBackdrop>', () => {
       addSongError: null,
       title: 'title',
       submitLabel: 'Add Song +',
-      onClose: cy.stub().as('onClose'),
       register: mockRegister,
       appendInstrumentation: cy.stub(),
       removeInstrumentation: cy.stub(),

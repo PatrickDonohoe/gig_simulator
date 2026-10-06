@@ -5,9 +5,9 @@ describe('<LibraryListRow>', () => {
   const mockSong: SongType =   {
     id: '1',
     title: 'Song One',
-    artist: 'Artist One',
-    genre: 'Rock',
+    artists: 'Artist One',
     key: 'C',
+    mode: 'minor',
     tempo: 120,
     duration: 180,
     instrumentation: [],

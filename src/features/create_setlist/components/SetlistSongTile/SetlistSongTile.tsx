@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 import type { SongType } from '@/types/SongType';
 import FilterAttribute from '../FilterAttribute';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
@@ -21,14 +23,14 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   });
 
   const { activeFilters } = useFilters();
-  const { getSongDisplayDetails, onRemove, onEdit } = commonTileProps;
+  const { getSongDisplayDetails, onRemove } = commonTileProps;
 
   const metadata: SongType = getSongDisplayDetails(field.songId) ?? {
     id: field.songId,
     title: 'unknown',
-    artist: '',
-    genre: '',
+    artists: '',
     key: '',
+    mode: 'not found',
     tempo: 0,
     instrumentation: [],
     duration: 0,
@@ -36,10 +38,11 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
 
   const formatters: Record<keyof SongType, (s: SongType) => string> = {
     id: (s) => s.id,
+    rbid: (s) => s.rbid ?? '',
     title: (s) => s.title,
-    artist: (s) => s.artist,
-    genre: (s) => s.genre,
+    artists: (s) => s.artists,
     key: (s) => s.key,
+    mode: (s) => s.mode,
     tempo: (s) => String(s.tempo),
     duration: (s) => {
       const { hours, minutes, seconds } = timeBreakdown(s.duration);
@@ -48,6 +51,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
         : `${minutes}:${seconds}`;
     },
     instrumentation: (s) => s.instrumentation.join(', '),
+    upc: (s) => s.upc ?? '',
   };
 
   return (
@@ -64,16 +68,15 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
             Song
           </h1>
 
-          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main ">
-            <button
+          <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main">
+            <Link
+              to={`edit-song/${field.songId}`}
               data-cy={`edit-button-${index}`}
-              type="button"
               className="flex-none hover:text-border-subtle/50"
-              onClick={() => onEdit(metadata)}
             >
               <Edit className="size-6 justify-self-end" />
-            </button>
-            
+            </Link>
+
             <button
               data-cy={`trash-button-${index}`}
               type="button"
@@ -89,7 +92,9 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
           data-cy={`setlist-article-${index}`}
           className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-dark_amethyst bg-menu p-4 lg:gap-4"
         >
-          <h2 data-cy={`title-${index}`} className="text-center font-semibold">Title: {metadata.title}</h2>
+          <h2 data-cy={`title-${index}`} className="text-center font-semibold">
+            Title: {metadata.title}
+          </h2>
 
           {activeFilters.length > 0 && (
             <div data-cy="att_container" className="flex flex-wrap gap-6">

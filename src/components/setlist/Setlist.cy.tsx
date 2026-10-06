@@ -78,7 +78,6 @@ describe('<Setlist>', () => {
         control,
         getSongDisplayDetails: cy.stub().returns(mockDetails),
         onClick: cy.stub(),
-        onEdit: cy.stub(),
         onRemove: cy.stub(),
         ...commonOverrides,
       };
@@ -117,7 +116,6 @@ describe('<Setlist>', () => {
 
   it('shows the fallback when tiles is an empty array', () => {
     const mockClick = cy.stub();
-    const mockEdit = cy.stub();
     const mockRemove = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
@@ -130,7 +128,6 @@ describe('<Setlist>', () => {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
       onClick: mockClick,
-      onEdit: mockEdit,
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,

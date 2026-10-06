@@ -1,5 +1,4 @@
 import useSetlist, { type FormValues } from '@/hooks/use_setlist/useSetlist';
-import useSongForm from '@/hooks/useSongForm';
 import type { CommonTileProps } from '@/features/create_setlist/types/CommonTileProps';
 import type { SetlistProps } from '@/components/setlist/Setlist';
 import type { SongLibrarySidebarProps } from '@/features/create_setlist/components/sidebar/SongLibrarySidebar';
@@ -33,9 +32,6 @@ const useSetlistEditorState = (
     isValid,
   } = useSetlist(defaultValues);
 
-  const { formData, openEditSong, closeSongForm, isSongFormOpen } =
-    useSongForm();
-
   const handleSubmitAndReset = handleSubmit((data) => {
     onSubmit(data);
     notifySuccess(
@@ -66,7 +62,6 @@ const useSetlistEditorState = (
       ...commonTileProps,
       onClick: handleSubmitAndReset,
       onRemove: setlistRemove,
-      onEdit: openEditSong,
     },
     setlistDuration,
     errors,
@@ -77,9 +72,6 @@ const useSetlistEditorState = (
   return {
     sidebar,
     setlist,
-    isSongFormOpen,
-    formData,
-    closeSongForm,
   };
 };
 

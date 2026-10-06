@@ -14,6 +14,8 @@ import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
 import type { ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 import type { SongType } from '@/types/SongType';
+import useReview from '@/features/review_setlists/hooks/use_review/useReview';
+import SetlistViewModeHeader from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 
 export interface SetlistViewModeProps {
   handleMode: (mode: ViewMode) => void;
@@ -28,9 +30,10 @@ const SetlistViewMode = ({
   setlistData,
   setlistDuration,
   sidebarProps,
-  getSongData,
 }: SetlistViewModeProps) => {
   const navigate = useNavigate();
+
+  const { removeSong, rows } = useReview();
 
   const headerProps = {
     onClick: () => navigate('/dash/create'),
@@ -72,15 +75,24 @@ const SetlistViewMode = ({
             </h1>
           </header>
 
-          {setlistData && setlistData.setlistSongs.length > 0 ? (
-            <SetlistViewSongList
-              setlistSongs={setlistData.setlistSongs}
-              viewHeader={viewHeader}
-              getSongData={getSongData}
-            />
-          ) : (
-            <SetlistEmpty />
+          {setlistData && (
+            <div
+              id="setlist-view-song-list"
+              className="flex min-h-0 flex-1 flex-col divide-y-2 divide-border-bold"
+            >
+              <SetlistViewModeHeader {...viewHeader} />
+              
+              {setlistData.setlistSongs.length > 0 ? (
+                <SetlistViewSongList
+                  rows={rows}
+                  onRemove={removeSong}
+                />
+              ) : (
+                <SetlistEmpty />
+              )}
+            </div>
           )}
+          {!setlistData && <SetlistEmpty />}
         </div>
       </section>
     </FiltersProvider>

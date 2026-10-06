@@ -15,6 +15,6 @@ export const SongTypeSchema = z.object({
 
 export type SongType = z.infer<typeof SongTypeSchema>;
 
-export type SongTableRow = Omit<SongType, 'id' | 'instrumentation'>;
+export type SongTableRow = Omit<SongType, 'id' | 'rbid' | 'upc' | 'instrumentation'>;
 
 export type SongTableRowType = keyof SongTableRow;

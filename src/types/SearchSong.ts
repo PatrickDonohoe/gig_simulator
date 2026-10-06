@@ -7,7 +7,7 @@ export const SearchSongSchema = z.object({
     .string()
     .min(3, 'Artist name must be at least three letters long')
     .optional(),
-  artistId: z.string().optional(),
+  artistId: z.nullable(z.string()),
   sort: z.literal(['asc', 'desc']).optional(),
   size: z.number().min(1).max(50).optional(),
   page: z.number().min(0).max(1000).optional(),
@@ -25,11 +25,11 @@ export const SongReturnSchema = z.object({
     }),
   ),
   durationMs: z.number(),
-  isrc: z.string().optional(),
-  ean: z.string().optional(),
-  upc: z.string().optional(),
+  isrc: z.nullable(z.string()),
+  ean: z.nullable(z.string()),
+  upc: z.nullable(z.string()),
   href: z.string(),
-  availableCountries: z.string().optional(),
+  availableCountries: z.nullable(z.string()),
   popularity: z.number().min(0).max(100),
 });
 export type SongReturn = z.infer<typeof SongReturnSchema>;
@@ -42,7 +42,7 @@ export type MultSongReturn = z.infer<typeof MultSongReturnSchema>;
 export const SearchReturnSchema = z.object({
   content: z.array(SongReturnSchema),
   page: z.number(),
-  size: z.number(), // assuming this is elements/page
+  size: z.number(), // elements/page
   totalElements: z.number(),
   totalPages: z.number(),
 });
