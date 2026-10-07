@@ -5,6 +5,10 @@ import Pencil from '@icons/edit-3-svgrepo-com.svg?react';
 import GrabArea from '@icons/grab-horizontal-svgrepo-com.svg?react';
 import Artist from '@icons/person-svgrepo-com.svg?react';
 import Title from '@icons/music-note-song-title.svg?react';
+import KeySig from '@icons/B-flat-major_g-minor.svg?react';
+import Metronome from '@icons/metronome-svgrepo-com.svg?react';
+import SongAttribute from '@/components/search_results/SongAttribute';
+import Clock from '@icons/time-svgrepo-com.svg?react';
 import type { SongType } from '@/types/SongType';
 import {
   timeBreakdown,
@@ -12,9 +16,7 @@ import {
 } from '@/utils/add_time/addTimeDurations';
 
 /**
- * @param id The song's id
- * @param title The song's title
- * @param getSongDisplayDetails Retrieves this song's data once displayed
+ * @param song Data for the mapped song.
  * @returns A reusable song tile that expands, collapses, and allows for edits.
  */
 
@@ -32,43 +34,45 @@ const SongTile = ({ song }: SongTileProps) => {
       id={`tile-${song.id}`}
       className="flex max-w-80 flex-col gap-4 rounded-md border-2 border-border-bold bg-bg-main px-4 py-2 text-text-main"
     >
-      <div className="grid grid-cols-3">
-        <div className="col-start-2 flex items-center justify-center gap-2 p-1 text-center text-lg">
+      <div className="grid grid-cols-3 items-center">
+        <div className="col-span-2 flex items-center justify-self-start gap-2 p-1 text-center text-lg">
           <Title className="size-8" />{' '}
-          <span className="text-text-main">{song.title}</span>
+          <span id='song-title' className="text-text-main">{song.title}</span>
         </div>
 
         {/* This button will open the (edit) song form. */}
         <Link
           to={`edit-song/${song.id}`}
           id={`edit-${song.id}`}
-          className={`hover:text-accent ${isExpanded ? 'visible' : 'hidden'}`}
+          className={`col-start-3 hover:text-accent justify-self-end ${isExpanded ? 'visible' : 'hidden'}`}
         >
           <Pencil className="size-8" />
         </Link>
 
         <div
-          className={`grid grid-cols-subgrid ${isExpanded ? 'opacity-100' : 'opacity-0'}`}
+          className={`flex wrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}
         >
           {/* TODO: return to change svg */}
-          <div className="flex items-center justify-center p-1">
-            <Artist className="size-8" />{' '}
-            <span className="text-text-main">{song.artists}</span>
-          </div>
-          <div className="flex items-center justify-center p-1">
-            <Artist className="size-8" />{' '}
-            <span className="text-text-main">key of: {song.key}</span>
-          </div>
-          <div className="flex items-center justify-center p-1">
-            <Artist className="size-8" />{' '}
-            <span className="text-text-main">{song.tempo} bpm</span>
-          </div>
-          <div className="flex items-center justify-center p-1">
-            <Artist className="size-8" />{' '}
-            <span className="text-text-main">
-              {formattedTime.minutes}:{formatDuration(formattedTime.seconds)}
-            </span>
-          </div>
+          <SongAttribute
+            icon={<Artist className="size-8" />}
+            attributeId='artists'
+            attributeText={song.artists}
+          />
+          <SongAttribute
+            icon={<KeySig className="size-8" />}
+            attributeId='key'
+            attributeText={`key of: ${song.key} ${song.mode}`}
+          />
+          <SongAttribute
+            icon={<Metronome className="size-8" />}
+            attributeId='tempo'
+            attributeText={`${song.tempo} bpm`}
+          />
+          <SongAttribute
+            icon={<Clock className="size-8" />}
+            attributeId='duration'
+            attributeText={`${formattedTime.minutes}:${formatDuration(formattedTime.seconds)}`}
+          />
         </div>
       </div>
 

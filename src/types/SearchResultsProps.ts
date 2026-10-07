@@ -3,7 +3,7 @@ import type { SongReturn } from "@/types/SearchSong";
 export interface SearchResultsProps {
   results: SearchResultsPage;
   isFetching: boolean;
-  isPlaceholderData: boolean;
+  // isPlaceholderData: boolean;
   onPageChange: (page: number) => void;
 }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import type { SongType } from '@/types/SongType';
-import SongTile from '@/features/songs_library/components/song_tile/SongTile';
+import SongTile from '@/components/song_tile/SongTile';
 import type { SortType } from '@/features/songs_library/hooks/sorting/useSort';
 import ColumnHeader from '@/features/songs_library/components/library_view/list_view/ColumnHeader';
 import { headerKeys } from '@/features/songs_library/constants/headerKeys';
