@@ -1,3 +1,5 @@
+import { MemoryRouter } from 'react-router';
+
 import SongLibrarySidebar from './SongLibrarySidebar';
 import type { SongType } from '@/types/SongType';
 
@@ -26,7 +28,11 @@ describe('<SongLibrarySidebar>', () => {
   ];
 
   it('mounts and shows the headers.', () => {
-    cy.mount(<SongLibrarySidebar songs={songs} />);
+    cy.mount(
+      <MemoryRouter>
+        <SongLibrarySidebar songs={songs} />
+      </MemoryRouter>,
+    );
 
     cy.get('[data-cy=h1').should('be.visible').and('contain.text', 'Workspace');
     cy.get('[data-cy=h2')
@@ -35,7 +41,11 @@ describe('<SongLibrarySidebar>', () => {
   });
 
   it('renders a tile per library song', () => {
-    cy.mount(<SongLibrarySidebar songs={songs} />);
+    cy.mount(
+      <MemoryRouter>
+        <SongLibrarySidebar songs={songs} />
+      </MemoryRouter>,
+    );
 
     cy.get('[data-cy=tile]').should('have.length', 2);
   });

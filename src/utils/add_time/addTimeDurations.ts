@@ -39,7 +39,7 @@ export const formatDuration = (time: number | undefined): string =>
   String(time ?? 0).padStart(2, '0') ?? '00';
 
 // Convert duration (in ms) from Recco Beats to display format
-export const msToDisplay = (ms: number): SongFormValues['duration'] => {
+export const msToBreakdown = (ms: number): SongFormValues['duration'] => {
   const timeInSeconds: number = Math.round(ms / 1000);
   const breakdown = timeBreakdown(timeInSeconds);
   return {

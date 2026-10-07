@@ -4,6 +4,7 @@ import type { SearchSong } from '@/types/SearchSong';
 import { useTrackSearch } from '@/hooks/useTrackSearch';
 import SongSearchbar from '@/components/song_searchbar/SongSearchbar';
 import SearchResults from '@/components/search_results/SearchResults';
+import NoResults from '@/components/add_song/NoResults';
 
 const SongSearchStepRoute = () => {
   const [urlParams, setUrlParams] = useSearchParams();
@@ -16,8 +17,8 @@ const SongSearchStepRoute = () => {
   const artist = urlParams.get('artist') ?? '';
   const artistId = urlParams.get('artistId') ?? '';
 
-  const handleSearch = (search: Pick<SearchSong, 'searchText' | 'sort'>) =>
-    setUrlParams({ searchText: search.searchText, sort: search.sort ?? 'asc' });
+  const handleSearch = (searchText: SearchSong['searchText']) =>
+    setUrlParams({ searchText, sort });
 
   const onPageChange = (page: number) =>
     setUrlParams((prev) => {
@@ -25,8 +26,21 @@ const SongSearchStepRoute = () => {
       return prev;
     });
 
+  // Instantly sends a request for a resort from the db
+  const handleSortToggle = () =>
+    setUrlParams(
+      (prev) => {
+        prev.set('sort', sort === 'asc' ? 'desc' : 'asc'); // change the value of sort
+        prev.delete('page'); // Returns to first page. Expected behavior for a sort
+        return prev;
+      },
+      { replace: true },
+    );
+
   const query =
-    searchText.trim().length >= 3 ? { searchText: searchText.trim(), sort, page, artist, artistId } : null;
+    searchText.trim().length >= 3
+      ? { searchText: searchText.trim(), sort, page, artist, artistId }
+      : null;
 
   const { data, isPending, isError, error, isFetching, isPlaceholderData } =
     useTrackSearch(query);
@@ -34,8 +48,11 @@ const SongSearchStepRoute = () => {
   return (
     <div id="song-search-step" className="flex flex-col gap-4">
       <SongSearchbar
+        key={searchText + sort}
         onSearch={handleSearch}
         initialText={query?.searchText ?? ''}
+        onSortToggle={handleSortToggle}
+        sortDir={sort}
       />
 
       {query === null ? (
@@ -45,7 +62,7 @@ const SongSearchStepRoute = () => {
       ) : isError ? (
         <p role="alert">{error?.message ?? 'Unknown error'}</p>
       ) : data?.rows.length === 0 ? (
-        <p>No songs found for "{query.searchText}".</p>
+        <NoResults searchText={searchText} />
       ) : data ? (
         <SearchResults
           results={data} // reconcile types

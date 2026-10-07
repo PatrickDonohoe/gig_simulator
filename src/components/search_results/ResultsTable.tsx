@@ -37,18 +37,18 @@ const ResultsTable = ({
               key={song.id}
               className="divide-x-2 divide-text-main bg-bg-main even:bg-bg-surface"
             >
-              <td className="px-2">{song.title}</td>
-              <td className="px-2">
+              <td id={`${song.id}-title`} className="px-2">{song.title}</td>
+              <td id={`${song.id}-artists`} className="px-2">
                 {/* Show the first artist in the array, if there is one. */}
                 {song.artists.length > 0 ? song.artists[0].name : 'Unavailable'}
                 {/* If there is more than one, indicate there are multiple. */}
                 {/* TODO: Solve at a later date how to show the rest of the artists. */}
                 {song.artists.length > 1 ? ', et al.' : ''}
               </td>
-              <td className="min-w-20 px-2 text-center">
+              <td id={`${song.id}-durationSec`} className="min-w-20 px-2 text-center">
                 {secToDisplay(song.durationSec)}
               </td>
-              <td className="px-2 py-1 text-center">
+              <td id={`${song.id}-select`} className="px-2 py-1 text-center">
                 <Link
                   to={`track/${song.id}`}
                   state={{ fromSearch: search }}

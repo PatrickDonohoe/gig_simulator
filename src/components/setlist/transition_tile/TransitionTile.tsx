@@ -32,7 +32,7 @@ const TransitionTile = ({
           </h1>
 
           <button
-            className="col-start-3 flex-none justify-self-end p-2 hover:text-border-subtle"
+            className="col-start-3 flex-none justify-self-end p-2 hover:text-text-muted"
             type="button"
             onClick={() => onRemove(index)}
           >

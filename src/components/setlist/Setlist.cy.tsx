@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { MemoryRouter } from 'react-router';
 
 import type { FormValues } from '@/hooks/use_setlist/useSetlist';
 import Setlist from './Setlist';
@@ -97,7 +98,11 @@ describe('<Setlist>', () => {
       );
     };
 
-    cy.mount(<TestBed />);
+    cy.mount(
+      <MemoryRouter>
+        <TestBed />
+      </MemoryRouter>,
+    );
   };
 
   it('mounts and shows the list when tiles.length > 0', () => {

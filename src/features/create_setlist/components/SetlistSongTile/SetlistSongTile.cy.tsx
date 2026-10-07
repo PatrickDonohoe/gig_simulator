@@ -1,3 +1,5 @@
+import { MemoryRouter } from 'react-router';
+
 import SetlistSongTile from './SetlistSongTile';
 import type { SongTileProps } from '@/features/create_setlist/types/TileProps';
 import FiltersProvider from '@/context/filters/FiltersProvider';
@@ -16,14 +18,16 @@ const SetlistSongTileWrapper = (props: {
   const field: SongField = { kind: 'song', songId: 'song-123', id: '0' };
 
   return (
-    <SetlistSongTile
-      field={field}
-      index={0}
-      commonTileProps={{
-        getSongDisplayDetails: props.getSongDisplayDetails,
-        onRemove: props.onRemove,
-      }}
-    />
+    <MemoryRouter>
+      <SetlistSongTile
+        field={field}
+        index={0}
+        commonTileProps={{
+          getSongDisplayDetails: props.getSongDisplayDetails,
+          onRemove: props.onRemove,
+        }}
+      />
+    </MemoryRouter>
   );
 };
 

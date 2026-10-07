@@ -1,7 +1,7 @@
 import type { SearchReturn, SongReturn, AudioFeatures } from "@/types/SearchSong";
 import type { SearchResultsPage } from "@/types/SearchResultsProps";
 import type { SongFormValues } from "@/types/SongFormType";
-import { msToDisplay } from "@/utils/add_time/addTimeDurations";
+import { msToBreakdown } from "@/utils/add_time/addTimeDurations";
 
 const KEYS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'not found'];
 const MODES: SongFormValues['mode'][] = ['minor', 'major', 'not found'];
@@ -27,7 +27,7 @@ export const reccoToFormValues = (track: SongReturn, audio: AudioFeatures): Song
     key: KEYS[audio.key],
     mode: MODES[audio.mode],
     tempo: String(Math.round(audio.tempo)),
-    duration: msToDisplay(track.durationMs),
+    duration: msToBreakdown(track.durationMs),
     instrumentation: [],
   }
 }

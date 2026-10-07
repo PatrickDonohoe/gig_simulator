@@ -5,7 +5,6 @@ import type {
   UseFormRegister,
   UseFormSetFocus,
 } from 'react-hook-form';
-import { Link } from 'react-router';
 
 import type { SongFormValues } from '@/types/SongFormType';
 import FormInputStack from '@/components/add_song/FormInputStack';

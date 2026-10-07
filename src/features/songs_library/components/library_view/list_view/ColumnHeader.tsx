@@ -11,12 +11,13 @@ interface ColumnHeaderProps {
 }
 
 /**
- * 
- * @param headerKey is the key from SongType that is shown in the cell.
- * @param sortDir is the direction of the sort given isSortDir is true.
- * @param isSortKey determines here whether the arrow icons will appear and which direction it will face.
- * @param onClick changes the direction of the sort if isSortKey is true or changes the sort column if it is false.
- * @returns a header cell in a table that functions as a button for sorting.
+ * @param headerKey Is the key from SongType that is shown in the cell.
+ * @param sortDir Is the direction of the sort given isSortDir is true.
+ * @param isSortKey Determines here whether the arrow icons will appear and
+ *   which direction it will face.
+ * @param onClick Changes the direction of the sort if isSortKey is true or
+ *   changes the sort column if it is false.
+ * @returns A header cell in a table that functions as a button for sorting.
  */
 
 const ColumnHeader = ({
@@ -26,18 +27,27 @@ const ColumnHeader = ({
   onClick,
 }: ColumnHeaderProps) => {
   return (
-    <button
-      id={headerKey}
-      onClick={onClick}
-      className={`flex items-center border border-text-main bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
+    <th
+      scope="col"
+      aria-sort={
+        isSortKey ? (sortDir === 'asc' ? 'ascending' : 'descending') : undefined
+      }
     >
-      {headerKey}{' '}
-      <span
-        className={`${isSortKey ? 'opacity-100' : 'opacity-0'} size-8 text-text-main`}
+      <button
+        id={headerKey}
+        type="button"
+        onClick={onClick}
+        className={`flex items-center border border-text-main bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
       >
-        {sortDir === 'asc' ? <Ascend /> : <Descend />}
-      </span>
-    </button>
+        {headerKey}{' '}
+        <span
+          aria-hidden
+          className={`${isSortKey ? 'opacity-100' : 'opacity-0'} size-8 text-text-main`}
+        >
+          {sortDir === 'asc' ? <Ascend /> : <Descend />}
+        </span>
+      </button>
+    </th>
   );
 };
 export default ColumnHeader;

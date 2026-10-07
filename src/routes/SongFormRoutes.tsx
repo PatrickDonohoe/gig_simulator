@@ -11,7 +11,7 @@ export const SongFormRoutes: RouteObject[] = [
     Component: AddSongFlow,
     children: [
       { index: true, Component: SongSearchStepRoute },
-      { path: 'new', Component: ManualSongRoute },
+      { path: 'new/:songName', Component: ManualSongRoute },
       { path: 'track/:trackId', Component: ReccoSongRoute },
     ],
   },

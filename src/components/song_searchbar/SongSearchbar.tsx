@@ -11,24 +11,26 @@ import type { SearchSong } from '@/types/SearchSong';
  */
 
 interface SearchbarProps {
-  onSearch: (params: Pick<SearchSong, 'searchText' | 'sort'>) => void;
-  initialText?: string;
+  onSearch: (params: SearchSong['searchText']) => void;
+  initialText: string;
+  onSortToggle: () => void;
+  sortDir: SearchSong['sort'];
 }
 
-const SongSearchbar = ({ onSearch, initialText = '' }: SearchbarProps) => {
-  const [searchText, setSearchText] = useState(initialText);
-  const [sortDir, setSortDir] = useState<SearchSong['sort']>('asc');
-
-  // Change the sort direction
-  const handleSort = () =>
-    setSortDir((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+const SongSearchbar = ({
+  onSearch,
+  initialText,
+  sortDir,
+  onSortToggle,
+}: SearchbarProps) => {
+  const [searchText, setSearchText] = useState<string>(initialText);
 
   // Is the searchbar input empty
-  const isTooShort = searchText?.trim().length < 3;
+  const isTooShort = searchText.trim().length < 3;
 
   const submitSearch = (e: React.SubmitEvent) => {
     e.preventDefault();
-    onSearch({ searchText: searchText, sort: sortDir });
+    onSearch(searchText);
   };
 
   return (
@@ -52,14 +54,20 @@ const SongSearchbar = ({ onSearch, initialText = '' }: SearchbarProps) => {
             className="w-full bg-bg-surface p-2 text-lg"
           />
 
-          <button type="button" onClick={handleSort} className="*:size-8">
+          <button
+            type="button"
+            onClick={onSortToggle}
+            className="*:size-8"
+            aria-label={`Sort ${sortDir === 'asc' ? 'descending' : 'ascending'}`}
+          >
             {sortDir === 'asc' ? <Ascend /> : <Descend />}
           </button>
-          
+
           <button
+            id="search-submit"
             type="submit"
             disabled={isTooShort}
-            className="rounded-lg border-2 border-text-main px-4 py-2 bg-bg-main transition-colors hover:bg-accent dark:hover:text-black"
+            className="rounded-lg border-2 border-text-main bg-bg-main px-4 py-2 transition-colors hover:bg-accent dark:hover:text-black"
           >
             Search
           </button>
