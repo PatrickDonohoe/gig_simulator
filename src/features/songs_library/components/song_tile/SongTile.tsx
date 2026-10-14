@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { Link } from 'react-router';
 
 import Pencil from '@icons/edit-3-svgrepo-com.svg?react';
-import GrabArea from '@icons/grab-horizontal-svgrepo-com.svg?react';
 import Artist from '@icons/person-svgrepo-com.svg?react';
 import Title from '@icons/music-note-song-title.svg?react';
 import KeySig from '@icons/B-flat-major_g-minor.svg?react';
@@ -25,67 +23,57 @@ export interface SongTileProps {
 }
 
 const SongTile = ({ song }: SongTileProps) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-
   const formattedTime = timeBreakdown(song.duration);
 
   return (
     <li
       id={`tile-${song.id}`}
-      className="flex max-w-80 flex-col gap-4 rounded-md border-2 border-border-bold bg-bg-main px-4 py-2 text-text-main"
+      className="flex max-w-160 flex-col gap-4 rounded-md border-2 border-border-bold bg-bg-main px-4 py-2 text-text-main divide-y-2 divide-text-main"
     >
-      <div className="grid grid-cols-3 items-center">
-        <div className="col-span-2 flex items-center justify-self-start gap-2 p-1 text-center text-lg">
-          <Title className="size-8" />{' '}
-          <span id='song-title' className="text-text-main">{song.title}</span>
+
+        <div className="flex justify-between items-center pb-4">
+          <div
+            id="title-container"
+            className="flex items-center gap-2 p-1 text-center text-lg"
+          >
+            <Title className="size-8" />{' '}
+            <span id="song-title" className="text-text-main">
+              {song.title}
+            </span>
+          </div>
+          {/* This button will open the (edit) song form. */}
+          <Link
+            to={`edit-song/${song.id}`}
+            id={`edit-${song.id}`}
+            className="col-start-3 justify-self-end hover:text-accent"
+          >
+            <Pencil className="size-8" />
+          </Link>
         </div>
 
-        {/* This button will open the (edit) song form. */}
-        <Link
-          to={`edit-song/${song.id}`}
-          id={`edit-${song.id}`}
-          className={`col-start-3 hover:text-accent justify-self-end ${isExpanded ? 'visible' : 'hidden'}`}
-        >
-          <Pencil className="size-8" />
-        </Link>
-
-        <div
-          className={`flex wrap ${isExpanded ? 'opacity-100' : 'opacity-0'}`}
-        >
+        <div id="attributes-container" className="flex flex-col md:flex-row gap-2">
           {/* TODO: return to change svg */}
           <SongAttribute
             icon={<Artist className="size-8" />}
-            attributeId='artists'
+            attributeId="artists"
             attributeText={song.artists}
           />
           <SongAttribute
             icon={<KeySig className="size-8" />}
-            attributeId='key'
+            attributeId="key"
             attributeText={`key of: ${song.key} ${song.mode}`}
           />
           <SongAttribute
             icon={<Metronome className="size-8" />}
-            attributeId='tempo'
+            attributeId="tempo"
             attributeText={`${song.tempo} bpm`}
           />
           <SongAttribute
             icon={<Clock className="size-8" />}
-            attributeId='duration'
+            attributeId="duration"
             attributeText={`${formattedTime.minutes}:${formatDuration(formattedTime.seconds)}`}
           />
         </div>
-      </div>
-
-      {/* Add shading and textured bumps */}
-      <button
-        id={`expand-${song.id}`}
-        type="button"
-        className="flex gap-1 px-1"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        <GrabArea className="size-8" />
-        <GrabArea className="size-8" />
-      </button>
     </li>
   );
 };

@@ -10,7 +10,7 @@ const EditSongRoute = () => {
     s.librarySongs.find((x) => x.id === songId),
   );
   const update = useLibraryStore((s) => s.updateSong);
-  if (!song) return <Navigate to="../.." />;
+  if (!song) return <Navigate to=".." />;
 
   return (
     <SongFormContainer

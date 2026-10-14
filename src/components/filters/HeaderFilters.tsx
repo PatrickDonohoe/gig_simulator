@@ -6,14 +6,14 @@ const filters: FilterType[] = [
   'artists',
   'tempo',
   'duration',
-  'instrumentation',
+  'key',
 ];
 
 const HeaderFilters = () => {
   const { activeFilters, handleFilter, resetFilters } = useFilters();
 
   return (
-    <section className="flex items-center justify-center gap-4 p-2">
+    <section className="flex flex-row flex-wrap items-center justify-center gap-4 p-2">
       <h2 className="text-center text-xl font-semibold text-text-main">
         Filters:
       </h2>

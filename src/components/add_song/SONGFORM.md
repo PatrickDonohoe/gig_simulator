@@ -94,7 +94,7 @@ they're migrated**.
 - [ ] `AddSongFlow` renders `<Outlet />` inside `FullScreenSheet` instead of
       switching on `trackId`.
 - [ ] Import `SongSearchStepRoute` and `ManualSongRoute` in `SongFormRoutes`.
-- [ ] `EditSongRoute`: `<Navigate to="../.." />` should be `".."`. Route-
+- [x] `EditSongRoute`: `<Navigate to="../.." />` should be `".."`. Route-
       relative `../..` goes above the page.
 - [ ] `EditSongRoute` isn't inside `AddSongFlow`, so it needs its own wrapper
       (`FullScreenSheet` or `ModalBackdrop`) and close handler.

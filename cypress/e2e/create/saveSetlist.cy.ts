@@ -59,6 +59,7 @@ describe('adding a setlist', () => {
       artists: 'Test Artist',
       genre: 'Rock',
       key: 'C',
+      mode: 'major',
       tempo: 120,
       duration: 200,
       instrumentation: ['guitar'],

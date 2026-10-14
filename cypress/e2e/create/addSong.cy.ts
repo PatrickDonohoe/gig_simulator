@@ -67,7 +67,7 @@ describe('adding song to library', () => {
     cy.wait('@searchTracks');
   });
     it('shows results as a table when the viewport is above a medium breakpoint', () => {
-      cy.get('#results-table-component').should('be.visible');
+      cy.get('#results-table').should('be.visible');
       cy.get('#stacked-cards').should('not.be.visible');
       cy.get('#86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1-title').should('have.text', 'Sonata');
       cy.get('#87736318-4ea6-47e3-a799-d76ad6a796ed-artists').should('have.text', 'Adalberto junior Gómez galvis, et al.');
@@ -85,7 +85,7 @@ describe('adding song to library', () => {
       cy.wait('@searchTracks');        
     });
     it('shows results as a set of stacked cards when the viewport is below a medium breakpoint', () => {
-      cy.get('#stacked-cards').should('be.visible');
+      cy.get('#results-tile-86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1').should('be.visible');
     })
   })
 

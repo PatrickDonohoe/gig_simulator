@@ -7,7 +7,12 @@ import {
 } from '@/context/filters/FiltersContext';
 
 const FiltersProvider = ({ children }: { children: React.ReactNode }) => {
-  const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
+  const [activeFilters, setActiveFilters] = useState<FilterType[]>([
+    'artists',
+    'tempo',
+    'duration',
+    'key',
+  ]);
 
   const handleFilter = (f: FilterType) => {
     setActiveFilters((prev) =>

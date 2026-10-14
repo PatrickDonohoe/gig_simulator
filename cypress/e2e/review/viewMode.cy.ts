@@ -111,7 +111,7 @@ describe('review setlist in view mode', () => {
     cy.getByData('view-page').should('be.visible');
     cy.getByData('list').should('be.visible');
     cy.get('#view-header').should('not.exist');
-    cy.getByData('sidebar-tile').click();
+    cy.getByData('sidebar-tile-sl1').click();
     cy.get('#button-edit').click();
     cy.getByData('setlist-form').should('be.visible');
   });
@@ -130,8 +130,8 @@ describe('review setlist in view mode', () => {
       },
     });
 
-    cy.getByData('sidebar-tile').contains(setlist1.setlistName).click();
-    cy.get('#setlist-article').contains(`Title: ${song1.title}`);
+    cy.getByData('sidebar-tile-sl1').contains(setlist1.setlistName).click();
+    cy.get(`#song-title-0`).contains(`Title: ${song1.title}`);
     cy.getByData('song-notes-1').contains('Transition notes 1');
     cy.getByData('song-transition').contains('00:30');
   });

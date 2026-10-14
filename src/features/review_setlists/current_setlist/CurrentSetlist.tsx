@@ -5,6 +5,8 @@ import SetlistEditMode from '@/features/review_setlists/current_setlist/edit/Set
 import SetlistPerformMode from '@/features/review_setlists/current_setlist/perform/SetlistPerformMode';
 import type { SavedSetlistsListProps } from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsList';
 import type { SongType } from '@/types/SongType';
+import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
+import type { ViewRow } from '@/features/review_setlists/hooks/use_review/useReview';
 
 // TODO: return to set up as routes instead of state.
 
@@ -15,23 +17,15 @@ export interface CurrentSetlistProps {
   setlistDuration: number;
   sidebarProps: SavedSetlistsListProps;
   getSongData: (songId: string) => SongType | undefined;
+  removeSong: (songId: string) => void;
+  rows: ViewRow[];
 }
 
-const CurrentSetlist = ({
-  viewMode,
-  handleMode,
-  setlistData,
-  setlistDuration,
-  sidebarProps,
-  getSongData,
-}: CurrentSetlistProps) => {
+const CurrentSetlist = (props: CurrentSetlistProps) => {
+  const { viewMode, setlistData, ...viewProps } = props;
   const viewModeProps = {
-    handleMode,
-    setlistName: setlistData?.setlistName,
-    setlistDuration,
-    sidebarProps,
     setlistData,
-    getSongData,
+    ...viewProps,
   };
 
   return (
@@ -43,8 +37,10 @@ const CurrentSetlist = ({
         />
       ) : viewMode === 'perform' && setlistData ? (
         <SetlistPerformMode />
-      ) : (
+      ) : viewMode === 'view' ? (
         <SetlistViewMode {...viewModeProps} />
+      ) : (
+        <SetlistEmpty />
       )}
     </>
   );

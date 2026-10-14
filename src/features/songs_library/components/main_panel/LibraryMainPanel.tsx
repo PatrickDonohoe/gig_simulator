@@ -11,7 +11,7 @@ const LibraryMainPanel = () => {
   const library = useLibraryStore((state) => state.librarySongs);
 
   return (
-    <div id="library-main-panel" className="flex flex-col items-center gap-6">
+    <div id="library-main-panel" className="min-h-0 grow flex flex-col items-center gap-6">
       {library.length > 0 ? (
         <LibraryFilled />
       ) : (

@@ -1,5 +1,5 @@
 import type { SongType } from '@/types/SongType';
-import SongTile from '@/components/song_tile/SongTile';
+import SongTile from '@/features/songs_library/components/song_tile/SongTile';
 
 interface TileViewProps {
   results: SongType[];
@@ -7,7 +7,7 @@ interface TileViewProps {
 
 const LibraryTileView = ({ results }: TileViewProps) => {
   return (
-    <div id="tile-view">
+    <div id="tile-view" className='flex flex-col gap-4'>
       {results.map((tile) => (
         <SongTile key={tile.id} song={tile} />
       ))}

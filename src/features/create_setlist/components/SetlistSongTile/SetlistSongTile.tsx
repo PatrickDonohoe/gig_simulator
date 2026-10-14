@@ -41,7 +41,7 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     rbid: (s) => s.rbid ?? '',
     title: (s) => s.title,
     artists: (s) => s.artists,
-    key: (s) => s.key,
+    key: (s) => `${s.key} ${s.mode}`,
     mode: (s) => s.mode,
     tempo: (s) => String(s.tempo),
     duration: (s) => {
@@ -55,13 +55,13 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   };
 
   return (
-    <div className="relative w-full">
+    <div id={`setlist-song-tile-${field.songId}`} className="relative min-w-70 max-w-120">
       <DropEdge edge={closestEdge} />
 
       <section
         ref={ref}
         data-cy={`setlist-tile-${field.songId}`}
-        className={`flex max-h-96 cursor-grab flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
+        className={`flex cursor-grab flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
           <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold text-bg-main underline">

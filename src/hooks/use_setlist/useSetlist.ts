@@ -41,7 +41,7 @@ const useSetlist = (
     setValue,
     getValues,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty },
   } = useForm<FormValues>({
     resolver: zodResolver(FormValuesSchema),
     mode: 'onChange',
@@ -148,7 +148,7 @@ const useSetlist = (
     handleSubmit,
     reset,
     errors,
-    isValid,
+    isDirty,
     setlistArr: setlistFields.fields,
     sidebarSongs,
     setlistDuration,

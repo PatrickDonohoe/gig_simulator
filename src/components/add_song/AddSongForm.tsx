@@ -52,7 +52,7 @@ const AddSongForm = ({
       id="song_form"
       data-cy="song_form"
       onSubmit={submitAddSong}
-      className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
+      className="text-text-main flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
     >
       <div className="grid grid-cols-3 items-center px-4 py-2">
         <h1
@@ -100,11 +100,11 @@ const AddSongForm = ({
         />
 
         {/* Alternate Duration setup with inline minutes and seconds */}
-        <section className="flex flex-col gap-2 text-lg font-semibold text-text-main">
+        <section className="flex flex-col gap-2 text-base font-semibold text-text-main">
           <h2>Song Duration:</h2>
 
-          <div className="flex flex-col gap-2 rounded-xl border border-border-subtle bg-menu p-1 md:flex-row">
-            <label className="flex flex-col text-sm">
+          <div className="flex flex-col gap-2 rounded-xl border border-border-bold bg-menu p-1 md:flex-row">
+            <label className="flex flex-col-reverse text-sm">
               Minutes:
               <input
                 id="duration-minutes"
@@ -116,7 +116,7 @@ const AddSongForm = ({
               />
             </label>
 
-            <label className="flex flex-col text-sm">
+            <label className="flex flex-col-reverse text-sm">
               Seconds:
               <input
                 id="duration-seconds"

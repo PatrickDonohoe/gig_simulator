@@ -19,7 +19,7 @@ const SavedSetlistsList = ({
         <SavedSetlistTile
           key={set.setlistId}
           set={set}
-          handleSetlist={handleSetlist}
+          handleSetlist={() => handleSetlist(set.setlistId)}
         />
       ))}
     </div>

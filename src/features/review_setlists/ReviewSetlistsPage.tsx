@@ -14,6 +14,8 @@ const ReviewSetlistsPage = () => {
     setlistData,
     setlistDuration,
     getSongData,
+    removeSong,
+    rows,
   } = useReview();
 
   const sidebarProps: SavedSetlistsListProps = {
@@ -35,6 +37,8 @@ const ReviewSetlistsPage = () => {
         setlistData={setlistData}
         setlistDuration={setlistDuration}
         sidebarProps={sidebarProps}
+        removeSong={removeSong}
+        rows={rows}
       />
     </div>
   );

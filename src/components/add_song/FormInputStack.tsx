@@ -28,14 +28,14 @@ const FormInputStack = <TFieldValues extends FieldValues>({
   return (
     <label
       data-cy="input_label"
-      className="flex flex-col gap-2 text-lg font-semibold"
+      className="flex flex-col gap-2 text-base font-semibold"
     >
       {label}:
       <input
         data-cy={`input-${inputId}`}
         type="text"
         placeholder={placeholder}
-        className={`${className} rounded-lg bg-bg-main p-2 ring ring-border-bold text-text-main hover:bg-golden_apricot hover:text-midnight_violet active:bg-bg-surface focus:ring-accent`}
+        className={`${className} rounded-lg bg-bg-main p-2.5 ring ring-border-bold text-text-main hover:bg-golden_apricot hover:text-midnight_violet active:bg-bg-surface focus:ring-accent`}
         {...register(inputId, validationOptions)}
       />
       {error && (

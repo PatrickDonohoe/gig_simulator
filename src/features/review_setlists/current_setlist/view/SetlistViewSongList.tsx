@@ -21,6 +21,7 @@ export interface SetlistViewSongListProps {
  * @summary Presents the body of the setlist.
  */
 const SetlistViewSongList = ({ rows, onRemove }: SetlistViewSongListProps) => {
+  console.log('rows: ', rows)
   return (
     <div
       data-cy="list"
@@ -28,7 +29,7 @@ const SetlistViewSongList = ({ rows, onRemove }: SetlistViewSongListProps) => {
     >
       {rows.map((row, index) =>
         row.kind === 'song' ? (
-          <ViewSongTile key={row.songId} song={row} onRemove={onRemove} />
+          <ViewSongTile key={row.songId} song={row} onRemove={onRemove} index={index} />
         ) : (
           <ViewTransitionTile key={row.transitionId} tile={row} index={index} />
         ),

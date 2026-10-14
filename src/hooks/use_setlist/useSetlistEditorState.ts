@@ -29,7 +29,7 @@ const useSetlistEditorState = (
     setlistRemove,
     setlistDuration,
     errors,
-    isValid,
+    isDirty,
   } = useSetlist(defaultValues);
 
   const handleSubmitAndReset = handleSubmit((data) => {
@@ -65,7 +65,7 @@ const useSetlistEditorState = (
     },
     setlistDuration,
     errors,
-    isValid,
+    isDirty,
     setlistInsert,
   };
 

@@ -3,7 +3,7 @@ import { emptySongFormValues } from "@/utils/build_form_values/buildSongFormValu
 import { useLibraryStore } from "@/stores/useLibraryStore";
 
 const ManualSongRoute = () => {
-  const create= useLibraryStore((s) => s.addSong);
+  const create = useLibraryStore((s) => s.addSong);
 
   return (
     <SongFormContainer 

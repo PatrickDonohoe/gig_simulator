@@ -90,7 +90,7 @@ describe('<Setlist>', () => {
             commonTileProps={commonTileProps}
             setlistDuration={5}
             errors={{}}
-            isValid
+            isDirty
             setlistInsert={cy.stub() as never}
             {...extraProps}
           />
@@ -146,7 +146,7 @@ describe('<Setlist>', () => {
           commonTileProps={mockCommon}
           setlistDuration={10}
           errors={mockErrors}
-          isValid={false}
+          isDirty={false}
           setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
         />
       </FiltersProvider>,

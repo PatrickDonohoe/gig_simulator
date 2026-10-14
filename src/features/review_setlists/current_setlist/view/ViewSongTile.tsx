@@ -8,6 +8,7 @@ import type { SongRowType } from '@/features/create_setlist/types/SetlistRow';
 interface ViewSongTileProps {
   song: SongRowType & { song: SongType | undefined };
   onRemove: (songId: string) => void;
+  index: number;
 }
 
 const formatters: Record<keyof SongType, (s: SongType) => string> = {
@@ -28,14 +29,14 @@ const formatters: Record<keyof SongType, (s: SongType) => string> = {
   upc: (s) => s.upc ?? '',
 };
 
-const ViewSongTile = ({ song, onRemove }: ViewSongTileProps) => {
+const ViewSongTile = ({ song, onRemove, index }: ViewSongTileProps) => {
   const { activeFilters } = useFilters();
 
   
   return (
     <>
       <div className="grid grid-cols-3 items-center">
-        <h2 id="song-title" className="col-span-2 text-center font-semibold">
+        <h2 id={`song-title-${index}`} className="col-span-2 text-center font-semibold">
           Title: {song.song?.title ?? 'Unavailable'}
         </h2>
 

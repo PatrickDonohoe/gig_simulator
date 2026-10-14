@@ -18,7 +18,7 @@ const TransitionTile = ({
   const { register, getValues, setValue, control, onRemove } = commonTileProps;
 
   return (
-    <div className="relative w-full text-text-main">
+    <div className="relative text-text-main min-w-70 max-w-120">
       <DropEdge edge={closestEdge} />
       
       <div

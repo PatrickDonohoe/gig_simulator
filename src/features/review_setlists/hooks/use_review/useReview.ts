@@ -42,6 +42,8 @@ const useReview = () => {
   }, [setlists]);
 
   const setlistData = useMemo<SubmitSetlistType | undefined>(() => {
+    console.log('selectedListId: ', selectedListId);
+    console.log('setlists: ', setlists)
     return selectedListId
       ? setlists.find((set) => set.setlistId === selectedListId)
       : undefined;
@@ -81,8 +83,10 @@ const useReview = () => {
 
   // pre-splits setlist data into rows to be mapped over.
   const rows = useMemo<ViewRow[]>(() => {
+    console.log('in rows, setlistData: ', setlistData)
     if (!setlistData) return [];
     const byId = new Map(getAllSongs().map((s) => [s.id, s]));
+    console.log('setlistData: ', setlistData)
     return setlistData.setlistSongs.map((row) =>
       row.kind === 'song' ? { ...row, song: byId.get(row.songId) } : row,
     );
@@ -96,10 +100,20 @@ const useReview = () => {
   };
 
   // Used when a user makes a selection from the sidebar.
+  // const handleSetlist = (id: string) => {
+  //   console.log('id argument', id)
+  //   setlists.find((s) => s.setlistId === id);
+  //   setSelectedListId(id);
+
+  // };
+
   const handleSetlist = (id: string) => {
-    setlists.find((s) => s.setlistId === id);
-    setSelectedListId(id);
-  };
+    const newSetlist = setlists.find((s) => s.setlistId === id)
+    console.log('newSetlist', newSetlist)
+    setSelectedListId(newSetlist?.setlistId)
+  }
+
+
 
   const getSongData = (songId: string) =>
     songsDisplayData.find((song) => song.id === songId);

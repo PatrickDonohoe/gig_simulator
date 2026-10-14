@@ -2,11 +2,9 @@ import { useNavigate } from 'react-router';
 
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
-
 import SavedSetlistsList, {
   type SavedSetlistsListProps,
 } from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsList';
-
 import SavedSetlistsShell from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsShell';
 import SavedSetlistsSidebarEmpty from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsSidebarEmpty';
 import SetlistViewSongList from '@/features/review_setlists/current_setlist/view/SetlistViewSongList';
@@ -14,8 +12,8 @@ import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
 import type { ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 import type { SongType } from '@/types/SongType';
-import useReview from '@/features/review_setlists/hooks/use_review/useReview';
 import SetlistViewModeHeader from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import type { ViewRow } from '@/features/review_setlists/hooks/use_review/useReview';
 
 export interface SetlistViewModeProps {
   handleMode: (mode: ViewMode) => void;
@@ -23,6 +21,8 @@ export interface SetlistViewModeProps {
   setlistDuration: number;
   sidebarProps: SavedSetlistsListProps;
   getSongData: (songId: string) => SongType | undefined;
+  removeSong: (songId: string) => void;
+  rows: ViewRow[];
 }
 
 const SetlistViewMode = ({
@@ -30,10 +30,10 @@ const SetlistViewMode = ({
   setlistData,
   setlistDuration,
   sidebarProps,
+  removeSong,
+  rows,
 }: SetlistViewModeProps) => {
   const navigate = useNavigate();
-
-  const { removeSong, rows } = useReview();
 
   const headerProps = {
     onClick: () => navigate('/dash/create'),
@@ -81,14 +81,11 @@ const SetlistViewMode = ({
               className="flex min-h-0 flex-1 flex-col divide-y-2 divide-border-bold"
             >
               <SetlistViewModeHeader {...viewHeader} />
-              
+
               {setlistData.setlistSongs.length > 0 ? (
-                <SetlistViewSongList
-                  rows={rows}
-                  onRemove={removeSong}
-                />
+                <SetlistViewSongList rows={rows} onRemove={removeSong} />
               ) : (
-                <SetlistEmpty />
+                <div>Add songs to your setlist.</div>
               )}
             </div>
           )}
