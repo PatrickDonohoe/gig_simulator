@@ -81,7 +81,7 @@ describe('edit an existing song on the create setlist page', () => {
     cy.dragTile('[data-song-id=tile-song1]', '[data-cy=setlist-fallback]');
     cy.getByData('edit-button-0').click();
     cy.get('#song_form').should('be.visible');
-    cy.getByData('close').click();
+    cy.get('#close-modal').click();
     cy.get('#song_form').should('not.exist');
   });
 
@@ -114,7 +114,7 @@ describe('edit an existing song on the create setlist page', () => {
       expect(stored[song1.id]).to.include({
         id: song1.id,
         title: 'song1b',
-        artist: song1.artists,
+        artists: song1.artists,
         key: song1.key,
         tempo: song1.tempo,
         duration: song1.duration,
