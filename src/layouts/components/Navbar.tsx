@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav
       id="navbar"
-      className="flex items-center gap-4 border-b-2 border-text-main bg-bg-main px-4 py-2"
+      className="flex items-center gap-2 md:gap-4 border-b-2 border-text-main bg-bg-main px-4 py-2"
     >
       <NavbarLink
         address={paths.createSetlist}

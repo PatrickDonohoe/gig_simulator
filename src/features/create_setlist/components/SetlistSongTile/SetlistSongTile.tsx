@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 import type { SongType } from '@/types/SongType';
 import FilterAttribute from '../FilterAttribute';
 import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
@@ -21,14 +23,14 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
   });
 
   const { activeFilters } = useFilters();
-  const { getSongDisplayDetails, onRemove, onEdit } = commonTileProps;
+  const { getSongDisplayDetails, onRemove } = commonTileProps;
 
   const metadata: SongType = getSongDisplayDetails(field.songId) ?? {
     id: field.songId,
     title: 'unknown',
-    artist: '',
-    genre: '',
+    artists: '',
     key: '',
+    mode: 'not found',
     tempo: 0,
     instrumentation: [],
     duration: 0,
@@ -36,10 +38,11 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
 
   const formatters: Record<keyof SongType, (s: SongType) => string> = {
     id: (s) => s.id,
+    rbid: (s) => s.rbid ?? '',
     title: (s) => s.title,
-    artist: (s) => s.artist,
-    genre: (s) => s.genre,
-    key: (s) => s.key,
+    artists: (s) => s.artists,
+    key: (s) => `${s.key} ${s.mode}`,
+    mode: (s) => s.mode,
     tempo: (s) => String(s.tempo),
     duration: (s) => {
       const { hours, minutes, seconds } = timeBreakdown(s.duration);
@@ -48,16 +51,17 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
         : `${minutes}:${seconds}`;
     },
     instrumentation: (s) => s.instrumentation.join(', '),
+    upc: (s) => s.upc ?? '',
   };
 
   return (
-    <div className="relative w-full">
+    <div id={`setlist-song-tile-${field.songId}`} className="relative min-w-70 max-w-120">
       <DropEdge edge={closestEdge} />
 
       <section
         ref={ref}
         data-cy={`setlist-tile-${field.songId}`}
-        className={`flex max-h-96 cursor-grab flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
+        className={`flex cursor-grab flex-col gap-4 overflow-hidden rounded-xl border-2 border-border-bold bg-accent p-2 text-text-main hover:border-border-subtle ${dragging ? 'opacity-40' : ''}`}
       >
         <div className="grid w-full grid-flow-col grid-cols-3">
           <h1 className="col-start-2 justify-self-center rounded-xl p-2 text-xl font-semibold text-bg-main underline">
@@ -65,14 +69,14 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
           </h1>
 
           <div className="col-start-3 flex items-center gap-2 justify-self-end text-bg-main">
-            <button
+            <Link
+              to={`edit-song/${field.songId}`}
               data-cy={`edit-button-${index}`}
-              type="button"
               className="flex-none hover:text-border-subtle/50"
-              onClick={() => onEdit(metadata)}
             >
               <Edit className="size-6 justify-self-end" />
-            </button>
+            </Link>
+
             <button
               data-cy={`trash-button-${index}`}
               type="button"

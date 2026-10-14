@@ -27,18 +27,28 @@ const ColumnHeader = ({
   onClick,
 }: ColumnHeaderProps) => {
   return (
-    <button
-      id={headerKey}
-      onClick={onClick}
-      className={`flex items-center border border-text-main bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
+    <th
+      scope="col"
+      aria-sort={
+        isSortKey ? (sortDir === 'asc' ? 'ascending' : 'descending') : undefined
+      }
+      className='w-full'
     >
-      {headerKey}{' '}
-      <span
-        className={`${isSortKey ? 'opacity-100' : 'opacity-0'} size-8 text-text-main`}
+      <button
+        id={headerKey}
+        type="button"
+        onClick={onClick}
+        className={`flex justify-between w-full items-center gap-2 bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
       >
-        {sortDir === 'asc' ? <Ascend /> : <Descend />}
-      </span>
-    </button>
+        {headerKey}{' '}
+        <span
+          aria-hidden
+          className={`${isSortKey ? 'opacity-100' : 'opacity-0'} size-8 text-text-main`}
+        >
+          {sortDir === 'asc' ? <Ascend className='size-8' /> : <Descend className='size-8' />}
+        </span>
+      </button>
+    </th>
   );
 };
 export default ColumnHeader;

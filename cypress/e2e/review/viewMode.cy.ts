@@ -38,9 +38,9 @@ describe('review setlist in view mode', () => {
   const song1: SongType = {
     id: 'song1',
     title: 'song1a',
-    artist: 'artist1',
-    genre: 'rock',
+    artists: 'artist1',
     key: 'C',
+    mode: 'major',
     tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
@@ -49,9 +49,9 @@ describe('review setlist in view mode', () => {
   const song2: SongType = {
     id: 'song2',
     title: 'song2a',
-    artist: 'artist2',
-    genre: 'rock',
+    artists: 'artist2',
     key: 'D',
+    mode: 'minor',
     tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
@@ -111,7 +111,7 @@ describe('review setlist in view mode', () => {
     cy.getByData('view-page').should('be.visible');
     cy.getByData('list').should('be.visible');
     cy.get('#view-header').should('not.exist');
-    cy.getByData('sidebar-tile').click();
+    cy.getByData('sidebar-tile-sl1').click();
     cy.get('#button-edit').click();
     cy.getByData('setlist-form').should('be.visible');
   });
@@ -130,8 +130,8 @@ describe('review setlist in view mode', () => {
       },
     });
 
-    cy.getByData('sidebar-tile').contains(setlist1.setlistName).click();
-    cy.get('#setlist-article').contains(`Title: ${song1.title}`);
+    cy.getByData('sidebar-tile-sl1').contains(setlist1.setlistName).click();
+    cy.get(`#song-title-0`).contains(`Title: ${song1.title}`);
     cy.getByData('song-notes-1').contains('Transition notes 1');
     cy.getByData('song-transition').contains('00:30');
   });

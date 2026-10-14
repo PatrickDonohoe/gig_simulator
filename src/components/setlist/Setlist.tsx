@@ -21,7 +21,7 @@ export interface SetlistProps extends SongListProps {
   commonTileProps: SongListProps['commonTileProps'];
   setlistDuration: number;
   errors: FieldErrors<FormValues>;
-  isValid: boolean;
+  isDirty: boolean;
 }
 
 const Setlist = ({
@@ -29,7 +29,7 @@ const Setlist = ({
   commonTileProps,
   setlistDuration,
   errors,
-  isValid,
+  isDirty,
   setlistInsert,
 }: SetlistProps) => {
   const { register, ...rest } = commonTileProps;
@@ -41,29 +41,29 @@ const Setlist = ({
         <input
           data-cy="title"
           type="text"
-          className="grow rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted lg:col-start-2"
+          className="grow order-3 @md:order-2 @md:basis-0 @md:min-w-24 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted"
           placeholder="New Setlist #1"
           {...register('setlistName', {
             required: 'A setlist name is required.',
           })}
         />
 
-        <ErrorMessage
-          as="span"
-          data-cy="error"
-          name="setlistName"
-          errors={errors}
-        />
-
         <button
           data-cy="submit"
           type="submit"
-          className="flex flex-3 flex-row items-center justify-center gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg"
-          disabled={!isValid}
+          className="flex flex-row items-center justify-center order-2 @md:order-3 gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg max-w-40"
+          disabled={!isDirty}
         >
-          <span>+</span> <span>Save Setlist</span>
+          <span>+</span> <span>Save</span> <span className=''>Setlist</span>
         </button>
       </SetlistHeader>
+
+      <ErrorMessage
+        as="span"
+        data-cy="error"
+        name="setlistName"
+        errors={errors}
+      />
 
       <HeaderFilters />
 

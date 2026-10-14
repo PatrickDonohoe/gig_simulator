@@ -12,9 +12,8 @@ describe('<AddSongForm>', () => {
     instrumentationFields: [{ id: 'field-1', value: '' }],
     errors: {},
     addSongError: null,
-    title: '',
+    title: 'Add a new song to your library',
     submitLabel: 'Add Song +',
-    onClose: cy.stub().as('onClose'),
     register: mockRegister,
     appendInstrumentation:
       overrides.appendInstrumentation ?? cy.stub().as('appendInstrumentation'),
@@ -43,7 +42,7 @@ describe('<AddSongForm>', () => {
     cy.get('[data-cy=submit_button]').should('be.disabled');
     cy.get('[data-cy=submit_button]')
       .should('be.visible')
-      .and('contain.text', 'Adding...');
+      .and('contain.text', 'Add Song +');
   });
 
   it('enables the submit button when not submitting', () => {

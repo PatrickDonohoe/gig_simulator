@@ -1,4 +1,5 @@
 import type { DurationInput } from '@/types/DurationInput';
+import type { SongFormValues } from '@/types/SongFormType';
 
 // Convert single time object to seconds.
 export const durationToSeconds = (duration: DurationInput): number => {
@@ -36,3 +37,19 @@ export const addTimeDurations = (durations: DurationInput[]): DurationInput =>
 // Format duration of hours, minutes, or seconds to be two digits
 export const formatDuration = (time: number | undefined): string =>
   String(time ?? 0).padStart(2, '0') ?? '00';
+
+// Convert duration (in ms) from Recco Beats to display format
+export const msToBreakdown = (ms: number): SongFormValues['duration'] => {
+  const timeInSeconds: number = Math.round(ms / 1000);
+  const breakdown = timeBreakdown(timeInSeconds);
+  return {
+    hours: String(breakdown.hours),
+    minutes: String(breakdown.minutes),
+    seconds: String(breakdown.seconds),
+  };
+};
+
+export const secToDisplay = (seconds: number): string => {
+  const breakdown = timeBreakdown(seconds);
+  return `${formatDuration(breakdown.minutes)}:${formatDuration(breakdown.seconds)}`;
+};

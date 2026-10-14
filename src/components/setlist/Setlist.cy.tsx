@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { MemoryRouter } from 'react-router';
 
 import type { FormValues } from '@/hooks/use_setlist/useSetlist';
 import Setlist from './Setlist';
@@ -78,7 +79,6 @@ describe('<Setlist>', () => {
         control,
         getSongDisplayDetails: cy.stub().returns(mockDetails),
         onClick: cy.stub(),
-        onEdit: cy.stub(),
         onRemove: cy.stub(),
         ...commonOverrides,
       };
@@ -90,7 +90,7 @@ describe('<Setlist>', () => {
             commonTileProps={commonTileProps}
             setlistDuration={5}
             errors={{}}
-            isValid
+            isDirty
             setlistInsert={cy.stub() as never}
             {...extraProps}
           />
@@ -98,7 +98,11 @@ describe('<Setlist>', () => {
       );
     };
 
-    cy.mount(<TestBed />);
+    cy.mount(
+      <MemoryRouter>
+        <TestBed />
+      </MemoryRouter>,
+    );
   };
 
   it('mounts and shows the list when tiles.length > 0', () => {
@@ -116,7 +120,6 @@ describe('<Setlist>', () => {
 
   it('shows the fallback when tiles is an empty array', () => {
     const mockClick = cy.stub();
-    const mockEdit = cy.stub();
     const mockRemove = cy.stub();
     const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
@@ -129,7 +132,6 @@ describe('<Setlist>', () => {
       register: mockRegister,
       getSongDisplayDetails: mockGetSongDisplayDetails,
       onClick: mockClick,
-      onEdit: mockEdit,
       onRemove: mockRemove,
       setValue: mockSet,
       getValues: mockGet,
@@ -143,7 +145,7 @@ describe('<Setlist>', () => {
           commonTileProps={mockCommon}
           setlistDuration={10}
           errors={mockErrors}
-          isValid={false}
+          isDirty={false}
           setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
         />
       </FiltersProvider>,

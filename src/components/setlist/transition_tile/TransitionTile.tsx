@@ -18,7 +18,7 @@ const TransitionTile = ({
   const { register, getValues, setValue, control, onRemove } = commonTileProps;
 
   return (
-    <div className="relative w-full text-text-main">
+    <div className="relative text-text-main min-w-70 max-w-120">
       <DropEdge edge={closestEdge} />
 
       <div
@@ -32,7 +32,7 @@ const TransitionTile = ({
           </h1>
 
           <button
-            className="col-start-3 flex-none justify-self-end p-2 hover:text-border-subtle"
+            className="col-start-3 flex-none justify-self-end p-2 hover:text-text-muted"
             type="button"
             onClick={() => onRemove(index)}
           >

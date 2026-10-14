@@ -30,8 +30,8 @@ const PageLayout = () => {
         className="flex h-screen flex-col overflow-x-auto bg-bg-main"
       >
         <HeaderLayout />
-
-        <div className="flex min-h-0 flex-1 flex-col">
+        
+        <div id='page-layout-content' className="flex min-h-0 flex-1 flex-col">
           <Outlet />
         </div>
       </div>

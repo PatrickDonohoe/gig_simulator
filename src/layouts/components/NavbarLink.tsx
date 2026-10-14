@@ -11,12 +11,14 @@ const NavbarLink = ({ address, label, icon }: NavLinkProps) => {
     <NavLink
       to={address}
       className={({ isActive }) =>
-        `${isActive ? 'bg-primary text-white' : 'bg-bg-main text-text-main'} flex items-center justify-between gap-1 px-2 hover:bg-border-subtle`
+        `${isActive ? 'bg-primary text-white' : 'bg-bg-main text-text-main'} flex items-center justify-between gap-1 px-2 hover:bg-border-subtle md:px-4`
       }
     >
       <div className="flex size-8 items-center justify-center">{icon}</div>
 
-      <span className="text-sm md:flex-nowrap lg:text-base">{label}</span>
+      <span className="hidden w-8 text-sm sm:block sm:w-10 sm:text-wrap lg:text-base">
+        {label}
+      </span>
     </NavLink>
   );
 };

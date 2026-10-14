@@ -2,11 +2,12 @@ import z from 'zod';
 
 export const SongFormSchema = z.object({
   id: z.string().optional(),
+  rbid: z.string().optional(),
   title: z.string().min(1, 'Song title is required.'),
-  artist: z.string().min(1, 'Artist name is required.'),
-  genre: z.string(),
+  artists: z.string().min(1, 'Artist name is required.'),
   key: z.string(),
-  tempo: z.string(),
+  mode: z.literal(['minor', 'major', 'not found']),
+  tempo: z.string().regex(/^\d*$/, 'Whole numbers only').optional(),
   duration: z.object({
     hours: z.string().regex(/^\d*$/, 'Whole numbers only').optional(),
     minutes: z.string().regex(/^\d*$/, 'Whole numbers only').optional(),

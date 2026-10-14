@@ -5,9 +5,9 @@ import type {
   UseFormRegister,
   UseFormSetFocus,
 } from 'react-hook-form';
-import type { SongFormValues } from '@/types/SongFormType';
 
-import FormInputStack from '@/features/create_setlist/components/add_song/FormInputStack';
+import type { SongFormValues } from '@/types/SongFormType';
+import FormInputStack from '@/components/add_song/FormInputStack';
 import MultInputStack from './MultInputStack';
 
 /** FormData is destructured */
@@ -19,7 +19,6 @@ export interface AddSongFormProps {
   addSongError: string | null;
   title: string;
   submitLabel: string;
-  onClose: () => void;
   register: UseFormRegister<SongFormValues>;
   appendInstrumentation: () => void;
   removeInstrumentation: (index: number) => void;
@@ -37,7 +36,8 @@ const AddSongForm = ({
   appendInstrumentation,
   removeInstrumentation,
   setFocus,
-  onClose,
+  title,
+  submitLabel,
 }: AddSongFormProps) => {
   useEffect(() => {
     setFocus('title');
@@ -52,24 +52,15 @@ const AddSongForm = ({
       id="song_form"
       data-cy="song_form"
       onSubmit={submitAddSong}
-      className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
+      className="text-text-main flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
     >
       <div className="grid grid-cols-3 items-center px-4 py-2">
         <h1
           data-cy="new_song"
-          className="col-start-2 text-center text-xl font-bold text-text-main"
+          className="col-start-2 text-center text-xl font-bold"
         >
-          Add a new song to your library
+          {title}
         </h1>
-
-        <button
-          data-cy="close"
-          type="button"
-          className="col-start-3 justify-self-end rounded-xl border-2 border-border-bold bg-bg-main px-4 py-2 font-bold text-text-main hover:bg-primary-hover hover:text-accent focus:border-accent"
-          onClick={onClose}
-        >
-          X
-        </button>
       </div>
 
       <div
@@ -80,26 +71,16 @@ const AddSongForm = ({
           label="Song Title"
           inputId="title"
           register={register}
-          validationOptions={{ required: 'Song title is required.' }}
           placeholder="e.g. Freebird"
           error={errors.title}
         />
 
         <FormInputStack
-          label="Artist"
-          inputId="artist"
+          label="Artists"
+          inputId="artists"
           register={register}
-          validationOptions={{ required: 'Artist name is required.' }}
           placeholder="e.g. Lynyrd Skynyrd"
-          error={errors.artist}
-        />
-
-        <FormInputStack
-          label="Genre"
-          inputId="genre"
-          register={register}
-          placeholder="e.g. Rock N Roll"
-          error={errors.genre}
+          error={errors.artists}
         />
 
         <FormInputStack
@@ -119,11 +100,11 @@ const AddSongForm = ({
         />
 
         {/* Alternate Duration setup with inline minutes and seconds */}
-        <section className="flex flex-col gap-2 text-lg font-semibold text-text-main">
+        <section className="flex flex-col gap-2 text-base font-semibold text-text-main">
           <h2>Song Duration:</h2>
 
-          <div className="flex flex-col gap-2 rounded-xl border border-border-subtle bg-menu p-1 md:flex-row">
-            <label className="flex flex-col text-sm">
+          <div className="flex flex-col gap-2 rounded-xl border border-border-bold bg-menu p-1 md:flex-row">
+            <label className="flex flex-col-reverse text-sm">
               Minutes:
               <input
                 id="duration-minutes"
@@ -135,7 +116,7 @@ const AddSongForm = ({
               />
             </label>
 
-            <label className="flex flex-col text-sm">
+            <label className="flex flex-col-reverse text-sm">
               Seconds:
               <input
                 id="duration-seconds"
@@ -171,7 +152,7 @@ const AddSongForm = ({
           className="flex-none rounded-xl border border-text-main bg-menu px-2 py-1 text-text-main hover:bg-bg-surface focus-visible:ring-2 focus-visible:ring-border-bold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main focus-visible:outline-none"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Adding...' : 'Add Song +'}
+          {submitLabel}
         </button>
       </div>
     </form>

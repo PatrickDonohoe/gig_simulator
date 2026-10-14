@@ -4,9 +4,9 @@ describe('edit an existing song on the create setlist page', () => {
   const song1: SongType = {
     id: 'song1',
     title: 'song1a',
-    artist: 'artist1',
-    genre: 'rock',
+    artists: 'artist1',
     key: 'C',
+    mode: 'major',
     tempo: 120,
     duration: 400,
     instrumentation: ['drums', 'electric guitar', 'vocals'],
@@ -15,9 +15,9 @@ describe('edit an existing song on the create setlist page', () => {
   const song2: SongType = {
     id: 'song2',
     title: 'song2a',
-    artist: 'artist2',
-    genre: 'rock',
+    artists: 'artist2',
     key: 'D',
+    mode: 'minor',
     tempo: 132,
     duration: 522,
     instrumentation: ['djimbe', 'rain stick', 'banjo'],
@@ -38,8 +38,7 @@ describe('edit an existing song on the create setlist page', () => {
     cy.getByData('edit-button-0').click();
     cy.get('#song_form').should('be.visible');
     cy.getByData('input-title').should('have.value', 'song1a');
-    cy.getByData('input-artist').should('have.value', 'artist1');
-    cy.getByData('input-genre').should('have.value', 'rock');
+    cy.getByData('input-artists').should('have.value', 'artist1');
     cy.getByData('input-key').should('have.value', 'C');
     cy.getByData('input-tempo').should('have.value', '120');
     cy.get('#duration-minutes').should('have.value', '6');
@@ -115,8 +114,7 @@ describe('edit an existing song on the create setlist page', () => {
       expect(stored[song1.id]).to.include({
         id: song1.id,
         title: 'song1b',
-        artist: song1.artist,
-        genre: song1.genre,
+        artist: song1.artists,
         key: song1.key,
         tempo: song1.tempo,
         duration: song1.duration,

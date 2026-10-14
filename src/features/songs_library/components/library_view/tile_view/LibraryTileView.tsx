@@ -1,22 +1,15 @@
 import type { SongType } from '@/types/SongType';
 import SongTile from '@/features/songs_library/components/song_tile/SongTile';
-import useSongForm from '@/hooks/useSongForm';
 
 interface TileViewProps {
   results: SongType[];
 }
 
 const LibraryTileView = ({ results }: TileViewProps) => {
-  const { openEditSong } = useSongForm();
-
   return (
-    <div id="tile-view">
+    <div id="tile-view" className='flex flex-col gap-4'>
       {results.map((tile) => (
-        <SongTile
-          key={tile.id}
-          song={tile}
-          openEdit={() => openEditSong(tile)}
-        />
+        <SongTile key={tile.id} song={tile} />
       ))}
     </div>
   );
