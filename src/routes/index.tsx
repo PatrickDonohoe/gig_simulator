@@ -8,12 +8,13 @@ import LandingPage from '@/features/landing_page/LandingPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPage />,
+    Component: LandingPage,
+    ErrorBoundary: RouteErrorBoundary,
   },
   {
     path: '/dash',
-    element: <PageLayout />,
-    errorElement: <RouteErrorBoundary />,
+    Component: PageLayout,
+    ErrorBoundary: RouteErrorBoundary,
     children: DashRoutes,
   },
 ]);
