@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router';
-
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 import type { ViewMode } from '@/features/review_setlists/types/ViewMode';
 import SavedSetlistsList, {
@@ -33,16 +31,15 @@ const SetlistViewMode = ({
   removeSong,
   rows,
 }: SetlistViewModeProps) => {
-  const navigate = useNavigate();
 
   const headerProps = {
-    onClick: () => navigate('/dash/create'),
     header: 'Setlists',
     buttonText: 'Create Setlist',
     header2:
       sidebarProps.setlists.length > 0
         ? 'Select a setlist to review.'
         : 'Create a setlist first.',
+    address: '/dash/create',
   };
 
   const viewHeader: ViewModeHeaderProps = {

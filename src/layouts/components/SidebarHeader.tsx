@@ -6,12 +6,14 @@ export interface SideHeaderProps {
   header: string;
   buttonText: string;
   header2: string;
+  address: string;
 }
 
 const SidebarHeader = ({
   header,
   buttonText,
   header2,
+  address,
 }: SideHeaderProps) => {
   return (
     <header
@@ -25,7 +27,7 @@ const SidebarHeader = ({
 
         <Link
           id="sidebar-header-button"
-          to='add-song'
+          to={address}
           className="flex-none rounded-xl border bg-bg-main px-2 py-1 text-sm hover:bg-bg-surface hover:text-text-muted"
         >
           {buttonText}

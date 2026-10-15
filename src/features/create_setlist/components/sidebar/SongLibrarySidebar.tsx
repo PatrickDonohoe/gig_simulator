@@ -24,6 +24,7 @@ const SongLibrarySidebar = ({ songs }: SongLibrarySidebarProps) => {
     header: 'Workspace',
     buttonText: 'Add Song +',
     header2: 'Choose a song, and drag it to your setlist.',
+    address: 'add-song',
   };
 
   return (

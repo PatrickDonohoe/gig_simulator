@@ -135,4 +135,13 @@ describe('review setlist in view mode', () => {
     cy.getByData('song-notes-1').contains('Transition notes 1');
     cy.getByData('song-transition').contains('00:30');
   });
+
+  it('navigates to the create setlist page when the create setlist button/Link is clicked in the sidebar header', () => {
+    cy.visit('/dash/review');
+
+    cy.get('#sidebar-header-button').click();
+    cy.location('pathname').should('eq', '/dash/create');
+    cy.getByData('library-sidebar').should('be.visible');
+    cy.getByData('setlist-form').should('be.visible');
+  });
 });
