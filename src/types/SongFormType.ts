@@ -13,7 +13,6 @@ export const SongFormSchema = z.object({
     minutes: z.string().regex(/^\d*$/, 'Whole numbers only').optional(),
     seconds: z.string().regex(/^\d*$/, 'Whole numbers only').optional(),
   }),
-  instrumentation: z.array(z.object({ value: z.string() })),
 });
 
 export type SongFormValues = z.infer<typeof SongFormSchema>;

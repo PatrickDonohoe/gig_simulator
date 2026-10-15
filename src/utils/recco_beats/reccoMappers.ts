@@ -28,6 +28,5 @@ export const reccoToFormValues = (track: SongReturn, audio: AudioFeatures): Song
     mode: MODES[audio.mode],
     tempo: String(Math.round(audio.tempo)),
     duration: msToBreakdown(track.durationMs),
-    instrumentation: [],
   }
 }

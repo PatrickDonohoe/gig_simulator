@@ -25,7 +25,6 @@ const formatters: Record<keyof SongType, (s: SongType) => string> = {
       ? `${hours}:${minutes}:${seconds}`
       : `${minutes}:${seconds}`;
   },
-  instrumentation: (s) => s.instrumentation.join(', '),
   upc: (s) => s.upc ?? '',
 };
 

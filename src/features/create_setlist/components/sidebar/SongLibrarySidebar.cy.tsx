@@ -13,7 +13,6 @@ describe('<SongLibrarySidebar>', () => {
       mode: 'major',
       tempo: 132,
       duration: 330,
-      instrumentation: ['drumset', 'electric bass'],
     },
     {
       id: 'song-234',
@@ -23,7 +22,6 @@ describe('<SongLibrarySidebar>', () => {
       mode: 'minor',
       tempo: 100,
       duration: 200,
-      instrumentation: [],
     },
   ];
 

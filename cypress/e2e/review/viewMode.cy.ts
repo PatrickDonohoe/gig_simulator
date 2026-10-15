@@ -43,7 +43,6 @@ describe('review setlist in view mode', () => {
     mode: 'major',
     tempo: 120,
     duration: 400,
-    instrumentation: ['drums', 'electric guitar', 'vocals'],
   };
 
   const song2: SongType = {
@@ -54,7 +53,6 @@ describe('review setlist in view mode', () => {
     mode: 'minor',
     tempo: 132,
     duration: 522,
-    instrumentation: ['djimbe', 'rain stick', 'banjo'],
   };
 
   it('presents the correct page', () => {

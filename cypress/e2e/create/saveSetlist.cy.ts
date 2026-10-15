@@ -11,7 +11,6 @@ describe('adding a setlist', () => {
     mode: 'minor',
     tempo: 120,
     duration: 400,
-    instrumentation: ['drums', 'electric guitar', 'vocals'],
   };
 
   const song3: SongType = {
@@ -22,7 +21,6 @@ describe('adding a setlist', () => {
     mode: 'major',
     tempo: 132,
     duration: 522,
-    instrumentation: ['djimbe', 'rain stick', 'banjo'],
   };
 
   const setlistSong1: TransitionType = {
@@ -62,7 +60,6 @@ describe('adding a setlist', () => {
       mode: 'major',
       tempo: 120,
       duration: 200,
-      instrumentation: ['guitar'],
     };
 
     // getAllSongs() reads localStorage on mount, so the library needs to be

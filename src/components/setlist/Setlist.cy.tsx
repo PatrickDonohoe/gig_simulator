@@ -18,12 +18,6 @@ describe('<Setlist>', () => {
     key: 'C',
     tempo: 132,
     duration: 330,
-    instrumentation: [
-      'drumset',
-      'electric bass',
-      'electric guitar',
-      'acoustic guitar',
-    ],
   };
 
   const tiles: SetlistProps['tiles'] = [

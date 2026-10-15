@@ -12,7 +12,6 @@ const songData: SongType = {
   mode: 'minor',
   tempo: 128,
   duration: 220,
-  instrumentation: ['guitar', 'piano', 'vocals'],
   upc: 'upcandstuff',
 };
 

@@ -9,7 +9,6 @@ describe('edit an existing song on the create setlist page', () => {
     mode: 'major',
     tempo: 120,
     duration: 400,
-    instrumentation: ['drums', 'electric guitar', 'vocals'],
   };
 
   const song2: SongType = {
@@ -20,7 +19,6 @@ describe('edit an existing song on the create setlist page', () => {
     mode: 'minor',
     tempo: 132,
     duration: 522,
-    instrumentation: ['djimbe', 'rain stick', 'banjo'],
   };
 
   it('fills the modal/form fields when the edit button on a song tile is clicked', () => {
@@ -43,29 +41,6 @@ describe('edit an existing song on the create setlist page', () => {
     cy.getByData('input-tempo').should('have.value', '120');
     cy.get('#duration-minutes').should('have.value', '6');
     cy.get('#duration-seconds').should('have.value', '40');
-    cy.get('#instrument-0').should('have.value', 'drums');
-    cy.get('#instrument-1').should('have.value', 'electric guitar');
-    cy.get('#instrument-2').should('have.value', 'vocals');
-  });
-
-  it('adds and subtracts instrumentation fields', () => {
-    cy.visit('/dash/create', {
-      onBeforeLoad(win) {
-        win.localStorage.setItem(
-          'songs',
-          JSON.stringify({ [song1.id]: song1, [song2.id]: song2 }),
-        );
-      },
-    });
-
-    cy.dragTile('[data-song-id=tile-song1]', '[data-cy=setlist-fallback]');
-    cy.getByData('edit-button-0').click();
-    cy.get('#song_form').should('be.visible');
-    cy.getByData('rmv_button-0').click();
-    cy.get('#instrument-1').should('contain.value', 'vocals');
-    cy.getByData('add_button-1').click();
-    cy.get('#instrument-2').should('be.visible');
-    cy.get('#instrument-2').should('contain.value', '');
   });
 
   it('closes when the x button is clicked', () => {
@@ -119,9 +94,6 @@ describe('edit an existing song on the create setlist page', () => {
         tempo: song1.tempo,
         duration: song1.duration,
       });
-      expect(stored[song1.id].instrumentation).to.deep.equal(
-        song1.instrumentation,
-      );
     });
   });
 });

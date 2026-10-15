@@ -76,7 +76,7 @@ cache.
   1 = major). Use flat names to match the form placeholder (`Db`, `Eb`, …),
   with `m` appended for minor, and an empty string for −1.
 - **Tempo**: round `audio.tempo`, then convert to a string.
-- **Genre / instrumentation**: Recco Beats doesn't provide these. Leave them
+- **Genre**: Recco Beats doesn't provide this. Leave it
   empty for the user to fill in.
 - **`id`**: don't set it. The form's `id` is the *library* id, and setting it
   would make a new song look like an edit. Store the Recco Beats id separately

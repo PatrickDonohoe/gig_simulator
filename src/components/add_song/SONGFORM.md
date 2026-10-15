@@ -32,7 +32,7 @@ onSave, title, labels        the life of the route          the data came from
   `defaultValues` are right on first mount and no `reset()` is needed.
 - **`SongFormContainer`** calls `useSongForm(defaultValues, onSave)` and renders
   `AddSongForm` with the result.
-- **`useSongForm`** holds `useForm`, the instrumentation field array, and the
+- **`useSongForm`** holds `useForm` and the
   submit handler that converts `SongFormValues` → `SongType` before calling
   `onSave`.
 - **`AddSongForm`** only renders inputs and errors.

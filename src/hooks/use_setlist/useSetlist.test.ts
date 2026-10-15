@@ -19,7 +19,6 @@ const mockSongs: SongType[] = [
     mode: 'major',
     tempo: 120,
     duration: 180,
-    instrumentation: [],
   },
   {
     id: '2',
@@ -29,7 +28,6 @@ const mockSongs: SongType[] = [
     mode: 'minor',
     tempo: 90,
     duration: 240,
-    instrumentation: [],
   },
   {
     id: '3',
@@ -39,7 +37,6 @@ const mockSongs: SongType[] = [
     mode: 'not found',
     tempo: 120,
     duration: 400,
-    instrumentation: [],
   },
 ];
 

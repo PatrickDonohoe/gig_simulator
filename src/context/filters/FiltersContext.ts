@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import type { SongType } from '@/types/SongType';
 
 type SongTypeKeys = keyof SongType;
-export type FilterType = Exclude<SongTypeKeys, 'title' | 'id' | 'instrumentation'>;
+export type FilterType = Exclude<SongTypeKeys, 'title' | 'id'>;
 
 export interface FiltersContextType {
   activeFilters: FilterType[];

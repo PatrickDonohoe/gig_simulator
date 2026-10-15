@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { SongFormSchema, type SongFormValues } from '@/types/SongFormType';
@@ -16,7 +16,6 @@ const useSongForm = (
 
   const {
     register,
-    control,
     handleSubmit,
     setFocus,
     formState: { errors, isSubmitting },
@@ -24,12 +23,6 @@ const useSongForm = (
     defaultValues,
     resolver: zodResolver(SongFormSchema),
     mode: 'onChange',
-  });
-
-  // Used to handle the array of instruments in the form.
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'instrumentation',
   });
 
   // RHF submit function for both add and edit song. Also saves to storage.
@@ -45,7 +38,6 @@ const useSongForm = (
     const song: SongType = {
       ...data,
       tempo: Number(data.tempo) || 0,
-      instrumentation: data.instrumentation.map((i) => i.value).filter(Boolean),
       duration: totalSeconds([durationInput]),
       id: data.id ?? crypto.randomUUID(),
     };
@@ -59,12 +51,9 @@ const useSongForm = (
 
   const formData: Omit<AddSongFormProps, 'title' | 'submitLabel'> = {
     isSubmitting,
-    instrumentationFields: fields,
     errors,
     addSongError: error,
     register,
-    appendInstrumentation: () => append({ value: '' }),
-    removeInstrumentation: remove,
     submitAddSong: handleSubmit(addSong),
     setFocus,
   };

@@ -9,16 +9,11 @@ describe('<AddSongForm>', () => {
     overrides: Partial<AddSongFormProps> = {},
   ): AddSongFormProps => ({
     isSubmitting: false,
-    instrumentationFields: [{ id: 'field-1', value: '' }],
     errors: {},
     addSongError: null,
     title: 'Add a new song to your library',
     submitLabel: 'Add Song +',
     register: mockRegister,
-    appendInstrumentation:
-      overrides.appendInstrumentation ?? cy.stub().as('appendInstrumentation'),
-    removeInstrumentation:
-      overrides.removeInstrumentation ?? cy.stub().as('removeInstrumentation'),
     submitAddSong: overrides.submitAddSong ?? cy.stub().as('submitAddSong'),
     setFocus: overrides.setFocus ?? cy.stub().as('setFocus'),
     ...overrides,

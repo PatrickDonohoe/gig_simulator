@@ -11,7 +11,7 @@ import { useLibraryStore } from '@/stores/useLibraryStore';
  * @returns Filtered, sorted results from the library.
  */
 
-type ColumnType = Exclude<keyof SongType, 'id' | 'instrumentation'>;
+type ColumnType = Exclude<keyof SongType, 'id'>;
 
 export interface SortType {
   key: ColumnType;

@@ -32,7 +32,6 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
     key: '',
     mode: 'not found',
     tempo: 0,
-    instrumentation: [],
     duration: 0,
   };
 
@@ -50,7 +49,6 @@ const SetlistSongTile = ({ field, index, commonTileProps }: SongTileProps) => {
         ? `${hours}:${minutes}:${seconds}`
         : `${minutes}:${seconds}`;
     },
-    instrumentation: (s) => s.instrumentation.join(', '),
     upc: (s) => s.upc ?? '',
   };
 

@@ -12,14 +12,11 @@ describe('<ModalBackdrop>', () => {
 
     const mockProps: AddSongFormProps = {
       isSubmitting: false,
-      instrumentationFields: [{ id: 'field-1', value: '' }],
       errors: {},
       addSongError: null,
       title: 'title',
       submitLabel: 'Add Song +',
       register: mockRegister,
-      appendInstrumentation: cy.stub(),
-      removeInstrumentation: cy.stub(),
       submitAddSong: cy.stub(),
       setFocus: cy.stub().as('setFocus'),
     };

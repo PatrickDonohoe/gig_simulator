@@ -9,7 +9,6 @@ export const emptySongFormValues = (): SongFormValues => ({
   mode: 'not found',
   tempo: '',
   duration: { hours: '0', minutes: '0', seconds: '0' },
-  instrumentation: [{ value: '' }],
 });
 
 export const songToFormValues = (song: SongType): SongFormValues => {
@@ -27,9 +26,5 @@ export const songToFormValues = (song: SongType): SongFormValues => {
       minutes: String(timeToNumbers.minutes),
       seconds: String(timeToNumbers.seconds),
     },
-    instrumentation:
-      song.instrumentation.length > 0
-        ? song.instrumentation.map((value) => ({ value }))
-        : [{ value: '' }],
   };
 };

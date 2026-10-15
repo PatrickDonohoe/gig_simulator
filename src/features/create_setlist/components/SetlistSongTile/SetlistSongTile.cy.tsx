@@ -42,12 +42,6 @@ describe('<SetlistSongTile>', () => {
       key: 'C',
       tempo: 132,
       duration: 330,
-      instrumentation: [
-        'drumset',
-        'electric bass',
-        'electric guitar',
-        'acoustic guitar',
-      ],
     });
 
     const mockRemove = cy.stub();

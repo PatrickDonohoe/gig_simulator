@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import type {
-  FieldArrayWithId,
   FieldErrors,
   UseFormRegister,
   UseFormSetFocus,
@@ -8,20 +7,16 @@ import type {
 
 import type { SongFormValues } from '@/types/SongFormType';
 import FormInputStack from '@/components/add_song/FormInputStack';
-import MultInputStack from './MultInputStack';
 
 /** FormData is destructured */
 
 export interface AddSongFormProps {
   errors: FieldErrors<SongFormValues>;
   isSubmitting: boolean;
-  instrumentationFields: FieldArrayWithId<SongFormValues, 'instrumentation'>[];
   addSongError: string | null;
   title: string;
   submitLabel: string;
   register: UseFormRegister<SongFormValues>;
-  appendInstrumentation: () => void;
-  removeInstrumentation: (index: number) => void;
   submitAddSong: () => void;
   setFocus: UseFormSetFocus<SongFormValues>;
 }
@@ -29,12 +24,9 @@ export interface AddSongFormProps {
 const AddSongForm = ({
   errors,
   isSubmitting,
-  instrumentationFields,
   addSongError,
   register,
   submitAddSong,
-  appendInstrumentation,
-  removeInstrumentation,
   setFocus,
   title,
   submitLabel,
@@ -52,7 +44,7 @@ const AddSongForm = ({
       id="song_form"
       data-cy="song_form"
       onSubmit={submitAddSong}
-      className="text-text-main flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3"
+      className="flex flex-col gap-4 rounded-md border-2 border-border-subtle bg-bg-main p-3 text-text-main"
     >
       <div className="grid grid-cols-3 items-center px-4 py-2">
         <h1
@@ -129,14 +121,6 @@ const AddSongForm = ({
             </label>
           </div>
         </section>
-
-        <MultInputStack
-          label="Instrumentation"
-          fields={instrumentationFields}
-          register={register}
-          onAdd={appendInstrumentation}
-          onRemove={removeInstrumentation}
-        />
       </div>
 
       {addSongError && (

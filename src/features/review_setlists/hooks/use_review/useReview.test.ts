@@ -97,7 +97,6 @@ describe('songsDisplayData', () => {
         mode: 'minor',
         tempo: 120,
         duration: 180,
-        instrumentation: [],
       },
     ]);
 
@@ -116,7 +115,6 @@ describe('songsDisplayData', () => {
         mode: 'minor',
         tempo: 120,
         duration: 180,
-        instrumentation: [],
       },
     ]);
   });

@@ -2,7 +2,7 @@
 
 Build a setlist locally from songs added. Users can add metadata about each
 song, anticipated transition times between songs, notes about transitions like
-changing instruments or tuning setups. The app will utilize localStorage to
+changing instruments, pedals, or tuning setups. The app will utilize localStorage to
 allow musicians to access setlists in crowded environments where signal
 bandwidth is overtaxed. Users will be able to download setlists or export a
 simplified, distraction-free version for stage-mode.
@@ -12,8 +12,7 @@ simplified, distraction-free version for stage-mode.
 - compute total gig time as songs are dropped in place or removed.
 - Have a default transition time that can be adjusted from a select.
 - have a "reset all to default" button.
-- Metadata should include: title, key, tempo, duration, artist, and
-  instrumentation
+- Metadata should include: title, key, tempo, duration, and artist
 - stage-mode should be high-contrast, light and dark theme friendly, include a
   metronome function, count-down timer, skip to next song, anticipated finish
   time.
