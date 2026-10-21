@@ -1,1 +1,1 @@
-export type ViewMode = 'view' | 'edit' | 'perform';
+export type ViewMode = 'edit' | 'perform';

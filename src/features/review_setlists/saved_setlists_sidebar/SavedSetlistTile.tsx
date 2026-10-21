@@ -1,19 +1,20 @@
+import { NavLink } from 'react-router';
+
 import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
 
 export interface SavedSetlistTileProps {
   set: Omit<SubmitSetlistType, 'setlistSongs'>;
-  handleSetlist: () => void;
 }
 
-const SavedSetlistTile = ({ set, handleSetlist }: SavedSetlistTileProps) => {
+const SavedSetlistTile = ({ set }: SavedSetlistTileProps) => {
   return (
-    <button
+    <NavLink
       data-cy={`sidebar-tile-${set.setlistId}`}
-      className="flex max-h-18 w-full items-center justify-center bg-bg-main px-4 py-2 text-text-main font-semibold rounded-xl"
-      onClick={handleSetlist}
+      className={({ isActive }) => `${isActive ? 'bg-menu underline' : 'bg-bg-main'} flex max-h-18 w-full items-center justify-center  px-4 py-2 text-text-main font-semibold rounded-xl`}
+      to={`/dash/review/${set.setlistId}`}
     >
       {set.setlistName}
-    </button>
+    </NavLink>
   );
 };
 export default SavedSetlistTile;

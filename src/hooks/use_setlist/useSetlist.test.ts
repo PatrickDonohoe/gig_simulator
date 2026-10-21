@@ -104,7 +104,7 @@ describe('useSetlist', () => {
   it('looks up display details by id', () => {
     const { result } = renderHook(() => useSetlist(mockDefault));
 
-    expect(result.current.getSongDisplayDetails('2')).toMatchObject({
+    expect(result.current.getSongData('2')).toMatchObject({
       id: '2',
       title: 'Song Two',
       duration: 240,

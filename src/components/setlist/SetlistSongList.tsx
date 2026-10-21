@@ -1,6 +1,6 @@
 import type { FieldArrayWithId, UseFieldArrayInsert } from 'react-hook-form';
 
-import SetlistSongTile from '@/features/create_setlist/components/SetlistSongTile/SetlistSongTile';
+import SetlistSongTile from '@/components/tiles/SetlistSongTile';
 import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import type { CommonTileProps } from '../../features/create_setlist/types/CommonTileProps';
 import TransitionTile from '@/components/setlist/transition_tile/TransitionTile';
@@ -28,7 +28,7 @@ const SetlistSongList = ({
       id="setlist-songlist"
       data-cy="setlist-songlist"
       ref={ref}
-      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isOver ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
+      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border border-border-subtle p-4 ${isOver ? 'bg-golden_apricot' : 'bg-bg-surface'}`}
     >
       {tiles.length > 0 ? (
         <ul className="flex w-full flex-col items-center gap-4" data-cy="list">

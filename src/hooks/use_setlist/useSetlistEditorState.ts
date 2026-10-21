@@ -20,7 +20,7 @@ const useSetlistEditorState = (
     register,
     setValue,
     getValues,
-    getSongDisplayDetails,
+    getSongData,
     sidebarSongs,
     setlistArr,
     handleSubmit,
@@ -43,13 +43,13 @@ const useSetlistEditorState = (
 
   const commonTileProps: Pick<
     CommonTileProps,
-    'control' | 'register' | 'setValue' | 'getValues' | 'getSongDisplayDetails'
+    'control' | 'register' | 'setValue' | 'getValues' | 'getSongData'
   > = {
     control,
     register,
     setValue,
     getValues,
-    getSongDisplayDetails,
+    getSongData,
   };
 
   const sidebar: SongLibrarySidebarProps = {

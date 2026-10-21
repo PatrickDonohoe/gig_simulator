@@ -33,7 +33,7 @@ const SetlistViewModeHeader = ({
       className="flex flex-col divide-y-2 divide-border-bold"
     >
       <SetlistHeader setlistDuration={setlistDuration}>
-        <h1 className="max-w-120 flex-5 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted lg:col-start-2">
+        <h1 className="max-w-120 flex-5 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted">
           {setlistName ?? 'Add your Setlist Title here'}
         </h1>
 

@@ -75,13 +75,13 @@ describe('adding a setlist', () => {
 
     cy.dragTile('[data-song-id=tile-song-1]', '[data-cy=setlist-fallback]');
     cy.getByData('setlist-songlist')
-      .find('[data-cy^="setlist-tile-"]')
+      .find('[data-cy^="setlist-article-song-1"]')
       .should('have.length', 1);
 
     cy.getByData('setlist-fallback').should('not.exist');
     cy.getByData('list').should('have.length', 1);
     cy.getByData('list')
-      .find('[data-cy=setlist-tile-song-1]')
+      .find('[data-cy=setlist-article-song-1]')
       .should('contain.text', song.title);
   });
 
@@ -118,12 +118,12 @@ describe('adding a setlist', () => {
     // dragging tiles to the setlist, because it can't be prepopulated.
     cy.dragTile('[data-song-id=tile-s1]', '[data-cy=setlist-fallback]'); // first drop: fallback exists
     cy.getByData('list')
-      .find('[data-cy^="setlist-tile-"]')
+      .find('[data-cy^="setlist-article-"]')
       .should('have.length', 1); // waits for the first drop to actually land
 
     cy.dragTile('[data-song-id=tile-s3]', '[data-cy=list]'); // second drop: fallback is gone
     cy.getByData('list')
-      .find('[data-cy^="setlist-tile-"]')
+      .find('[data-cy^="setlist-article-"]')
       .should('have.length', 2);
 
     cy.getByData('title').type(setlistName);

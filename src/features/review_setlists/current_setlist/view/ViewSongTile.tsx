@@ -33,7 +33,7 @@ const ViewSongTile = ({ song, onRemove, index }: ViewSongTileProps) => {
 
   
   return (
-    <div id={`view-song-tile-${song.songId}`} className='border-2 border-border-bold'>
+    <div id={`view-song-tile-${song.songId}`} className='border-2 border-text-main rounded-md p-2 bg-menu'>
       <div className="grid grid-cols-3 items-center">
         <h2 id={`song-title-${index}`} className="col-span-2 text-center font-semibold">
           Title: {song.song?.title ?? 'Unavailable'}

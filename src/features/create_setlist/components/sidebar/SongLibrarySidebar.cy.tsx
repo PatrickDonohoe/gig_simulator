@@ -32,8 +32,8 @@ describe('<SongLibrarySidebar>', () => {
       </MemoryRouter>,
     );
 
-    cy.get('[data-cy=h1').should('be.visible').and('contain.text', 'Workspace');
-    cy.get('[data-cy=h2')
+    cy.get('h1').should('be.visible').and('contain.text', 'Library');
+    cy.get('h2')
       .should('be.visible')
       .and('contain.text', 'Choose a song, and drag it to your setlist.');
   });

@@ -11,7 +11,7 @@ import type { ViewModeHeaderProps } from '@/features/review_setlists/current_set
 import FiltersProvider from '@/context/filters/FiltersProvider';
 import type { SongType } from '@/types/SongType';
 import SetlistViewModeHeader from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
-import type { ViewRow } from '@/features/review_setlists/hooks/use_review/useReview';
+import type { ViewRow } from '@/features/review_setlists/hooks/useReview';
 
 export interface SetlistViewModeProps {
   handleMode: (mode: ViewMode) => void;
@@ -31,7 +31,6 @@ const SetlistViewMode = ({
   removeSong,
   rows,
 }: SetlistViewModeProps) => {
-
   const headerProps = {
     header: 'Setlists',
     buttonText: 'Create Setlist',

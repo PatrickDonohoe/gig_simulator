@@ -3,7 +3,6 @@ import { ErrorMessage } from '@hookform/error-message';
 
 import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import SetlistHeader from '@/components/setlist/SetlistHeader';
-import SetlistShell from '@/layouts/components/SetlistShell';
 import SetlistSongList, {
   type SongListProps,
 } from '@/components/setlist/SetlistSongList';
@@ -22,6 +21,8 @@ export interface SetlistProps extends SongListProps {
   setlistDuration: number;
   errors: FieldErrors<FormValues>;
   isDirty: boolean;
+  headerActions?: React.ReactNode;
+  submitLabel?: string;
 }
 
 const Setlist = ({
@@ -31,30 +32,35 @@ const Setlist = ({
   errors,
   isDirty,
   setlistInsert,
+  headerActions,
+  submitLabel,
 }: SetlistProps) => {
-  const { register, ...rest } = commonTileProps;
+  const { register } = commonTileProps;
 
   return (
-    <SetlistShell>
-      {/* TODO: Come back to add HeaderFilters */}
-      <SetlistHeader {...rest} setlistDuration={setlistDuration}>
+    <section
+      id="setlist"
+      data-cy="setlist-shell"
+      className="flex min-h-0 w-full flex-6 flex-col gap-2 bg-bg-main"
+    >
+      <SetlistHeader setlistDuration={setlistDuration}>
         <input
           data-cy="title"
           type="text"
           className="grow order-3 @md:order-2 @md:basis-0 @md:min-w-24 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted"
           placeholder="New Setlist #1"
-          {...register('setlistName', {
-            required: 'A setlist name is required.',
-          })}
+          {...register('setlistName')}
         />
+
+        {headerActions}
 
         <button
           data-cy="submit"
           type="submit"
-          className="flex flex-row items-center justify-center order-2 @md:order-3 gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg max-w-40"
+          className="flex flex-row items-center justify-center order-2 @md:order-3 gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg max-w-40 disabled:bg-menu disabled:border-menu disabled:text-gray-500"
           disabled={!isDirty}
         >
-          <span>+</span> <span>Save</span> <span className=''>Setlist</span>
+          {submitLabel ?? '+ Save Setlist'}
         </button>
       </SetlistHeader>
 
@@ -72,7 +78,7 @@ const Setlist = ({
         commonTileProps={commonTileProps}
         setlistInsert={setlistInsert}
       />
-    </SetlistShell>
+    </section>
   );
 };
 export default Setlist;

@@ -14,8 +14,9 @@ export interface TileProps {
 
 export interface SongTileProps {
   field: SongField;
-  commonTileProps: Pick<CommonTileProps, 'getSongDisplayDetails' | 'onRemove'>;
+  commonTileProps: Pick<CommonTileProps, 'getSongData' | 'onRemove'>;
   index: number;
+  editable?: boolean;
 }
 
 export interface TransitionTileProps {
