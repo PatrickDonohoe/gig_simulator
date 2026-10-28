@@ -131,9 +131,13 @@ describe('adding a setlist', () => {
     // insert the transition rows, then fill each one's notes / minutes / seconds
     transitions.forEach(({ index, addAfter, row }) => {
       cy.getByData(`add-transition-${addAfter}`).click();
-      cy.getByData(`transition-tile-${index}`).should('exist');
+      cy.get(`#transition-tile-${index}`)
+        .find('[data-cy^="transition-notes-"]')
+        .should('have.text', 'Add notes...');
 
-      cy.getByData(`notes-${index}`)
+      cy.get(`#open-notes-button-${index}`).click();
+      cy.get(`#transition-tile-${index}`)
+        .find('textarea')
         .clear()
         .type(row.notes ?? '');
       cy.getByData(`minutes-tran-${index}`)
@@ -195,9 +199,11 @@ describe('adding a setlist', () => {
     // insert the transition rows, then fill each one's notes / minutes / seconds
     transitions.forEach(({ index, addAfter, row }) => {
       cy.getByData(`add-transition-${addAfter}`).click();
-      cy.getByData(`transition-tile-${index}`).should('exist');
+      cy.get(`#transition-tile-${index}`).should('exist');
 
-      cy.getByData(`notes-${index}`)
+      cy.get(`#open-notes-button-${index}`).click();
+      cy.get(`#transition-tile-${index}`)
+        .find('textarea')
         .clear()
         .type(row.notes ?? '');
       cy.getByData(`minutes-tran-${index}`)

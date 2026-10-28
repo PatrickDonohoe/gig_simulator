@@ -34,18 +34,27 @@ const SetlistSongTile = ({
   return (
     <TileShell
       label="Song"
+      id={song.id}
       dragRef={editable ? ref : undefined}
       dragging={dragging}
       closestEdge={closestEdge}
       actions={
         editable && (
           <>
-            <Link to={`edit-song/${field.songId}`} aria-label="Edit song">
+            <Link
+              id={`edit-button-${song.id}`}
+              to={`edit-song/${field.songId}`}
+              aria-label="Edit song"
+            >
               <Pencil className="size-6" />
             </Link>
 
-            <button type="button" onClick={() => onRemove(index)} aria-label='Remove from setlist'>
-              <TrashCan className='size-6' />
+            <button
+              type="button"
+              onClick={() => onRemove(index)}
+              aria-label="Remove from setlist"
+            >
+              <TrashCan className="size-6" />
             </button>
           </>
         )

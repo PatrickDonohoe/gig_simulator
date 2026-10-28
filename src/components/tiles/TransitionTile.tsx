@@ -28,76 +28,83 @@ const TransitionTile = ({
   const time = useWatch({ control, name: `setlist.${index}.transitionTime` });
 
   return (
-    <TileShell
-      label="Transition"
-      dragRef={ref}
-      dragging={dragging}
-      closestEdge={closestEdge}
-      actions={
-        <>
+    <div id={`transition-tile-${index}`}>
+      <TileShell
+        label="Transition"
+        id={field.transitionId}
+        dragRef={ref}
+        dragging={dragging}
+        closestEdge={closestEdge}
+        actions={
+          <>
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+            >
+              {open ? (
+                <Chevron className="size-6" />
+              ) : (
+                <Pencil className="size-6" />
+              )}
+            </button>
+            <button type="button" onClick={() => onRemove(index)}>
+              <TrashCan className="size-6" />
+            </button>
+          </>
+        }
+      >
+        {open ? (
+          <>
+            <textarea
+              id={field.id}
+              autoFocus
+              rows={3}
+              {...register(`setlist.${index}.notes`)}
+            />
+            <NumberInput
+              title="Enter Minutes"
+              cy_id={`minutes-tran-${index}`}
+              id="minutes"
+              defaultValue={field.transitionTime.minutes}
+              index={index}
+              register={register}
+              getValues={getValues}
+              setValue={setValue}
+              control={control}
+            />
+            <NumberInput
+              title="Enter Seconds"
+              cy_id={`seconds-tran-${index}`}
+              id="seconds"
+              defaultValue={field.transitionTime.seconds}
+              index={index}
+              register={register}
+              getValues={getValues}
+              setValue={setValue}
+              control={control}
+            />
+          </>
+        ) : (
           <button
+            id={`open-notes-button-${index}`}
             type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className="text-left"
           >
-            {open ? (
-              <Chevron className="size-6" />
-            ) : (
-              <Pencil className="size-6" />
-            )}
+            <p
+              data-cy={`transition-notes-${field.transitionId}`}
+              className="mb-1"
+            >
+              {notes || <span className="text-text-muted">Add notes...</span>}
+            </p>
+            <p>
+              <strong>Transition:</strong> {durationToDisplay(time)}
+            </p>
           </button>
-          <button type="button" onClick={() => onRemove(index)}>
-            <TrashCan className="size-6" />
-          </button>
-        </>
-      }
-    >
-      {open ? (
-        <>
-          <textarea
-            id={field.id}
-            autoFocus
-            rows={3}
-            {...register(`setlist.${index}.notes`)}
-          />
-          <NumberInput
-            title="Enter Minutes"
-            cy_id={`minutes-tran-${index}`}
-            id="minutes"
-            defaultValue={field.transitionTime.minutes}
-            index={index}
-            register={register}
-            getValues={getValues}
-            setValue={setValue}
-            control={control}
-          />
-          <NumberInput
-            title="Enter Seconds"
-            cy_id={`seconds-tran-${index}`}
-            id="seconds"
-            defaultValue={field.transitionTime.seconds}
-            index={index}
-            register={register}
-            getValues={getValues}
-            setValue={setValue}
-            control={control}
-          />
-        </>
-      ) : (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="text-left"
-        >
-          <p>
-            {notes || <span className="text-text-muted">Add notes...</span>}
-          </p>
-          <p>
-            <strong>Transition:</strong> {durationToDisplay(time)}
-          </p>
-        </button>
-      )}
-    </TileShell>
+        )}
+      </TileShell>
+    </div>
   );
 };
 export default TransitionTile;
