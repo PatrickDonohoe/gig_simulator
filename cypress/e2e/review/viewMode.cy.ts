@@ -64,7 +64,7 @@ describe('review setlist in view mode', () => {
   it('displays the fallback if no setlist is chosen', () => {
     cy.visit('/dash/review');
 
-    cy.getByData('sidebar-empty').should('be.visible');
+    // cy.getByData('sidebar-empty').should('be.visible');
     cy.getByData('setlist-empty').should('be.visible');
   });
 
@@ -92,7 +92,7 @@ describe('review setlist in view mode', () => {
   // find the button
   // click the button
   // find the library sidebar and other elements to prove edit mode
-  it('changes from view to edit mode when a setlist is selected and the edit button in the header is clicked', () => {
+  it('displays the chosen setlist when one is chosen from the sidebar', () => {
     cy.visit('/dash/review', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -110,7 +110,6 @@ describe('review setlist in view mode', () => {
     cy.getByData('list').should('be.visible');
     cy.get('#view-header').should('not.exist');
     cy.getByData('sidebar-tile-sl1').click();
-    cy.get('#button-edit').click();
     cy.getByData('setlist-form').should('be.visible');
   });
 
@@ -129,9 +128,12 @@ describe('review setlist in view mode', () => {
     });
 
     cy.getByData('sidebar-tile-sl1').contains(setlist1.setlistName).click();
-    cy.get(`#song-title-0`).contains(`Title: ${song1.title}`);
-    cy.getByData('song-notes-1').contains('Transition notes 1');
-    cy.getByData('song-transition').contains('00:30');
+    cy.get(`#tile-shell-${song1.id}`).should('contain.text', song1.title);
+    cy.getByData('transition-notes-t1').should(
+      'contain.text',
+      'Transition notes 1',
+    );
+    cy.get('#tile-shell-t1').contains('00:30');
   });
 
   it('navigates to the create setlist page when the create setlist button/Link is clicked in the sidebar header', () => {

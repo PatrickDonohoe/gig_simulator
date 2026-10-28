@@ -53,3 +53,8 @@ export const secToDisplay = (seconds: number): string => {
   const breakdown = timeBreakdown(seconds);
   return `${formatDuration(breakdown.minutes)}:${formatDuration(breakdown.seconds)}`;
 };
+
+export const durationToDisplay = (duration: DurationInput): string => {
+  const seconds = durationToSeconds(duration);
+  return secToDisplay(seconds);
+}

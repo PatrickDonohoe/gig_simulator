@@ -1,6 +1,6 @@
 import ViewTransitionTile from '@/features/review_setlists/current_setlist/view/ViewTransitionTile';
 import ViewSongTile from '@/features/review_setlists/current_setlist/view/ViewSongTile';
-import { type ViewRow } from '@/features/review_setlists/hooks/use_review/useReview';
+import { type ViewRow } from '@/features/review_setlists/hooks/useReview';
 
 export interface SetlistViewSongListProps {
   rows: ViewRow[];
@@ -21,7 +21,7 @@ export interface SetlistViewSongListProps {
  * @summary Presents the body of the setlist.
  */
 const SetlistViewSongList = ({ rows, onRemove }: SetlistViewSongListProps) => {
-  console.log('rows: ', rows)
+  console.log('rows: ', rows);
   return (
     <div
       data-cy="list"
@@ -29,7 +29,12 @@ const SetlistViewSongList = ({ rows, onRemove }: SetlistViewSongListProps) => {
     >
       {rows.map((row, index) =>
         row.kind === 'song' ? (
-          <ViewSongTile key={row.songId} song={row} onRemove={onRemove} index={index} />
+          <ViewSongTile
+            key={row.songId}
+            song={row}
+            onRemove={onRemove}
+            index={index}
+          />
         ) : (
           <ViewTransitionTile key={row.transitionId} tile={row} index={index} />
         ),

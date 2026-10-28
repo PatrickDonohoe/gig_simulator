@@ -33,7 +33,7 @@ describe('edit an existing song on the create setlist page', () => {
 
     cy.get('[data-song-id=tile-song1]').should('be.visible');
     cy.dragTile('[data-song-id=tile-song1]', '[data-cy=setlist-fallback]');
-    cy.getByData('edit-button-0').click();
+    cy.get('#edit-button-song1').click();
     cy.get('#song_form').should('be.visible');
     cy.getByData('input-title').should('have.value', 'song1a');
     cy.getByData('input-artists').should('have.value', 'artist1');
@@ -54,7 +54,7 @@ describe('edit an existing song on the create setlist page', () => {
     });
 
     cy.dragTile('[data-song-id=tile-song1]', '[data-cy=setlist-fallback]');
-    cy.getByData('edit-button-0').click();
+    cy.get('#edit-button-song1').click();
     cy.get('#song_form').should('be.visible');
     cy.get('#close-modal').click();
     cy.get('#song_form').should('not.exist');
@@ -71,14 +71,14 @@ describe('edit an existing song on the create setlist page', () => {
     });
 
     cy.dragTile('[data-song-id=tile-song1]', '[data-cy=setlist-fallback]');
-    cy.getByData('edit-button-0').click();
+    cy.get('#edit-button-song1').click();
     cy.get('#song_form').should('be.visible');
 
     cy.getByData('input-title').clear().type('song1b');
     cy.getByData('input-title').should('have.value', 'song1b');
     cy.getByData('submit_button').click();
     cy.get('#song_form').should('not.exist');
-    cy.getByData('title-0').should('contain.text', 'song1b');
+    cy.get('#tile-shell-song1').should('contain.text', 'Title: song1b');
 
     // everything else only lives in storage, so verify the update persisted
     // under the original id rather than being saved as a new song

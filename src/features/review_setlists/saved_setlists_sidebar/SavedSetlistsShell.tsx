@@ -15,7 +15,7 @@ const SavedSetlistsShell = ({
   children,
 }: SavedSetlistsShellProps) => {
   return (
-    <SidebarShell headerProps={headerProps}>
+    <SidebarShell headerProps={headerProps} title='Setlists'>
       <section
         data-cy="sidebar-setlists-shell"
         className="flex min-h-0 flex-1 flex-col justify-start overflow-hidden border border-border-bold bg-primary"

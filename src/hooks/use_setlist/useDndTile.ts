@@ -10,8 +10,8 @@ import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/elemen
 import {
   attachClosestEdge,
   extractClosestEdge,
-  type Edge,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/dist/types/types';
 
 // Shared drag payloads. Every draggable/drop target in the setlist editor uses
 // one of these shapes so the single monitor in useSetlist can branch on
@@ -71,15 +71,16 @@ export const useSetlistRowTile = <
   rowId: string;
   index: number;
   rowKind: 'song' | 'transition';
+  disabled?: boolean;
 }) => {
-  const { rowId, index, rowKind } = args;
+  const { rowId, index, rowKind, disabled } = args;
   const ref = useRef<T | null>(null);
   const [dragging, setDragging] = useState(false);
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || disabled) return;
     return combine(
       draggable({
         element: el,
@@ -139,7 +140,7 @@ export const useSetlistRowTile = <
         onDrop: () => setClosestEdge(null),
       }),
     );
-  }, [rowId, index, rowKind]);
+  }, [rowId, index, rowKind, disabled]);
 
   return { ref, dragging, closestEdge };
 };

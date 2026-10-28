@@ -11,7 +11,7 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "icons": "node scripts/generate-favicons.mjs",
-    "cy": "cypress open",
+    "cy": "WAYLAND_DISPLAY= XDG_SESSION_TYPE=x11 cypress open",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dep:check": "depcruise src",

@@ -71,7 +71,7 @@ describe('<Setlist>', () => {
         setValue,
         getValues,
         control,
-        getSongDisplayDetails: cy.stub().returns(mockDetails),
+        getSongData: cy.stub().returns(mockDetails),
         onClick: cy.stub(),
         onRemove: cy.stub(),
         ...commonOverrides,
@@ -115,7 +115,7 @@ describe('<Setlist>', () => {
   it('shows the fallback when tiles is an empty array', () => {
     const mockClick = cy.stub();
     const mockRemove = cy.stub();
-    const mockGetSongDisplayDetails = cy.stub().returns(mockDetails);
+    const mockGetSongData = cy.stub().returns(mockDetails);
     const mockSet = cy.stub();
     const mockGet = cy.stub();
     const mockControl =
@@ -124,7 +124,7 @@ describe('<Setlist>', () => {
 
     const mockCommon: SetlistProps['commonTileProps'] = {
       register: mockRegister,
-      getSongDisplayDetails: mockGetSongDisplayDetails,
+      getSongData: mockGetSongData,
       onClick: mockClick,
       onRemove: mockRemove,
       setValue: mockSet,

@@ -1,14 +1,17 @@
 import EmptyList from '@icons/document-text-svgrepo-com.svg?react';
-import SetlistShell from '@/layouts/components/SetlistShell';
 
 const SetlistEmpty = () => {
   return (
     <section
       data-cy="setlist-empty"
-      className="flex min-h-0 flex-1 flex-col gap-8"
+      className="flex min-h-0 grow flex-col gap-8"
     >
-      <SetlistShell>
-        <section data-cy="empty" className="flex min-h-0 flex-1 flex-col">
+      <div
+        id="setlist"
+        data-cy="setlist-shell"
+        className="flex min-h-0 w-full flex-6 flex-col gap-2 bg-bg-main"
+      >
+        <header data-cy="empty" className="flex min-h-0 flex-1 flex-col">
           <div className="flex items-center justify-center bg-primary py-4">
             <h1 className="flex items-center justify-center bg-bg-main p-4 text-center text-2xl text-text-main">
               No setlist selected
@@ -22,10 +25,11 @@ const SetlistEmpty = () => {
             <h2 className="text-xl font-semibold">
               Choose a setlist from the left to continue.
             </h2>
+
             <EmptyList className="size-80 text-primary" />
           </div>
-        </section>
-      </SetlistShell>
+        </header>
+      </div>
     </section>
   );
 };

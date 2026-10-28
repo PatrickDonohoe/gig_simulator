@@ -1,9 +1,10 @@
+import { useLocation } from 'react-router';
 import type { FieldArrayWithId, UseFieldArrayInsert } from 'react-hook-form';
 
-import SetlistSongTile from '@/features/create_setlist/components/SetlistSongTile/SetlistSongTile';
+import SetlistSongTile from '@/components/tiles/SetlistSongTile';
 import type { FormValues } from '../../hooks/use_setlist/useSetlist';
 import type { CommonTileProps } from '../../features/create_setlist/types/CommonTileProps';
-import TransitionTile from '@/components/setlist/transition_tile/TransitionTile';
+import TransitionTile from '@/components/tiles/TransitionTile';
 import AddTransition from '@/components/AddTransition';
 import { useContainerDrop } from '@/hooks/use_setlist/useDndTile';
 
@@ -23,12 +24,15 @@ const SetlistSongList = ({
     () => true,
   );
 
+  const location = useLocation();
+  const isCreateSetlistPage = location.pathname === '/dash/create';
+
   return (
     <div
       id="setlist-songlist"
       data-cy="setlist-songlist"
       ref={ref}
-      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border p-4 ${isOver ? 'bg-golden_apricot' : 'bg-periwinkle'}`}
+      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border border-border-subtle p-4 ${isOver ? 'bg-golden_apricot' : 'bg-bg-surface'}`}
     >
       {tiles.length > 0 ? (
         <ul className="flex w-full flex-col items-center gap-4" data-cy="list">
@@ -72,18 +76,20 @@ const SetlistSongList = ({
             );
           })}
         </ul>
-      ) : (
+      ) : tiles.length === 0 && isCreateSetlistPage ? (
         <div
           data-cy="setlist-fallback"
           className="flex flex-1 flex-col items-center justify-center"
         >
           <h2
             data-cy="fallback-title"
-            className="flex h-full items-center justify-center text-center"
+            className="flex h-full items-center justify-center text-center text-lg font-semibold text-text-main"
           >
             Drag songs from your library to make a setlist.
           </h2>
         </div>
+      ) : (
+        <>tiles length: {tiles.length}</>
       )}
     </div>
   );

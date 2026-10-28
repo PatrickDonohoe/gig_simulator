@@ -21,7 +21,7 @@ const SongLibrarySidebar = ({ songs }: SongLibrarySidebarProps) => {
   );
 
   const headerProps = {
-    header: 'Workspace',
+    header: 'Library',
     buttonText: 'Add Song +',
     header2: 'Choose a song, and drag it to your setlist.',
     address: 'add-song',
@@ -30,33 +30,20 @@ const SongLibrarySidebar = ({ songs }: SongLibrarySidebarProps) => {
   return (
     <SidebarShell
       headerProps={headerProps}
+      title="Songs"
       className="border-border-bold bg-bg-main"
     >
-      <section
-        data-cy="library-sidebar"
-        className="mb-2 flex min-h-0 flex-1 flex-col overflow-hidden border border-border-bold bg-primary"
+      <div
+        data-cy="library_wrapper"
+        ref={ref}
+        className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isOver ? 'bg-accent' : 'bg-menu'}`}
       >
-        <div
-          data-cy="wrapper_title"
-          className="flex items-center justify-center border-b border-border-bold py-1"
-        >
-          <h2 className="text-xl font-semibold text-accent underline">
-            Library
-          </h2>
-        </div>
-
-        <div
-          data-cy="library_wrapper"
-          ref={ref}
-          className={`flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto p-4 ${isOver ? 'bg-accent' : 'bg-menu'}`}
-        >
-          {songs.length > 0 ? (
-            songs.map((song) => <SongLibraryTile key={song.id} song={song} />)
-          ) : (
-            <NoDataFound text="No songs to place. Add one, or drag a song back here from the setlist." />
-          )}
-        </div>
-      </section>
+        {songs.length > 0 ? (
+          songs.map((song) => <SongLibraryTile key={song.id} song={song} />)
+        ) : (
+          <NoDataFound text="No songs to place. Add one, or drag a song back here from the setlist." />
+        )}
+      </div>
     </SidebarShell>
   );
 };

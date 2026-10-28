@@ -3,12 +3,10 @@ import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSe
 
 export interface SavedSetlistsListProps {
   setlists: Omit<SubmitSetlistType, 'setlistSongs'>[];
-  handleSetlist: (id: string) => void;
 }
 
 const SavedSetlistsList = ({
   setlists,
-  handleSetlist,
 }: SavedSetlistsListProps) => {
   return (
     <div
@@ -19,7 +17,6 @@ const SavedSetlistsList = ({
         <SavedSetlistTile
           key={set.setlistId}
           set={set}
-          handleSetlist={() => handleSetlist(set.setlistId)}
         />
       ))}
     </div>

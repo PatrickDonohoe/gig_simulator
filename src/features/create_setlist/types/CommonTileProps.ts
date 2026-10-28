@@ -14,7 +14,7 @@ export interface CommonTileProps {
   setValue: UseFormSetValue<FormValues>;
   getValues: UseFormGetValues<FormValues>;
   control: Control<FormValues>;
-  getSongDisplayDetails: (songId: string) => SongType | undefined;
+  getSongData: (songId: string) => SongType | undefined;
   onClick: () => void;
   onRemove: UseFieldArrayRemove;
 }

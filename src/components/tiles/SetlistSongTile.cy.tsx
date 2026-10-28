@@ -1,13 +1,13 @@
 import { MemoryRouter } from 'react-router';
 
-import SetlistSongTile from './SetlistSongTile';
+import SetlistSongTile from '@/components/tiles/SetlistSongTile';
 import type { SongTileProps } from '@/features/create_setlist/types/TileProps';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 import type { SongField } from '@/features/create_setlist/types/TileProps';
 
 // Local wrapper to inject RHF tools
 const SetlistSongTileWrapper = (props: {
-  getSongDisplayDetails: SongTileProps['commonTileProps']['getSongDisplayDetails'];
+  getSongData: SongTileProps['commonTileProps']['getSongData'];
   onRemove: SongTileProps['commonTileProps']['onRemove'];
 }) => {
   // const { fields } = useFieldArray({
@@ -23,7 +23,7 @@ const SetlistSongTileWrapper = (props: {
         field={field}
         index={0}
         commonTileProps={{
-          getSongDisplayDetails: props.getSongDisplayDetails,
+          getSongData: props.getSongData,
           onRemove: props.onRemove,
         }}
       />
@@ -34,7 +34,7 @@ const SetlistSongTileWrapper = (props: {
 describe('<SetlistSongTile>', () => {
   it('mounts and renders song data', () => {
     // mocking the standard function prop
-    const mockGetSongDisplayDetails = cy.stub().returns({
+    const mockGetSongData = cy.stub().returns({
       id: 'song-123',
       title: 'Mock Song Title',
       artist: 'Mock Artist',
@@ -50,7 +50,7 @@ describe('<SetlistSongTile>', () => {
     cy.mount(
       <FiltersProvider>
         <SetlistSongTileWrapper
-          getSongDisplayDetails={mockGetSongDisplayDetails}
+          getSongData={mockGetSongData}
           onRemove={mockRemove}
         />
       </FiltersProvider>,

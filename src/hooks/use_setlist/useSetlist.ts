@@ -77,7 +77,7 @@ const useSetlist = (defaultValues: FormValues) => {
     return sum + duration;
   }, 0);
 
-  const getSongDisplayDetails = (songId: string): SongType | undefined =>
+  const getSongData = (songId: string): SongType | undefined =>
     initialMasterSongs.find((song) => String(song.id) === songId);
 
   // ---- drag and drop -------------------------------------------------------
@@ -152,7 +152,7 @@ const useSetlist = (defaultValues: FormValues) => {
     setlistDuration,
     setlistInsert: setlistFields.insert,
     setlistRemove: setlistFields.remove,
-    getSongDisplayDetails,
+    getSongData,
   };
 };
 
