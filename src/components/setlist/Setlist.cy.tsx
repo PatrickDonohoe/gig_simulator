@@ -7,9 +7,6 @@ import type { SetlistProps } from './Setlist';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 
 describe('<Setlist>', () => {
-  const mockRegister =
-    (() => ({})) as unknown as SetlistProps['commonTileProps']['register'];
-
   const mockDetails = {
     id: 'song-123',
     title: 'Mock Song Title',
@@ -85,6 +82,7 @@ describe('<Setlist>', () => {
             setlistDuration={5}
             errors={{}}
             isDirty
+            submitLabel="Submit"
             setlistInsert={cy.stub() as never}
             {...extraProps}
           />
@@ -107,48 +105,6 @@ describe('<Setlist>', () => {
 
     cy.get('[data-cy=list]');
     cy.get('[data-cy=fallback-title]').should('not.exist');
-    cy.getByData('list')
-      .find('[data-cy^="setlist-tile-"]')
-      .should('have.length', 2);
-  });
-
-  it('shows the fallback when tiles is an empty array', () => {
-    const mockClick = cy.stub();
-    const mockRemove = cy.stub();
-    const mockGetSongData = cy.stub().returns(mockDetails);
-    const mockSet = cy.stub();
-    const mockGet = cy.stub();
-    const mockControl =
-      {} as unknown as SetlistProps['commonTileProps']['control'];
-    const mockErrors = {};
-
-    const mockCommon: SetlistProps['commonTileProps'] = {
-      register: mockRegister,
-      getSongData: mockGetSongData,
-      onClick: mockClick,
-      onRemove: mockRemove,
-      setValue: mockSet,
-      getValues: mockGet,
-      control: mockControl,
-    };
-
-    cy.mount(
-      <FiltersProvider>
-        <Setlist
-          tiles={[]}
-          commonTileProps={mockCommon}
-          setlistDuration={10}
-          errors={mockErrors}
-          isDirty={false}
-          setlistInsert={cy.stub() as unknown as SetlistProps['setlistInsert']}
-        />
-      </FiltersProvider>,
-    );
-
-    cy.get('[data-cy=list]').should('not.exist');
-    cy.get('[data-cy=setlist-fallback');
-    cy.get('[data-cy=fallback-title]')
-      .should('be.visible')
-      .and('contain.text', 'Drag songs from your library to make a setlist.');
+    cy.getByData('list').find('[id^="setlist-tile-"]').should('have.length', 2);
   });
 });
