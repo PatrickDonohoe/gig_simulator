@@ -12,6 +12,7 @@
 - [ ] Angled sections that don't adhere to grids/boxes.
 - [ ] Layered sections to explore features (vertical accordion).
 - [ ] Repeated animation on hero section.
+- [ ] Optimize photos as WebP at ~1600 px wide, around 200-300 KB
 
 ## Layout
 

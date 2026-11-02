@@ -1,5 +1,5 @@
-import ViewTransitionTile from '@/features/review_setlists/current_setlist/view/ViewTransitionTile';
-import ViewSongTile from '@/features/review_setlists/current_setlist/view/ViewSongTile';
+import ViewTransitionTile from '@/features/review_setlists/view/ViewTransitionTile';
+import ViewSongTile from '@/features/review_setlists/view/ViewSongTile';
 import { type ViewRow } from '@/features/review_setlists/hooks/useReview';
 
 export interface SetlistViewSongListProps {

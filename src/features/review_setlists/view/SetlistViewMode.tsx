@@ -5,12 +5,12 @@ import SavedSetlistsList, {
 } from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsList';
 import SavedSetlistsShell from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsShell';
 import SavedSetlistsSidebarEmpty from '@/features/review_setlists/saved_setlists_sidebar/SavedSetlistsSidebarEmpty';
-import SetlistViewSongList from '@/features/review_setlists/current_setlist/view/SetlistViewSongList';
+import SetlistViewSongList from '@/features/review_setlists/view/SetlistViewSongList';
 import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
-import type { ViewModeHeaderProps } from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import type { ViewModeHeaderProps } from '@/features/review_setlists/view/SetlistViewModeHeader';
 import FiltersProvider from '@/context/filters/FiltersProvider';
 import type { SongType } from '@/types/SongType';
-import SetlistViewModeHeader from '@/features/review_setlists/current_setlist/view/SetlistViewModeHeader';
+import SetlistViewModeHeader from '@/features/review_setlists/view/SetlistViewModeHeader';
 import type { ViewRow } from '@/features/review_setlists/hooks/useReview';
 
 export interface SetlistViewModeProps {

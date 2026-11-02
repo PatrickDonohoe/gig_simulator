@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <div
       id="landing-page"
-      className="flex flex-col items-center divide-y-2 divide-text-main bg-bg-main py-4 text-text-main"
+      className="flex h-screen flex-col items-center divide-y-2 divide-text-main bg-bg-main py-4 text-text-main"
     >
       <header className="grid grid-cols-3 items-center pb-4">
         <h1 className="col-start-2 text-center text-3xl underline text-shadow-lg">
@@ -32,9 +32,12 @@ const LandingPage = () => {
           <span className="font-semibold text-shadow-sm">
             Drag and drop songs from your library to build a setlist.
           </span>
+          <span className="font-semibold text-shadow-sm">
+            ** Demo video coming soon. **
+          </span>
         </div>
 
-        <video src="" width={800} height={450} controls autoPlay muted loop>
+        <video src={undefined} width={800} height={450} controls autoPlay muted loop>
           Video is missing or unsupported.
         </video>
       </section>
