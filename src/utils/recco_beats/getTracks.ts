@@ -1,4 +1,14 @@
-import { type SearchSong, SearchReturnSchema, SongReturnSchema, MultSongReturnSchema, SongAudioFeatures, type AudioFeatures, type SongReturn, type SearchReturn, type MultSongReturn } from "@/types/SearchSong";
+import {
+  type SearchSong,
+  SearchReturnSchema,
+  SongReturnSchema,
+  MultSongReturnSchema,
+  SongAudioFeatures,
+  type AudioFeatures,
+  type SongReturn,
+  type SearchReturn,
+  type MultSongReturn,
+} from '@/types/SearchSong';
 
 const RECCO_BASE_URL = 'https://api.reccobeats.com/v1/track';
 
@@ -32,7 +42,7 @@ export const searchTracks = async (
   return parsed.data;
 };
 
-export const getTrack = async(
+export const getTrack = async (
   id: string,
   signal: AbortSignal,
 ): Promise<SongReturn> => {
@@ -53,14 +63,14 @@ export const getTrack = async(
   }
 
   return parsed.data;
-}
+};
 
-export const getTracks = async(
+export const getTracks = async (
   ids: string[],
   signal?: AbortSignal,
 ): Promise<MultSongReturn> => {
-  const params = new URLSearchParams({ ids: ids.join(',') })
-  
+  const params = new URLSearchParams({ ids: ids.join(',') });
+
   const res = await fetch(`${RECCO_BASE_URL}?${params}`, {
     headers: { Accept: 'application/json' },
     signal,
@@ -69,18 +79,23 @@ export const getTracks = async(
   if (!res.ok) {
     throw new Error(`ReccoBeats getTracks failed: ${res.statusText}`);
   }
-  
+
   const json = await res.json();
   const parsed = MultSongReturnSchema.safeParse(json);
 
   if (!parsed.success) {
-    throw new Error(`ReccoBeats getTracks return unexpected data: ${parsed.error.message}`);
+    throw new Error(
+      `ReccoBeats getTracks return unexpected data: ${parsed.error.message}`,
+    );
   }
 
   return parsed.data;
-}
+};
 
-export const getTrackAudio = async (id: string, signal?: AbortSignal): Promise<AudioFeatures> => {
+export const getTrackAudio = async (
+  id: string,
+  signal?: AbortSignal,
+): Promise<AudioFeatures> => {
   const res = await fetch(`${RECCO_BASE_URL}/${id}/audio-features`, {
     headers: { Accept: 'application/json' },
     signal,
@@ -98,4 +113,4 @@ export const getTrackAudio = async (id: string, signal?: AbortSignal): Promise<A
   }
 
   return parsed.data;
-}
+};

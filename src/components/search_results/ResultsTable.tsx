@@ -3,10 +3,7 @@ import { Link, useLocation } from 'react-router';
 import type { SearchResultsProps } from '@/types/SearchResultsProps';
 import { secToDisplay } from '@/utils/add_time/addTimeDurations';
 
-const ResultsTable = ({
-  results,
-  isFetching,
-}: SearchResultsProps) => {
+const ResultsTable = ({ results, isFetching }: SearchResultsProps) => {
   const { search } = useLocation();
 
   return (

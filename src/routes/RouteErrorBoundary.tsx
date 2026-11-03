@@ -1,4 +1,9 @@
-import { useRouteError, isRouteErrorResponse, Link, useNavigate } from 'react-router';
+import {
+  useRouteError,
+  isRouteErrorResponse,
+  Link,
+  useNavigate,
+} from 'react-router';
 
 const RouteErrorBoundary = () => {
   const error = useRouteError();
@@ -15,7 +20,7 @@ const RouteErrorBoundary = () => {
           {error.status} {error.statusText}
         </h1>
         <p>{error.data}</p>
-        <button type='button' onClick={goBack}></button>
+        <button type="button" onClick={goBack}></button>
         <Link to="/">Return Home</Link>
       </div>
     );
@@ -26,7 +31,7 @@ const RouteErrorBoundary = () => {
         <p>{error.message}</p>
         <p>The stack trace is:</p>
         <pre>{error.stack}</pre>
-        <button type='button' onClick={goBack}></button>
+        <button type="button" onClick={goBack}></button>
         <Link to="/">Return Home</Link>
       </div>
     );
@@ -34,7 +39,7 @@ const RouteErrorBoundary = () => {
     return (
       <div>
         <h1>Unknown Error</h1>
-        <button type='button' onClick={goBack}></button>
+        <button type="button" onClick={goBack}></button>
         <Link to="/">Return Home</Link>
       </div>
     );

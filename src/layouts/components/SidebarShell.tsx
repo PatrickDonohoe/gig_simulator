@@ -9,7 +9,12 @@ interface SideShellProps {
   className?: string;
 }
 
-const SidebarShell = ({ headerProps, title, children, className }: SideShellProps) => {
+const SidebarShell = ({
+  headerProps,
+  title,
+  children,
+  className,
+}: SideShellProps) => {
   return (
     <aside
       id="sidebar"

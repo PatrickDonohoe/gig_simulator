@@ -2,12 +2,7 @@ import useFilters from '@/hooks/useFilters';
 import type { FilterType } from '@/context/filters/FiltersContext';
 import Filter from '@/components/setlist/Filter';
 
-const filters: FilterType[] = [
-  'artists',
-  'tempo',
-  'duration',
-  'key',
-];
+const filters: FilterType[] = ['artists', 'tempo', 'duration', 'key'];
 
 const HeaderFilters = () => {
   const { activeFilters, handleFilter, resetFilters } = useFilters();

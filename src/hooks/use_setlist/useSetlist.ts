@@ -86,48 +86,52 @@ const useSetlist = (defaultValues: FormValues) => {
   // stashed in a ref so the monitor can mount once and always see fresh state.
   const onDrop = useEffectEvent(
     ({ source, location }: BaseEventPayload<ElementDragType>) => {
-    const targets = location.current.dropTargets;
-    if (targets.length === 0 || !isDragData(source.data)) return;
-    const drag = source.data;
+      const targets = location.current.dropTargets;
+      if (targets.length === 0 || !isDragData(source.data)) return;
+      const drag = source.data;
 
-    const container = targets.find(
-      (t) =>
-        t.data.dndType === 'setlist-container' ||
-        t.data.dndType === 'sidebar-container',
-    )?.data.dndType;
-    const overRow = targets.find((t) => t.data.dndType === 'setlist-row')?.data;
-    const current = getValues('setlist');
+      const container = targets.find(
+        (t) =>
+          t.data.dndType === 'setlist-container' ||
+          t.data.dndType === 'sidebar-container',
+      )?.data.dndType;
+      const overRow = targets.find(
+        (t) => t.data.dndType === 'setlist-row',
+      )?.data;
+      const current = getValues('setlist');
 
-    // library song -> setlist (add), unless dropped back over the library
-    if (drag.dndType === 'library-song') {
-      if (container === 'sidebar-container') return;
-      let insertAt = current.length;
-      if (overRow && typeof overRow.index === 'number') {
-        const edge = extractClosestEdge(overRow);
-        insertAt = overRow.index + (edge === 'bottom' ? 1 : 0);
+      // library song -> setlist (add), unless dropped back over the library
+      if (drag.dndType === 'library-song') {
+        if (container === 'sidebar-container') return;
+        let insertAt = current.length;
+        if (overRow && typeof overRow.index === 'number') {
+          const edge = extractClosestEdge(overRow);
+          insertAt = overRow.index + (edge === 'bottom' ? 1 : 0);
+        }
+        setlistFields.insert(insertAt, toSongRow({ songId: drag.songId }));
+        return;
       }
-      setlistFields.insert(insertAt, toSongRow({ songId: drag.songId }));
-      return;
-    }
 
-    // setlist row dropped back over the library -> remove (songs only)
-    if (container === 'sidebar-container') {
-      if (drag.rowKind === 'song') setlistFields.remove(drag.index);
-      return;
-    }
+      // setlist row dropped back over the library -> remove (songs only)
+      if (container === 'sidebar-container') {
+        if (drag.rowKind === 'song') setlistFields.remove(drag.index);
+        return;
+      }
 
-    // reorder within the setlist
-    let destination = current.length - 1;
-    if (overRow && typeof overRow.index === 'number') {
-      destination = getReorderDestinationIndex({
-        startIndex: drag.index,
-        indexOfTarget: overRow.index,
-        closestEdgeOfTarget: extractClosestEdge(overRow),
-        axis: 'vertical',
-      });
-    }
-    if (destination !== drag.index) setlistFields.move(drag.index, destination);
-  });
+      // reorder within the setlist
+      let destination = current.length - 1;
+      if (overRow && typeof overRow.index === 'number') {
+        destination = getReorderDestinationIndex({
+          startIndex: drag.index,
+          indexOfTarget: overRow.index,
+          closestEdgeOfTarget: extractClosestEdge(overRow),
+          axis: 'vertical',
+        });
+      }
+      if (destination !== drag.index)
+        setlistFields.move(drag.index, destination);
+    },
+  );
 
   useEffect(
     () =>

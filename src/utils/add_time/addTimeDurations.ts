@@ -57,4 +57,4 @@ export const secToDisplay = (seconds: number): string => {
 export const durationToDisplay = (duration: DurationInput): string => {
   const seconds = durationToSeconds(duration);
   return secToDisplay(seconds);
-}
+};

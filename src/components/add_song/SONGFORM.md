@@ -2,16 +2,16 @@
 
 One form covers three scenarios:
 
-| Scenario                         | Route                     | Starting values                        | On save           |
-| -------------------------------- | ------------------------- | -------------------------------------- | ----------------- |
-| Add a song found in Recco Beats  | `add-song/track/:trackId` | `reccoToFormValues(track, audio)`      | `addSong`         |
-| Add a song manually (no results) | `add-song/new`            | `emptySongFormValues()`                | `addSong`         |
-| Edit a song already in library   | `edit-song/:songId`       | `songToFormValues(song)`               | `updateSong`      |
+| Scenario                         | Route                     | Starting values                   | On save      |
+| -------------------------------- | ------------------------- | --------------------------------- | ------------ |
+| Add a song found in Recco Beats  | `add-song/track/:trackId` | `reccoToFormValues(track, audio)` | `addSong`    |
+| Add a song manually (no results) | `add-song/new`            | `emptySongFormValues()`           | `addSong`    |
+| Edit a song already in library   | `edit-song/:songId`       | `songToFormValues(song)`          | `updateSong` |
 
-The fields are the same in all three. Only the starting values, the save
-action, and the title/button text change. So there is **one form component,
-one form hook, and one thin route component per scenario**. The URL decides
-which scenario is showing.
+The fields are the same in all three. Only the starting values, the save action,
+and the title/button text change. So there is **one form component, one form
+hook, and one thin route component per scenario**. The URL decides which
+scenario is showing.
 
 See `CREATESONGFLOW.md` (in `features/songs_library`) for the search step and
 how Recco Beats data is transformed on its way into the form.
@@ -32,13 +32,12 @@ onSave, title, labels        the life of the route          the data came from
   `defaultValues` are right on first mount and no `reset()` is needed.
 - **`SongFormContainer`** calls `useSongForm(defaultValues, onSave)` and renders
   `AddSongForm` with the result.
-- **`useSongForm`** holds `useForm` and the
-  submit handler that converts `SongFormValues` → `SongType` before calling
-  `onSave`.
+- **`useSongForm`** holds `useForm` and the submit handler that converts
+  `SongFormValues` → `SongType` before calling `onSave`.
 - **`AddSongForm`** only renders inputs and errors.
 
-Because the form state lives inside the route, closing the route unmounts it
-and clears the form automatically.
+Because the form state lives inside the route, closing the route unmounts it and
+clears the form automatically.
 
 ## Routing
 
@@ -54,8 +53,8 @@ can open the form. Each page renders an `<Outlet />` where the form appears.
 ```
 
 Opening the form is a navigation: `navigate('add-song')` or
-`<Link to={`edit-song/${song.id}`}>`. "Is the form open?" is the same as "did
-a child route match?"
+`<Link to={`edit-song/${song.id}`}>`. "Is the form open?" is the same as "did a
+child route match?"
 
 Relative navigation is **route-relative**, not URL-segment-relative:
 
@@ -66,12 +65,12 @@ Relative navigation is **route-relative**, not URL-segment-relative:
 
 `SongFormProvider` / `SongFormContext` used to hold which song was being edited
 (`target`), whether the form was open, and the form state. The URL now covers
-the first two, and `SongFormContainer` covers the third, so the context is
-being removed.
+the first two, and `SongFormContainer` covers the third, so the context is being
+removed.
 
-`useSongForm` has already been rewritten to take arguments. The components
-below still call the old no-argument version and **won't compile until
-they're migrated**.
+`useSongForm` has already been rewritten to take arguments. The components below
+still call the old no-argument version and **won't compile until they're
+migrated**.
 
 ## Status
 
@@ -88,8 +87,8 @@ they're migrated**.
 - [ ] Create `SongSearchStepRoute`. Move the search-param handling
       (`searchText`, `sort`, `page`) out of `AddSongFlow` into it. Selecting a
       result navigates to `track/${id}` instead of setting `?track=`.
-- [ ] Create `ManualSongRoute` (empty values, `addSong`). Optionally prefill
-      the title from `?title=` when arriving from "no results".
+- [ ] Create `ManualSongRoute` (empty values, `addSong`). Optionally prefill the
+      title from `?title=` when arriving from "no results".
 - [ ] Finish `ReccoSongRoute` (see `CREATESONGFLOW.md`).
 - [ ] `AddSongFlow` renders `<Outlet />` inside `FullScreenSheet` instead of
       switching on `trackId`.
@@ -107,9 +106,9 @@ they're migrated**.
 - [ ] Close after a successful save. `onSave` only writes to the store right
       now, so the form stays open. Have each route pass
       `(song) => { save(song); close(); }`, or give `useSongForm` an `onClose`.
-- [ ] `AddSongFormProps` requires `onClose`, but `useSongForm` doesn't
-      return it and `SongFormContainer` doesn't pass it (type error). Add an
-      `onClose` prop to the container.
+- [ ] `AddSongFormProps` requires `onClose`, but `useSongForm` doesn't return it
+      and `SongFormContainer` doesn't pass it (type error). Add an `onClose`
+      prop to the container.
 - [ ] `AddSongForm` hardcodes the heading and button text. Use the `title` and
       `submitLabel` props.
 - [ ] Remove the focus-debugging `console.log`s in `AddSongForm`.

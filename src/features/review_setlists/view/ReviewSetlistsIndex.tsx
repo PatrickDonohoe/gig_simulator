@@ -3,7 +3,7 @@ import SetlistEmpty from '@/features/review_setlists/SetlistEmpty';
 
 const ReviewSetlistsIndex = () => {
   return (
-    <div id='setlists-index' className='flex w-full'>
+    <div id="setlists-index" className="flex w-full">
       <SetlistsSidebar />
       <SetlistEmpty />
     </div>

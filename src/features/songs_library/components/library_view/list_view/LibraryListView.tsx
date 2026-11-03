@@ -26,8 +26,11 @@ const LibraryListView = ({
   return (
     <div id="list-view" className="flex flex-col gap-16">
       <table id="list-table" className="border-2 border-text-main">
-        <thead className='border-b-2 border-text-main'>
-          <tr id="header-row" className="divide-x-2 divide-text-main bg-bg-main">
+        <thead className="border-b-2 border-text-main">
+          <tr
+            id="header-row"
+            className="divide-x-2 divide-text-main bg-bg-main"
+          >
             {/* map of column header buttons for sorting */}
             {headerKeys.map((header) => (
               <ColumnHeader
@@ -47,16 +50,20 @@ const LibraryListView = ({
         <tbody className="divide-y-2 divide-text-main">
           {results.map((song) => (
             // placeholder row until song row is written
-            <tr key={song.id} id={song.id} className='divide-x-2 divide-text-main bg-bg-main'>
+            <tr
+              key={song.id}
+              id={song.id}
+              className="divide-x-2 divide-text-main bg-bg-main"
+            >
               {/* The row will have to map over the useable keys to fill each column */}
-              <td className='px-2 py-1'>{song.title}</td>
-              <td className='px-2 py-1'>{song.artists}</td>
-              <td className='px-2 py-1'>
+              <td className="px-2 py-1">{song.title}</td>
+              <td className="px-2 py-1">{song.artists}</td>
+              <td className="px-2 py-1">
                 {song.key} {song.mode}
               </td>
-              <td className='px-2 py-1'>{song.tempo} bpm</td>
-              <td className='px-2 py-1'>{secToDisplay(song.duration)}</td>
-              <td className='px-2 py-1'>
+              <td className="px-2 py-1">{song.tempo} bpm</td>
+              <td className="px-2 py-1">{secToDisplay(song.duration)}</td>
+              <td className="px-2 py-1">
                 <button
                   type="button"
                   onClick={() => setSelectedTile(song)}

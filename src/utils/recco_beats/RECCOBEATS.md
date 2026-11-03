@@ -34,7 +34,8 @@ SongReturnSchema data. Data that can be gathered without listening to the song.
 Song Audio Feature lookups include specific data about the track that are only
 ascertained through listening.
 
-Both will be necessary to gather all required information for tracks added to the library.
+Both will be necessary to gather all required information for tracks added to
+the library.
 
 ## Code Adaptation
 

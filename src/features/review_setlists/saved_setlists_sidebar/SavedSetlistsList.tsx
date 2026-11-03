@@ -5,19 +5,14 @@ export interface SavedSetlistsListProps {
   setlists: Omit<SubmitSetlistType, 'setlistSongs'>[];
 }
 
-const SavedSetlistsList = ({
-  setlists,
-}: SavedSetlistsListProps) => {
+const SavedSetlistsList = ({ setlists }: SavedSetlistsListProps) => {
   return (
     <div
       data-cy="list"
       className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto bg-primary px-2 text-text-main"
     >
       {setlists.map((set) => (
-        <SavedSetlistTile
-          key={set.setlistId}
-          set={set}
-        />
+        <SavedSetlistTile key={set.setlistId} set={set} />
       ))}
     </div>
   );

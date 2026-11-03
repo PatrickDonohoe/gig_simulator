@@ -11,7 +11,10 @@ import LibraryMainPanel from '@/features/songs_library/components/main_panel/Lib
 const SongsLibraryPage = () => {
   return (
     <FiltersProvider>
-      <div id="library-page" className="min-h-0 grow pb-4 flex flex-col gap-8 divide-y-2 divide-text-main">
+      <div
+        id="library-page"
+        className="flex min-h-0 grow flex-col gap-8 divide-y-2 divide-text-main pb-4"
+      >
         <div className="flex w-full items-center justify-center py-4">
           <h1
             id="library-title"

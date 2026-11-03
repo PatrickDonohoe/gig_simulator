@@ -37,7 +37,15 @@ const LandingPage = () => {
           </span>
         </div>
 
-        <video src={undefined} width={800} height={450} controls autoPlay muted loop>
+        <video
+          src={undefined}
+          width={800}
+          height={450}
+          controls
+          autoPlay
+          muted
+          loop
+        >
           Video is missing or unsupported.
         </video>
       </section>

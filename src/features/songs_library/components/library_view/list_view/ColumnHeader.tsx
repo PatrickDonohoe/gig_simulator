@@ -32,20 +32,24 @@ const ColumnHeader = ({
       aria-sort={
         isSortKey ? (sortDir === 'asc' ? 'ascending' : 'descending') : undefined
       }
-      className='w-full'
+      className="w-full"
     >
       <button
         id={headerKey}
         type="button"
         onClick={onClick}
-        className={`flex justify-between w-full items-center gap-2 bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
+        className={`flex w-full items-center justify-between gap-2 bg-bg-main p-1 capitalize hover:inset-shadow-sm ${isSortKey ? 'font-semibold text-shadow-md' : 'font-normal text-shadow-none'}`}
       >
         {headerKey}{' '}
         <span
           aria-hidden
           className={`${isSortKey ? 'opacity-100' : 'opacity-0'} size-8 text-text-main`}
         >
-          {sortDir === 'asc' ? <Ascend className='size-8' /> : <Descend className='size-8' />}
+          {sortDir === 'asc' ? (
+            <Ascend className="size-8" />
+          ) : (
+            <Descend className="size-8" />
+          )}
         </span>
       </button>
     </th>

@@ -28,11 +28,11 @@ const LibraryFilled = () => {
   return (
     <div
       id="library-filled"
-      className="min-h-0 grow flex flex-col gap-4 bg-bg-main text-text-main"
+      className="flex min-h-0 grow flex-col gap-4 bg-bg-main text-text-main"
     >
       <div
         id="library-filled-body"
-        className="flex w-full flex-col divide-border-bold border-border-bold p-4 shadow-2xl h-full"
+        className="flex h-full w-full flex-col divide-border-bold border-border-bold p-4 shadow-2xl"
       >
         <div id="body-header" className="grid w-full grid-cols-3 p-1 pb-4">
           <div
@@ -61,7 +61,10 @@ const LibraryFilled = () => {
           </h3>
         </div>
 
-        <div id='library-filled-view-container' className="bg-accent p-4 min-h-0 grow">
+        <div
+          id="library-filled-view-container"
+          className="min-h-0 grow bg-accent p-4"
+        >
           {view === 'tile' ? (
             <LibraryTileView results={sorted} />
           ) : view === 'list' ? (

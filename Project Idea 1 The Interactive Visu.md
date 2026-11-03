@@ -2,10 +2,10 @@
 
 Build a setlist locally from songs added. Users can add metadata about each
 song, anticipated transition times between songs, notes about transitions like
-changing instruments, pedals, or tuning setups. The app will utilize localStorage to
-allow musicians to access setlists in crowded environments where signal
-bandwidth is overtaxed. Users will be able to download setlists or export a
-simplified, distraction-free version for stage-mode.
+changing instruments, pedals, or tuning setups. The app will utilize
+localStorage to allow musicians to access setlists in crowded environments where
+signal bandwidth is overtaxed. Users will be able to download setlists or export
+a simplified, distraction-free version for stage-mode.
 
 - have staging area for songs so that users can drag and drop songs to and from
   a place on the setlist when they are ready.

@@ -1,4 +1,4 @@
-import type { SongType } from "@/types/SongType"
+import type { SongType } from '@/types/SongType';
 
 interface PerformSongTileProps {
   song: SongType;
@@ -9,8 +9,6 @@ interface PerformSongTileProps {
 // Attributes will be modified when the setlist view is edited.
 // A new type/schema will need to be created to record and recall attribute data.
 const PerformSongTile = ({ song }: PerformSongTileProps) => {
-  return (
-    <li>{song.title}</li>
-  )
-}
-export default PerformSongTile
+  return <li>{song.title}</li>;
+};
+export default PerformSongTile;

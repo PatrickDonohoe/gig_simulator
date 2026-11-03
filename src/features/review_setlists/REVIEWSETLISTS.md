@@ -37,7 +37,8 @@ Used for quick review of setlist data. Requirements:
       with next action.
 - [ ] View in "Performance Mode" button takes the user to a view with minimal
       distractions.
-- [ ] Performance mode button trades places with cancel button when a tile is being edited.
+- [ ] Performance mode button trades places with cancel button when a tile is
+      being edited.
 - [ ] View analytics button that takes the user to the analytics page for that
       setlist.
 
@@ -55,10 +56,12 @@ include:
 
 - [ ] Second "song" sidebar will consist of songs not in the chosen setlist.
 - [ ] It will start invisible and slide into view when a setlist is chosen.
-- [ ] It and the setlist sidebar will expand and contract accordingly as each is interacted with.
+- [ ] It and the setlist sidebar will expand and contract accordingly as each is
+      interacted with.
 
 ## Plan to make the Setlist Pages more consistent
 
-- [ ] Consolidate create setlist tiles and review/edit setlist tiles into one set with props to expand into edit mode.
+- [ ] Consolidate create setlist tiles and review/edit setlist tiles into one
+      set with props to expand into edit mode.
 - [ ] Separate setlist and song sidebars that alternate which is expanded.
 - [ ] Edit tile on click of tile. Save tile on click outside of tile.

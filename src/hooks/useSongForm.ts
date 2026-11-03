@@ -27,7 +27,6 @@ const useSongForm = (
 
   // RHF submit function for both add and edit song. Also saves to storage.
   const addSong = (data: SongFormValues) => {
-
     // Convert from strings to numbers
     const durationInput: DurationInput = {
       hours: Number(data.duration.hours) || 0,

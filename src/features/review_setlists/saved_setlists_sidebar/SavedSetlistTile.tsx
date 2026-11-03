@@ -10,7 +10,9 @@ const SavedSetlistTile = ({ set }: SavedSetlistTileProps) => {
   return (
     <NavLink
       data-cy={`sidebar-tile-${set.setlistId}`}
-      className={({ isActive }) => `${isActive ? 'bg-menu underline' : 'bg-bg-main'} flex max-h-18 w-full items-center justify-center  px-4 py-2 text-text-main font-semibold rounded-xl`}
+      className={({ isActive }) =>
+        `${isActive ? 'bg-menu underline' : 'bg-bg-main'} flex max-h-18 w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-text-main`
+      }
       to={`/dash/review/${set.setlistId}`}
     >
       {set.setlistName}

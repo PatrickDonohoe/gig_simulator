@@ -14,8 +14,8 @@ const EditSongRoute = () => {
   const update = useLibraryStore((s) => s.updateSong);
   const saveUpdate = (edited: SongType) => {
     update(edited);
-    navigate('..', { replace: true })
-  }
+    navigate('..', { replace: true });
+  };
   if (!song) return <Navigate to=".." />;
 
   return (

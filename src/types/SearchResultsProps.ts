@@ -1,4 +1,4 @@
-import type { SongReturn } from "@/types/SearchSong";
+import type { SongReturn } from '@/types/SearchSong';
 
 export interface SearchResultsProps {
   results: SearchResultsPage;

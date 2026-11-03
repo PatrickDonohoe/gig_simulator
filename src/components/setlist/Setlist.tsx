@@ -47,7 +47,7 @@ const Setlist = ({
         <input
           data-cy="title"
           type="text"
-          className="grow order-3 @md:order-2 @md:basis-0 @md:min-w-24 rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted"
+          className="order-3 grow rounded-xl border border-border-bold bg-bg-main p-2 text-text-main placeholder:text-text-muted @md:order-2 @md:min-w-24 @md:basis-0"
           placeholder="New Setlist #1"
           {...register('setlistName')}
         />
@@ -57,7 +57,7 @@ const Setlist = ({
         <button
           data-cy="submit"
           type="submit"
-          className="flex flex-row items-center justify-center order-2 @md:order-3 gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent lg:text-lg max-w-40 disabled:bg-menu disabled:border-menu disabled:text-gray-500"
+          className="order-2 flex max-w-40 flex-row items-center justify-center gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent disabled:border-menu disabled:bg-menu disabled:text-gray-500 lg:text-lg @md:order-3"
           disabled={!isDirty}
         >
           {submitLabel ?? '+ Save Setlist'}

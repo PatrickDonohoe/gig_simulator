@@ -3,7 +3,6 @@ import { timeBreakdown } from '@/utils/add_time/addTimeDurations';
 import useFilters from '@/hooks/useFilters';
 import FilterAttribute from '@/features/create_setlist/components/FilterAttribute';
 
-
 const SongDetails = ({ song }: { song: SongType }) => {
   const { activeFilters } = useFilters();
   const formatters: Record<keyof SongType, (s: SongType) => string> = {
@@ -28,10 +27,7 @@ const SongDetails = ({ song }: { song: SongType }) => {
       data-cy={`setlist-article-${song.id}`}
       className="flex flex-col justify-center gap-2 overflow-hidden rounded-xl border border-text-main bg-menu p-4 lg:gap-4"
     >
-      <h2
-        data-cy="song-title"
-        className="text-center font-semibold"
-      >
+      <h2 data-cy="song-title" className="text-center font-semibold">
         Title: {song.title}
       </h2>
 

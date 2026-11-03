@@ -11,10 +11,7 @@ interface ResultsTileProps {
   song: SearchResultRow;
 }
 
-
-
 const ResultsTile = ({ song }: ResultsTileProps) => {
-
   const formattedTime = secToDisplay(song.durationSec);
   const formattedArtists =
     song.artists.length > 0
@@ -39,11 +36,17 @@ const ResultsTile = ({ song }: ResultsTileProps) => {
       </div>
 
       {/* Hideable Portion */}
-      <div
-        className='flex justify-around'
-      >
-        <SongAttribute icon={<Artist className='size-8' />} attributeId='artists' attributeText={formattedArtists} />
-        <SongAttribute icon={<Time />} attributeId='duration' attributeText={formattedTime} />
+      <div className="flex justify-around">
+        <SongAttribute
+          icon={<Artist className="size-8" />}
+          attributeId="artists"
+          attributeText={formattedArtists}
+        />
+        <SongAttribute
+          icon={<Time />}
+          attributeId="duration"
+          attributeText={formattedTime}
+        />
       </div>
     </li>
   );

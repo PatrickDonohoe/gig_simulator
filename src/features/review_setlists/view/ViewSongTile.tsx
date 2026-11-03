@@ -31,11 +31,16 @@ const formatters: Record<keyof SongType, (s: SongType) => string> = {
 const ViewSongTile = ({ song, onRemove, index }: ViewSongTileProps) => {
   const { activeFilters } = useFilters();
 
-  
   return (
-    <div id={`view-song-tile-${song.songId}`} className='border-2 border-text-main rounded-md p-2 bg-menu'>
+    <div
+      id={`view-song-tile-${song.songId}`}
+      className="rounded-md border-2 border-text-main bg-menu p-2"
+    >
       <div className="grid grid-cols-3 items-center">
-        <h2 id={`song-title-${index}`} className="col-span-2 text-center font-semibold">
+        <h2
+          id={`song-title-${index}`}
+          className="col-span-2 text-center font-semibold"
+        >
           Title: {song.song?.title ?? 'Unavailable'}
         </h2>
 

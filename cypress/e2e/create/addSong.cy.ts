@@ -60,17 +60,26 @@ describe('adding song to library', () => {
     beforeEach(() => {
       cy.viewport('ipad-2'); // tailwind's md breakpoint
       cy.intercept('GET', 'https://api.reccobeats.com/v1/track/search*', {
-        fixture: 'searchResults.json',  
-    }).as('searchTracks');
-    cy.visit('/dash/create/add-song?searchText=sonata');
-    cy.wait('@searchTracks');
-  });
+        fixture: 'searchResults.json',
+      }).as('searchTracks');
+      cy.visit('/dash/create/add-song?searchText=sonata');
+      cy.wait('@searchTracks');
+    });
     it('shows results as a table when the viewport is above a medium breakpoint', () => {
       cy.get('#results-table').should('be.visible');
       cy.get('#stacked-cards').should('not.be.visible');
-      cy.get('#86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1-title').should('have.text', 'Sonata');
-      cy.get('#87736318-4ea6-47e3-a799-d76ad6a796ed-artists').should('have.text', 'Adalberto junior Gómez galvis, et al.');
-      cy.get('#87736318-4ea6-47e3-a799-d76ad6a796ed-durationSec').should('have.text', '03:40');
+      cy.get('#86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1-title').should(
+        'have.text',
+        'Sonata',
+      );
+      cy.get('#87736318-4ea6-47e3-a799-d76ad6a796ed-artists').should(
+        'have.text',
+        'Adalberto junior Gómez galvis, et al.',
+      );
+      cy.get('#87736318-4ea6-47e3-a799-d76ad6a796ed-durationSec').should(
+        'have.text',
+        '03:40',
+      );
     });
   });
 
@@ -81,12 +90,14 @@ describe('adding song to library', () => {
         fixture: 'searchResults.json',
       }).as('searchTracks');
       cy.visit('/dash/create/add-song?searchText=sonata');
-      cy.wait('@searchTracks');        
+      cy.wait('@searchTracks');
     });
     it('shows results as a set of stacked cards when the viewport is below a medium breakpoint', () => {
-      cy.get('#results-tile-86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1').should('be.visible');
-    })
-  })
+      cy.get('#results-tile-86f86f5b-8af6-448c-9eea-a9d1ee1ccdf1').should(
+        'be.visible',
+      );
+    });
+  });
 
   it(
     'shows no results found when the db does not return any results upon searchbar submit',

@@ -8,7 +8,7 @@ const HeaderLayout = () => {
   return (
     <header className="flex w-max min-w-full items-center justify-between border-b-4 border-border-bold px-4">
       <div id="branding-navbar" className="flex items-center gap-4 md:gap-8">
-        <Link to='/' id="branding" className="flex items-center gap-3 py-2">
+        <Link to="/" id="branding" className="flex items-center gap-3 py-2">
           <Logo className="size-12 md:size-16" />
 
           <div

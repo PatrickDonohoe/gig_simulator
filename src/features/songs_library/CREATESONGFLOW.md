@@ -28,12 +28,12 @@ through TanStack Query. The cache is keyed by those params, and
 ## Results
 
 Results are paginated and shown as a table (`ResultsTable`, md and up) or
-stacked cards (`StackedCards`, small screens). Each row shows title, artist,
-and duration, with a "Select" button. Below the results: current page, total
-pages, and previous/next buttons.
+stacked cards (`StackedCards`, small screens). Each row shows title, artist, and
+duration, with a "Select" button. Below the results: current page, total pages,
+and previous/next buttons.
 
-If there are no results, show a link to `add-song/new` so the user can enter
-the song manually.
+If there are no results, show a link to `add-song/new` so the user can enter the
+song manually.
 
 ## Selection
 
@@ -45,40 +45,39 @@ parallel, and renders the form once both have loaded.
 
 ## Data transformation
 
-Keep data in the API's shape until a specific consumer needs a different
-shape, and convert it right at that point.
+Keep data in the API's shape until a specific consumer needs a different shape,
+and convert it right at that point.
 
-| Step | Where                                | What happens                                                                                       |
-| ---- | ------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| A    | `getTracks.ts` fetchers              | Validate with zod. **Don't reshape.** The cache holds exactly what Recco Beats sent.               |
-| B    | `useTrackSearch` → `select`          | `toSearchResultsPage` maps to `SearchResultsPage`. Recco field names stop here.                    |
-| B'   | `ResultsTable` / `StackedCards` JSX  | Display formatting only: `durationSec` → `m:ss`, `page + 1`.                                       |
-| C    | `ReccoSongRoute`                     | `reccoToFormValues(track, audio)` → `SongFormValues`.                                              |
-| D    | `useSongForm` submit                 | `SongFormValues` → `SongType` (already implemented).                                               |
+| Step | Where                               | What happens                                                                         |
+| ---- | ----------------------------------- | ------------------------------------------------------------------------------------ |
+| A    | `getTracks.ts` fetchers             | Validate with zod. **Don't reshape.** The cache holds exactly what Recco Beats sent. |
+| B    | `useTrackSearch` → `select`         | `toSearchResultsPage` maps to `SearchResultsPage`. Recco field names stop here.      |
+| B'   | `ResultsTable` / `StackedCards` JSX | Display formatting only: `durationSec` → `m:ss`, `page + 1`.                         |
+| C    | `ReccoSongRoute`                    | `reccoToFormValues(track, audio)` → `SongFormValues`.                                |
+| D    | `useSongForm` submit                | `SongFormValues` → `SongType` (already implemented).                                 |
 
-`select` only changes what the component receives. It never modifies the
-cache.
+`select` only changes what the component receives. It never modifies the cache.
 
 ### Leave alone
 
 - The cached query data. Derive from it with `select`; never edit it in place.
 - The selected id. It is the only thing passed from search to detail.
 - `page`: keep it 0-indexed in state and the URL. Add 1 only for display.
-- Duration, key, and mode stay numbers until a mapper or the render step
-  needs strings. Numbers can be sorted; `"4:05"` can't.
+- Duration, key, and mode stay numbers until a mapper or the render step needs
+  strings. Numbers can be sorted; `"4:05"` can't.
 
 ### Mapping details for step C
 
 - **Title**: `trackTitle`.
 - **Artist**: join all artist names with `", "`.
 - **Duration**: `durationMs / 1000`, rounded, then `timeBreakdown` → strings.
-- **Key**: audio `key` (−1 = none, 0 = C … 11 = B) + `mode` (0 = minor,
-  1 = major). Use flat names to match the form placeholder (`Db`, `Eb`, …),
-  with `m` appended for minor, and an empty string for −1.
+- **Key**: audio `key` (−1 = none, 0 = C … 11 = B) + `mode` (0 = minor, 1 =
+  major). Use flat names to match the form placeholder (`Db`, `Eb`, …), with `m`
+  appended for minor, and an empty string for −1.
 - **Tempo**: round `audio.tempo`, then convert to a string.
-- **Genre**: Recco Beats doesn't provide this. Leave it
-  empty for the user to fill in.
-- **`id`**: don't set it. The form's `id` is the *library* id, and setting it
+- **Genre**: Recco Beats doesn't provide this. Leave it empty for the user to
+  fill in.
+- **`id`**: don't set it. The form's `id` is the _library_ id, and setting it
   would make a new song look like an edit. Store the Recco Beats id separately
   as `rbid`.
 
@@ -97,9 +96,9 @@ cache.
 
 ### Search and results
 
-- [ ] `SearchResultsProps.searchReturn: SearchReturn` → `results:
-      SearchResultsPage`. `useTrackSearch` now returns the mapped shape, so
-      `SongSearchStep` and `ResultsTable` don't type-check yet.
+- [ ] `SearchResultsProps.searchReturn: SearchReturn` →
+      `results:     SearchResultsPage`. `useTrackSearch` now returns the mapped
+      shape, so `SongSearchStep` and `ResultsTable` don't type-check yet.
 - [ ] `ResultsTable`: read `rows` / `title` / `artist` / `durationSec`.
 - [ ] `ResultsTable` duration: currently `formatDuration(durationMs * 1000)`
       (multiplies instead of dividing, and `formatDuration` only pads to two
@@ -112,11 +111,10 @@ cache.
 - [ ] `SongSearchbar` always starts on `asc`. Initialize it from the URL's
       `sort`.
 - [ ] Investigate the "expected string, received null" error noted on the
-      searchbar's `onSubmit` (likely an optional field in a response schema
-      that Recco Beats returns as `null`; use `.nullish()`).
+      searchbar's `onSubmit` (likely an optional field in a response schema that
+      Recco Beats returns as `null`; use `.nullish()`).
 - [ ] Build `StackedCards` from the same `SearchResultRow` data.
-- [ ] "No results" message links to `add-song/new` (optionally with
-      `?title=`).
+- [ ] "No results" message links to `add-song/new` (optionally with `?title=`).
 
 ### Selection and prefill
 
@@ -129,8 +127,8 @@ cache.
 - [ ] Move `reccoToFormValues` to `utils/recco_beats/reccoMappers.ts` as
       `(track, audio) => SongFormValues`. Delete the non-compiling stubs in
       `buildSongFormValues.ts`.
-- [ ] Wire up `ReccoSongRoute`: loading/error states, then
-      `SongFormContainer` with the mapped values.
+- [ ] Wire up `ReccoSongRoute`: loading/error states, then `SongFormContainer`
+      with the mapped values.
 - [ ] Store `rbid` on saved songs: add an optional `rbid` to `SongTypeSchema`
       and set it in `ReccoSongRoute`'s `onSave`
       (`(song) => addSong({ ...song, rbid: trackId })`). Remove the unused

@@ -1,9 +1,27 @@
-import type { SearchReturn, SongReturn, AudioFeatures } from "@/types/SearchSong";
-import type { SearchResultsPage } from "@/types/SearchResultsProps";
-import type { SongFormValues } from "@/types/SongFormType";
-import { msToBreakdown } from "@/utils/add_time/addTimeDurations";
+import type {
+  SearchReturn,
+  SongReturn,
+  AudioFeatures,
+} from '@/types/SearchSong';
+import type { SearchResultsPage } from '@/types/SearchResultsProps';
+import type { SongFormValues } from '@/types/SongFormType';
+import { msToBreakdown } from '@/utils/add_time/addTimeDurations';
 
-const KEYS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'not found'];
+const KEYS = [
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B',
+  'not found',
+];
 const MODES: SongFormValues['mode'][] = ['minor', 'major', 'not found'];
 
 export const toSearchResultsPage = (r: SearchReturn): SearchResultsPage => ({
@@ -19,14 +37,20 @@ export const toSearchResultsPage = (r: SearchReturn): SearchResultsPage => ({
   pageSize: r.size,
 });
 
-export const reccoToFormValues = (track: SongReturn, audio: AudioFeatures): SongFormValues => {
+export const reccoToFormValues = (
+  track: SongReturn,
+  audio: AudioFeatures,
+): SongFormValues => {
   return {
     rbid: track.id,
     title: track.trackTitle,
-    artists: track.artists.length > 0 ? track.artists.map((a) => a.name).join(', ') : '',
+    artists:
+      track.artists.length > 0
+        ? track.artists.map((a) => a.name).join(', ')
+        : '',
     key: KEYS[audio.key],
     mode: MODES[audio.mode],
     tempo: String(Math.round(audio.tempo)),
     duration: msToBreakdown(track.durationMs),
-  }
-}
+  };
+};

@@ -1,5 +1,5 @@
-import { createMetronome } from "@/features/performance/utils/metronome";
-import { useEffect, useRef, useState } from "react";
+import { createMetronome } from '@/features/performance/utils/metronome';
+import { useEffect, useRef, useState } from 'react';
 
 export function useMetronome(bpm: number, beatsPerBar = 4) {
   const engineRef = useRef<ReturnType<typeof createMetronome> | null>(null);
@@ -7,7 +7,10 @@ export function useMetronome(bpm: number, beatsPerBar = 4) {
 
   // Keeping the engine in sync with props without restarting it
   useEffect(() => engineRef.current?.setBpm(bpm), [bpm]);
-  useEffect(() => engineRef.current?.setBeatsPerBar(beatsPerBar), [beatsPerBar]);
+  useEffect(
+    () => engineRef.current?.setBeatsPerBar(beatsPerBar),
+    [beatsPerBar],
+  );
 
   // Stop on unmount
   useEffect(() => () => engineRef.current?.stop(), []);
@@ -26,5 +29,5 @@ export function useMetronome(bpm: number, beatsPerBar = 4) {
     setIsPlaying(false);
   };
 
-  return { isPlaying, start, stop }
+  return { isPlaying, start, stop };
 }

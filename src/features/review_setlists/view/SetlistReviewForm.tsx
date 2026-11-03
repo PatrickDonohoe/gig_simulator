@@ -29,7 +29,14 @@ const SetlistReviewForm = () => {
         setlist={{ ...setlist, submitLabel: 'Save changes' }}
         collapsibleLibrary
         initialLibraryOpen={saved.setlistSongs.length === 0}
-        headerActions={<Link to='perform' className='flex flex-row items-center justify-center order-2 @md:order-3 gap-2 rounded-lg border border-border-bold bg-primary/80 p-1 font-semibold text-accent lg:text-lg max-w-40'>Perform</Link>}
+        headerActions={
+          <Link
+            to="perform"
+            className="order-2 flex max-w-40 flex-row items-center justify-center gap-2 rounded-lg border border-border-bold bg-primary/80 p-1 font-semibold text-accent lg:text-lg @md:order-3"
+          >
+            Perform
+          </Link>
+        }
       />
       <Outlet /> {/* edit-song/:songId modal renders here */}
     </div>
