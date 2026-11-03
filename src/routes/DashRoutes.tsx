@@ -9,7 +9,7 @@ import { SongFormRoutes } from '@/routes/SongFormRoutes';
 import { getSetlist } from '@/utils/setlist_storage/setlistStorage';
 import SetlistReviewForm from '@/features/review_setlists/view/SetlistReviewForm';
 import ReviewSetlistsIndex from '@/features/review_setlists/view/ReviewSetlistsIndex';
-import SetlistPerformMode from '@/features/performance/SetlistPerformMode';
+import PerformancePage from '@/features/performance/PerformancePage';
 
 export const DashRoutes: RouteObject[] = [
   { index: true, element: <Navigate to="create" replace /> },
@@ -37,7 +37,7 @@ export const DashRoutes: RouteObject[] = [
             Component: SetlistReviewForm,
             children: [{ index: true }, ...SongFormRoutes],
           },
-          { path: 'perform', Component: SetlistPerformMode },
+          { path: 'perform', Component: PerformancePage },
         ],
       },
     ],

@@ -4,6 +4,7 @@ import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSe
 import { useLibraryStore } from '@/stores/useLibraryStore';
 import PerformSongTile from '@/features/performance/components/PerformSongTile';
 import filterSetlistData from '@/features/performance/utils/filterSetlistData';
+import PerformanceTransitionTile from '@/features/performance/components/PerformanceTransitionTile';
 
 // Distraction-Free view
 // Takes up content of page for desktop and whole screen for mobile.
@@ -24,7 +25,7 @@ const SetlistPerformMode = () => {
       <ul id="tile-list">
         {setlistData.map((tile, index) =>
           tile.kind === 'transition' ? (
-            <li key={index}>{tile.notes}</li>
+            <PerformanceTransitionTile key={index} transition={tile} />
           ) : !tile.song ? (
             <li key={index}>Data unavailable</li>
           ) : (

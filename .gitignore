@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 dependency-graph.*
 .sonda/
+
+# Cypress artifacts
+cypress/screenshots/
+cypress/videos/
