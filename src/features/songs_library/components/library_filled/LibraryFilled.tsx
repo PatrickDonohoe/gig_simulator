@@ -34,7 +34,10 @@ const LibraryFilled = () => {
         id="library-filled-body"
         className="flex h-full w-full flex-col divide-border-bold border-border-bold p-4 shadow-2xl dark:shadow-gray-600"
       >
-        <div id="body-header" className="grid w-full grid-cols-3 p-1 pb-4 items-center">
+        <div
+          id="body-header"
+          className="grid w-full grid-cols-3 items-center p-1 pb-4"
+        >
           <div
             id="view-switching-buttons"
             className="flex divide-x-2 divide-border-bold rounded-md border-2 border-border-bold bg-bg-main text-text-main shadow-xl"

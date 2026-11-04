@@ -13,14 +13,14 @@ const SetlistEmpty = () => {
       >
         <header data-cy="empty" className="flex min-h-0 flex-1 flex-col">
           <div className="flex items-center justify-center bg-primary/90 py-4">
-            <h1 className="flex items-center justify-center text-shadow-gray-700 dark:text-shadow-bg-main text-shadow-md p-4 text-center text-2xl text-text-main">
+            <h1 className="flex items-center justify-center p-4 text-center text-2xl text-text-main text-shadow-gray-700 text-shadow-md dark:text-shadow-bg-main">
               No setlist selected
             </h1>
           </div>
 
           <div
             data-cy="svg-container"
-            className="flex min-h-0 flex-1 flex-col items-center justify-center "
+            className="flex min-h-0 flex-1 flex-col items-center justify-center"
           >
             <h2 className="text-xl font-semibold text-text-main">
               Choose a setlist from the left to continue.

@@ -32,11 +32,11 @@ const PerformancePage = () => {
       // If it is escape, go back one page in history.
       if (e.key === 'Escape') {
         navigate('..');
-      // If the key pressed is in next keys, advance one song.
+        // If the key pressed is in next keys, advance one song.
       } else if (NEXT_KEYS.has(e.key)) {
         e.preventDefault();
         next();
-      // If the key pressed is in prev keys, go back one song.
+        // If the key pressed is in prev keys, go back one song.
       } else if (PREV_KEYS.has(e.key)) {
         e.preventDefault();
         prev();

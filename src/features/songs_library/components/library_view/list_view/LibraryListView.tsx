@@ -25,7 +25,10 @@ const LibraryListView = ({
 
   return (
     <div id="list-view" className="flex flex-col gap-16">
-      <table id="list-table" className="border-2 border-text-main overflow-y-auto">
+      <table
+        id="list-table"
+        className="overflow-y-auto border-2 border-text-main"
+      >
         <thead className="border-b-2 border-text-main">
           <tr
             id="header-row"

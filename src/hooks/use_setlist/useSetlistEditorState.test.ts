@@ -57,9 +57,7 @@ describe('useSetlistEditorState submit', () => {
   it('returns the create setlist form to blank values after a successful submission', async () => {
     const onSubmit = vi.fn();
     const blank = emptySetlistFormValues(mockSongs);
-    const { result } = renderHook(() =>
-      useSetlistEditorState(onSubmit, blank),
-    );
+    const { result } = renderHook(() => useSetlistEditorState(onSubmit, blank));
 
     act(() => {
       result.current.setlist.commonTileProps.setValue(
