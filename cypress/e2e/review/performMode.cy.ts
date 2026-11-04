@@ -88,7 +88,8 @@ describe('perform a saved setlist', () => {
 
       cy.location('pathname').should('eq', performPath);
       cy.getByData('perform-view').should('be.visible');
-      cy.get('#perform-title').should('have.text', 'Perform Setlist');
+      cy.get('#perform-title').should('have.text', setlist1.setlistName);
+      cy.getByData('perform-summary').should('contain.text', '2 songs');
       cy.get('#performance-page').should('be.visible');
     });
 
@@ -163,6 +164,97 @@ describe('perform a saved setlist', () => {
         .eq(2)
         .should('contain.text', 'Data unavailable')
         .and('not.contain.text', song2.title);
+    });
+  });
+
+  describe('song controls', () => {
+    const expectCurrentSong = (position: number) => {
+      cy.getByData(`perform-song-${position}`).should(
+        'have.attr',
+        'aria-current',
+        'step',
+      );
+      cy.get('[aria-current="step"]').should('have.length', 1);
+    };
+
+    it('starts on the first song', () => {
+      openPerformFromReview();
+
+      expectCurrentSong(1);
+      cy.getByData('song-progress').should('have.text', 'Song 1 of 2');
+      cy.get('#prev-song').should('be.disabled');
+    });
+
+    it('advances and goes back with the buttons', () => {
+      openPerformFromReview();
+
+      cy.get('#next-song').click();
+      expectCurrentSong(2);
+      cy.location('search').should('eq', '?song=2');
+      cy.getByData('song-progress').should('have.text', 'Song 2 of 2');
+
+      cy.get('#prev-song').click();
+      expectCurrentSong(1);
+      cy.location('search').should('eq', '?song=1');
+    });
+
+    it('shows the set as complete after the last song', () => {
+      openPerformFromReview();
+
+      cy.get('#next-song').click();
+      cy.get('#next-song').should('have.text', 'Finish').click();
+
+      cy.getByData('set-complete').should('be.visible');
+      cy.getByData('song-progress').should('have.text', 'Set complete');
+      cy.get('#next-song').should('be.disabled');
+      cy.get('[aria-current="step"]').should('not.exist');
+    });
+
+    it('moves between songs with the arrow and page keys', () => {
+      openPerformFromReview();
+
+      cy.get('body').type('{rightarrow}');
+      expectCurrentSong(2);
+      cy.get('body').type('{leftarrow}');
+      expectCurrentSong(1);
+      cy.get('body').type('{pagedown}');
+      expectCurrentSong(2);
+      cy.get('body').type('{pageup}');
+      expectCurrentSong(1);
+    });
+
+    it('makes a song current when it is tapped', () => {
+      openPerformFromReview();
+
+      cy.getByData('perform-song-2').find('button').click();
+      expectCurrentSong(2);
+    });
+
+    it('keeps the current song after a refresh', () => {
+      cy.visit(`${performPath}?song=2`, {
+        onBeforeLoad: (win) => seedStorage(win),
+      });
+      expectCurrentSong(2);
+
+      cy.reload();
+      expectCurrentSong(2);
+    });
+
+    it('starts on the first song when the song param is invalid', () => {
+      cy.visit(`${performPath}?song=abc`, {
+        onBeforeLoad: (win) => seedStorage(win),
+      });
+      expectCurrentSong(1);
+    });
+
+    it('returns to the saved setlist when closed mid-set', () => {
+      openPerformFromReview();
+      cy.get('#next-song').click();
+
+      cy.get('#close-perform').click();
+
+      cy.location('pathname').should('eq', reviewPath);
+      cy.location('search').should('eq', '');
     });
   });
 

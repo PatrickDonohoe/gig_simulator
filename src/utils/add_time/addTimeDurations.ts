@@ -54,6 +54,14 @@ export const secToDisplay = (seconds: number): string => {
   return `${formatDuration(breakdown.minutes)}:${formatDuration(breakdown.seconds)}`;
 };
 
+// Like secToDisplay, but keeps the hours for lengths of an hour or more
+// (e.g. a full setlist's runtime): "1:05:09" rather than "05:09".
+export const secToRuntime = (seconds: number): string => {
+  const { hours, minutes, seconds: secs } = timeBreakdown(seconds);
+  const minSec = `${formatDuration(minutes)}:${formatDuration(secs)}`;
+  return hours ? `${hours}:${minSec}` : minSec;
+};
+
 export const durationToDisplay = (duration: DurationInput): string => {
   const seconds = durationToSeconds(duration);
   return secToDisplay(seconds);

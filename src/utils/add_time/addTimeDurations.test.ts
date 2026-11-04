@@ -6,6 +6,7 @@ import {
   totalSeconds,
   timeBreakdown,
   formatDuration,
+  secToRuntime,
 } from '@/utils/add_time/addTimeDurations';
 
 describe('durationToSeconds converts data of type DurationInput to number of total seconds', () => {
@@ -139,5 +140,19 @@ describe('addTimeDurations will convert array of time objects into total seconds
     ]);
 
     expect(array).toEqual({ hours: 4, minutes: 14, seconds: 29 });
+  });
+});
+
+describe('secToRuntime formats seconds for display, keeping hours when present', () => {
+  it('returns mm:ss when under an hour', () => {
+    expect(secToRuntime(1037)).toEqual('17:17');
+  });
+
+  it('includes hours when an hour or more', () => {
+    expect(secToRuntime(3909)).toEqual('1:05:09');
+  });
+
+  it('returns 00:00 for 0', () => {
+    expect(secToRuntime(0)).toEqual('00:00');
   });
 });

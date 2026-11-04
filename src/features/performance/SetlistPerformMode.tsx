@@ -1,38 +1,64 @@
-import { useRouteLoaderData } from 'react-router';
-
-import type { SubmitSetlistType } from '@/features/create_setlist/types/SubmitSetlistType';
-import { useLibraryStore } from '@/stores/useLibraryStore';
 import PerformSongTile from '@/features/performance/components/PerformSongTile';
-import filterSetlistData from '@/features/performance/utils/filterSetlistData';
 import PerformanceTransitionTile from '@/features/performance/components/PerformanceTransitionTile';
+import type { PerformTile } from '@/features/performance/hooks/usePerformSetlist';
+import { songStatus } from '@/features/performance/utils/songPosition';
 
-// Distraction-Free view
-// Takes up content of page for desktop and whole screen for mobile.
-// Consider hamburger button in corner to open sidebar for mobile.
-// Right Sidebar can include controls for performance such as next song, pause, etc.
-// Consider how to make right sidebar toggle visibility. Include fade animation.
-// Presentation of songs and transitions should be simple and clear.
-// Create or modify existing templates for songs and transitions.
+interface SetlistPerformModeProps {
+  tiles: PerformTile[];
+  current: number;
+  isComplete: boolean;
+  onSelect: (position: number) => void;
+}
 
-const SetlistPerformMode = () => {
-  // uses setlist data retrieved in DashRoutes from setlist id in the URL
-  const saved = useRouteLoaderData('setlist') as SubmitSetlistType;
-  const librarySongs = useLibraryStore((s) => s.librarySongs);
-  const setlistData = filterSetlistData(saved.setlistSongs, librarySongs);
+/**
+ * Displays an intermixed list of all songs and transitions in the setlist.
+ *
+ * @param tiles The array of both complete song data and transition data.
+ * @param current The index of the current song.
+ * @param isComplete Handles the display of the "Set Complete" message at the
+ *   end.
+ * @param onSelect Sets the clicked tile to current.
+ * @returns The setlist and complete message when isComplete is true.
+ */
 
+const SetlistPerformMode = ({
+  tiles,
+  current,
+  isComplete,
+  onSelect,
+}: SetlistPerformModeProps) => {
   return (
-    <div id="performance-page" className="bg-bg-main text-text-main">
-      <ul id="tile-list">
-        {setlistData.map((tile, index) =>
+    <div
+      id="performance-page"
+      className="mx-auto w-full max-w-3xl text-text-main"
+    >
+      <ul id="tile-list" className="flex flex-col gap-2">
+        {tiles.map((tile, index) =>
           tile.kind === 'transition' ? (
-            <PerformanceTransitionTile key={index} transition={tile} />
-          ) : !tile.song ? (
-            <li key={index}>Data unavailable</li>
+            <PerformanceTransitionTile
+              key={tile.transitionId}
+              transition={tile}
+            />
           ) : (
-            <PerformSongTile key={index} song={tile.song} />
+            <PerformSongTile
+              key={`${tile.songId}-${index}`}
+              song={tile.song}
+              position={tile.position}
+              status={songStatus(tile.position, current)}
+              onSelect={onSelect}
+            />
           ),
         )}
       </ul>
+
+      {isComplete && (
+        <p
+          data-cy="set-complete"
+          className="mt-6 text-center text-2xl font-bold text-accent"
+        >
+          Set complete
+        </p>
+      )}
     </div>
   );
 };
