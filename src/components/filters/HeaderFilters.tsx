@@ -27,6 +27,7 @@ const HeaderFilters = () => {
 
         <button
           className="flex-none rounded-md bg-bg-main px-4 font-semibold text-text-main underline ring ring-border-bold hover:bg-bg-surface hover:text-text-muted"
+          type='button'
           onClick={resetFilters}
         >
           Clear All
