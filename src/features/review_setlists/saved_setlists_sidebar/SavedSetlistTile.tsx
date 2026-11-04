@@ -11,7 +11,8 @@ const SavedSetlistTile = ({ set }: SavedSetlistTileProps) => {
     <NavLink
       data-cy={`sidebar-tile-${set.setlistId}`}
       className={({ isActive }) =>
-        `${isActive ? 'bg-menu underline' : 'bg-bg-main'} flex max-h-18 w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-text-main hover:bg-bg-surface`
+        // Nav-style row: the active setlist gets an accent bar and tint, not a card.
+        `${isActive ? 'border-accent bg-primary/10 font-semibold text-text-main' : 'border-transparent text-text-muted hover:bg-bg-surface hover:text-text-main'} block w-full truncate rounded-r-md border-l-4 px-3 py-2`
       }
       to={`/dash/review/${set.setlistId}`}
     >

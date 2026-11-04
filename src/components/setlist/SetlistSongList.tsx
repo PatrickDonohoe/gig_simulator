@@ -32,7 +32,7 @@ const SetlistSongList = ({
       id="setlist-songlist"
       data-cy="setlist-songlist"
       ref={ref}
-      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border border-border-subtle p-4 ${isOver ? 'bg-golden_apricot' : 'bg-bg-surface'}`}
+      className={`mx-6 flex flex-1 flex-col items-center overflow-y-auto border border-border-subtle p-4 ${isOver ? 'bg-golden_apricot/70' : 'bg-bg-surface'}`}
     >
       {tiles.length > 0 ? (
         <ul className="flex w-full flex-col items-center gap-4" data-cy="list">

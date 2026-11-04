@@ -28,11 +28,7 @@ const SongLibrarySidebar = ({ songs }: SongLibrarySidebarProps) => {
   };
 
   return (
-    <SidebarShell
-      headerProps={headerProps}
-      title="Songs"
-      className="border-border-bold bg-bg-main"
-    >
+    <SidebarShell headerProps={headerProps} variant="panel">
       <div
         data-cy="library_wrapper"
         ref={ref}

@@ -1,4 +1,4 @@
 const AnalyticsPage = () => {
-  return <div>AnalyticsPage</div>;
+  return <div className="text-text-main">Coming Soon...</div>;
 };
 export default AnalyticsPage;

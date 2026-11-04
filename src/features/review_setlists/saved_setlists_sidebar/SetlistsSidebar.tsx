@@ -18,17 +18,18 @@ const SetlistsSidebar = () => {
   return (
     <SidebarShell
       headerProps={setlistHeader}
-      title="Setlists"
+      variant="nav"
       dataCy="setlists-sidebar"
     >
-      <div
+      <nav
         data-cy="setlists-list"
-        className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto bg-primary p-2 text-text-main"
+        aria-label="Saved setlists"
+        className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto py-2 pr-2"
       >
         {sidebarSetlists.map((set) => (
           <SavedSetlistTile key={set.setlistId} set={set} />
         ))}
-      </div>
+      </nav>
     </SidebarShell>
   );
 };
