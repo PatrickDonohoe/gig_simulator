@@ -7,7 +7,7 @@ interface TileViewProps {
 
 const LibraryTileView = ({ results }: TileViewProps) => {
   return (
-    <div id="tile-view" className="flex flex-col gap-4">
+    <div id="tile-view" className="flex flex-col gap-4 overflow-y-auto">
       {results.map((tile) => (
         <SongTile key={tile.id} song={tile} />
       ))}

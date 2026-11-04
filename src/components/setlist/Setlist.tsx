@@ -57,7 +57,7 @@ const Setlist = ({
         <button
           data-cy="submit"
           type="submit"
-          className="order-2 flex max-w-40 flex-row items-center justify-center gap-2 rounded-lg border border-border-bold bg-primary p-1 font-semibold text-accent disabled:border-menu disabled:bg-menu disabled:text-gray-500 lg:text-lg @md:order-3"
+          className="order-2 flex max-w-40 flex-row items-center justify-center gap-2 rounded-lg border-2 border-accent bg-primary p-1 font-semibold text-accent disabled:border-menu disabled:bg-menu disabled:text-gray-500 lg:text-lg @md:order-3"
           disabled={!isDirty}
         >
           {submitLabel ?? '+ Save Setlist'}

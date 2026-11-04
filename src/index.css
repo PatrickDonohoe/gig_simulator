@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #0f53f0;
   --color-primary-hover: #0c42c0;
@@ -28,7 +30,7 @@
 @layer base {
   .dark {
     --color-bg-main: #0c1318;
-    --color-bg-surface: #111b22;
+    --color-bg-surface: #1f2937;
     --color-menu: #2d4f7c;
     --color-border-subtle: #223744;
     /* --color-accent: #d8801c; */

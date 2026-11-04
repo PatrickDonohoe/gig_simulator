@@ -56,7 +56,7 @@ const SetlistPerformMode = ({
           data-cy="set-complete"
           className="mt-6 text-center text-2xl font-bold text-accent"
         >
-          Set complete
+          Set complete!
         </p>
       )}
     </div>

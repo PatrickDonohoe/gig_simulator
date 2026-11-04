@@ -5,8 +5,11 @@ import type { SongLibrarySidebarProps } from '@/features/create_setlist/componen
 import { notifySuccess } from '@/utils/Toast';
 
 /**
- * @param initialMasterSongs Every song in the library
  * @param onSubmit Submit handler (create form, or edit form bound to an id)
+ * @param defaultValues Blank form for create setlist and current setlist values
+ *   for edit setlist.
+ * @param resetData True for create setlist to return to blank form and false
+ *   for review to keep updated setlist values.
  * @returns Consolidated props for the setlist editor tree
  * @summary Combines the library song state with useSongForm and useSetlist.
  */
@@ -14,6 +17,7 @@ import { notifySuccess } from '@/utils/Toast';
 const useSetlistEditorState = (
   onSubmit: (data: FormValues) => void,
   defaultValues: FormValues,
+  resetData: boolean = true,
 ) => {
   const {
     control,
@@ -38,7 +42,7 @@ const useSetlistEditorState = (
       'Setlist Saved',
       'Setlist changes have been successfully saved.',
     );
-    reset();
+    reset(resetData ? undefined : data);
   });
 
   const commonTileProps: Pick<

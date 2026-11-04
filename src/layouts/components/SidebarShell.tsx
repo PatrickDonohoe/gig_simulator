@@ -7,6 +7,7 @@ interface SideShellProps {
   title: string;
   children: React.ReactNode;
   className?: string;
+  dataCy?: string; // unique per sidebar, since several can render on one page
 }
 
 const SidebarShell = ({
@@ -14,6 +15,7 @@ const SidebarShell = ({
   title,
   children,
   className,
+  dataCy = 'library-sidebar',
 }: SideShellProps) => {
   return (
     <aside
@@ -23,7 +25,7 @@ const SidebarShell = ({
       <SidebarHeader {...headerProps} />
 
       <section
-        data-cy="library-sidebar"
+        data-cy={dataCy}
         className="mb-2 flex min-h-0 flex-1 flex-col overflow-hidden border border-border-bold bg-primary"
       >
         <div

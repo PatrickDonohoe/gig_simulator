@@ -83,8 +83,8 @@ describe('review setlist in view mode', () => {
     });
 
     cy.getByData('setlist-empty').should('be.visible');
-    cy.getByData('list').should('be.visible');
-    cy.getByData('list')
+    cy.getByData('setlists-list').should('be.visible');
+    cy.getByData('setlists-list')
       .find('[data-cy^="sidebar-tile"]')
       .should('have.length', 1);
   });
@@ -107,7 +107,7 @@ describe('review setlist in view mode', () => {
     });
 
     cy.getByData('view-page').should('be.visible');
-    cy.getByData('list').should('be.visible');
+    cy.getByData('setlists-list').should('be.visible');
     cy.get('#view-header').should('not.exist');
     cy.getByData('sidebar-tile-sl1').click();
     cy.getByData('setlist-form').should('be.visible');

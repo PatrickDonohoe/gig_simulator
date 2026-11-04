@@ -20,7 +20,7 @@ const SongsLibraryPage = () => {
             id="library-title"
             className="text-2xl font-semibold text-text-main"
           >
-            Library of Songs
+            Song Library
           </h1>
         </div>
 

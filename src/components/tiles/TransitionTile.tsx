@@ -48,7 +48,11 @@ const TransitionTile = ({
                 <Pencil className="size-6" />
               )}
             </button>
-            <button type="button" onClick={() => onRemove(index)}>
+            <button
+              type="button"
+              onClick={() => onRemove(index)}
+              aria-label="Remove from setlist"
+            >
               <TrashCan className="size-6" />
             </button>
           </>

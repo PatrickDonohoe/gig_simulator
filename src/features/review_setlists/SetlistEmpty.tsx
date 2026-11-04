@@ -12,17 +12,17 @@ const SetlistEmpty = () => {
         className="flex min-h-0 w-full flex-6 flex-col gap-2 bg-bg-main"
       >
         <header data-cy="empty" className="flex min-h-0 flex-1 flex-col">
-          <div className="flex items-center justify-center bg-primary py-4">
-            <h1 className="flex items-center justify-center bg-bg-main p-4 text-center text-2xl text-text-main">
+          <div className="flex items-center justify-center bg-primary/90 py-4">
+            <h1 className="flex items-center justify-center text-shadow-gray-700 dark:text-shadow-bg-main text-shadow-md p-4 text-center text-2xl text-text-main">
               No setlist selected
             </h1>
           </div>
 
           <div
             data-cy="svg-container"
-            className="flex min-h-0 flex-1 flex-col items-center justify-center bg-gray-300"
+            className="flex min-h-0 flex-1 flex-col items-center justify-center "
           >
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl font-semibold text-text-main">
               Choose a setlist from the left to continue.
             </h2>
 

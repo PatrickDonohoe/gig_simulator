@@ -8,7 +8,7 @@ export interface SavedSetlistsListProps {
 const SavedSetlistsList = ({ setlists }: SavedSetlistsListProps) => {
   return (
     <div
-      data-cy="list"
+      data-cy="setlists-list"
       className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto bg-primary px-2 text-text-main"
     >
       {setlists.map((set) => (

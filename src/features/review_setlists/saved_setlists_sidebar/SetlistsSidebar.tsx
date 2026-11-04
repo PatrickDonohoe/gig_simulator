@@ -16,9 +16,13 @@ const SetlistsSidebar = () => {
     address: '/dash/create',
   };
   return (
-    <SidebarShell headerProps={setlistHeader} title="Setlists">
+    <SidebarShell
+      headerProps={setlistHeader}
+      title="Setlists"
+      dataCy="setlists-sidebar"
+    >
       <div
-        data-cy="list"
+        data-cy="setlists-list"
         className="flex min-h-0 flex-1 flex-col items-center gap-2 overflow-y-auto bg-primary p-2 text-text-main"
       >
         {sidebarSetlists.map((set) => (

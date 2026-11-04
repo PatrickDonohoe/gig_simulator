@@ -20,6 +20,7 @@ const SetlistReviewForm = () => {
   const { setlist, sidebar } = useSetlistEditorState(
     (data) => submitEditSetlist({ ...data, setlistId: saved.setlistId }),
     defaultValues,
+    false,
   );
 
   return (
