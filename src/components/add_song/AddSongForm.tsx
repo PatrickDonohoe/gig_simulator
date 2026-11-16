@@ -95,17 +95,29 @@ const AddSongForm = ({
         <section className="flex flex-col gap-2 text-base font-semibold text-text-main">
           <h2>Song Duration:</h2>
 
-          <div className="flex flex-col gap-2 rounded-xl border border-border-bold bg-menu p-1 md:flex-row">
+          <div className="flex flex-col gap-2 rounded-xl border border-border-bold bg-menu p-1 md:flex-row md:items-start">
             <label className="flex flex-col-reverse text-sm">
               Minutes:
               <input
                 id="duration-minutes"
                 data-cy="duration_input"
-                type="number"
+                // text + numeric keypad: type="number" handles invalid entries
+                // differently per browser and reports them to the form as "".
+                type="text"
+                inputMode="numeric"
                 placeholder="min"
+                aria-invalid={!!errors.duration?.minutes}
                 className="active:bg-muted-teal rounded-lg bg-bg-main p-2 ring ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.minutes')}
               />
+              {errors.duration?.minutes && (
+                <span
+                  data-cy="input_error"
+                  className="order-first text-base text-red-500"
+                >
+                  {errors.duration.minutes.message}
+                </span>
+              )}
             </label>
 
             <label className="flex flex-col-reverse text-sm">
@@ -113,11 +125,21 @@ const AddSongForm = ({
               <input
                 id="duration-seconds"
                 data-cy="duration_input"
-                type="number"
+                type="text"
+                inputMode="numeric"
                 placeholder="sec"
+                aria-invalid={!!errors.duration?.seconds}
                 className="active:bg-muted-teal rounded-lg bg-bg-main p-2 ring ring-border-subtle hover:bg-bg-surface focus:ring-accent"
                 {...register('duration.seconds')}
               />
+              {errors.duration?.seconds && (
+                <span
+                  data-cy="input_error"
+                  className="order-first text-base text-red-500"
+                >
+                  {errors.duration.seconds.message}
+                </span>
+              )}
             </label>
           </div>
         </section>

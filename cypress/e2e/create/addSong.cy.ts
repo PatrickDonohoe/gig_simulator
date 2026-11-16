@@ -105,3 +105,58 @@ describe('adding song to library', () => {
 
   it('loads the song form upon selection of a search result');
 });
+
+describe('song form duration inputs', () => {
+  const savedSongs = () =>
+    cy
+      .window()
+      .then((win) =>
+        Object.values(JSON.parse(win.localStorage.getItem('songs') ?? '{}')),
+      );
+
+  beforeEach(() => {
+    cy.visit('/dash/library/add-song/new/Sonata');
+    cy.getByData('input-title').clear().type('Sonata');
+    cy.getByData('input-artists').type('Beethoven');
+  });
+
+  it('shows a numeric keypad on touch devices', () => {
+    cy.get('#duration-minutes')
+      .should('have.attr', 'type', 'text')
+      .and('have.attr', 'inputmode', 'numeric');
+    cy.get('#duration-seconds')
+      .should('have.attr', 'type', 'text')
+      .and('have.attr', 'inputmode', 'numeric');
+  });
+
+  it('shows an error and does not save when the duration is not a whole number', () => {
+    cy.get('#duration-minutes').clear().type('1.5');
+    cy.get('#duration-seconds').clear().type('abc');
+    cy.getByData('submit_button').click();
+
+    cy.get('#duration-minutes')
+      .should('have.attr', 'aria-invalid', 'true')
+      .parent()
+      .should('contain.text', 'Whole numbers only');
+    cy.get('#duration-seconds')
+      .should('have.attr', 'aria-invalid', 'true')
+      .parent()
+      .should('contain.text', 'Whole numbers only');
+    savedSongs().should('have.length', 0);
+  });
+
+  it('saves the song once the duration is corrected', () => {
+    cy.get('#duration-minutes').clear().type('1.5');
+    cy.getByData('submit_button').click();
+    cy.getByData('input_error').should('contain.text', 'Whole numbers only');
+
+    cy.get('#duration-minutes').clear().type('7');
+    cy.get('#duration-seconds').clear().type('30');
+    cy.getByData('submit_button').click();
+
+    savedSongs()
+      .should('have.length', 1)
+      .its('0')
+      .should('include', { title: 'Sonata', duration: 450 });
+  });
+});
