@@ -18,7 +18,7 @@ const NavbarLink = ({ address, label, icon }: NavLinkProps) => {
         {icon}
       </div>
 
-      <span className="hidden text-sm sm:block sm:text-wrap lg:text-base">
+      <span className="hidden text-sm @sm:block sm:text-wrap lg:text-base">
         {label}
       </span>
     </NavLink>
